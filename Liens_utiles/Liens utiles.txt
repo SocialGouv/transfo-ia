@@ -1,0 +1,13 @@
+Liens_utiles
+
+Workflow Design: https://grist.numerique.gouv.fr/o/dnumdesign/4AJT6P59qfBt/Modele-Suivi-Design-PRODUIT/p/1
+
+Infos et workflow de products: https://app.notion.com/p/29dd6f4513d3800ba750dd7c7b3eaa4e?v=2f8d6f4513d38021a510000c4d7b4c4b
+
+Projet Egapro: https://github.com/orgs/SocialGouv/projects/164
+
+Etat d'avancement: https://grist.numerique.gouv.fr/o/tranfo-ia/rFkVL6aLFbrE/Etat-davancement
+
+Lien du projet git avec les fichiers: https://github.com/SocialGouv/transfo-ia
+
+Lien du projet git avec le Dashboard: https://github.com/orgs/SocialGouv/projects/198

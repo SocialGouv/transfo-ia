@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr" data-fr-scheme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egapro - Résultats de l'entreprise</title>
+    <link rel="stylesheet" href="https://unpkg.com/@gouvfr/dsfr@1.12.1/dist/dsfr.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@gouvfr/dsfr@1.12.1/dist/utility/utility.min.css">
+    <style>
+        .results-banner {
+            background-color: var(--background-alt-grey);
+            padding: 1.5rem 0;
+        }
+        .results-banner table {
+            margin-bottom: 0;
+        }
+        .results-banner thead th {
+            text-align: center;
+            font-weight: 700;
+        }
+        .results-banner tbody td {
+            text-align: center;
+        }
+        .results-banner tbody td:last-child {
+            font-weight: 700;
+        }
+
+        .section-block {
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
+        .section-block h2 {
+            margin-bottom: 1.5rem;
+        }
+        .section-block h3 {
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .fr-table td,
+        .fr-table th {
+            vertical-align: middle;
+        }
+
+        .badge-eleve {
+            display: inline-block;
+            background-color: #FEE7E6;
+            color: #CE0500;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            margin-left: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .tooltip-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            border: 1.5px solid var(--border-action-high-blue-france);
+            background: transparent;
+            color: var(--text-action-high-blue-france);
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: 0.25rem;
+            padding: 0;
+            vertical-align: middle;
+        }
+
+        .value-cell {
+            white-space: nowrap;
+        }
+
+        .fr-table--no-caption caption {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header role="banner" class="fr-header">
+    <div class="fr-header__body">
+        <div class="fr-container">
+            <div class="fr-header__body-row">
+                <div class="fr-header__brand fr-enlarge-link">
+                    <div class="fr-header__brand-top">
+                        <div class="fr-header__logo">
+                            <p class="fr-logo">
+                                Ministère<br>du travail,<br>de la santé,<br>des solidarités<br>et des familles
+                            </p>
+                        </div>
+                    </div>
+                    <div class="fr-header__service">
+                        <a href="/" title="Accueil - Egapro - Ministère du travail">
+                            <p class="fr-header__service-title">Egapro</p>
+                        </a>
+                        <p class="fr-header__service-tagline">Index de l'égalité professionnelle</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main role="main">
+
+    <!-- Breadcrumb -->
+    <div class="fr-container fr-mt-4w">
+        <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+            <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">
+                Voir le fil d'Ariane
+            </button>
+            <div class="fr-collapse" id="breadcrumb-1">
+                <ol class="fr-breadcrumb__list">
+                    <li>
+                        <a class="fr-breadcrumb__link" href="#">Accueil</a>
+                    </li>
+                    <li>
+                        <a class="fr-breadcrumb__link" href="#">Mon entreprise</a>
+                    </li>
+                    <li>
+                        <a class="fr-breadcrumb__link" aria-current="page">Résultats</a>
+                    </li>
+                </ol>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Bandeau effectifs -->
+    <div class="results-banner">
+        <div class="fr-container">
+            <div class="fr-table fr-table--no-caption fr-table--bordered" style="max-width: 600px;">
+                <div class="fr-table__wrapper">
+                    <div class="fr-table__container">
+                        <div class="fr-table__content">
+                            <table>
+                                <caption>Effectifs de l'entreprise</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col" style="color: #E4794A; text-align: center;">Femmes</th>
+                                        <th scope="col" style="text-align: center;">Hommes</th>
+                                        <th scope="col" style="text-align: center;">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Nombre de salarié·es</th>
+                                        <td style="text-align: center;">50</td>
+                                        <td style="text-align: center;">100</td>
+                                        <td style="text-align: center; font-weight: 700;">150</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fr-container">
+
+        <!-- Écart de rémunération -->
+        <div class="section-block">
+            <h2 class="fr-h4">Écart de rémunération</h2>
+            <div class="fr-table fr-table--bordered fr-table--no-caption" style="max-width: 500px;">
+                <div class="fr-table__wrapper">
+                    <div class="fr-table__container">
+                        <div class="fr-table__content">
+                            <table>
+                                <caption>Écart de rémunération</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Rémunération</th>
+                                        <th scope="col">Écart<br><span style="font-weight: 400; font-size: 0.875rem;">Seuil réglementaire : 5%</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Annuelle brute moyenne</td>
+                                        <td class="value-cell">4,6 %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Horaire brute moyenne</td>
+                                        <td class="value-cell">7,17 % <span class="badge-eleve">Élevé</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Annuelle brute médiane</td>
+                                        <td class="value-cell">4,6 %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Horaire brute médiane</td>
+                                        <td class="value-cell">7,72 % <span class="badge-eleve">Élevé</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Écart de rémunération variable ou complémentaire -->
+        <div class="section-block">
+            <h2 class="fr-h4">Écart de rémunération variable ou complémentaire</h2>
+            <div class="fr-table fr-table--bordered fr-table--no-caption" style="max-width: 500px;">
+                <div class="fr-table__wrapper">
+                    <div class="fr-table__container">
+                        <div class="fr-table__content">
+                            <table>
+                                <caption>Écart de rémunération variable ou complémentaire</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Rémunération variable<br>ou complémentaire</th>
+                                        <th scope="col">Écart<br><span style="font-weight: 400; font-size: 0.875rem;">Seuil réglementaire : 5%</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Annuelle brute moyenne</td>
+                                        <td class="value-cell">0,5 %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Horaire brute moyenne</td>
+                                        <td class="value-cell">20,7 % <span class="badge-eleve">Élevé</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Annuelle brute médiane</td>
+                                        <td class="value-cell">2,71 %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Horaire brute médiane</td>
+                                        <td class="value-cell">31,27 % <span class="badge-eleve">Élevé</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proportion par sexe -->
+        <div class="section-block">
+            <div class="fr-table fr-table--bordered fr-table--no-caption" style="max-width: 350px;">
+                <div class="fr-table__wrapper">
+                    <div class="fr-table__container">
+                        <div class="fr-table__content">
+                            <table>
+                                <caption>Proportion par sexe</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Sexe</th>
+                                        <th scope="col">Proportion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Femmes</td>
+                                        <td>50 %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hommes</td>
+                                        <td>70 %</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quartiles -->
+        <div class="section-block">
+            <h2 class="fr-h4">Proportion de femmes et d'hommes dans chaque quartile de rémunération</h2>
+
+            <!-- Quartile - annuelle brute moyenne -->
+            <h3 class="fr-h5">Rémunération annuelle brute moyenne</h3>
+            <div class="fr-table fr-table--bordered fr-table--no-caption" style="max-width: 550px;">
+                <div class="fr-table__wrapper">
+                    <div class="fr-table__container">
+                        <div class="fr-table__content">
+                            <table>
+                                <caption>Quartiles - Rémunération annuelle brute moyenne</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Pourcentage<br>de femmes</th>
+                                        <th scope="col">Pourcentage<br>d'hommes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            1<sup>er</sup> quartile
+                                            <button class="tooltip-btn" type="button" aria-describedby="tooltip-q1a">?</button>
+                                            <span class="fr-tooltip fr-placement" id="tooltip-q1a" role="tooltip">25 % des salarié·es les moins rémunéré·es</span>
+                                        </th>
+                                        <td>66,7 %</td>
+                                        <td>33,3 %</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            2<sup>e</sup> quartile
+                                            <button class="tooltip-btn" type="button" aria-describedby="tooltip-q2a">?</button>
+                                            <span class="fr-tooltip fr-placement" id="tooltip-q2a" role="tooltip">Entre 25 % et 50 % des rémunérations</span>
+                                        </th>
+                                        <td>57,1 %</td>
+                                        <td>42,9 %</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            3<sup>e</sup> quartile
+                                            <button class="tooltip-btn" type="button" aria-describedby="tooltip-q3a">?</button>
+                                            <span class="fr-tooltip fr-placement" id="tooltip-q3a" role="tooltip">Entre 50 % et 75 % des rémunérations</span>
+                                        </th>
+                                        <td>43,6 %</td>
+                                        <td>56,4 %</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            4<sup>e</sup> quartile
+                                            <button class="tooltip-btn" type="button" aria-describedby="tooltip-q4a">?</button>
+                                            <span class="fr-tooltip fr-placement" id="tooltip-q4a" role="tooltip">25 % des salarié·es les mieux rémunéré·es</span>
+                                        </th>
+                                        <td>36,6 %</td>
+                                        <td>63,4 %</td>
+                                    </tr>
+                                    <tr style="font-weight: 700;">
+                                        <th scope="row">Tous les salariés</th>
+                                        <td>54,3 %</td>
+                                        <td>45,7 %</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quartile - horaire brute moyenne -->
+            <h3 class="fr-h5">Rémunération horaire brute moyenne</h3>
+            <div class="fr-table fr-table--bordered fr-table--no-caption" style="max-width: 550px;">
+                <div class="fr-table__wrapper">
+                    <div class="fr-table__container">
+                        <div class="fr-table__content">
+                            <table>
+                                <caption>Quartiles - Rémunération horaire brute moyenne</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Pourcentage<br>de femmes</th>
+                                        <th scope="col">Pourcentage<br>d'hommes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            1<sup>er</sup> quartile
+                                            <button class="tooltip-btn" type="button" aria-describedby="tooltip-q1h">?</button>
+                                            <span class="fr-tooltip fr-placement" id="tooltip-q1h" role="tooltip">25 % des salarié·es les moins rémunéré·es</span>
+                                        </th>
+                                        <td>46,5 %</td>
+                                        <td>33,3 %</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            2<sup>e</sup> quartile
+                                            <button class="tooltip-btn" type="button" aria-describedby="tooltip-q2h">?</button>
+                                            <span class="fr-tooltip fr-placement" id="tooltip-q2h" role="tooltip">Entre 25 % et 50 % des rémunérations</span>
+                                        </th>
+                                        <td>47,1 %</td>
+                                        <td>42,9 %</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            3<sup>e</sup> quartile
+                                            <button class="tooltip-btn" type="button" aria-describedby="tooltip-q3h">?</button>
+                                            <span class="fr-tooltip fr-placement" id="tooltip-q3h" role="tooltip">Entre 50 % et 75 % des rémunérations</span>
+                                        </th>
+                                        <td>45,5 %</td>
+                                        <td>56,4 %</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            4<sup>e</sup> quartile
+                                            <button class="tooltip-btn" type="button" aria-describedby="tooltip-q4h">?</button>
+                                            <span class="fr-tooltip fr-placement" id="tooltip-q4h" role="tooltip">25 % des salarié·es les mieux rémunéré·es</span>
+                                        </th>
+                                        <td>36,6 %</td>
+                                        <td>63,4 %</td>
+                                    </tr>
+                                    <tr style="font-weight: 700;">
+                                        <th scope="row">Tous les salariés</th>
+                                        <td>54,3 %</td>
+                                        <td>45,7 %</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="fr-footer" role="contentinfo">
+    <div class="fr-container">
+        <div class="fr-footer__body">
+            <div class="fr-footer__brand fr-enlarge-link">
+                <a title="Retour à l'accueil du site - Egapro - Ministère du travail" href="/">
+                    <p class="fr-logo">
+                        Ministère<br>du travail,<br>de la santé,<br>des solidarités<br>et des familles
+                    </p>
+                </a>
+            </div>
+            <div class="fr-footer__content">
+                <p class="fr-footer__content-desc">Egapro permet aux entreprises de calculer et déclarer leur index de l'égalité professionnelle entre les femmes et les hommes.</p>
+                <ul class="fr-footer__content-list">
+                    <li class="fr-footer__content-item">
+                        <a title="info.gouv.fr - nouvelle fenêtre" href="https://info.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">info.gouv.fr</a>
+                    </li>
+                    <li class="fr-footer__content-item">
+                        <a title="service-public.gouv.fr - nouvelle fenêtre" href="https://service-public.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">service-public.gouv.fr</a>
+                    </li>
+                    <li class="fr-footer__content-item">
+                        <a title="legifrance.gouv.fr - nouvelle fenêtre" href="https://legifrance.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">legifrance.gouv.fr</a>
+                    </li>
+                    <li class="fr-footer__content-item">
+                        <a title="data.gouv.fr - nouvelle fenêtre" href="https://data.gouv.fr" target="_blank" rel="noopener external" class="fr-footer__content-link">data.gouv.fr</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="fr-footer__bottom">
+            <ul class="fr-footer__bottom-list">
+                <li class="fr-footer__bottom-item">
+                    <a href="#" class="fr-footer__bottom-link">Plan du site</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a href="#" class="fr-footer__bottom-link">Accessibilité : partiellement conforme</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a href="#" class="fr-footer__bottom-link">Mentions légales</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a href="#" class="fr-footer__bottom-link">Données personnelles</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a href="#" class="fr-footer__bottom-link">Gestion des cookies</a>
+                </li>
+            </ul>
+            <div class="fr-footer__bottom-copy">
+                <p>Sauf mention explicite de propriété intellectuelle détenue par des tiers, les contenus de ce site sont proposés sous <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener external" title="Licence etalab - nouvelle fenêtre">licence etalab-2.0</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script type="module" src="https://unpkg.com/@gouvfr/dsfr@1.12.1/dist/dsfr.module.min.js"></script>
+
+</body>
+</html>
