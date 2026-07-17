@@ -1,0 +1,10 @@
+# Verrous LibreOffice
+.~lock.*#
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Artefacts de debug des builds
+_dbg_*.png
