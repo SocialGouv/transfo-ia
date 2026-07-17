@@ -69,13 +69,15 @@ La stratégie en trois horizons est posée et validée ; son premier horizon («
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/06-bench-dark.svg">
-  <img alt="Des performances proches pour des prix très différents : Claude Code Opus 4.8 à 88,6 % SWE-bench pour 25 $ le million de tokens ; OpenCode DeepSeek V4 Pro à 80,6 % pour 0,87 $ ; OpenCode avec Albert servant DeepSeek V4 Flash à environ 79 %, gratuit pour les agents de l'État ; OpenCode GLM 5.2 à environ 78 % pour 4,40 $" src="Etat-avancement/assets/06-bench-light.svg" width="100%">
+  <img alt="Comparaison des stacks : performances proches (Claude Opus 4.8 à 88,6 % en direct ou via Bedrock, DeepSeek V4 Pro à 80,6 %, Albert avec DeepSeek V4 Flash à environ 79 %, GLM 5.2 à environ 78 %), prix de gratuit (Albert) à 25 $ le million de tokens, souveraineté décroissante d'Albert (SecNumCloud) à Bedrock (partielle, CLOUD Act) puis Anthropic et OpenRouter (non souveraines)" src="Etat-avancement/assets/06-bench-light.svg" width="100%">
 </picture>
 
 > [!WARNING]
 > **Le coût ne se pose pas pareil pour les externes et les internes.** Les prestataires externes peuvent rester sur leur abonnement Claude (forfait mensuel, consommation incluse). Les agents internes démarreront à environ 20 € par siège, **auxquels s'ajoute chaque token consommé au prix du modèle** : leur coût suivra l'usage. C'est tout l'enjeu du bench : identifier pour les internes et la CI/CD la stack au meilleur rapport performance / prix / souveraineté.
 
-Le [support complet du bench (PDF)](Livrables/benchHarness/Bench_Coding-Agentique.pdf) compare les 4 stacks sur prix, performance, souveraineté et faisabilité, et recommande selon la priorité. Prochaine étape : le bench en conditions réelles (scénario Albert / DeepSeek via OpenCode face à Claude avec et sans abonnement).
+**Et la souveraineté départage.** La voie **Albert (DINUM)** est la seule pleinement souveraine (SecNumCloud, État français) et fonctionne avec OpenCode : montage documenté par [le guide officiel de la DINUM](https://guides.ia.numerique.gouv.fr/albert-api/guides/ide#agentic-coding-opencode). **Opus 4.8 via Bedrock**, la voie pressentie pour les internes, n'est que partiellement souveraine (sensible au CLOUD Act). **Opus via Anthropic, GLM ou DeepSeek via OpenRouter** ne le sont pas du tout : à réserver éventuellement aux externes.
+
+Le [support complet du bench (PDF)](Livrables/benchHarness/Bench_Coding-Agentique.pdf) compare les stacks sur prix, performance, souveraineté et faisabilité, et recommande selon la priorité. Prochaine étape : le bench en conditions réelles (scénario Albert / DeepSeek V4 Flash via OpenCode face à Claude avec et sans abonnement).
 
 ## Repères
 

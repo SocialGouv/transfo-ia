@@ -62,13 +62,20 @@ MATURITE_NOTE = ("▲ Egapro : 3 use cases montés de niveau (pilotage, prototyp
 
 # Bench harness : (stack, modèle, perf SWE-bench Verified %, label perf, prix sortie $/1M, label prix)
 BENCH = [
-    ("Claude Code", "Opus 4.8", 88.6, "88,6 %", 25.0, "25 $"),
-    ("OpenCode", "DeepSeek V4 Pro · OpenRouter", 80.6, "80,6 %", 0.87, "0,87 $ (preview)"),
-    ("OpenCode", "Albert · DeepSeek V4 Flash", 79.0, "≈79 %", 0.0, "gratuit (agents État)"),
-    ("OpenCode", "GLM 5.2 · OpenRouter", 78.0, "≈78 %", 4.40, "4,40 $"),
+    # (stack, modèle, perf %, label perf, prix $/1M, label prix, souveraineté)
+    ("Claude Code", "Opus 4.8 · Anthropic", 88.6, "88,6 %", 25.0, "25 $",
+     ("bad", "Non souveraine", "réservable aux externes")),
+    ("Claude Code", "Opus 4.8 · Bedrock (internes)", 88.6, "88,6 %", 25.0, "≈25 $",
+     ("mid", "Partielle", "sensible au CLOUD Act")),
+    ("OpenCode", "DeepSeek V4 Pro · OpenRouter", 80.6, "80,6 %", 0.87, "0,87 $ (preview)",
+     ("bad", "Non souveraine", "réservable aux externes")),
+    ("OpenCode", "Albert · DeepSeek V4 Flash", 79.0, "≈79 %", 0.0, "gratuit (agents État)",
+     ("good", "Souveraine", "SecNumCloud · État FR")),
+    ("OpenCode", "GLM 5.2 · OpenRouter", 78.0, "≈78 %", 4.40, "4,40 $",
+     ("bad", "Non souveraine", "réservable aux externes")),
 ]
-BENCH_NOTE = ("Lecture : des performances proches (78 à 89 %) pour des prix en sortie "
-              "de 0 à 25 $ par million de tokens")
+BENCH_NOTE = ("Lecture : des performances proches (78 à 89 %), des prix de 0 à 25 $ ; "
+              "seule la voie Albert, utilisable avec OpenCode, est pleinement souveraine")
 
 # ============================================================================
 # PALETTES (validées via dataviz/scripts/validate_palette.js, clair + sombre)
@@ -79,6 +86,7 @@ THEMES = {
         "surface": "#fcfcfb", "ink": "#0b0b0b", "sec": "#52514e", "muted": "#898781",
         "grid": "#e1e0d9", "baseline": "#c3c2b7", "border": "rgba(11,11,11,0.10)",
         "good": "#006300", "accent": "#2a78d6",
+        "status": {"good": "#0ca30c", "mid": "#fab219", "bad": "#d03b3b"},
         "ramp3": ["#86b6ef", "#2a78d6", "#104281"],            # niveaux 1-2-3
         "ramp4": ["#0d366b", "#1c5cab", "#3987e5", "#86b6ef"],  # pipeline réalisé → à lancer
         "on_ramp3": ["#0b0b0b", "#ffffff", "#ffffff"],
@@ -88,6 +96,7 @@ THEMES = {
         "surface": "#1a1a19", "ink": "#ffffff", "sec": "#c3c2b7", "muted": "#898781",
         "grid": "#2c2c2a", "baseline": "#383835", "border": "rgba(255,255,255,0.10)",
         "good": "#0ca30c", "accent": "#3987e5",
+        "status": {"good": "#0ca30c", "mid": "#fab219", "bad": "#d03b3b"},
         "ramp3": ["#9ec5f4", "#3987e5", "#184f95"],
         "ramp4": ["#184f95", "#2a78d6", "#6da7ec", "#b7d3f6"],
         "on_ramp3": ["#0b0b0b", "#ffffff", "#ffffff"],
@@ -339,25 +348,28 @@ def chart_matrice(t):
 # ============================================================================
 
 def chart_bench(t):
-    """Deux panneaux à base zéro : la performance se ressemble, le prix non."""
-    h = 372
-    s = svg_open(h, t)
-    s += title_block(t, "Coding agentique : 4 stacks au bench",
-                     "SWE-bench Verified et prix en sortie ($ / 1M tokens) · tarifs vérifiés le 10/07/2026")
+    """Trois colonnes : perf et prix en barres à base zéro, souveraineté en statut."""
     y0, rh = 122, 48
-    px0, px1 = 260, 550   # panneau performance (0 → 100 %)
-    qx0, qx1 = 610, 856   # panneau prix (0 → 25 $)
-    s += txt(px0, 98, "Performance (SWE-bench Verified)", 12, t["sec"], "600")
-    s += txt(qx0, 98, "Prix en sortie / 1M tokens", 12, t["sec"], "600")
+    n = len(BENCH)
+    h = y0 + n * rh + 50
+    px0, px1 = 244, 464   # panneau performance (0 → 100 %)
+    qx0, qx1 = 520, 676   # panneau prix (0 → 25 $)
+    sx = 750              # colonne souveraineté
+    s = svg_open(h, t)
+    s += title_block(t, "Coding agentique : les stacks au bench",
+                     "SWE-bench Verified, prix en sortie ($ / 1M tokens) et souveraineté · tarifs vérifiés le 10/07/2026")
+    s += txt(px0, 98, "Performance (SWE-bench)", 12, t["sec"], "600")
+    s += txt(qx0, 98, "Prix en sortie / 1M", 12, t["sec"], "600")
+    s += txt(sx, 98, "Souveraineté", 12, t["sec"], "600")
     for g, lab in ((0, "0"), (50, "50"), (100, "100 %")):
         gx = px0 + g / 100 * (px1 - px0)
-        s += f'<line x1="{gx}" y1="{y0 - 8}" x2="{gx}" y2="{y0 + 4 * rh - 16}" stroke="{t["grid"]}" stroke-width="1"/>'
-        s += txt(gx, y0 + 4 * rh + 2, lab, 11, t["muted"], anchor="middle")
+        s += f'<line x1="{gx}" y1="{y0 - 8}" x2="{gx}" y2="{y0 + n * rh - 16}" stroke="{t["grid"]}" stroke-width="1"/>'
+        s += txt(gx, y0 + n * rh + 2, lab, 11, t["muted"], anchor="middle")
     for g, lab in ((0, "0"), (10, "10"), (20, "20 $")):
         gx = qx0 + g / 25 * (qx1 - qx0)
-        s += f'<line x1="{gx}" y1="{y0 - 8}" x2="{gx}" y2="{y0 + 4 * rh - 16}" stroke="{t["grid"]}" stroke-width="1"/>'
-        s += txt(gx, y0 + 4 * rh + 2, lab, 11, t["muted"], anchor="middle")
-    for i, (stack, modele, perf, perf_lab, prix, prix_lab) in enumerate(BENCH):
+        s += f'<line x1="{gx}" y1="{y0 - 8}" x2="{gx}" y2="{y0 + n * rh - 16}" stroke="{t["grid"]}" stroke-width="1"/>'
+        s += txt(gx, y0 + n * rh + 2, lab, 11, t["muted"], anchor="middle")
+    for i, (stack, modele, perf, perf_lab, prix, prix_lab, souv) in enumerate(BENCH):
         y = y0 + i * rh
         s += txt(32, y + 8, stack, 12.5, t["ink"], "600")
         s += txt(32, y + 24, modele, 11, t["muted"])
@@ -370,6 +382,10 @@ def chart_bench(t):
             s += txt(qx0 + qw + 8, y + 12.5, prix_lab, 11.5, t["ink"], "600")
         else:
             s += txt(qx0 + 2, y + 12.5, prix_lab, 11.5, t["good"], "600")
+        statut, lib, det = souv
+        s += f'<circle cx="{sx + 4}" cy="{y + 6}" r="4.5" fill="{t["status"][statut]}"/>'
+        s += txt(sx + 14, y + 10, lib, 12, t["ink"], "600")
+        s += txt(sx, y + 26, det, 10.5, t["muted"])
     s += txt(32, h - 22, BENCH_NOTE, 11.5, t["sec"])
     return s + "</svg>", h
 

@@ -257,8 +257,9 @@ def build(out):
                 R("+ chaque token au prix du modèle", sz=15, b=True, c=RED)], sa=0, ls=1.05, first=True)
     tr = tb(s, rx+0.36, cy+1.62, cw-0.7, chh-1.7)
     for i,(k) in enumerate([
-        "Sièges Claude Enterprise via Bedrock : la consommation s'ajoute au siège",
-        "Le coût suit l'usage, et l'agentique consomme beaucoup de tokens",
+        "Sièges Claude Enterprise via Bedrock",
+        "Coût à l'usage : l'agentique consomme beaucoup",
+        "Souveraineté partielle : sensible au CLOUD Act",
     ]):
         para(tr, [R("▪  ", sz=12, c=PERI), R(k, sz=13, c=BODY)], sa=6, ls=1.08, bullet=True, first=(i==0))
 
@@ -279,7 +280,11 @@ def build(out):
               R("Opus 4.8 : 5 $ / 25 $ · GLM 5.2 : 1,40 $ / 4,40 $ · DeepSeek V4 Pro : 0,44 $ / 0,87 $ · Albert (DeepSeek V4 Flash) : gratuit, quotas.",
                 sz=10.5, c=MENTION)], sa=0, first=True)
 
-    notes(s, "La problematique de deploiement : les prestataires externes peuvent rester sur leur abonnement Claude "
+    notes(s, "Gradation de souverainete : Albert (Etat FR, SecNumCloud) > Opus 4.8 via Bedrock (partielle, sensible au "
+             "CLOUD Act) > Opus 4.8 via Anthropic et GLM/DeepSeek via OpenRouter (non souveraines, a reserver eventuellement "
+             "aux externes). Albert s'utilise avec OpenCode : guide officiel DINUM "
+             "guides.ia.numerique.gouv.fr/albert-api/guides/ide#agentic-coding-opencode. "
+             "La problematique de deploiement : les prestataires externes peuvent rester sur leur abonnement Claude "
              "(forfait mensuel, consommation incluse, cout previsible). Les agents internes, eux, demarreront a "
              "environ 20 euros par siege et par mois (sieges Claude Enterprise via Bedrock), auxquels s'ajoute "
              "chaque token consomme, facture au prix du modele. Le cout interne suit donc l'usage, et l'usage "
@@ -351,8 +356,9 @@ def build(out):
     # -- Reserves / a valider --
     fy = ry2+rbh+0.14
     tf = tb(s, ML, fy, MR-ML, 0.5)
-    para(tf, [R("À valider : ", sz=10, b=True, c=MENTION),
-              R("catalogue Albert à confirmer via /v1/models · DeepSeek V4 = tarif preview · tarifs OpenRouter = "
+    para(tf, [R("À noter : ", sz=10, b=True, c=MENTION),
+              R("OpenCode + Albert est documenté officiellement par la DINUM (guides.ia.numerique.gouv.fr) · "
+                "catalogue Albert à confirmer via /v1/models · DeepSeek V4 = tarif preview · tarifs OpenRouter = "
                 "catalogue (caching −60/80 %) · tokenizer Opus 4.8 ≈ +30 % de tokens.", sz=10, c=MENTION, i=True)],
          sa=0, ls=1.08, first=True)
 
