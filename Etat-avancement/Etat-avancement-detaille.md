@@ -1,6 +1,6 @@
 # État d'avancement détaillé
 
-Semaine du 13 au 17 juillet 2026 · [← retour à la synthèse](../README.md)
+Semaine du 20 au 24 juillet 2026 · [← retour à la synthèse](../README.md)
 
 ## Plan d'actions
 
@@ -105,7 +105,7 @@ Session avec les développeurs de l'équipe, couvrant l'ensemble de la chaîne d
 - « le fait de partir du niveau de l'équipe, et qu'on parvienne quand même à la fin à comprendre les orchestrations, tout en ayant le sentiment que c'est atteignable » ;
 - « la formation permet de se projeter sur les compétences à acquérir ».
 
-L'équipe se projette : un **atelier de co-construction de skills, agents et rules** propres à DACCORD est en préparation pour les prochaines semaines, pour transformer l'élan de la session en pratiques d'équipe.
+L'élan s'est concrétisé sans attendre : **dès le lundi 20 juillet, les développeurs ont engagé de leur propre initiative la mise en commun de leurs system prompts (agents, rules, skills)**. La mission a proposé une relecture de leurs premiers skills (point de suivi prévu début août), avant l'**atelier de co-construction** qui ancrera ces pratiques dans le quotidien de l'équipe.
 
 ## Focus par chantier
 
@@ -119,6 +119,7 @@ L'équipe se projette : un **atelier de co-construction de skills, agents et rul
 ### DACCORD : l'équipe qui monte
 
 - Coaching développement augmenté du 16 juillet très bien reçu ; l'équipe se projette vers un haut niveau de maîtrise.
+- **Passage à l'acte dès le 20 juillet** : mise en commun des system prompts (agents, rules, skills) engagée par les développeurs de leur propre initiative ; la mission relira leurs premiers skills (suivi prévu début août).
 - Les orchestrations éprouvées sur Egapro sont en cours d'adaptation à Jira, pour un transfert direct de savoir-faire entre périmètres.
 - Côté chefs de projet, l'accompagnement à la génération de tickets de spec reprend au retour de congés de Kahina.
 - À venir : atelier de co-construction de skills, agents et rules, suivi de leur intégration, accompagnement à l'orchestration pour les personnes volontaires.

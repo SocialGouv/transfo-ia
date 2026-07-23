@@ -1,0 +1,8 @@
+23-07-2026:
+À la suite de ma formation acculturation au développement augmenté, et en conséquence de celle-ci, les développeurs ont démarré lundi 20-07-2026 un travail de mise en commun de system prompts (agents, rules, skills).
+
+Cela confirme que nous sommes passés de développeurs qui regardaient de loin l'IA, à des développeurs qui sentent ateignables la cible SOTA comme ils me l'ont indiqué en feedback de ma formation. 
+
+Nous pouvons donc affirmer qu'en résultat de la formation, nous sommes passé d'un certain désintérêt de l'IA à une véritable volonté de l'implémenté de façon structurée et sérieuse.
+
+Je leur ai proposé mon aide pour relire les skills, ils reviennent vers moi quand ils seront prêt, et je me note de revenir vers eux en début Août si je n'ai pas eu de retour.
