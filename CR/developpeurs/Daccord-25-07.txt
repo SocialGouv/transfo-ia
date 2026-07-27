@@ -1,0 +1,6 @@
+DACCORD:
+- expliquer à Sylvain que c'est une de mes missions 
+- proposer soit une librairie de skills, soit un shéma de skills
+
+prenez le temps d'explorer
+prenez mon shéma de skills pour que le projet fonctionne bien, attendre les check de l'orchestration hand of, un shéma ou liste

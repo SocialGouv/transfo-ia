@@ -6,7 +6,7 @@ Semaine du 20 au 24 juillet 2026 · [← retour à la synthèse](../README.md)
 
 Le cœur du suivi : ce qui a été réalisé, ce qui est en cours, ce qui reste à faire.
 
-### ✅ Réalisées (4)
+### ✅ Réalisées (6)
 
 | Métier | Périmètre | Action | Ce qui a été fait |
 |---|---|---|---|
@@ -14,31 +14,35 @@ Le cœur du suivi : ce qui a été réalisé, ce qui est en cours, ce qui reste 
 | Développeurs | Egapro | Accompagner à la réalisation d'orchestrations | Orchestration « séparation codeur / testeur » en place |
 | Chefs de projet | Egapro | Permettre un meilleur suivi d'un projet utilisant l'IA | Estimations en taille de T-shirt sur les tickets ; tickets Design créés pour donner à l'équipe de la visibilité sur la roadmap design et la challenger |
 | Designers | Egapro | Accompagner à la génération de prototypes | Skill UX adapté au projet, skill d'audit UX, formation à la réalisation de prototypes de maquettes avec Claude |
+| Transverse | Transverse | Benchmark des harness et modèles de coding agentique | [Bench livré](../Livrables/benchHarness/Bench_Coding-Agentique.pdf) : 7 stacks comparées sur prix, performance (SWE-bench), souveraineté et conformité |
+| Transverse | Transverse | Cadrer la voie Bedrock avec AWS | [Échange du 23 juillet](../CR/transverse/AWS-Bedrock-23-07-2026.txt) : un large catalogue de modèles est accessible via Bedrock (dont les open-weight chinois) en conservant l'observabilité ; possibilité d'utiliser des modèles moins chers que ceux d'Anthropic, ce qui compte quand on paie au token. AWS revient avec la liste des modèles disponibles et une documentation d'observabilité |
 
 ### 🔄 En cours (3)
 
 | Métier | Périmètre | Action | Prochaine étape |
 |---|---|---|---|
 | Développeurs | DACCORD | Adapter les orchestrations Egapro à Jira | Poursuivre l'adaptation, puis la mettre entre les mains de l'équipe |
-| Développeurs | Egapro | Piloter le pré-audit d'accessibilité | Synchroniser les retours de Marie et le travail de Max ; synchroniser Amelle et Victor |
-| Chefs de projet | DACCORD | Accompagner la génération de tickets de spec | Organiser le point avec Kahina à son retour de congés |
+| Développeurs | Egapro | Piloter le pré-audit d'accessibilité | Accompagner Max dans la solution ultra11y ; synchroniser Amelle et Victor |
+| Chefs de projet | DACCORD | Accompagner la génération de tickets de spec | Accompagner Kahina à son retour de congés (courant août ou début septembre) |
 
-### 📅 Planifiées (3)
+### 📅 Planifiées (7)
 
 | Métier | Périmètre | Action | Échéance |
 |---|---|---|---|
 | Architectes | Transverse | Atelier de génération de DA avec l'IA | 3 août |
 | Transverse | Transverse | Claude Enterprise : discussions avec Software One | Atelier le 3 août |
-| Développeurs | VAO | Atelier de formation au développement augmenté | Septembre, à planifier avec Anselme à son retour |
+| Développeurs | DACCORD | Atelier d'amélioration des skills (suite de la mise en commun engagée par l'équipe) | 6 août |
+| Designers | Transverse | Construire avec Louis la solution de prototypes conformes DSFR (skills anti-hallucination) | Août |
+| Transverse | Transverse | Benchmark des modèles et harness, élargi aux modèles disponibles sur Bedrock | Courant août, dès réception de la liste des modèles par AWS |
+| Développeurs | VAO | Atelier de formation au développement augmenté | 8 septembre |
+| Transverse | Transverse | Cartographier les bénéficiaires des comptes Bedrock (internes, et externes sur sujets sensibles) | Fin septembre |
 
-### ⏳ À lancer (4)
+### ⏳ À lancer (2)
 
 | Métier | Périmètre | Action | Première étape |
 |---|---|---|---|
 | Product Owners | Transverse | Former à la fenêtre de contexte et au prompt engineering, présenter un use case | Valider l'intérêt d'une séance d'acculturation IA avec Olivier |
-| Designers | Transverse | Stratégie d'embarquement des designers | Échanger avec Norman et Louis, sur la base des use cases validés et éprouvés sur Egapro |
-| Transverse | Transverse | Outillage IA des internes | Dénombrer les utilisateurs internes à équiper en sièges Claude Enterprise via Bedrock ; point de vigilance : les externes peuvent conserver leur abonnement Claude (forfait), les internes démarreront à environ 20 € par siège plus la consommation au token, au prix du modèle |
-| Transverse | Transverse | Benchmark des modèles et harness alternatifs à Claude | Préparer un scénario Albert (DeepSeek v4 flash via OpenCode) et un scénario Claude avec et sans abonnement |
+| Designers | Transverse | Session d'acculturation de l'ensemble des designers | Éprouver d'abord la solution de prototypes DSFR construite avec Louis ; c'est la condition posée par Norman pour ouvrir la démarche à tous les designers |
 
 ### 🧭 Déclinaisons à cadrer (11)
 
@@ -76,21 +80,21 @@ La matrice mesure **le niveau auquel l'accompagnement a amené chaque fonction d
 |---|---|:---:|:---:|:---:|:---:|:---:|
 | Chefs de projet | Piloter un projet développé avec l'IA | 1 → 2 | 1 | ? | ? | – |
 | Chefs de projet | Générer des tickets de spec | 1 | 1 | ? | ? | – |
-| Chefs de projet | Organiser le board (sprints, epics) | 3 | 1 | ? | ? | – |
+| Chefs de projet / Développeurs | Organiser le board (sprints, epics) | 3 | 1 | ? | ? | – |
 | Designers | Générer des prototypes HTML/JS | 1 → 3 | ? | ? | ? | – |
 | Développeurs | Générer du code de qualité | 2 | 2 | ? | 1 | – |
 | Développeurs | Générer des tests | 3 | 2 | ? | 1 | – |
 | Développeurs | Utiliser des orchestrations | 3 | 1 | 1 | 1 | – |
 | Développeurs | Pré-auditer l'accessibilité | 1 → 2 | 1 | 1 | 1 | – |
 | Développeurs | Pré-auditer la sécurité | 1 | 1 | 1 | 1 | – |
-| Développeurs | Outils & system prompts communs | 3 | ? | 1 | ? | – |
+| Développeurs | Outils & system prompts communs | 3 | 1 → 2 | 1 | ? | – |
 | Architectes | Générer un dossier d'architecture (DA) | – | – | – | – | 1 |
 
 </details>
 
 ## Zoom : coaching développement augmenté, DACCORD (16 juillet)
 
-Session avec les développeurs de l'équipe, couvrant l'ensemble de la chaîne du développement augmenté ([compte rendu](../CR/Feedback_Coaching_Devs_DACCORD.docx)) :
+Session avec les développeurs de l'équipe, couvrant l'ensemble de la chaîne du développement augmenté ([compte rendu](../CR/developpeurs/Feedback_Coaching_Devs_DACCORD.docx)) :
 
 - prompt engineering et enjeu de fenêtre de contexte ;
 - system prompts : agents, rules, skills ;
@@ -105,7 +109,7 @@ Session avec les développeurs de l'équipe, couvrant l'ensemble de la chaîne d
 - « le fait de partir du niveau de l'équipe, et qu'on parvienne quand même à la fin à comprendre les orchestrations, tout en ayant le sentiment que c'est atteignable » ;
 - « la formation permet de se projeter sur les compétences à acquérir ».
 
-L'élan s'est concrétisé sans attendre : **dès le lundi 20 juillet, les développeurs ont engagé de leur propre initiative la mise en commun de leurs system prompts (agents, rules, skills)**. La mission a proposé une relecture de leurs premiers skills (point de suivi prévu début août), avant l'**atelier de co-construction** qui ancrera ces pratiques dans le quotidien de l'équipe.
+L'élan s'est concrétisé sans attendre : **dès le lundi 20 juillet, les développeurs ont engagé de leur propre initiative la mise en commun de leurs system prompts (agents, rules, skills)**, de quoi faire monter le use case « outils et system prompts communs » au niveau 2. La mission a proposé une relecture de leurs premiers skills, avant l'**atelier d'amélioration des skills du 6 août** qui ancrera ces pratiques dans le quotidien de l'équipe.
 
 ## Focus par chantier
 
@@ -114,15 +118,16 @@ L'élan s'est concrétisé sans attendre : **dès le lundi 20 juillet, les déve
 - Le périmètre le plus avancé : **5 use cases au niveau maîtrise** (orchestrations, tests, board, outillage commun, prototypes designers).
 - **3 use cases montés de niveau** depuis le début de l'accompagnement : pilotage de projet (1 → 2), prototypes designers (1 → 3), pré-audit d'accessibilité (1 → 2).
 - Ce qui a permis ces progressions : estimations T-shirt, tickets design de visibilité, skills UX et formation prototypes, synchronisation des travaux d'accessibilité.
+- Pré-audit d'accessibilité : prochaine étape, accompagner Max dans la solution ultra11y.
 - Prochain palier : le pré-audit de sécurité (encore en découverte).
 
 ### DACCORD : l'équipe qui monte
 
 - Coaching développement augmenté du 16 juillet très bien reçu ; l'équipe se projette vers un haut niveau de maîtrise.
-- **Passage à l'acte dès le 20 juillet** : mise en commun des system prompts (agents, rules, skills) engagée par les développeurs de leur propre initiative ; la mission relira leurs premiers skills (suivi prévu début août).
+- **Passage à l'acte dès le 20 juillet** : mise en commun des system prompts (agents, rules, skills) engagée par les développeurs de leur propre initiative ; **premier use case DACCORD monté de niveau (1 → 2)**. La mission relit leurs premiers skills.
+- **Atelier d'amélioration des skills le 6 août** avec les développeurs, puis suivi de l'intégration et accompagnement à l'orchestration pour les personnes volontaires.
 - Les orchestrations éprouvées sur Egapro sont en cours d'adaptation à Jira, pour un transfert direct de savoir-faire entre périmètres.
-- Côté chefs de projet, l'accompagnement à la génération de tickets de spec reprend au retour de congés de Kahina.
-- À venir : atelier de co-construction de skills, agents et rules, suivi de leur intégration, accompagnement à l'orchestration pour les personnes volontaires.
+- Côté chefs de projet, Kahina sera accompagnée à son retour de congés (courant août ou début septembre) sur la génération de tickets de spec.
 
 ### SIRENA : diagnostic posé
 
@@ -134,15 +139,17 @@ L'élan s'est concrétisé sans attendre : **dès le lundi 20 juillet, les déve
 ### VAO : en découverte
 
 - Niveau découverte sur les 5 use cases évalués (code, tests, orchestrations, pré-audits).
-- L'atelier de formation au développement augmenté est prévu en septembre, à planifier avec Anselme à son retour.
+- L'atelier de formation au développement augmenté est fixé au **8 septembre**.
 
 ### Transverse : la stratégie en marche
 
 - Stratégie en trois horizons présentée et validée ([support](../Livrables/Pr%C3%A9sentation-strat%C3%A9gie-transfo-ia/Point-etape_Adoption-IA.pdf)).
 - Architectes : atelier de génération de DA le 3 août ; générateurs comparatifs Claude / DeepSeek déjà construits ([réalisations](../Livrables/Realisations_par_metier/Architectes/)).
-- Outillage : discussions Software One sur Claude Enterprise (atelier le 3 août), dénombrement des sièges à équiper via Bedrock à lancer. Vigilance coûts : les externes peuvent conserver leur abonnement Claude, les internes démarreront à environ 20 € par siège plus la consommation au token (prix du modèle).
-- Harness : [bench de coding agentique livré](../Livrables/benchHarness/Bench_Coding-Agentique.pdf) ; benchmark élargi en conditions réelles à préparer (scénarios Albert et Claude).
-- POs et designers : deux stratégies d'embarquement à ouvrir (Olivier ; Norman et Louis).
+- **Bedrock cadré avec AWS (23 juillet)** : large catalogue de modèles accessible (dont open-weight chinois) en conservant l'observabilité, donc possibilité de modèles moins chers que ceux d'Anthropic (un levier réel quand on paie au token). En attente : liste des modèles disponibles et documentation d'observabilité. Cartographie des bénéficiaires des comptes Bedrock (internes, et externes sur sujets sensibles) prévue fin septembre. Vigilance coûts : les externes peuvent conserver leur abonnement Claude, les internes démarreront à environ 20 € par siège plus la consommation au token (prix du modèle).
+- Outillage : discussions Software One sur Claude Enterprise (atelier le 3 août).
+- Harness : [bench de coding agentique livré](../Livrables/benchHarness/Bench_Coding-Agentique.pdf) ; élargissement aux modèles Bedrock courant août (dès la liste AWS), puis bench en conditions réelles (scénarios Albert et Claude).
+- Designers : solution de prototypes conformes DSFR à construire avec Louis en août ; une fois éprouvée, session d'acculturation de l'ensemble des designers avec l'appui de Norman.
+- POs : acculturation IA à valider avec Olivier.
 
 ## Livrables à date
 

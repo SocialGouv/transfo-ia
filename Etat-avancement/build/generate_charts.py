@@ -14,7 +14,7 @@ import os
 # DONNÉES — à mettre à jour chaque semaine
 # ============================================================================
 
-MAJ = "17 juillet 2026"
+MAJ = "24 juillet 2026"
 
 # Matrice de maturité : niveau constaté par use case et périmètre.
 # Valeurs : 1|2|3, (avant, après) pour une progression, "?" à évaluer, None = NA
@@ -24,41 +24,51 @@ MATRICE = [
     # (métier, use case, [Egapro, DACCORD, SIRENA, VAO, Transverse])
     ("Chefs de projet", "Piloter un projet développé avec l'IA",   [(1, 2), 1, "?", "?", None]),
     ("Chefs de projet", "Générer des tickets de spec",             [1, 1, "?", "?", None]),
-    ("Chefs de projet", "Organiser le board (sprints, epics)",     [3, 1, "?", "?", None]),
+    ("Chefs de projet / Développeurs", "Organiser le board (sprints, epics)", [3, 1, "?", "?", None]),
     ("Designers",       "Générer des prototypes HTML/JS",          [(1, 3), "?", "?", "?", None]),
     ("Développeurs",    "Générer du code de qualité",              [2, 2, "?", 1, None]),
     ("Développeurs",    "Générer des tests",                       [3, 2, "?", 1, None]),
     ("Développeurs",    "Utiliser des orchestrations",             [3, 1, 1, 1, None]),
     ("Développeurs",    "Pré-auditer l'accessibilité",             [(1, 2), 1, 1, 1, None]),
     ("Développeurs",    "Pré-auditer la sécurité",                 [1, 1, 1, 1, None]),
-    ("Développeurs",    "Outils &amp; system prompts communs",     [3, "?", 1, "?", None]),
+    ("Développeurs",    "Outils &amp; system prompts communs",     [3, (1, 2), 1, "?", None]),
     ("Architectes",     "Générer un dossier d'architecture (DA)",  [None, None, None, None, 1]),
 ]
 
 # Plan d'actions : (statut, nombre) — ordre = pipeline
-ACTIONS = [("Réalisées", 4), ("En cours", 3), ("Planifiées", 3), ("À lancer", 4)]
+ACTIONS = [("Réalisées", 6), ("En cours", 3), ("Planifiées", 7), ("À lancer", 2)]
 A_CADRER = 11  # déclinaisons d'actions existantes restant à cadrer par périmètre
 
 # KPI (label, valeur, sous-texte, sous-texte vert facultatif)
 KPIS = [
-    ("Équipes accompagnées", "6", "4 en accompagnement actif", None),
-    ("Métiers couverts", "4", "archi · CDP · design · dev", None),
-    ("Use cases IA pilotés", "11", "maturité suivie de 1 à 3", None),
-    ("Actions engagées", "14", "· 3 en cours", "✓ 4 réalisées "),
+    ("Use cases montés de niveau", "4", "· 1 sur DACCORD", "▲ 3 sur Egapro "),
+    ("Actions réalisées", "6", "sur 18 engagées · 3 en cours", None),
+    ("Équipes accompagnées", "6", "4 en actif · 4 métiers couverts", None),
+    ("Prochain jalon", "3 août", "ateliers DA et Claude Enterprise", None),
 ]
 
 # Jalons : (jour depuis le 13 juillet, lignes, statut done|next|futur, label au-dessus ?)
+ROADMAP_SPAN_DAYS = 80  # 13 juillet → fin septembre
 JALONS = [
     (3,  ["16 juillet", "Coaching dev augmenté", "équipe DACCORD"], "done", True),
-    (16, ["Fin juil. · août", "Atelier co-construction", "skills · agents · rules"], "next", False),
-    (21, ["3 août", "Atelier DA architectes", "+ point Claude Enterprise"], "next", True),
-    (56, ["Septembre", "Atelier dev augmenté", "équipe VAO"], "futur", False),
+    # 30 juillet (j17) et 6 août (j24) écartés pour desserrer les étiquettes
+    (15, ["30 juillet", "Rencontre CDP", "équipe SIRENA"], "next", False),
+    (21, ["3 août", "Atelier DA architectes", "+ Claude Enterprise"], "next", True),
+    (25, ["6 août", "Atelier skills", "devs DACCORD"], "next", False),
+    (36, ["Courant août", "Prototypes DSFR", "avec Louis (design)"], "next", False),
+    (40, ["Courant août", "Bench modèles + harness", "élargi aux modèles Bedrock"], "next", True),
+    (52, ["Août · début sept.", "Accompagnement CDP", "retour de Kahina (DACCORD)"], "futur", False),
+    (57, ["8 septembre", "Atelier dev augmenté", "équipe VAO"], "futur", True),
+    (78, ["Fin septembre", "Cartographie des comptes", "Bedrock (bénéficiaires)"], "futur", False),
 ]
 ROADMAP_NOTE = ("Ensuite, moyen terme : communauté de référents IA, CI/CD augmentée, "
                 "observabilité · long terme : harness souverain")
 
-MATURITE_NOTE = ("▲ Egapro : 3 use cases montés de niveau (pilotage, prototypes, "
-                 "pré-audit d'accessibilité)")
+# Use cases montés de niveau, nommés (le décompte est calculé depuis la matrice)
+MATURITE_IMPACT = {
+    "Egapro": "pilotage · prototypes · pré-audit accessibilité",
+    "DACCORD": "outils et system prompts communs",
+}
 
 # Bench harness : (harness · modèle en tête, provider grisé dessous)
 BENCH = [
@@ -189,49 +199,57 @@ def chart_kpi(t):
 # ============================================================================
 
 def chart_maturite(t):
-    """Composition par périmètre : nombre de use cases amenés à chaque niveau."""
-    h = 366
+    """Tableau chiffré : nombre de use cases par niveau atteint et par périmètre,
+    avec les use cases montés de niveau nommés (l'impact de l'accompagnement)."""
+    x_p = 32
+    cols = [("Maîtrise", 3, 195), ("En acquisition", 2, 320), ("Découverte", 1, 440), ("À évaluer", None, 535)]
+    x_imp = 595
+    y0, pitch = 132, 52
+    h = y0 + 4 * pitch + 40
     s = svg_open(h, t)
-    s += title_block(t, "Niveaux apportés par l'accompagnement, par périmètre",
-                     "nombre de use cases métier amenés à chaque niveau · 10 use cases suivis par périmètre")
-    x0, x1, y0, bh = 150, 888, 96, 18
-    # décomptes calculés depuis la matrice (colonnes équipes uniquement)
+    s += title_block(t, "Niveaux atteints, périmètre par périmètre",
+                     "nombre de use cases métier par niveau atteint · 10 use cases suivis par périmètre")
+    # en-têtes : pastille de niveau + libellé
+    hy = y0 - 30
+    for lab, lv, xc in cols:
+        if lv:
+            lw = len(lab) * 7.2
+            cx0 = xc - (lw + 24) / 2
+            s += f'<rect x="{cx0}" y="{hy - 13}" width="18" height="18" rx="4" fill="{t["ramp3"][lv - 1]}"/>'
+            s += txt(cx0 + 9, hy, str(lv), 11, t["on_ramp3"][lv - 1], "600", anchor="middle")
+            s += txt(cx0 + 24, hy, lab, 12, t["sec"], "600")
+        else:
+            s += txt(xc, hy, lab, 12, t["sec"], "600", anchor="middle")
+    s += txt(x_imp, hy, "▲ Montés de niveau grâce à l'accompagnement", 12, t["good"], "600")
     for i, p in enumerate(PERIMETRES[:4]):
         counts = {1: 0, 2: 0, 3: 0, "?": 0}
+        prog = 0
         for _, _, levels in MATRICE:
             v = levels[i]
             if v is None:
                 continue
-            counts[v[1] if isinstance(v, tuple) else v] += 1
-        y = y0 + i * 46
-        s += txt(x0 - 14, y + 13, p, 13, t["ink"], "600", anchor="end")
-        unit = (x1 - x0 - 3 * 2) / 10
-        cx = x0
-        segs = [(counts[3], t["ramp3"][2], t["on_ramp3"][2]),
-                (counts[2], t["ramp3"][1], t["on_ramp3"][1]),
-                (counts[1], t["ramp3"][0], t["on_ramp3"][0]),
-                (counts["?"], None, t["muted"])]
-        drawn = [g for g in segs if g[0]]
-        for k, (n, fill, ink) in enumerate(drawn):
-            w = n * unit
-            if fill:
-                s += rbar(cx, y, w, bh, fill, left=(k == 0), right=(k == len(drawn) - 1))
+            if isinstance(v, tuple):
+                counts[v[1]] += 1
+                prog += 1
             else:
-                s += (f'<rect x="{cx + 0.5}" y="{y + 0.5}" width="{w - 1}" height="{bh - 1}" '
-                      f'rx="4" fill="none" stroke="{t["grid"]}" stroke-width="1"/>')
-            s += txt(cx + w / 2, y + 13.5, str(n), 12.5, ink, "600", anchor="middle")
-            cx += w + 2
-    ly = y0 + 4 * 46 + 16
-    lx = 32
-    for lv, lab in ((3, "Maîtrise"), (2, "En acquisition"), (1, "Découverte (démarrage)")):
-        s += f'<rect x="{lx}" y="{ly}" width="18" height="18" rx="4" fill="{t["ramp3"][lv - 1]}"/>'
-        s += txt(lx + 9, ly + 13, str(lv), 11, t["on_ramp3"][lv - 1], "600", anchor="middle")
-        s += txt(lx + 25, ly + 13.5, lab, 12, t["sec"])
-        lx += 25 + len(lab) * 7.0 + 26
-    s += (f'<rect x="{lx}" y="{ly}" width="18" height="18" rx="4" fill="none" '
-          f'stroke="{t["grid"]}" stroke-width="1"/>')
-    s += txt(lx + 25, ly + 13.5, "restant à évaluer", 12, t["sec"])
-    s += txt(32, h - 22, MATURITE_NOTE, 11.5, t["good"])
+                counts[v] += 1
+        y = y0 + i * pitch
+        if i:
+            s += f'<line x1="32" y1="{y - 26}" x2="888" y2="{y - 26}" stroke="{t["grid"]}" stroke-width="1"/>'
+        s += txt(x_p, y + 7, p, 13.5, t["ink"], "600")
+        for lab, lv, xc in cols:
+            n = counts[lv if lv else "?"]
+            if n:
+                s += txt(xc, y + 8, str(n), 20, t["ink"], "600", anchor="middle", tabular=True)
+            else:
+                s += txt(xc, y + 7, "–", 13, t["muted"], anchor="middle")
+        if prog:
+            s += txt(x_imp, y + 8, f"▲ {prog}", 20, t["good"], "600", tabular=True)
+            s += txt(x_imp + 46, y + 7, MATURITE_IMPACT.get(p, ""), 11, t["sec"])
+        else:
+            s += txt(x_imp + 14, y + 7, "–", 13, t["muted"], anchor="middle")
+    s += txt(32, h - 20, "Le détail use case par use case figure dans la matrice de maturité "
+             "de l'état d'avancement détaillé.", 11.5, t["muted"])
     return s + "</svg>", h
 
 
@@ -240,25 +258,25 @@ def chart_maturite(t):
 # ============================================================================
 
 def chart_actions(t):
-    h = 202
+    """Quatre chiffres, un par statut du pipeline. Pas de graphique : des nombres."""
     total = sum(n for _, n in ACTIONS)
+    h = 208
     s = svg_open(h, t)
     s += title_block(t, f"Plan d'actions : {total} actions engagées",
-                     f"et {A_CADRER} déclinaisons des actions ci-dessous à cadrer sur DACCORD, SIRENA et VAO")
-    x, y, bh = 32, 92, 24
-    span = W - 64 - 2 * (len(ACTIONS) - 1)
-    cx = x
+                     f"s'y ajoutent {A_CADRER} déclinaisons des actions réalisées, "
+                     "à cadrer sur DACCORD, SIRENA et VAO")
+    tile_w = (W - 64) / 4
+    ly, vy = 102, 144
     for i, (label, n) in enumerate(ACTIONS):
-        w = n / total * span
-        s += rbar(cx, y, w, bh, t["ramp4"][i], left=(i == 0), right=(i == len(ACTIONS) - 1))
-        s += txt(cx + w / 2, y + 16.5, str(n), 13, t["on_ramp4"][i], "600", anchor="middle")
-        cx += w + 2
-    # légende
-    lx = 32
-    for i, (label, n) in enumerate(ACTIONS):
-        s += f'<rect x="{lx}" y="{y + 46}" width="12" height="12" rx="3" fill="{t["ramp4"][i]}"/>'
-        s += txt(lx + 18, y + 56.5, f"{label} · {n}", 12.5, t["sec"])
-        lx += 18 + (len(label) + 4) * 7.2 + 26
+        x = 32 + i * tile_w
+        if i:
+            s += f'<line x1="{x - 14}" y1="{ly - 14}" x2="{x - 14}" y2="{vy + 8}" stroke="{t["grid"]}" stroke-width="1"/>'
+        if i == 0:
+            s += txt(x, ly, label, 12.5, t["good"], "600")
+            s += txt(x, vy, f"✓ {n}", 30, t["good"], "600", tabular=True)
+        else:
+            s += txt(x, ly, label, 12.5, t["sec"])
+            s += txt(x, vy, str(n), 30, t["ink"], "600", tabular=True)
     s += txt(32, h - 24, "Le détail action par action figure dans l'état d'avancement détaillé.",
              11.5, t["muted"])
     return s + "</svg>", h
@@ -273,7 +291,7 @@ def chart_roadmap(t):
     h = 224
     s = svg_open(h, t)
     x0, x1, ay = 60, 812, 112
-    px_day = (x1 - x0) / 62
+    px_day = (x1 - x0) / ROADMAP_SPAN_DAYS
     s += f'<line x1="{x0 - 16}" y1="{ay}" x2="{x1 + 30}" y2="{ay}" stroke="{t["baseline"]}" stroke-width="1"/>'
     s += (f'<path d="M{x1 + 30},{ay} l-7,-4 v8 z" fill="{t["baseline"]}"/>')
     for day, lines, status, above in JALONS:
@@ -317,7 +335,7 @@ def chart_matrice(t):
     h = int(legend_y + 46)
     s = svg_open(h, t)
     s += title_block(t, "Matrice de maturité IA : use case × périmètre",
-                     "niveau auquel l'accompagnement a amené chaque fonction · une flèche = progression constatée")
+                     "niveau auquel l'accompagnement a amené chaque fonction · une flèche = progression apportée par l'accompagnement")
     for j, p in enumerate(PERIMETRES):
         s += txt(x0 + j * (cell_w + gap) + cell_w / 2, top - 14, p, 12.5, t["ink"], "600", anchor="middle")
     for kind, data, yy in layout:
