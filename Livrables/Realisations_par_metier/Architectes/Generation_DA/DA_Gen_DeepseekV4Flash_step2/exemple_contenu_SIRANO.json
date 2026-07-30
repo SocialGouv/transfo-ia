@@ -1,0 +1,393 @@
+{
+  "projet": {
+    "nom": "SIRANO",
+    "contexte": "Plateforme de suivi et de restitution des projets de recherche en sante (DGOS).",
+    "objectifs": "Simplifier le suivi des projets ; accelerer le financement des tranches ; transparence.",
+    "enjeux": "Dynamisme du suivi ; transparence pour citoyens ; pilotage strategique."
+  },
+  "planning": [
+    {
+      "version": "V1",
+      "date": "05/2023",
+      "commentaires": "Premiere version, suivi des projets"
+    }
+  ],
+  "acteurs_projet": [
+    {
+      "role": "MOA",
+      "nom": "Albane Miron de L'espinay",
+      "fonction": "Adjointe chef bureau PF4",
+      "entite": "DGOS\\PF4"
+    },
+    {
+      "role": "MOE",
+      "nom": "Abdelali Boulajine",
+      "fonction": "Developpeur",
+      "entite": "DGOS\\PF4"
+    },
+    {
+      "role": "ARCHITECTE SI",
+      "nom": "Patrice le Coq",
+      "fonction": "Archi SI",
+      "entite": "DNUM\\MCNUM"
+    }
+  ],
+  "acteurs_metiers": [
+    {
+      "libelle": "Decideur (DGOS)",
+      "nombre": "5",
+      "mrep": [
+        "M"
+      ]
+    },
+    {
+      "libelle": "Charge de suivi projet",
+      "nombre": "5",
+      "mrep": [
+        "M"
+      ]
+    },
+    {
+      "libelle": "Gestionnaire / chercheur",
+      "nombre": "8k",
+      "mrep": [
+        "E"
+      ]
+    }
+  ],
+  "fonctionnalites": [
+    {
+      "libelle": "Administration des utilisateurs",
+      "mrep": [
+        "M"
+      ]
+    },
+    {
+      "libelle": "Depot d'une demande de tranche",
+      "mrep": [
+        "E"
+      ]
+    },
+    {
+      "libelle": "Consultation et instruction d'une demande",
+      "mrep": [
+        "M"
+      ]
+    },
+    {
+      "libelle": "Notifications email",
+      "mrep": [
+        "M",
+        "E"
+      ]
+    },
+    {
+      "libelle": "Consultation d'un projet",
+      "mrep": [
+        "M",
+        "E"
+      ]
+    },
+    {
+      "libelle": "Tableau de bord",
+      "mrep": [
+        "M",
+        "E"
+      ]
+    },
+    {
+      "libelle": "Recherche de projet avancee",
+      "mrep": [
+        "M"
+      ]
+    },
+    {
+      "libelle": "Export des donnees publiques",
+      "mrep": [
+        "P"
+      ]
+    }
+  ],
+  "donnees_metier": [
+    {
+      "libelle": "Projets",
+      "mrep": [
+        "M",
+        "E"
+      ]
+    },
+    {
+      "libelle": "Appels a projets / modeles de tranche",
+      "mrep": [
+        "M",
+        "E"
+      ]
+    },
+    {
+      "libelle": "Liste des etablissements de sante",
+      "mrep": [
+        "M"
+      ]
+    }
+  ],
+  "fichiers_metier": [
+    {
+      "libelle": "Pieces jointes liees aux demandes",
+      "mrep": [
+        "M",
+        "E"
+      ]
+    }
+  ],
+  "referentiels": [
+    {
+      "libelle": "Clinical Trials",
+      "mode": "API (Public)",
+      "mrep": [
+        "P"
+      ]
+    },
+    {
+      "libelle": "FINESS",
+      "mode": "CSV - async.",
+      "mrep": [
+        "P"
+      ]
+    },
+    {
+      "libelle": "Innovarc",
+      "mode": "Import",
+      "mrep": [
+        "M"
+      ]
+    }
+  ],
+  "services_utilises": [
+    {
+      "libelle": "Messagerie (Exchange)",
+      "mode": "",
+      "mrep": [
+        "R"
+      ]
+    }
+  ],
+  "dependances_si": [
+    {
+      "si": "Clinical Trials",
+      "fournisseur": "x",
+      "consommateur": ""
+    },
+    {
+      "si": "Innovarc",
+      "fournisseur": "x",
+      "consommateur": ""
+    },
+    {
+      "si": "FINESS",
+      "fournisseur": "x",
+      "consommateur": ""
+    },
+    {
+      "si": "Data Gouv",
+      "fournisseur": "",
+      "consommateur": "x"
+    }
+  ],
+  "volumetrie_donnees": {
+    "D1": "3000",
+    "D2": "250",
+    "D3": "512",
+    "D4": "10"
+  },
+  "volumetrie_fichiers": {
+    "F1": "75000",
+    "F2": "6250",
+    "F3": "2",
+    "F4": "10"
+  },
+  "serveurs": [
+    {
+      "nom": "SIRANO.APP",
+      "type": "Machine Virtuelle",
+      "role": "APP",
+      "vcpu": "4",
+      "ram": "16",
+      "composants": [
+        {
+          "categorie": "WEB",
+          "composant": "NGINX",
+          "version": "1.22.XX",
+          "role": ""
+        },
+        {
+          "categorie": "WEB",
+          "composant": "REACT",
+          "version": "18.XX",
+          "role": ""
+        },
+        {
+          "categorie": "Framework",
+          "composant": "SPRINGBOOT",
+          "version": "3.XX",
+          "role": ""
+        },
+        {
+          "categorie": "Librairies",
+          "composant": "OpenJDK",
+          "version": "19.XX",
+          "role": ""
+        },
+        {
+          "categorie": "Librairies",
+          "composant": "GRADLE",
+          "version": "17.XX",
+          "role": ""
+        },
+        {
+          "categorie": "Librairies",
+          "composant": "Docker",
+          "version": "23",
+          "role": ""
+        },
+        {
+          "categorie": "O.S",
+          "composant": "Debian",
+          "version": "10",
+          "role": ""
+        }
+      ]
+    },
+    {
+      "nom": "SIRANO.BDD",
+      "type": "Machine Virtuelle",
+      "role": "BDD",
+      "vcpu": "4",
+      "ram": "8",
+      "composants": [
+        {
+          "categorie": "BDD",
+          "composant": "PostgreSQL",
+          "version": "15",
+          "role": ""
+        }
+      ]
+    }
+  ],
+  "flux": [
+    {
+      "n": "1",
+      "source": "Usagers externes",
+      "destination": "RP",
+      "protocole": "HTTPS",
+      "commentaires": "Acces gestionnaire"
+    },
+    {
+      "n": "2",
+      "source": "Usagers internes",
+      "destination": "RP",
+      "protocole": "HTTPS",
+      "commentaires": "Admin, charge de mission, decideur"
+    },
+    {
+      "n": "3",
+      "source": "RP",
+      "destination": "Service ICAP",
+      "protocole": "ICAP",
+      "commentaires": "Antivirus PJ"
+    },
+    {
+      "n": "4",
+      "source": "RP",
+      "destination": "SIRANO.APP",
+      "protocole": "HTTPS",
+      "commentaires": ""
+    },
+    {
+      "n": "5",
+      "source": "SIRANO.APP",
+      "destination": "NAS",
+      "protocole": "TCP",
+      "commentaires": "Stockage PJ"
+    },
+    {
+      "n": "6",
+      "source": "SIRANO.APP",
+      "destination": "MAIL",
+      "protocole": "SMTP",
+      "commentaires": "Envoi mail"
+    },
+    {
+      "n": "7",
+      "source": "SIRANO.APP",
+      "destination": "SIRANO.BDD",
+      "protocole": "TCP",
+      "commentaires": "Connexion BDD"
+    },
+    {
+      "n": "8",
+      "source": "SIRANO.APP",
+      "destination": "SI public Clinical Trials",
+      "protocole": "HTTPS",
+      "commentaires": "API"
+    },
+    {
+      "n": "8",
+      "source": "SIRANO.APP",
+      "destination": "SI public FINESS",
+      "protocole": "HTTPS",
+      "commentaires": "API"
+    },
+    {
+      "n": "8",
+      "source": "SIRANO.APP",
+      "destination": "Data Gouv",
+      "protocole": "HTTPS",
+      "commentaires": "Publication"
+    }
+  ],
+  "urls": [
+    {
+      "libelle": "sirano.gouv.fr",
+      "acteur": "Usagers",
+      "ressource": "FRONT/BACK SIRANO",
+      "fonctionnalite": "Tout",
+      "donnees": "tout"
+    },
+    {
+      "libelle": "data.gouv.fr/api/1/",
+      "acteur": "SIRANO",
+      "ressource": "Data gouv",
+      "fonctionnalite": "Export de donnees",
+      "donnees": "Donnees publiques de projet"
+    },
+    {
+      "libelle": "clinicaltrials.gov/api",
+      "acteur": "SIRANO",
+      "ressource": "Clinical Trials",
+      "fonctionnalite": "Infos complementaires",
+      "donnees": "Donnees publiques projet"
+    }
+  ],
+  "schemas": {
+    "cadre5": {
+      "titre": "Cadre 5 — Architecture Acteurs",
+      "specification": "OBJET CENTRAL\n- SIRANO : suivi et restitution des projets de recherche en sante (DGOS).\n\nACTEURS (sens de la fleche = fournit/consomme la donnee)\n- Decideur DGOS (5, canal M) -> pilotage, instruction.\n- Charge de suivi (5, canal M) -> suivi des projets.\n- Gestionnaire / chercheur (8k, canal E) -> depot des demandes de tranche.\n- Grand public (canal P) <- export des donnees publiques.\n\nSI EXTERNES\n- Clinical Trials (P), FINESS (P) : fournisseurs de referentiels (vert).\n- Innovarc : import de projets (rouge, canal M).\n- Data Gouv : consommateur (publication open data).\n- Messagerie Exchange (R) : emails.",
+      "mermaid": "flowchart TB\n    SIRANO([\"SIRANO<br/>Suivi projets recherche sante\"])\n    subgraph ACT[\"Acteurs\"]\n        DEC[\"Decideur DGOS (5) - M\"]\n        SUI[\"Charge de suivi (5) - M\"]\n        GES[\"Gestionnaire / chercheur (8k) - E\"]\n        PUB[\"Grand public - P\"]\n    end\n    subgraph SIEXT[\"SI externes\"]\n        CT[\"Clinical Trials\"]\n        FIN[\"FINESS\"]\n        INN[\"Innovarc\"]\n        DGV[\"Data Gouv\"]\n        EXC[\"Messagerie Exchange\"]\n    end\n    DEC -->|\"pilotage / instruction\"| SIRANO\n    SUI -->|\"suivi projet\"| SIRANO\n    GES -->|\"depot demande de tranche\"| SIRANO\n    SIRANO -->|\"export donnees publiques\"| PUB\n    CT -->|\"essais cliniques\"| SIRANO\n    FIN -->|\"referentiel etablissements\"| SIRANO\n    INN -->|\"import projets\"| SIRANO\n    SIRANO -->|\"publication open data\"| DGV\n    SIRANO <-->|\"emails\"| EXC"
+    },
+    "cadre6": {
+      "titre": "Cadre 6 — Architecture Fonctionnelle",
+      "specification": "Blocs fonctionnels (cadre 2) regroupes par acteur.\n\nINTERNE DGOS : administration des utilisateurs ; instruction d'une demande ; recherche avancee ; tableau de bord.\nGESTIONNAIRE / CHERCHEUR : depot d'une demande de tranche ; consultation d'un projet.\nPUBLIC : export des donnees publiques.\nTRANSVERSE : notifications email.\n\nLIAISONS : Depot -> Instruction -> Notifications ; Consultation -> Tableau de bord.",
+      "mermaid": "flowchart TB\n    subgraph COL1[\"Interne DGOS\"]\n        F_ADM[\"Administration des utilisateurs\"]\n        F_INS[\"Instruction d'une demande\"]\n        F_RECH[\"Recherche de projet avancee\"]\n        F_TDB[\"Tableau de bord\"]\n    end\n    subgraph COL2[\"Gestionnaire / chercheur\"]\n        F_DEP[\"Depot d'une demande de tranche\"]\n        F_CONS[\"Consultation d'un projet\"]\n    end\n    subgraph COL3[\"Public\"]\n        F_EXP[\"Export des donnees publiques\"]\n    end\n    subgraph COL4[\"Transverse\"]\n        F_MAIL[\"Notifications email\"]\n    end\n    F_DEP --> F_INS\n    F_INS --> F_MAIL\n    F_CONS --> F_TDB"
+    },
+    "cadre7": {
+      "titre": "Cadre 7 — Architecture Applicative",
+      "specification": "Pile de composants de SIRANO.APP, blocs fonctionnels au-dessus, SI consommes a droite.\n\nPRESENTATION : NGINX 1.22 + React 18.\nFRAMEWORK : Spring Boot 3 / OpenJDK 19.\nMETIER : projets, demandes, tranches.\nPERSISTANCE : PostgreSQL 15 (SIRANO.BDD) ; NAS (pieces jointes).\n\nSI / API consommes : Clinical Trials, FINESS, Data Gouv, Messagerie Exchange.",
+      "mermaid": "flowchart TB\n    subgraph APP[\"SIRANO.APP (VM)\"]\n        WEB[\"NGINX 1.22 + React 18\"]\n        FW[\"Spring Boot 3 / OpenJDK 19\"]\n        BIZ[\"Metier : projets, demandes, tranches\"]\n    end\n    subgraph PERS[\"Persistance\"]\n        DB[(\"SIRANO.BDD<br/>PostgreSQL 15\")]\n        NAS[(\"NAS<br/>pieces jointes\")]\n    end\n    subgraph EXT[\"SI / API consommes\"]\n        CT[\"Clinical Trials\"]\n        FIN[\"FINESS\"]\n        DGV[\"Data Gouv\"]\n        EXC[\"Messagerie Exchange\"]\n    end\n    WEB --> FW --> BIZ\n    BIZ --> DB\n    BIZ --> NAS\n    BIZ --> CT\n    BIZ --> FIN\n    BIZ --> DGV\n    BIZ --> EXC"
+    },
+    "cadre8": {
+      "titre": "Cadre 8 — Architecture technique",
+      "specification": "Vue logique en zones MASS. Numerotation IDENTIQUE a la matrice du cadre 10 (flux 1-8).\n\nZONES : Internet/Extranet (usagers) ; RP EXT ; Service ICAP (antivirus PJ) ; DMZ SIRANO.APP ; BDD ; NAS ; Messagerie ; SI publics.\n\nFLUX\n1 Usagers externes -> RP EXT : HTTPS.\n2 Usagers internes -> RP EXT : HTTPS.\n3 RP EXT -> Service ICAP : ICAP (antivirus PJ).\n4 RP EXT -> SIRANO.APP : HTTPS.\n5 SIRANO.APP -> NAS : TCP (stockage PJ).\n6 SIRANO.APP -> Messagerie : SMTP.\n7 SIRANO.APP -> SIRANO.BDD : TCP.\n8 SIRANO.APP -> SI publics (Clinical Trials, FINESS, Data Gouv) : HTTPS.",
+      "mermaid": "flowchart TB\n    subgraph NET[\"Internet / Extranet\"]\n        UEXT[\"Usagers externes\"]\n        UINT[\"Usagers internes DGOS\"]\n    end\n    RP{{\"RP EXT\"}}\n    ICAP[\"Service ICAP<br/>antivirus PJ\"]\n    subgraph DMZAPP[\"DMZ SIRANO.APP\"]\n        APP[\"SIRANO.APP<br/>NGINX + Spring Boot\"]\n    end\n    DB[(\"SIRANO.BDD<br/>PostgreSQL\")]\n    NAS[(\"NAS\")]\n    MAIL[\"Messagerie (Exchange)\"]\n    subgraph SIP[\"SI publics\"]\n        CT[\"Clinical Trials\"]\n        FIN[\"FINESS\"]\n        DGV[\"Data Gouv\"]\n    end\n    UEXT -->|\"1 HTTPS\"| RP\n    UINT -->|\"2 HTTPS\"| RP\n    RP -->|\"3 ICAP\"| ICAP\n    RP -->|\"4 HTTPS\"| APP\n    APP -->|\"5 TCP\"| NAS\n    APP -->|\"6 SMTP\"| MAIL\n    APP -->|\"7 TCP\"| DB\n    APP -->|\"8 HTTPS\"| CT\n    APP -->|\"8 HTTPS\"| FIN\n    APP -->|\"8 HTTPS\"| DGV"
+    }
+  }
+}

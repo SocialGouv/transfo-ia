@@ -1,0 +1,11 @@
+Architectes: 5
+
+PM/COACHS/RU: 16
+
+Design: 2 pour commencer (Norman et Louis)
+
+Ops: 4
+
+Devs: 
+
+Igor : 1

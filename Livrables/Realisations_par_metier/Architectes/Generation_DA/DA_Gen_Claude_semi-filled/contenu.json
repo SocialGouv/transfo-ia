@@ -1,0 +1,248 @@
+{
+  "projet": {
+    "nom": "EgaPro",
+    "contexte": "Plateforme gouvernementale du ministère du Travail permettant aux entreprises de déclarer leurs indicateurs d'égalité de rémunération entre les femmes et les hommes. Le dispositif repose sur 7 indicateurs (A à G) : les 6 premiers sont pré-calculés à partir des données DSN et transmis via le GIP-MDS, le 7e (écart par catégorie de salariés) est saisi par l'entreprise. Application décrite dans le README comme mise en œuvre de la directive (UE) 2023/970 sur la transparence salariale. (à confirmer)",
+    "objectifs": "Permettre la déclaration des indicateurs A à G, gérer le parcours de conformité déclenché au-delà d'un seuil d'alerte de 5 % d'écart (mesures correctives, évaluation conjointe, justification), collecter l'avis du CSE, et exposer une consultation publique des référents et des statistiques. (à confirmer)",
+    "enjeux": "[À COMPLÉTER — MOA : enjeux métier, juridiques et politiques du dispositif de transparence salariale]"
+  },
+  "planning": [
+    {
+      "version": "V1",
+      "date": "[À COMPLÉTER — MOA : date de mise en production V1]",
+      "commentaires": "Version historique en production (base de code distincte, hors de ce dépôt)."
+    },
+    {
+      "version": "V2 (refonte Next.js/DSFR)",
+      "date": "Non déployée à date",
+      "commentaires": "Ce dépôt correspond à la refonte V2 (Next.js/TypeScript/DSFR), pas encore en production. Version applicative 3.13.2 (08/10/2025 au CHANGELOG). Transposition de la directive (UE) 2023/970 (à confirmer)."
+    }
+  ],
+  "acteurs_projet": [
+    { "role": "MOA", "nom": "MOAName", "fonction": "MOAFonction", "entite": "DGT" },
+    { "role": "AMOA", "nom": "AMOAName", "fonction": "AMOAFonction", "entite": "DGT" },
+    { "role": "MOE", "nom": "MOEName", "fonction": "MOEFonction", "entite": "DGT" },
+    { "role": "AMOE", "nom": "[À COMPLÉTER — MOE : nom]", "fonction": "[À COMPLÉTER — MOE : fonction]", "entite": "[À COMPLÉTER — MOE : entité]" },
+    { "role": "ARCHITECTE SI", "nom": "ArchiName", "fonction": "ArchiFonction", "entite": "DGT" },
+    { "role": "INTEGRATION", "nom": "IntégrationName", "fonction": "IntégrationFonction", "entite": "DGT" },
+    { "role": "PRODUCTION", "nom": "ProdName", "fonction": "ProdFonction", "entite": "DGT" }
+  ],
+  "acteurs_metiers": [
+    {
+      "libelle": "Entreprise déclarante (déclarant et co-déclarants)",
+      "nombre": "0 (à date — V2 non déployée)",
+      "mrep": ["E"]
+    },
+    {
+      "libelle": "Agent administrateur DGT / DNUM (back-office)",
+      "nombre": "0 (à date — V2 non déployée)",
+      "mrep": ["E"]
+    },
+    {
+      "libelle": "Grand public (consultation)",
+      "nombre": "0 (à date — V2 non déployée)",
+      "mrep": ["P"]
+    }
+  ],
+  "fonctionnalites": [
+    { "libelle": "Déclaration des indicateurs de rémunération A à G (parcours guidé)", "mrep": ["E"] },
+    { "libelle": "Saisie de l'indicateur G par catégories d'emploi (effectifs et rémunérations F/H)", "mrep": ["E"] },
+    { "libelle": "Parcours de conformité au-delà du seuil de 5 % (justification, mesures correctives, évaluation conjointe)", "mrep": ["E"] },
+    { "libelle": "Seconde déclaration (indicateur G, mesures correctives)", "mrep": ["E"] },
+    { "libelle": "Dépôt d'un avis du CSE (téléversement de fichier)", "mrep": ["E"] },
+    { "libelle": "Dépôt d'une évaluation conjointe (téléversement de fichier)", "mrep": ["E"] },
+    { "libelle": "Gestion des brouillons de déclaration", "mrep": ["E"] },
+    { "libelle": "Édition collaborative avec verrou entre co-déclarants", "mrep": ["E"] },
+    { "libelle": "Génération de documents PDF (accusé de réception, attestation d'absence de sanction, PDF pré-rempli)", "mrep": ["E"] },
+    { "libelle": "Renvoi de l'accusé de réception par courriel", "mrep": ["E"] },
+    { "libelle": "Consultation publique des référents Égalité professionnelle", "mrep": ["P"] },
+    { "libelle": "Consultation des statistiques publiques de campagne", "mrep": ["P"] },
+    { "libelle": "Export public des référents (JSON / CSV)", "mrep": ["P"] },
+    { "libelle": "Administration des déclarations (recherche, consultation, annulation, libération de verrou)", "mrep": ["E"] },
+    { "libelle": "Administration des référents (création, modification, suppression, import, export)", "mrep": ["E"] },
+    { "libelle": "Statistiques d'administration (entonnoirs de complétion, intégration Matomo)", "mrep": ["E"] },
+    { "libelle": "Paramétrage des campagnes (échéances, délai de verrou)", "mrep": ["E"] },
+    { "libelle": "Consultation en usurpation d'identité d'une entreprise (impersonation, lecture seule)", "mrep": ["E"] },
+    { "libelle": "Notifications courriel (accusés + relances planifiées)", "mrep": ["E"] },
+    { "libelle": "API d'export des déclarations et fichiers pour le SI SUIT (/api/v1/*)", "mrep": [] }
+  ],
+  "donnees_metier": [
+    { "libelle": "Déclarations d'index (indicateurs A à G, statut, parcours de conformité)", "mrep": ["E"] },
+    { "libelle": "Catégories d'emploi et données chiffrées de l'indicateur G (effectifs, rémunérations base + variable)", "mrep": ["E"] },
+    { "libelle": "Avis du CSE (données structurées)", "mrep": ["E"] },
+    { "libelle": "Entreprises (SIREN, raison sociale, adresse, code NAF, effectif, présence CSE)", "mrep": ["E"] },
+    { "libelle": "Comptes déclarants (identité, courriel, téléphone) et rattachements entreprise", "mrep": ["E"] },
+    { "libelle": "Données GIP-MDS pré-calculées (indicateurs A à F + indice de confiance)", "mrep": [] },
+    { "libelle": "Référents Égalité professionnelle (annuaire)", "mrep": ["P"] },
+    { "libelle": "Historique des statuts de déclaration (trace métier)", "mrep": ["E"] }
+  ],
+  "fichiers_metier": [
+    { "libelle": "Avis du CSE (PDF) — type cse_opinion", "mrep": ["E"] },
+    { "libelle": "Évaluation conjointe (PDF / PNG / JPEG) — type joint_evaluation", "mrep": ["E"] },
+    { "libelle": "Exports annuels au format XLSX (générés, stockage objet)", "mrep": ["E"] }
+  ],
+  "referentiels": [
+    { "libelle": "ProConnect (authentification fédérée des déclarants)", "mode": "API OIDC (HTTPS)", "mrep": ["P"] },
+    { "libelle": "INSEE Sirene via connecteur Weez (identité des entreprises par SIREN)", "mode": "API (HTTPS/JSON)", "mrep": ["P"] },
+    { "libelle": "GIP-MDS (indicateurs A à F issus des DSN)", "mode": "API/CSV (HTTPS, Bearer)", "mrep": [] },
+    { "libelle": "SUIT (SI travail : existence d'un CSE, statut de sanction par SIREN)", "mode": "API (HTTPS/JSON)", "mrep": [] }
+  ],
+  "services_utilises": [
+    { "libelle": "Messagerie (Exchange)", "mode": "SMTP — relais Tipimail (prod), MailDev (dev)", "mrep": [] }
+  ],
+  "dependances_si": [
+    { "si": "ProConnect", "fournisseur": "x", "consommateur": "" },
+    { "si": "INSEE Sirene (via Weez)", "fournisseur": "x", "consommateur": "" },
+    { "si": "GIP-MDS", "fournisseur": "x", "consommateur": "" },
+    { "si": "SUIT / Delphes (inspection du travail)", "fournisseur": "x", "consommateur": "x" },
+    { "si": "D@ccords (lien externe UI, pas d'intégration technique détectée)", "fournisseur": "", "consommateur": "" }
+  ],
+  "volumetrie_donnees": {
+    "D1": "1 Go (volume initial en base)",
+    "D2": "4 Go/an (volume annuel cumulé)",
+    "D3": "3 % (progression annuelle)",
+    "D4": "2 ans (rétention)"
+  },
+  "volumetrie_fichiers": {
+    "F1": "5 Mo (volume initial)",
+    "F2": "6 Mo/an (volume annuel cumulé)",
+    "F3": "7 % (progression annuelle)",
+    "F4": "2 ans (rétention)"
+  },
+  "serveurs": [
+    {
+      "nom": "EGAPRO.APP",
+      "type": "Conteneur / Pod Kubernetes",
+      "role": "Application web (front + API)",
+      "vcpu": "0,5 (requête) à 1 (limite) — autoscale 2 à 6 pods (prod)",
+      "ram": "1 Gio (requête) à 2 Gio (limite)",
+      "composants": [
+        { "categorie": "WEB", "composant": "Next.js (App Router)", "version": "16.2.x", "role": "Serveur web / rendu SSR" },
+        { "categorie": "WEB", "composant": "React", "version": "19.2.x", "role": "Interface" },
+        { "categorie": "WEB", "composant": "DSFR (@gouvfr/dsfr)", "version": "1.14.4", "role": "Système de design de l'État" },
+        { "categorie": "Framework", "composant": "tRPC", "version": "11.16.x", "role": "API typée interne" },
+        { "categorie": "Framework", "composant": "NextAuth", "version": "4.24.13", "role": "Authentification ProConnect (OIDC)" },
+        { "categorie": "Librairies", "composant": "TypeScript", "version": "6.0.x", "role": "Langage" },
+        { "categorie": "Librairies", "composant": "Drizzle ORM", "version": "0.45.2", "role": "Accès base de données" },
+        { "categorie": "Librairies", "composant": "postgres (pilote)", "version": "3.4.x", "role": "Pilote PostgreSQL" },
+        { "categorie": "Librairies", "composant": "@aws-sdk/client-s3", "version": "3.x", "role": "Client stockage objet S3" },
+        { "categorie": "Librairies", "composant": "@react-pdf/renderer", "version": "4.4.x", "role": "Génération de PDF" },
+        { "categorie": "Librairies", "composant": "ExcelJS", "version": "4.4.x", "role": "Export XLSX" },
+        { "categorie": "Librairies", "composant": "redis (client Valkey)", "version": "5.11.x", "role": "Cache" },
+        { "categorie": "Librairies", "composant": "Zod", "version": "4.3.x", "role": "Validation des schémas" },
+        { "categorie": "Librairies", "composant": "@sentry/nextjs", "version": "10.48.x", "role": "Supervision" },
+        { "categorie": "Librairies", "composant": "Node.js (runtime)", "version": "24", "role": "Environnement d'exécution" },
+        { "categorie": "O.S", "composant": "[À COMPLÉTER — INTÉGRATION/PROD : image de base du conteneur]", "version": "Linux (à confirmer)", "role": "Système d'exploitation" }
+      ]
+    },
+    {
+      "nom": "EGAPRO.NOTIF",
+      "type": "Conteneur / Pod Kubernetes",
+      "role": "Worker de notifications (envoi de courriels)",
+      "vcpu": "0,05 (requête) à 0,3 (limite) — 1 replica",
+      "ram": "96 Mio (requête) à 256 Mio (limite)",
+      "composants": [
+        { "categorie": "Framework", "composant": "pg-boss", "version": "12.18.2", "role": "File de jobs sur PostgreSQL + ordonnanceur cron" },
+        { "categorie": "Librairies", "composant": "Nodemailer", "version": "7.0.x", "role": "Envoi SMTP" },
+        { "categorie": "Librairies", "composant": "@react-email/components", "version": "1.0.x", "role": "Gabarits de courriels" },
+        { "categorie": "Librairies", "composant": "postgres (pilote)", "version": "3.4.x", "role": "Pilote PostgreSQL" },
+        { "categorie": "Librairies", "composant": "Node.js (runtime)", "version": "24", "role": "Environnement d'exécution" }
+      ]
+    },
+    {
+      "nom": "EGAPRO.BDD",
+      "type": "Base de données gérée (opérateur pg)",
+      "role": "Bases de données PostgreSQL (métier + notifications)",
+      "vcpu": "[À COMPLÉTER — PROD/HÉBERGEUR : ressources non fixées dans le dépôt]",
+      "ram": "[À COMPLÉTER — PROD/HÉBERGEUR : ressources non fixées dans le dépôt]",
+      "composants": [
+        { "categorie": "BDD", "composant": "PostgreSQL — base métier 'egapro'", "version": "14.17 en dev (docker) — version de production à confirmer", "role": "Persistance métier (schémas 'app_*' et audit)" },
+        { "categorie": "BDD", "composant": "PostgreSQL — base 'egapro_notifications'", "version": "14.x (à confirmer)", "role": "File pg-boss + déduplication des relances" }
+      ]
+    },
+    {
+      "nom": "EGAPRO.CACHE",
+      "type": "Conteneur / Pod Kubernetes (chart valkey-helm)",
+      "role": "Cache applicatif",
+      "vcpu": "0,1 (requête) à 1 (limite)",
+      "ram": "256 Mio (requête) à 1 Gio (limite) — prod : 1 primaire + 2 replicas",
+      "composants": [
+        { "categorie": "BDD", "composant": "Valkey", "version": "9.0.2", "role": "Cache Next.js (compatible Redis)" }
+      ]
+    },
+    {
+      "nom": "EGAPRO.APISIX",
+      "type": "Conteneur / Pod Kubernetes",
+      "role": "Passerelle API devant l'API SUIT (/api/v1/*)",
+      "vcpu": "0,05 (requête) à 0,5 (limite) — prod : 2 replicas (HA)",
+      "ram": "128 Mio (requête) à 512 Mio (limite)",
+      "composants": [
+        { "categorie": "WEB", "composant": "Apache APISIX (mode standalone)", "version": "3.11.0-debian", "role": "Authentification par clé (key-auth), limitation de débit, injection d'en-tête" }
+      ]
+    },
+    {
+      "nom": "EGAPRO.AV",
+      "type": "Conteneur / Pod Kubernetes (chart clamav)",
+      "role": "Antivirus des pièces jointes",
+      "vcpu": "[À COMPLÉTER — PROD : ressources non fixées dans le dépôt]",
+      "ram": "[À COMPLÉTER — PROD]",
+      "composants": [
+        { "categorie": "Librairies", "composant": "ClamAV", "version": "1.5.2 en dev (docker) — version de production à confirmer", "role": "Analyse antivirale (protocole INSTREAM)" }
+      ]
+    }
+  ],
+  "flux": [
+    { "n": "1", "source": "Entreprises déclarantes", "destination": "RP EXT", "protocole": "HTTPS", "commentaires": "Accès authentifié (ProConnect) au parcours de déclaration" },
+    { "n": "2", "source": "Grand public", "destination": "RP EXT", "protocole": "HTTPS", "commentaires": "Consultation publique (référents, statistiques, export CSV)" },
+    { "n": "3", "source": "Agents DGT / DNUM", "destination": "RP EXT", "protocole": "HTTPS", "commentaires": "Back-office (canal réseau à confirmer)" },
+    { "n": "4", "source": "SI SUIT / Delphes", "destination": "APISIX (via RP EXT api-suit)", "protocole": "HTTPS", "commentaires": "Consommation de l'API d'export /api/v1/* (clé Bearer)" },
+    { "n": "5", "source": "APISIX", "destination": "EGAPRO.APP", "protocole": "HTTP (interne)", "commentaires": "Proxy /api/v1/* + injection X-Gateway-Forwarded" },
+    { "n": "6", "source": "RP EXT", "destination": "EGAPRO.APP", "protocole": "HTTPS", "commentaires": "Routage du trafic usagers vers l'application" },
+    { "n": "7", "source": "EGAPRO.APP", "destination": "EGAPRO.BDD", "protocole": "TCP (PostgreSQL)", "commentaires": "Persistance des données métier (SSL)" },
+    { "n": "8", "source": "EGAPRO.APP", "destination": "EGAPRO.BDD.NOTIF", "protocole": "TCP (PostgreSQL)", "commentaires": "Dépôt des jobs courriel (pg-boss) via le publisher" },
+    { "n": "9", "source": "EGAPRO.APP", "destination": "EGAPRO.CACHE (Valkey)", "protocole": "TCP (Redis)", "commentaires": "Cache applicatif Next.js" },
+    { "n": "10", "source": "EGAPRO.APP", "destination": "Service ClamAV", "protocole": "TCP (INSTREAM)", "commentaires": "Analyse antivirale des pièces jointes à l'upload" },
+    { "n": "11", "source": "EGAPRO.APP", "destination": "Stockage objet S3 (OVH)", "protocole": "HTTPS (S3)", "commentaires": "Stockage des PDF (avis CSE, évaluation conjointe) et exports XLSX" },
+    { "n": "12", "source": "EGAPRO.APP", "destination": "ProConnect", "protocole": "HTTPS (OIDC)", "commentaires": "Authentification fédérée (sortant, via PFAI à confirmer)" },
+    { "n": "13", "source": "EGAPRO.APP", "destination": "INSEE Sirene (Weez)", "protocole": "HTTPS", "commentaires": "Identité des entreprises par SIREN (sortant)" },
+    { "n": "14", "source": "EGAPRO.APP", "destination": "SUIT", "protocole": "HTTPS", "commentaires": "Existence CSE et statut de sanction par SIREN (sortant)" },
+    { "n": "15", "source": "EGAPRO.APP", "destination": "GIP-MDS", "protocole": "HTTPS", "commentaires": "Import du CSV des indicateurs A à F (sortant, déclenché par CronJob)" },
+    { "n": "16", "source": "EGAPRO.NOTIF", "destination": "EGAPRO.BDD.NOTIF", "protocole": "TCP (PostgreSQL)", "commentaires": "Consommation de la file pg-boss" },
+    { "n": "17", "source": "EGAPRO.NOTIF", "destination": "EGAPRO.BDD", "protocole": "TCP (PostgreSQL)", "commentaires": "Lecture éligibilité des relances + écriture du journal d'audit" },
+    { "n": "18", "source": "EGAPRO.NOTIF", "destination": "Messagerie SMTP (Tipimail)", "protocole": "SMTP (STARTTLS)", "commentaires": "Envoi des courriels (accusés + relances)" },
+    { "n": "19", "source": "CronJobs Kubernetes", "destination": "EGAPRO.APP", "protocole": "HTTP (interne)", "commentaires": "Déclenchement import GIP-MDS (03h) et génération export XLSX (02h)" },
+    { "n": "20", "source": "Navigateur usagers + EGAPRO.APP", "destination": "Matomo", "protocole": "HTTPS", "commentaires": "Mesure d'audience (tracking client + Reporting API admin)" },
+    { "n": "21", "source": "EGAPRO.APP / EGAPRO.NOTIF", "destination": "Sentry", "protocole": "HTTPS", "commentaires": "Supervision des erreurs (sortant)" }
+  ],
+  "urls": [
+    { "libelle": "egapro.travail.gouv.fr", "acteur": "Entreprises déclarantes / Grand public / Agents", "ressource": "FRONT + BACK EgaPro", "fonctionnalite": "Déclaration, consultation publique, back-office", "donnees": "Données de déclaration (A à G), données publiques (référents, statistiques)" },
+    { "libelle": "api-suit-egapro.travail.gouv.fr/api/v1/*", "acteur": "SI SUIT / Delphes", "ressource": "API d'export EgaPro (via passerelle APISIX)", "fonctionnalite": "Export des déclarations et fichiers", "donnees": "Déclarations (A à G), métadonnées et PDF des avis CSE / évaluations conjointes" },
+    { "libelle": "egapro.fabrique.social.gouv.fr, index-egapro.travail.gouv.fr", "acteur": "Grand public", "ressource": "Redirection HTTP", "fonctionnalite": "Redirection vers egapro.travail.gouv.fr", "donnees": "Aucune (redirection)" },
+    { "libelle": "{issuer ProConnect}/.well-known/openid-configuration", "acteur": "EGAPRO.APP", "ressource": "ProConnect", "fonctionnalite": "Authentification fédérée des déclarants", "donnees": "Jetons OIDC, courriel, SIRET" },
+    { "libelle": "{Weez}/public/v3/unitelegale/findbysiren", "acteur": "EGAPRO.APP", "ressource": "INSEE Sirene (via Weez)", "fonctionnalite": "Identité des entreprises", "donnees": "Raison sociale, adresse, NAF, effectif" },
+    { "libelle": "api.suit.travail.gouv.fr/suit/api/externe/portail/{CSE,sanction}/{siren}", "acteur": "EGAPRO.APP", "ressource": "SUIT", "fonctionnalite": "Existence CSE et statut de sanction", "donnees": "Statut CSE, statut de sanction par SIREN" },
+    { "libelle": "{GIP-MDS}", "acteur": "EGAPRO.APP", "ressource": "GIP-MDS", "fonctionnalite": "Import des indicateurs A à F", "donnees": "CSV des indicateurs pré-calculés (issus DSN)" },
+    { "libelle": "s3.gra.io.cloud.ovh.net", "acteur": "EGAPRO.APP", "ressource": "Stockage objet OVH", "fonctionnalite": "Stockage des fichiers et exports", "donnees": "PDF (avis CSE, évaluation conjointe), exports XLSX" }
+  ],
+  "schemas": {
+    "cadre5": {
+      "titre": "Cadre 5 — Architecture Acteurs",
+      "specification": "OBJET CENTRAL\n- EgaPro : plateforme de déclaration des indicateurs d'égalité de rémunération F/H (ministère du Travail).\n\nACTEURS (sens de la flèche = fournit / consomme la donnée)\n- Entreprise déclarante (canal E) -> saisie des déclarations (indicateurs A à G), dépôt des avis CSE.\n- Agent administrateur DGT/DNUM (canal E, à confirmer) -> back-office : consultation, annulation, référents, statistiques.\n- Grand public (canal P) <- consultation des référents et des statistiques, export CSV.\n- SI SUIT/Delphes -> consomme l'API d'export des déclarations (/api/v1/*) [consommateur] ET fournit l'existence CSE + le statut de sanction [fournisseur].\n\nSI EXTERNES FOURNISSEURS\n- ProConnect (P) : authentification fédérée des déclarants.\n- INSEE Sirene via Weez (P) : identité des entreprises (vert).\n- GIP-MDS : indicateurs A à F issus des DSN (import CSV).\n\nSERVICES SUPPORT\n- Messagerie SMTP (Tipimail) : accusés et relances.\n- Matomo : mesure d'audience. Sentry : supervision.\n\nNOTE : la consultation publique des index par SIREN/entreprise (\"Observatoire\", domaine index-egapro) est un site externe non porté par ce dépôt (à confirmer).",
+      "mermaid": "flowchart TB\n    EGAPRO([\"EgaPro<br/>Declaration egalite de remuneration F/H\"])\n    subgraph ACT[\"Acteurs\"]\n        DECL[\"Entreprise declarante - E\"]\n        ADMIN[\"Agent DGT/DNUM - E\"]\n        PUB[\"Grand public - P\"]\n    end\n    subgraph SIEXT[\"SI externes\"]\n        PC[\"ProConnect\"]\n        INSEE[\"INSEE Sirene (Weez)\"]\n        GIP[\"GIP-MDS\"]\n        SUIT[\"SI SUIT / Delphes\"]\n    end\n    subgraph SUP[\"Services support\"]\n        MAIL[\"Messagerie SMTP\"]\n        MAT[\"Matomo\"]\n        SEN[\"Sentry\"]\n    end\n    DECL -->|\"declaration A-G, avis CSE\"| EGAPRO\n    ADMIN -->|\"administration\"| EGAPRO\n    EGAPRO -->|\"referents, statistiques, export CSV\"| PUB\n    PC -->|\"authentification\"| EGAPRO\n    INSEE -->|\"identite entreprise\"| EGAPRO\n    GIP -->|\"indicateurs A-F\"| EGAPRO\n    SUIT -->|\"existence CSE, sanction\"| EGAPRO\n    EGAPRO -->|\"API export declarations\"| SUIT\n    EGAPRO <-->|\"courriels\"| MAIL\n    EGAPRO -->|\"audience / erreurs\"| MAT\n    EGAPRO -->|\"erreurs\"| SEN"
+    },
+    "cadre6": {
+      "titre": "Cadre 6 — Architecture Fonctionnelle",
+      "specification": "Blocs fonctionnels (cadre 2) regroupés par acteur.\n\nENTREPRISE DÉCLARANTE : déclaration des indicateurs A-G ; saisie indicateur G par catégories ; parcours de conformité (seuil 5 %) ; seconde déclaration ; dépôt avis CSE ; dépôt évaluation conjointe ; brouillons ; édition verrouillée ; documents PDF.\nAGENT DGT/DNUM (back-office) : administration des déclarations (recherche, annulation) ; administration des référents (CRUD, import, export) ; statistiques (entonnoirs, Matomo) ; paramétrage des campagnes ; impersonation (lecture seule).\nGRAND PUBLIC : consultation des référents ; consultation des statistiques ; export des référents (JSON/CSV).\nMACHINE (SI SUIT) : API d'export des déclarations et fichiers (/api/v1/*).\nTRANSVERSE : notifications courriel (accusés + 13 relances planifiées).\n\nLIAISONS : Déclaration -> Parcours de conformité -> (Seconde déclaration | Évaluation conjointe) ; Déclaration / Avis CSE -> Notifications ; Déclarations -> API export SUIT.",
+      "mermaid": "flowchart TB\n    subgraph COL1[\"Entreprise declarante\"]\n        F_DECL[\"Declaration indicateurs A-G\"]\n        F_G[\"Saisie indicateur G\"]\n        F_CONF[\"Parcours de conformite (5%)\"]\n        F_SEC[\"Seconde declaration\"]\n        F_CSE[\"Depot avis CSE\"]\n        F_EC[\"Depot evaluation conjointe\"]\n    end\n    subgraph COL2[\"Agent DGT/DNUM\"]\n        F_ADMD[\"Admin declarations\"]\n        F_ADMR[\"Admin referents\"]\n        F_STAT[\"Statistiques\"]\n        F_PARAM[\"Parametrage campagnes\"]\n    end\n    subgraph COL3[\"Grand public\"]\n        F_REF[\"Consultation referents\"]\n        F_PSTAT[\"Statistiques publiques\"]\n        F_EXP[\"Export referents (CSV/JSON)\"]\n    end\n    subgraph COL4[\"SI SUIT / Transverse\"]\n        F_API[\"API export declarations\"]\n        F_MAIL[\"Notifications courriel\"]\n    end\n    F_DECL --> F_CONF\n    F_CONF --> F_SEC\n    F_CONF --> F_EC\n    F_DECL --> F_MAIL\n    F_CSE --> F_MAIL\n    F_DECL --> F_API"
+    },
+    "cadre7": {
+      "titre": "Cadre 7 — Architecture Applicative",
+      "specification": "Pile de composants de EGAPRO.APP, blocs fonctionnels au-dessus, SI/API consommés à droite.\n\nPRÉSENTATION : Next.js 16 (App Router) + React 19 + DSFR 1.14.\nAPI/FRAMEWORK : tRPC 11 (API interne typée), route handlers /api ; NextAuth 4.24 (ProConnect OIDC).\nLANGAGE/RUNTIME : TypeScript 6 / Node.js 24.\nMÉTIER : déclarations, indicateur G, avis CSE, référents, exports.\nACCÈS DONNÉES : Drizzle ORM 0.45 (+ pilote postgres 3.4).\nPERSISTANCE : PostgreSQL (EGAPRO.BDD, schémas app_* et audit) ; file pg-boss (EGAPRO.BDD.NOTIF) ; cache Valkey 9 ; stockage objet S3 (fichiers/exports).\nPASSERELLE : APISIX 3.11 devant /api/v1/* (SUIT).\nWORKER : EGAPRO.NOTIF (pg-boss 12 + Nodemailer 7 + @react-email).\n\nSI / API consommés : ProConnect, INSEE Sirene (Weez), SUIT, GIP-MDS, Matomo, Sentry.",
+      "mermaid": "flowchart TB\n    subgraph APP[\"EGAPRO.APP (Next.js)\"]\n        WEB[\"Next.js 16 + React 19 + DSFR 1.14\"]\n        API[\"tRPC 11 + route handlers /api + NextAuth 4.24\"]\n        RT[\"TypeScript 6 / Node.js 24\"]\n        BIZ[\"Metier : declarations, indicateur G, avis CSE, referents\"]\n        ORM[\"Drizzle ORM 0.45\"]\n    end\n    GW{{\"APISIX 3.11 (passerelle /api/v1/*)\"}}\n    subgraph PERS[\"Persistance\"]\n        DB[(\"EGAPRO.BDD<br/>PostgreSQL\")]\n        DBN[(\"EGAPRO.BDD.NOTIF<br/>pg-boss\")]\n        CACHE[(\"Valkey 9\")]\n        S3[(\"Stockage objet S3\")]\n    end\n    WORKER[\"EGAPRO.NOTIF<br/>pg-boss 12 + Nodemailer 7\"]\n    subgraph EXT[\"SI / API consommes\"]\n        PC[\"ProConnect\"]\n        INSEE[\"INSEE Sirene (Weez)\"]\n        SUIT[\"SUIT\"]\n        GIP[\"GIP-MDS\"]\n        MAT[\"Matomo\"]\n        SEN[\"Sentry\"]\n    end\n    WEB --> API --> BIZ\n    RT --- API\n    BIZ --> ORM --> DB\n    BIZ --> CACHE\n    BIZ --> S3\n    BIZ --> DBN\n    GW --> API\n    WORKER --> DBN\n    WORKER --> DB\n    BIZ --> PC\n    BIZ --> INSEE\n    BIZ --> SUIT\n    BIZ --> GIP\n    BIZ --> MAT\n    BIZ --> SEN"
+    },
+    "cadre8": {
+      "titre": "Cadre 8 — Architecture technique",
+      "specification": "Vue logique en zones MASS. Numérotation IDENTIQUE à la matrice du cadre 10 (flux 1 à 21).\nNOTE : déploiement conteneurisé (Kubernetes / plateforme Fabrique-SocialGouv), et non des machines virtuelles classiques. Le placement précis en DMZ relève de PROD/HÉBERGEUR [À COMPLÉTER].\n\nZONES : Internet/Extranet (entreprises, public, agents) ; RP EXT (reverse-proxy / ingress) ; passerelle APISIX (API SUIT) ; DMZ EGAPRO.APP ; Cache Valkey ; BDD principale ; BDD notifications ; Worker notifications ; Service ClamAV ; Stockage S3 (OVH) ; Messagerie SMTP ; SI externes (ProConnect, INSEE/Weez, SUIT, GIP-MDS) ; supervision (Matomo, Sentry) ; CronJobs.\n\nFLUX\n1 Entreprises déclarantes -> RP EXT : HTTPS.\n2 Grand public -> RP EXT : HTTPS.\n3 Agents DGT/DNUM -> RP EXT : HTTPS (canal à confirmer).\n4 SI SUIT/Delphes -> APISIX (host api-suit, via RP EXT) : HTTPS (clé Bearer).\n5 APISIX -> EGAPRO.APP : HTTP interne (+ X-Gateway-Forwarded).\n6 RP EXT -> EGAPRO.APP : HTTPS.\n7 EGAPRO.APP -> EGAPRO.BDD : TCP PostgreSQL.\n8 EGAPRO.APP -> EGAPRO.BDD.NOTIF : TCP PostgreSQL (enqueue pg-boss).\n9 EGAPRO.APP -> Valkey : TCP Redis (cache).\n10 EGAPRO.APP -> ClamAV : TCP INSTREAM (antivirus PJ).\n11 EGAPRO.APP -> Stockage S3 (OVH) : HTTPS S3.\n12 EGAPRO.APP -> ProConnect : HTTPS OIDC (sortant).\n13 EGAPRO.APP -> INSEE Sirene (Weez) : HTTPS (sortant).\n14 EGAPRO.APP -> SUIT : HTTPS (sortant, CSE/sanction).\n15 EGAPRO.APP -> GIP-MDS : HTTPS (sortant, import CSV).\n16 EGAPRO.NOTIF -> EGAPRO.BDD.NOTIF : TCP PostgreSQL (file).\n17 EGAPRO.NOTIF -> EGAPRO.BDD : TCP PostgreSQL (éligibilité + audit).\n18 EGAPRO.NOTIF -> Messagerie SMTP : SMTP STARTTLS.\n19 CronJobs -> EGAPRO.APP : HTTP interne (import GIP 03h, export XLSX 02h).\n20 Navigateur + EGAPRO.APP -> Matomo : HTTPS.\n21 EGAPRO.APP / EGAPRO.NOTIF -> Sentry : HTTPS.",
+      "mermaid": "flowchart TB\n    subgraph NET[\"Internet / Extranet\"]\n        DECL[\"Entreprises declarantes\"]\n        PUB[\"Grand public\"]\n        ADMIN[\"Agents DGT/DNUM\"]\n        SUITX[\"SI SUIT / Delphes\"]\n    end\n    RP{{\"RP EXT (ingress)\"}}\n    GW{{\"APISIX (API SUIT)\"}}\n    subgraph DMZAPP[\"DMZ EGAPRO.APP\"]\n        APP[\"EGAPRO.APP<br/>Next.js\"]\n        WORKER[\"EGAPRO.NOTIF<br/>worker pg-boss\"]\n    end\n    CACHE[(\"Valkey\")]\n    DB[(\"EGAPRO.BDD<br/>PostgreSQL\")]\n    DBN[(\"EGAPRO.BDD.NOTIF<br/>pg-boss\")]\n    AV[\"Service ClamAV\"]\n    S3[(\"Stockage S3 (OVH)\")]\n    MAIL[\"Messagerie SMTP\"]\n    CRON[\"CronJobs K8s\"]\n    subgraph SIEXT[\"SI externes\"]\n        PC[\"ProConnect\"]\n        INSEE[\"INSEE Sirene (Weez)\"]\n        SUITAPI[\"SUIT (CSE/sanction)\"]\n        GIP[\"GIP-MDS\"]\n    end\n    subgraph SUP[\"Supervision\"]\n        MAT[\"Matomo\"]\n        SEN[\"Sentry\"]\n    end\n    DECL -->|\"1 HTTPS\"| RP\n    PUB -->|\"2 HTTPS\"| RP\n    ADMIN -->|\"3 HTTPS\"| RP\n    SUITX -->|\"4 HTTPS\"| GW\n    GW -->|\"5 HTTP\"| APP\n    RP -->|\"6 HTTPS\"| APP\n    APP -->|\"7 TCP\"| DB\n    APP -->|\"8 TCP\"| DBN\n    APP -->|\"9 TCP\"| CACHE\n    APP -->|\"10 INSTREAM\"| AV\n    APP -->|\"11 HTTPS S3\"| S3\n    APP -->|\"12 OIDC\"| PC\n    APP -->|\"13 HTTPS\"| INSEE\n    APP -->|\"14 HTTPS\"| SUITAPI\n    APP -->|\"15 HTTPS\"| GIP\n    WORKER -->|\"16 TCP\"| DBN\n    WORKER -->|\"17 TCP\"| DB\n    WORKER -->|\"18 SMTP\"| MAIL\n    CRON -->|\"19 HTTP\"| APP\n    APP -->|\"20 HTTPS\"| MAT\n    APP -->|\"21 HTTPS\"| SEN"
+    }
+  }
+}

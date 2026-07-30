@@ -1,0 +1,80 @@
+Igor:Validation de nos SI, sur la partie infra principalement
+facilité, maintenabilité, évolutivité, il faut un peu standardisé -> ce n'est pas assez le cas aujourd'hui
+
+cadre de cohérence
+demat DA
+le référentiel avancera comme il peut
+
+leo sajou, dev 2, dev 3 -> ils partent en septembre, leo en octobre
+
+le DA est un des éléments 
+
+
+essayer de proposer des bibliothèques de skills standards et validé par les personnes du référentiel
+
+faire des essais avec Igor
+
+il a un Patrice en interne
+
+son sujet: renovaci data center à refondre ?
+
+
+démat du DA: sharepoint et versionning, structuration du doc pas à jour, ressaisie d'information, stockage des documents et partage des documents, difficultés de tracé des documents entre différentes version, 
+
+il aimerait qu'on initie les documents de contexte sur les référentiels, t'as un markdown à remplir un arbre de décision, puis c'est publié sur un gitlab pages -> il aimerait qu'on soit force de proposition sur le sujet
+
+il est ouvert sur les documents de contexte à créer -> il nous propose de mettre ce qui compte pour nous dans notre quotidien
+
+référentiel de transfo dans ton ide
+
+par contre si on fait ça -> il faudra en discuter avec la conf num
+
+ça rentre dans l'idée de usine logicielle
+
+si on a des manquements sur des règles, on peut essayer de se faire aider en sollicitant -> passer par studio archi qui ont déjà le cadre de cohérence 
+
+workflow où on intègre des reviewers, à la fin si y'a une décision à prendre, Igor validera
+
+tous les jeudi de 14h à 15h Igor voit les archis, ça peut être le moment de faire du rapprochement
+
+essayer de définir des actions de next steps
+
+on récupoère auprès de mathias notre référentiel, on fait un premier jet de skills, et ensuite on voit ?
+
+on créé le repo, on épure, on previent igor, il nous envoie de la doc en plus, on fige ensuite une version 0.1. Puis on intègre les gens dans la boucle (conf num) puis on va plus loin.
+
+mettre un lien vers la source, et que le lien de la source amène sur notre 
+
+- un repo de fiches
+- un repo de doc de contexte construits sur les fiches
+
+sachant que igor veut l'ouvrir en read tous ceux qui vont le consommer, par exemple la TMA
+
+on récupère les fiches comment ? igor nous envoie le repo de fiches
+
+
+la sécu réfléchi à l'outillage:
+ils te filent des pc, tu mets ce que tu veux dessus comme OS
+
+on va te faire déployer une vm dessus pour tout ce qui est bureautique 
+
+les devs auront biode ou tu gères les trucs toi même
+
+si t'es un user lambda tu reste avec le pc managé ministère, et là malheureusement:
+- soit ils package ton app et tu peux deploy par centre logiciel
+83000 évoqué (sécu)
+- soit tu fais le formulaire demande de compte admin temporaire signé par ton manager 
+
+npx a priori bloqué mais http ok
+
+ce sera pas autorisé d'avoir de la bureautique sur un environnement aussi ouvert que celui d'un dev
+
+13 oct
+gauthier le connait le futur beatrice
+
+
+demander à Céline liechti
+saura nous orienter vers la bonne personne pour mettre dans le centre logiciel
+
+
+fin août inviter igor un mardi ou jeudi en demi journée acculturation IA
