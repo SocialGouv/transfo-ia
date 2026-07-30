@@ -14,7 +14,7 @@ import os
 # DONNÉES — à mettre à jour chaque semaine
 # ============================================================================
 
-MAJ = "24 juillet 2026"
+MAJ = "30 juillet 2026"
 
 # Matrice de maturité : niveau constaté par use case et périmètre.
 # Valeurs : 1|2|3, (avant, après) pour une progression, "?" à évaluer, None = NA
@@ -22,8 +22,8 @@ PERIMETRES = ["Egapro", "DACCORD", "SIRENA", "VAO", "Transverse"]
 
 MATRICE = [
     # (métier, use case, [Egapro, DACCORD, SIRENA, VAO, Transverse])
-    ("Chefs de projet", "Piloter un projet développé avec l'IA",   [(1, 2), 1, "?", "?", None]),
-    ("Chefs de projet", "Générer des tickets de spec",             [1, 1, "?", "?", None]),
+    ("Chefs de projet", "Piloter un projet développé avec l'IA",   [(1, 2), 1, 1, "?", None]),
+    ("Chefs de projet", "Générer des tickets de spec",             [1, 1, 1, "?", None]),
     ("Chefs de projet / Développeurs", "Organiser le board (sprints, epics)", [3, 1, "?", "?", None]),
     ("Designers",       "Générer des prototypes HTML/JS",          [(1, 3), "?", "?", "?", None]),
     ("Développeurs",    "Générer du code de qualité",              [2, 2, "?", 1, None]),
@@ -33,16 +33,17 @@ MATRICE = [
     ("Développeurs",    "Pré-auditer la sécurité",                 [1, 1, 1, 1, None]),
     ("Développeurs",    "Outils &amp; system prompts communs",     [3, (1, 2), 1, "?", None]),
     ("Architectes",     "Générer un dossier d'architecture (DA)",  [None, None, None, None, 1]),
+    ("Architectes",     "Outiller les référentiels d'architecture", [None, None, None, None, 1]),
 ]
 
 # Plan d'actions : (statut, nombre) — ordre = pipeline
-ACTIONS = [("Réalisées", 6), ("En cours", 3), ("Planifiées", 7), ("À lancer", 2)]
-A_CADRER = 11  # déclinaisons d'actions existantes restant à cadrer par périmètre
+ACTIONS = [("Réalisées", 8), ("En cours", 4), ("Planifiées", 10), ("À lancer", 3)]
+A_CADRER = 10  # déclinaisons d'actions existantes restant à cadrer par périmètre
 
 # KPI (label, valeur, sous-texte, sous-texte vert facultatif)
 KPIS = [
     ("Use cases montés de niveau", "4", "· 1 sur DACCORD", "▲ 3 sur Egapro "),
-    ("Actions réalisées", "6", "sur 18 engagées · 3 en cours", None),
+    ("Actions réalisées", "8", "sur 25 engagées · 4 en cours", None),
     ("Équipes accompagnées", "6", "4 en actif · 4 métiers couverts", None),
     ("Prochain jalon", "3 août", "ateliers DA et Claude Enterprise", None),
 ]
@@ -50,16 +51,16 @@ KPIS = [
 # Jalons : (jour depuis le 13 juillet, lignes, statut done|next|futur, label au-dessus ?)
 ROADMAP_SPAN_DAYS = 80  # 13 juillet → fin septembre
 JALONS = [
+    # certains jours sont décalés de 1 à 3 jours pour desserrer les étiquettes
     (3,  ["16 juillet", "Coaching dev augmenté", "équipe DACCORD"], "done", True),
-    # 30 juillet (j17) et 6 août (j24) écartés pour desserrer les étiquettes
-    (15, ["30 juillet", "Rencontre CDP", "équipe SIRENA"], "next", False),
-    (21, ["3 août", "Atelier DA architectes", "+ Claude Enterprise"], "next", True),
+    (14, ["28-30 juillet", "Référentiels archi", "CDP SIRENA · CEPS"], "done", False),
+    (20, ["3 août", "Ateliers DA", "et Claude Enterprise"], "next", True),
     (25, ["6 août", "Atelier skills", "devs DACCORD"], "next", False),
-    (36, ["Courant août", "Prototypes DSFR", "avec Louis (design)"], "next", False),
-    (40, ["Courant août", "Bench modèles + harness", "élargi aux modèles Bedrock"], "next", True),
-    (52, ["Août · début sept.", "Accompagnement CDP", "retour de Kahina (DACCORD)"], "futur", False),
-    (57, ["8 septembre", "Atelier dev augmenté", "équipe VAO"], "futur", True),
-    (78, ["Fin septembre", "Cartographie des comptes", "Bedrock (bénéficiaires)"], "futur", False),
+    (35, ["Mi-août", "Formation PM/PO", "SIRENA · DACCORD"], "next", True),
+    (39, ["Courant août", "Prototypes DSFR", "+ bench Bedrock"], "next", False),
+    (47, ["Fin août", "Acculturation IA", "avec Igor"], "next", True),
+    (57, ["8 septembre", "Atelier dev augmenté", "équipe VAO"], "futur", False),
+    (78, ["Fin septembre", "Cartographie des comptes", "Bedrock (bénéficiaires)"], "futur", True),
 ]
 ROADMAP_NOTE = ("Ensuite, moyen terme : communauté de référents IA, CI/CD augmentée, "
                 "observabilité · long terme : harness souverain")

@@ -1,0 +1,15 @@
+30-07
+
+Sabine est ravie de l'outil
+
+elle a encore des propositions d'évolutions, mais je vais laisser la main à Victor Degliame.
+
+Next steps pour victor:
+- transformer de python à outil utilisable par des personnes qui ne peuvent pas installer python
+- implémenter les évolutions souhaitées de Sabine
+
+__
+
+Objectif de notre côté: Evangéliser les personnes du CEPS que Victor à rencontré: on pourra leur dire qu'en 3 jours on a réalisé un MVP pour Sabine,lui permettant de quasi automatiser sa newsletter (quasi).
+
+le message: l'IA permet de réaliser des applications rapidement tant que le besoin est clair.

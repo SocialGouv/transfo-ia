@@ -1,0 +1,28 @@
+Interet_Igor
+
+Igor: bati des référentiels, notamment sur les DA.
+Evite d'avoir un SHarepoiont quelque part et risque de désynchro.
+Igor il a réussi à avoir des devs. Ils travaillent sur ce sujet.
+
+Mais ils sont pas très bon sur Claude, ils ont l'outil max.
+
+on peut mettre ne place les référentiels qui nous intéressent. DA manager. Il a de la matière Igor: on t'a fourni l'app, on a accompagné ton dev, maintenant on va l'aider pour développer rapidement l'app de tes rèves. 
+
+En échange: aide à prendre en main les outils sur les postes du ministère.
+
+
+sujet: 
+referentiel fiables et stables et partagés 
+pb: sharepoint et versionné
+
+des devs pour régler ce pb
+
+solution: faire monter les devs en compétence sur l'IA pour monter en compétence 
+
+ce qu'on gagne:
+aide à notre pb: outiller les internes pour qu'ils puissent utiliser les harness 
+- des contacts
+- des solutions ?
+
+faire passer les gens sur Linux
+

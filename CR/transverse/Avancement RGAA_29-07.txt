@@ -1,0 +1,18 @@
+Avancement RGAA
+
+3 sujets:
+Egapro doit avancer sur le RGAA
+Il nous faut une solution de gen de code accessible
+il nous faut une solution de pre-audit d'accessibilité du code
+
+
+sur le sujet Egapro: le code est plus accessible, audit qui fait passer de 31 erreurs à 16 erreurs.
+
+Sur le sujet gen de code accessible: il est pour le moment relié à la solution de pre-audit d'accessibilité du code
+
+sur le sujet de pre-audit d'accessibilité du code:
+- j'ai proposé à Max et Lucas un framework de suivi des performances de l'outil ans le temps: https://github.com/sboukhari-Ippon/RGAA-Tool-Monitoring/tree/main
+
+-> Lucas est en phase, il faut monitorer les perfs de l'outil
+-> Max se sent submerger, entre le besoin de trouver une solution, mais aussi de la monitorer. Il préfère partir au feeling et se focaliser sur le fait de rendre Egapro plus accessible
+-> Gary doit réfléchir à comment donner forme à un outil de pre-audit d'accessibilité par quelqu'un d'autre que Max, sans que ce ne soit dans les sprints Egapro... et il faudra y intégrer un framework de monitoring comme celui que j'ai réalisé.
