@@ -28,10 +28,19 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/02-maturite-dark.svg">
-  <img alt="Nombre de use cases par niveau atteint : Egapro 5 en maîtrise, 3 en acquisition, 2 en découverte, dont 3 montés de niveau grâce à l'accompagnement (pilotage, prototypes, pré-audit accessibilité) ; DACCORD 3 en acquisition, 6 en découverte, 1 à évaluer, dont 1 monté de niveau (outils et system prompts communs) ; SIRENA 6 en découverte, 4 à évaluer ; VAO 5 en découverte, 5 à évaluer" src="Etat-avancement/assets/02-maturite-light.svg" width="100%">
+  <img alt="Nombre de use cases par niveau atteint, sur une échelle de 1 à 5 : Egapro 2 en découverte, 1 en expérimentation, 2 en pratique régulière, 5 en maîtrise, dont 3 montés de niveau grâce à l'accompagnement (pilotage, prototypes, pré-audit accessibilité) ; DACCORD 7 en découverte, 1 en expérimentation, 2 en pratique régulière, dont 1 monté de niveau (outils et system prompts communs) ; SIRENA et VAO 10 en découverte" src="Etat-avancement/assets/02-maturite-light.svg" width="100%">
 </picture>
 
 → [La matrice complète, use case par use case](Etat-avancement/Etat-avancement-detaille.md#matrice-de-maturité)
+
+**L'effort est mis là où il transforme.** Chaque action engagée est classée selon ce qu'elle change pour les équipes : ◆◆◆ déterminant (du concret : skills créés ou challengés, orchestrations, solutions mises en place), ◆◆ élevé (acculturations et formations), ◆ modéré (discussions, cadrages, études). Sur les périmètres actifs, l'accompagnement est presque exclusivement du concret.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/07-impact-dark.svg">
+  <img alt="Impact des actions : 25 engagées, 11 déterminantes. Egapro 4 déterminantes ; DACCORD 3 déterminantes et 1 élevée ; SIRENA 1 élevée ; VAO 1 élevée ; Transverse 4 déterminantes, 3 élevées, 8 modérées. Les actions à impact modéré sont toutes transverses : les chantiers de fond (bench, Bedrock, outillage des postes) qui conditionnent le passage à l'échelle" src="Etat-avancement/assets/07-impact-light.svg" width="100%">
+</picture>
+
+→ [Le classement, action par action](Etat-avancement/Etat-avancement-detaille.md#impact-des-actions)
 
 | Chantier | Statut | Où on en est | Prochaine étape |
 |---|:---:|---|---|

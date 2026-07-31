@@ -63,17 +63,90 @@ Actions déjà éprouvées sur un périmètre, à décliner sur les autres une f
 | Accompagner la génération de tickets de spec | VAO |
 | Accompagner à la génération de prototypes | DACCORD · SIRENA · VAO |
 
+## Impact des actions
+
+Toutes les actions ne pèsent pas pareil. Chacune des 25 actions engagées est classée selon ce qu'elle change pour les équipes :
+
+| Impact | Ce que ça recouvre |
+|---|---|
+| ◆◆◆ **Déterminant** | Du concret dans le quotidien des équipes : skills créés ou challengés, orchestrations, accompagnement de mise en place de solutions |
+| ◆◆ **Élevé** | Acculturations et formations : elles changent le regard et amorcent la pratique |
+| ◆ **Modéré** | Discussions, cadrages, études, communication : elles préparent le terrain |
+
+### Répartition par équipe
+
+| Chantier | ◆◆◆ Déterminant | ◆◆ Élevé | ◆ Modéré | Total |
+|---|:---:|:---:|:---:|:---:|
+| Egapro | 4 | – | – | 4 |
+| DACCORD | 3 | 1 | – | 4 |
+| SIRENA | – | 1 | – | 1 |
+| VAO | – | 1 | – | 1 |
+| Transverse | 4 | 3 | 8 | 15 |
+| **Total** | **11** | **6** | **8** | **25** |
+
+**Lecture** : sur les périmètres actifs, l'accompagnement est presque exclusivement du concret — 7 actions déterminantes sur les 8 actions Egapro et DACCORD. Les actions modérées sont toutes transverses : ce sont les chantiers de fond (bench, Bedrock, outillage) qui conditionnent le passage à l'échelle. La formation PM/PO de mi-août étant une session commune SIRENA · DACCORD, elle est comptée sur SIRENA, où elle a été demandée.
+
+### Le classement, action par action
+
+**◆◆◆ Déterminant (11)**
+
+| Action | Chantier | Statut |
+|---|---|---|
+| Orchestration « codeur / testeur » en routine | Egapro | ✅ Réalisée |
+| Pilotage adapté à l'IA (estimations T-shirt, tickets design) | Egapro | ✅ Réalisée |
+| Designers outillés : skills UX, formation prototypes | Egapro | ✅ Réalisée |
+| Outil de veille du Journal officiel livré au CEPS | Transverse | ✅ Réalisée |
+| Piloter le pré-audit d'accessibilité (framework de monitoring) | Egapro | 🔄 En cours |
+| Adapter les orchestrations Egapro à Jira | DACCORD | 🔄 En cours |
+| Constituer le référentiel d'architecture outillé (fiches, skills) | Transverse | 🔄 En cours |
+| Accompagner la génération de tickets de spec (Kahina) | DACCORD | 🔄 En cours |
+| Atelier de génération de DA avec l'IA (3 août) | Transverse | 📅 Planifiée |
+| Atelier d'amélioration des skills (6 août) | DACCORD | 📅 Planifiée |
+| Solution de prototypes conformes DSFR avec Louis (août) | Transverse | 📅 Planifiée |
+
+**◆◆ Élevé (6)**
+
+| Action | Chantier | Statut |
+|---|---|---|
+| Coaching développement augmenté du 16 juillet¹ | DACCORD | ✅ Réalisée |
+| Formation à l'usage de l'IA pour le PM et le PO (mi-août, session commune avec Kahina) | SIRENA | 📅 Planifiée |
+| Demi-journée d'acculturation IA avec Igor et les architectes (fin août) | Transverse | 📅 Planifiée |
+| Atelier de formation au développement augmenté (8 septembre) | VAO | 📅 Planifiée |
+| Acculturation IA des PO (à valider avec Olivier) | Transverse | ⏳ À lancer |
+| Acculturation de l'ensemble des designers | Transverse | ⏳ À lancer |
+
+<sub>¹ Classé par nature (formation), mais son effet a déjà dépassé la catégorie : mise en commun des system prompts engagée par l'équipe dès le lundi suivant, use case monté de niveau.</sub>
+
+**◆ Modéré (8)**
+
+| Action | Chantier | Statut |
+|---|---|---|
+| Bench des harness et modèles de coding agentique | Transverse | ✅ Réalisée |
+| Cadrage de la voie Bedrock avec AWS (23 juillet) | Transverse | ✅ Réalisée |
+| Cadrage des référentiels d'architecture avec Igor (28 juillet)² | Transverse | ✅ Réalisée |
+| Claude Enterprise : discussions avec Software One (3 août) | Transverse | 📅 Planifiée |
+| Bench élargi aux modèles Bedrock (août) | Transverse | 📅 Planifiée |
+| Rencontrer Céline Liechti (accès au centre logiciel) | Transverse | 📅 Planifiée |
+| Cartographie des bénéficiaires des comptes Bedrock (fin septembre) | Transverse | 📅 Planifiée |
+| Évangéliser les équipes du CEPS rencontrées par Victor | Transverse | ⏳ À lancer |
+
+<sub>² Le cadrage est une discussion ; la constitution du référentiel outillé qui en découle est, elle, classée déterminante.</sub>
+
+Les 10 déclinaisons à cadrer ne sont pas classées : elles hériteront de l'impact de l'action d'origine une fois engagées.
+
 ## Matrice de maturité
 
-La matrice mesure **le niveau auquel l'accompagnement a amené chaque fonction d'équipe** (par exemple : les designers d'Egapro sur la génération de prototypes). Ce n'est pas une note des équipes : le niveau 1 signifie que la fonction démarre tout juste sur ce use case.
+La matrice mesure **le niveau auquel l'accompagnement a amené chaque fonction d'équipe** (par exemple : les designers d'Egapro sur la génération de prototypes), sur une échelle de 1 à 5. Ce n'est pas une note des équipes : le niveau 1 signifie que la fonction démarre tout juste sur ce use case. Un use case non encore observé est noté 1 par convention.
 
 | Niveau | Signification |
 |:---:|---|
-| **1** | Découverte : la fonction démarre, les premiers pas sont faits |
-| **2** | En cours d'acquisition : pratique régulière, en voie de fiabilisation |
-| **3** | Maîtrise : pratique installée, outillée, reproductible |
-| **1 → 2** | Progression apportée depuis le début de l'accompagnement |
-| **?** | Pas encore évalué · **–** non applicable au périmètre |
+| **1** | Découverte : la fonction démarre, pas encore de pratique régulière |
+| **2** | Expérimentation : pratique ponctuelle, accompagnée, pas encore fiabilisée |
+| **3** | Pratique régulière : usage installé dans le quotidien, encore individuel ou dépendant de l'accompagnement |
+| **4** | Maîtrise : pratique outillée, reproductible, autonome |
+| **5** | Standard d'équipe : pratique mutualisée, mesurée, que l'équipe fait évoluer et diffuse |
+| **1 → 3** | Progression apportée depuis le début de l'accompagnement |
+| **–** | Non applicable au périmètre |
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/05-matrice-dark.svg">
@@ -85,16 +158,16 @@ La matrice mesure **le niveau auquel l'accompagnement a amené chaque fonction d
 
 | Métier | Use case | Egapro | DACCORD | SIRENA | VAO | Transverse |
 |---|---|:---:|:---:|:---:|:---:|:---:|
-| Chefs de projet | Piloter un projet développé avec l'IA | 1 → 2 | 1 | 1 | ? | – |
-| Chefs de projet | Générer des tickets de spec | 1 | 1 | 1 | ? | – |
-| Chefs de projet / Développeurs | Organiser le board (sprints, epics) | 3 | 1 | ? | ? | – |
-| Designers | Générer des prototypes HTML/JS | 1 → 3 | ? | ? | ? | – |
-| Développeurs | Générer du code de qualité | 2 | 2 | ? | 1 | – |
-| Développeurs | Générer des tests | 3 | 2 | ? | 1 | – |
-| Développeurs | Utiliser des orchestrations | 3 | 1 | 1 | 1 | – |
+| Chefs de projet | Piloter un projet développé avec l'IA | 1 → 3 | 1 | 1 | 1 | – |
+| Chefs de projet | Générer des tickets de spec | 1 | 1 | 1 | 1 | – |
+| Chefs de projet / Développeurs | Organiser le board (sprints, epics) | 4 | 1 | 1 | 1 | – |
+| Designers | Générer des prototypes HTML/JS | 1 → 4 | 1 | 1 | 1 | – |
+| Développeurs | Générer du code de qualité | 3 | 3 | 1 | 1 | – |
+| Développeurs | Générer des tests | 4 | 3 | 1 | 1 | – |
+| Développeurs | Utiliser des orchestrations | 4 | 1 | 1 | 1 | – |
 | Développeurs | Pré-auditer l'accessibilité | 1 → 2 | 1 | 1 | 1 | – |
 | Développeurs | Pré-auditer la sécurité | 1 | 1 | 1 | 1 | – |
-| Développeurs | Outils & system prompts communs | 3 | 1 → 2 | 1 | ? | – |
+| Développeurs | Outils & system prompts communs | 4 | 1 → 2 | 1 | 1 | – |
 | Architectes | Générer un dossier d'architecture (DA) | – | – | – | – | 1 |
 | Architectes | Outiller les référentiels d'architecture | – | – | – | – | 1 |
 
@@ -123,8 +196,8 @@ L'élan s'est concrétisé sans attendre : **dès le lundi 20 juillet, les déve
 
 ### Egapro : périmètre pilote
 
-- Le périmètre le plus avancé : **5 use cases au niveau maîtrise** (orchestrations, tests, board, outillage commun, prototypes designers).
-- **3 use cases montés de niveau** depuis le début de l'accompagnement : pilotage de projet (1 → 2), prototypes designers (1 → 3), pré-audit d'accessibilité (1 → 2).
+- Le périmètre le plus avancé : **5 use cases au niveau maîtrise (4 sur 5)** (orchestrations, tests, board, outillage commun, prototypes designers). Prochain palier commun : le niveau 5, quand ces pratiques seront mutualisées et mesurées par l'équipe elle-même.
+- **3 use cases montés de niveau** depuis le début de l'accompagnement : pilotage de projet (1 → 3), prototypes designers (1 → 4), pré-audit d'accessibilité (1 → 2).
 - Ce qui a permis ces progressions : estimations T-shirt, tickets design de visibilité, skills UX et formation prototypes, synchronisation des travaux d'accessibilité.
 - **Accessibilité, trois chantiers distincts** ([compte rendu du 29 juillet](../CR/transverse/Avancement%20RGAA_29-07.txt)) : rendre Egapro accessible (l'audit du code passe de **31 à 16 erreurs**), générer du code accessible (encore adossé au pré-audit, pas de solution autonome), pré-auditer l'accessibilité du code.
 - Sur ce dernier point, un [framework de suivi des performances de l'outil dans le temps](https://github.com/sboukhari-Ippon/RGAA-Tool-Monitoring) a été proposé à Max et Lucas. Lucas partage le besoin de mesurer ; Max, saturé entre trouver la solution et l'instrumenter, préfère se concentrer sur l'accessibilité d'Egapro. **Question ouverte pour Gary : qui porte l'outil de pré-audit hors des sprints Egapro et sans reposer sur Max, avec le dispositif de mesure intégré ?** Sans porteur ni mesure, l'outil restera piloté au feeling.
@@ -145,11 +218,11 @@ L'élan s'est concrétisé sans attendre : **dès le lundi 20 juillet, les déve
 - Le projet est piloté en mode produit mais ses indicateurs restent projet (coût, délais, qualité). L'usage de l'IA est faible, l'équipe n'a pas de visibilité sur la manière dont ses développeurs s'en servent, et **Aurélie exprime le sentiment de louper le train de l'IA**.
 - **Sa demande est explicite : être formée en même temps que Kahina à l'usage de l'IA pour le PM et le PO, mi-août**, avec l'ambition d'aller au-delà de la seule génération de tickets. Engagement de premier ordre : c'est elle qui est demandeuse.
 - Pistes identifiées avec elle : automatiser et intégrer des agents, mettre en place un workflow de conception et d'exploration dans Jira, suivre la dette technique, renforcer la communication entre développeurs, et — l'équipe ayant accès aux utilisateurs — **s'appuyer sur l'IA pour formuler les questions auxquelles personne n'aurait pensé** lors des entretiens.
-- 4 use cases sur 10 restent à évaluer : l'image se précisera au cadrage.
+- L'ensemble des use cases est au niveau découverte (les non observés sont notés 1 par convention) : l'image se précisera au cadrage de mi-août.
 
 ### VAO : en découverte
 
-- Niveau découverte sur les 5 use cases évalués (code, tests, orchestrations, pré-audits).
+- Niveau découverte sur l'ensemble des use cases.
 - L'atelier de formation au développement augmenté est fixé au **8 septembre**.
 
 ### Transverse : la stratégie en marche

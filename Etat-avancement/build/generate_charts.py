@@ -17,21 +17,24 @@ import os
 MAJ = "30 juillet 2026"
 
 # Matrice de maturité : niveau constaté par use case et périmètre.
-# Valeurs : 1|2|3, (avant, après) pour une progression, "?" à évaluer, None = NA
+# Valeurs : 1 à 5, (avant, après) pour une progression, None = NA.
+# Échelle : les use cases non encore observés sont notés 1 par convention.
 PERIMETRES = ["Egapro", "DACCORD", "SIRENA", "VAO", "Transverse"]
+
+NIVEAUX = ["Découverte", "Expérimentation", "Pratique régulière", "Maîtrise", "Standard d'équipe"]
 
 MATRICE = [
     # (métier, use case, [Egapro, DACCORD, SIRENA, VAO, Transverse])
-    ("Chefs de projet", "Piloter un projet développé avec l'IA",   [(1, 2), 1, 1, "?", None]),
-    ("Chefs de projet", "Générer des tickets de spec",             [1, 1, 1, "?", None]),
-    ("Chefs de projet / Développeurs", "Organiser le board (sprints, epics)", [3, 1, "?", "?", None]),
-    ("Designers",       "Générer des prototypes HTML/JS",          [(1, 3), "?", "?", "?", None]),
-    ("Développeurs",    "Générer du code de qualité",              [2, 2, "?", 1, None]),
-    ("Développeurs",    "Générer des tests",                       [3, 2, "?", 1, None]),
-    ("Développeurs",    "Utiliser des orchestrations",             [3, 1, 1, 1, None]),
+    ("Chefs de projet", "Piloter un projet développé avec l'IA",   [(1, 3), 1, 1, 1, None]),
+    ("Chefs de projet", "Générer des tickets de spec",             [1, 1, 1, 1, None]),
+    ("Chefs de projet / Développeurs", "Organiser le board (sprints, epics)", [4, 1, 1, 1, None]),
+    ("Designers",       "Générer des prototypes HTML/JS",          [(1, 4), 1, 1, 1, None]),
+    ("Développeurs",    "Générer du code de qualité",              [3, 3, 1, 1, None]),
+    ("Développeurs",    "Générer des tests",                       [4, 3, 1, 1, None]),
+    ("Développeurs",    "Utiliser des orchestrations",             [4, 1, 1, 1, None]),
     ("Développeurs",    "Pré-auditer l'accessibilité",             [(1, 2), 1, 1, 1, None]),
     ("Développeurs",    "Pré-auditer la sécurité",                 [1, 1, 1, 1, None]),
-    ("Développeurs",    "Outils &amp; system prompts communs",     [3, (1, 2), 1, "?", None]),
+    ("Développeurs",    "Outils &amp; system prompts communs",     [4, (1, 2), 1, 1, None]),
     ("Architectes",     "Générer un dossier d'architecture (DA)",  [None, None, None, None, 1]),
     ("Architectes",     "Outiller les référentiels d'architecture", [None, None, None, None, 1]),
 ]
@@ -70,6 +73,23 @@ MATURITE_IMPACT = {
     "Egapro": "pilotage · prototypes · pré-audit accessibilité",
     "DACCORD": "outils et system prompts communs",
 }
+
+# Impact des actions engagées : (libellé, nb de losanges, sous-texte)
+IMPACT_LEVELS = [
+    ("Déterminant", 3, "du concret dans le quotidien"),
+    ("Élevé", 2, "acculturations et formations"),
+    ("Modéré", 1, "cadrages, études, com"),
+]
+# (chantier, déterminant, élevé, modéré)
+IMPACTS = [
+    ("Egapro",     4, 0, 0),
+    ("DACCORD",    3, 1, 0),
+    ("SIRENA",     0, 1, 0),
+    ("VAO",        0, 1, 0),
+    ("Transverse", 4, 3, 8),
+]
+IMPACT_NOTE = ("Les actions à impact modéré sont toutes transverses : les chantiers de fond "
+               "(bench, Bedrock, outillage des postes) qui conditionnent le passage à l'échelle.")
 
 # Bench harness : (harness · modèle en tête, provider grisé dessous)
 BENCH = [
@@ -110,20 +130,20 @@ THEMES = {
         "grid": "#e1e0d9", "baseline": "#c3c2b7", "border": "rgba(11,11,11,0.10)",
         "good": "#006300", "accent": "#2a78d6",
         "status": {"good": "#0ca30c", "mid": "#fab219", "bad": "#d03b3b"},
-        "ramp3": ["#86b6ef", "#2a78d6", "#104281"],            # niveaux 1-2-3
-        "ramp4": ["#0d366b", "#1c5cab", "#3987e5", "#86b6ef"],  # pipeline réalisé → à lancer
-        "on_ramp3": ["#0b0b0b", "#ffffff", "#ffffff"],
-        "on_ramp4": ["#ffffff", "#ffffff", "#ffffff", "#0b0b0b"],
+        # niveaux 1 à 5 · séparation adjacente vérifiée (validate_palette.js),
+        # chaque cellule porte son chiffre (contraste texte ≥ 4,5:1)
+        "ramp5": ["#d8e8fb", "#8ab8f0", "#3987e5", "#1c5cab", "#0d366b"],
+        "on_ramp5": ["#0b0b0b", "#0b0b0b", "#0b0b0b", "#ffffff", "#ffffff"],
+        "impact3": ["#0d366b", "#3987e5", "#8ab8f0"],  # déterminant, élevé, modéré
     },
     "dark": {
         "surface": "#1a1a19", "ink": "#ffffff", "sec": "#c3c2b7", "muted": "#898781",
         "grid": "#2c2c2a", "baseline": "#383835", "border": "rgba(255,255,255,0.10)",
         "good": "#0ca30c", "accent": "#3987e5",
         "status": {"good": "#0ca30c", "mid": "#fab219", "bad": "#d03b3b"},
-        "ramp3": ["#9ec5f4", "#3987e5", "#184f95"],
-        "ramp4": ["#184f95", "#2a78d6", "#6da7ec", "#b7d3f6"],
-        "on_ramp3": ["#0b0b0b", "#ffffff", "#ffffff"],
-        "on_ramp4": ["#ffffff", "#ffffff", "#0b0b0b", "#0b0b0b"],
+        "ramp5": ["#dfeafc", "#92bef2", "#4f92e8", "#2565bd", "#123f77"],
+        "on_ramp5": ["#0b0b0b", "#0b0b0b", "#0b0b0b", "#ffffff", "#ffffff"],
+        "impact3": ["#dfeafc", "#92bef2", "#4f92e8"],  # déterminant, élevé, modéré
     },
 }
 
@@ -200,30 +220,25 @@ def chart_kpi(t):
 # ============================================================================
 
 def chart_maturite(t):
-    """Tableau chiffré : nombre de use cases par niveau atteint et par périmètre,
-    avec les use cases montés de niveau nommés (l'impact de l'accompagnement)."""
+    """Tableau chiffré : nombre de use cases par niveau atteint (échelle 1 à 5) et par
+    périmètre, avec les use cases montés de niveau nommés (l'impact de l'accompagnement)."""
     x_p = 32
-    cols = [("Maîtrise", 3, 195), ("En acquisition", 2, 320), ("Découverte", 1, 440), ("À évaluer", None, 535)]
-    x_imp = 595
-    y0, pitch = 132, 52
+    lvl_x = [140, 240, 340, 440, 540]  # colonnes niveaux 1 → 5
+    x_imp = 600
+    y0, pitch = 148, 52
     h = y0 + 4 * pitch + 40
     s = svg_open(h, t)
     s += title_block(t, "Niveaux atteints, périmètre par périmètre",
-                     "nombre de use cases métier par niveau atteint · 10 use cases suivis par périmètre")
-    # en-têtes : pastille de niveau + libellé
-    hy = y0 - 30
-    for lab, lv, xc in cols:
-        if lv:
-            lw = len(lab) * 7.2
-            cx0 = xc - (lw + 24) / 2
-            s += f'<rect x="{cx0}" y="{hy - 13}" width="18" height="18" rx="4" fill="{t["ramp3"][lv - 1]}"/>'
-            s += txt(cx0 + 9, hy, str(lv), 11, t["on_ramp3"][lv - 1], "600", anchor="middle")
-            s += txt(cx0 + 24, hy, lab, 12, t["sec"], "600")
-        else:
-            s += txt(xc, hy, lab, 12, t["sec"], "600", anchor="middle")
-    s += txt(x_imp, hy, "▲ Montés de niveau grâce à l'accompagnement", 12, t["good"], "600")
+                     "nombre de use cases métier par niveau atteint (échelle de 1 à 5) · 10 use cases suivis par périmètre")
+    # en-têtes : pastille de niveau, libellé dessous
+    hy1, hy2 = y0 - 52, y0 - 30
+    for lv, xc in enumerate(lvl_x, start=1):
+        s += f'<rect x="{xc - 9}" y="{hy1 - 13}" width="18" height="18" rx="4" fill="{t["ramp5"][lv - 1]}"/>'
+        s += txt(xc, hy1, str(lv), 11, t["on_ramp5"][lv - 1], "600", anchor="middle")
+        s += txt(xc, hy2, NIVEAUX[lv - 1], 10.5, t["sec"], "600", anchor="middle")
+    s += txt(x_imp, hy2, "▲ Montés de niveau grâce à l'accompagnement", 12, t["good"], "600")
     for i, p in enumerate(PERIMETRES[:4]):
-        counts = {1: 0, 2: 0, 3: 0, "?": 0}
+        counts = {lv: 0 for lv in range(1, 6)}
         prog = 0
         for _, _, levels in MATRICE:
             v = levels[i]
@@ -238,8 +253,8 @@ def chart_maturite(t):
         if i:
             s += f'<line x1="32" y1="{y - 26}" x2="888" y2="{y - 26}" stroke="{t["grid"]}" stroke-width="1"/>'
         s += txt(x_p, y + 7, p, 13.5, t["ink"], "600")
-        for lab, lv, xc in cols:
-            n = counts[lv if lv else "?"]
+        for lv, xc in enumerate(lvl_x, start=1):
+            n = counts[lv]
             if n:
                 s += txt(xc, y + 8, str(n), 20, t["ink"], "600", anchor="middle", tabular=True)
             else:
@@ -251,6 +266,53 @@ def chart_maturite(t):
             s += txt(x_imp + 14, y + 7, "–", 13, t["muted"], anchor="middle")
     s += txt(32, h - 20, "Le détail use case par use case figure dans la matrice de maturité "
              "de l'état d'avancement détaillé.", 11.5, t["muted"])
+    return s + "</svg>", h
+
+
+# ============================================================================
+# 2 bis. Impact des actions par chantier
+# ============================================================================
+
+def chart_impact(t):
+    """Tableau chiffré : nombre d'actions engagées par niveau d'impact et par chantier,
+    dans la même forme que le tableau des niveaux atteints (chiffres nus, axes lisibles)."""
+    x_p = 32
+    lvl_x = [300, 480, 650]   # colonnes déterminant, élevé, modéré
+    x_tot = 800
+    y0, pitch = 160, 46
+    n = len(IMPACTS)
+    total_y = y0 + n * pitch
+    h = total_y + pitch + 40
+    total = [sum(row[k + 1] for row in IMPACTS) for k in range(3)]
+    s = svg_open(h, t)
+    s += title_block(t, f"Impact des actions : {sum(total)} engagées, {total[0]} déterminantes",
+                     "chaque action est classée selon ce qu'elle change pour les équipes")
+    # en-têtes : losanges, libellé, définition courte
+    hy1, hy2, hy3 = y0 - 64, y0 - 44, y0 - 28
+    for k, (lab, nb, sub) in enumerate(IMPACT_LEVELS):
+        xc = lvl_x[k]
+        s += txt(xc, hy1, "◆" * nb, 12, t["impact3"][k], "600", anchor="middle", spacing="0.14em")
+        s += txt(xc, hy2, lab, 12, t["sec"], "600", anchor="middle")
+        s += txt(xc, hy3, sub, 10.5, t["muted"], anchor="middle")
+    s += txt(x_tot, hy2, "Total", 12, t["sec"], "600", anchor="middle")
+    for i, (chantier, *counts) in enumerate(IMPACTS):
+        y = y0 + i * pitch
+        if i:
+            s += f'<line x1="32" y1="{y - 23}" x2="888" y2="{y - 23}" stroke="{t["grid"]}" stroke-width="1"/>'
+        s += txt(x_p, y + 7, chantier, 13.5, t["ink"], "600")
+        for k, v in enumerate(counts):
+            if v:
+                s += txt(lvl_x[k], y + 8, str(v), 20, t["ink"], "600", anchor="middle", tabular=True)
+            else:
+                s += txt(lvl_x[k], y + 7, "–", 13, t["muted"], anchor="middle")
+        s += txt(x_tot, y + 8, str(sum(counts)), 15, t["sec"], "600", anchor="middle", tabular=True)
+    # ligne de total
+    s += f'<line x1="32" y1="{total_y - 23}" x2="888" y2="{total_y - 23}" stroke="{t["baseline"]}" stroke-width="1.5"/>'
+    s += txt(x_p, total_y + 7, "Total", 13.5, t["sec"], "600")
+    for k, v in enumerate(total):
+        s += txt(lvl_x[k], total_y + 8, str(v), 20, t["ink"], "600", anchor="middle", tabular=True)
+    s += txt(x_tot, total_y + 8, str(sum(total)), 15, t["sec"], "600", anchor="middle", tabular=True)
+    s += txt(32, h - 20, IMPACT_NOTE, 11.5, t["muted"])
     return s + "</svg>", h
 
 
@@ -336,7 +398,7 @@ def chart_matrice(t):
     h = int(legend_y + 46)
     s = svg_open(h, t)
     s += title_block(t, "Matrice de maturité IA : use case × périmètre",
-                     "niveau auquel l'accompagnement a amené chaque fonction · une flèche = progression apportée par l'accompagnement")
+                     "niveau auquel l'accompagnement a amené chaque fonction (échelle de 1 à 5) · une flèche = progression apportée par l'accompagnement")
     for j, p in enumerate(PERIMETRES):
         s += txt(x0 + j * (cell_w + gap) + cell_w / 2, top - 14, p, 12.5, t["ink"], "600", anchor="middle")
     for kind, data, yy in layout:
@@ -350,26 +412,19 @@ def chart_matrice(t):
             mid_x, mid_y = cx + cell_w / 2, yy + cell_h / 2 + 4.5
             if v is None:
                 s += txt(mid_x, mid_y, "–", 12, t["muted"], anchor="middle")
-            elif v == "?":
-                s += (f'<rect x="{cx}" y="{yy}" width="{cell_w}" height="{cell_h}" rx="4" '
-                      f'fill="none" stroke="{t["grid"]}" stroke-width="1"/>')
-                s += txt(mid_x, mid_y, "?", 12, t["muted"], anchor="middle")
             else:
                 lv = v[1] if isinstance(v, tuple) else v
                 cell_txt = f"{v[0]} → {v[1]}" if isinstance(v, tuple) else str(lv)
                 s += (f'<rect x="{cx}" y="{yy}" width="{cell_w}" height="{cell_h}" rx="4" '
-                      f'fill="{t["ramp3"][lv - 1]}"/>')
-                s += txt(mid_x, mid_y, cell_txt, 12.5, t["on_ramp3"][lv - 1], "600", anchor="middle")
+                      f'fill="{t["ramp5"][lv - 1]}"/>')
+                s += txt(mid_x, mid_y, cell_txt, 12.5, t["on_ramp5"][lv - 1], "600", anchor="middle")
     # légende
-    items = [("1", "Découverte"), ("2", "En acquisition"), ("3", "Maîtrise")]
     lx = 32
-    for i, (num, lab) in enumerate(items):
-        s += f'<rect x="{lx}" y="{legend_y}" width="18" height="18" rx="4" fill="{t["ramp3"][i]}"/>'
-        s += txt(lx + 9, legend_y + 13, num, 11, t["on_ramp3"][i], "600", anchor="middle")
+    for i, lab in enumerate(NIVEAUX):
+        s += f'<rect x="{lx}" y="{legend_y}" width="18" height="18" rx="4" fill="{t["ramp5"][i]}"/>'
+        s += txt(lx + 9, legend_y + 13, str(i + 1), 11, t["on_ramp5"][i], "600", anchor="middle")
         s += txt(lx + 25, legend_y + 13.5, lab, 12, t["sec"])
-        lx += 25 + len(lab) * 7.0 + 26
-    s += txt(lx + 4, legend_y + 13.5, "?  à évaluer", 12, t["sec"])
-    lx += 4 + 12 * 7.0 + 26
+        lx += 25 + len(lab) * 6.6 + 20
     s += txt(lx + 4, legend_y + 13.5, "–  non applicable", 12, t["sec"])
     return s + "</svg>", h
 
@@ -430,6 +485,7 @@ def chart_bench(t):
 CHARTS = {
     "01-kpi": chart_kpi,
     "02-maturite": chart_maturite,
+    "07-impact": chart_impact,
     "03-actions": chart_actions,
     "04-roadmap": chart_roadmap,
     "05-matrice": chart_matrice,
