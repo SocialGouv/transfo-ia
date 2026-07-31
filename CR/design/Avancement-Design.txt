@@ -1,0 +1,15 @@
+23-07-2026:
+vendredi 17-07-2026 j'ai échangé avec Norman et Louis.
+
+Norman a le sentiment que l'IA n'apporte pas grand chose aux designers, il a besoin d'être convaincu.
+
+Avec Louis nous avons pour objectif de produire un framework de skills qui permettront de générer des prototypes de designs incluant du DSFR, avec un gros focus sur l'anti hallucination sur le DSFR.
+
+Louis doit rassembler les règles d'UX à intégrer.
+De mon côté, mon rôle sera d'améliorer les skills pour les rendre performants.
+
+Nous pourrons ensuite tester la solution.
+
+Nous allons nous synchroniser avec Louis pour poser une roadmap claire.
+
+Une fois cela fait (c'est une condition) ,Norman me permettra  de faire une session acculturation aux designers.

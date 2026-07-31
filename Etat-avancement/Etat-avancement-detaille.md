@@ -1,12 +1,12 @@
 # État d'avancement détaillé
 
-Semaine du 13 au 17 juillet 2026 · [← retour à la synthèse](../README.md)
+Semaine du 27 au 31 juillet 2026 · [← retour à la synthèse](../README.md)
 
 ## Plan d'actions
 
 Le cœur du suivi : ce qui a été réalisé, ce qui est en cours, ce qui reste à faire.
 
-### ✅ Réalisées (4)
+### ✅ Réalisées (8)
 
 | Métier | Périmètre | Action | Ce qui a été fait |
 |---|---|---|---|
@@ -14,33 +14,44 @@ Le cœur du suivi : ce qui a été réalisé, ce qui est en cours, ce qui reste 
 | Développeurs | Egapro | Accompagner à la réalisation d'orchestrations | Orchestration « séparation codeur / testeur » en place |
 | Chefs de projet | Egapro | Permettre un meilleur suivi d'un projet utilisant l'IA | Estimations en taille de T-shirt sur les tickets ; tickets Design créés pour donner à l'équipe de la visibilité sur la roadmap design et la challenger |
 | Designers | Egapro | Accompagner à la génération de prototypes | Skill UX adapté au projet, skill d'audit UX, formation à la réalisation de prototypes de maquettes avec Claude |
+| Transverse | Transverse | Benchmark des harness et modèles de coding agentique | [Bench livré](../Livrables/benchHarness/Bench_Coding-Agentique.pdf) : 7 stacks comparées sur prix, performance (SWE-bench), souveraineté et conformité |
+| Transverse | Transverse | Cadrer la voie Bedrock avec AWS | [Échange du 23 juillet](../CR/transverse/AWS-Bedrock-23-07-2026.txt) : un large catalogue de modèles est accessible via Bedrock (dont les open-weight chinois) en conservant l'observabilité ; possibilité d'utiliser des modèles moins chers que ceux d'Anthropic, ce qui compte quand on paie au token. AWS revient avec la liste des modèles disponibles et une documentation d'observabilité |
+| Architectes | Transverse | Cadrer avec Igor l'outillage des référentiels d'architecture | [Échange du 28 juillet](../CR/transverse/Igor-28-07.txt) : le besoin est posé (les référentiels et les DA vivent sur SharePoint, versions difficiles à tracer, structure jamais à jour, ressaisie d'information), la cible est arrêtée (un dépôt de fiches, un dépôt de documents de contexte construits dessus, publication en GitLab Pages, liens vers la source) et la gouvernance aussi (relecteurs, arbitrage final par Igor, ouverture en lecture aux consommateurs dont la TMA). Contrepartie obtenue : l'appui d'Igor sur l'outillage des postes internes |
+| Transverse | Transverse | Livrer au CEPS l'automatisation de la veille du Journal officiel | [Restitution du 30 juillet](../CR/transverse/CEPS_Sabine_Lugand.txt) : Sabine Lugand est satisfaite de l'outil, la newsletter mensuelle sur les spécialités pharmaceutiques est quasi automatisée. La main est passée à Victor Degliame pour la suite (portage hors Python, évolutions demandées) |
 
-### 🔄 En cours (3)
+### 🔄 En cours (4)
 
 | Métier | Périmètre | Action | Prochaine étape |
 |---|---|---|---|
 | Développeurs | DACCORD | Adapter les orchestrations Egapro à Jira | Poursuivre l'adaptation, puis la mettre entre les mains de l'équipe |
-| Développeurs | Egapro | Piloter le pré-audit d'accessibilité | Synchroniser les retours de Marie et le travail de Max ; synchroniser Amelle et Victor |
-| Chefs de projet | DACCORD | Accompagner la génération de tickets de spec | Organiser le point avec Kahina à son retour de congés |
+| Développeurs | Egapro | Piloter le pré-audit d'accessibilité | Un [framework de suivi des performances](https://github.com/sboukhari-Ippon/RGAA-Tool-Monitoring) a été proposé à Max et Lucas ; Lucas partage le besoin de mesurer, Max préfère se concentrer sur l'accessibilité d'Egapro. À arbitrer avec Gary : qui porte l'outil de pré-audit hors des sprints Egapro, avec la mesure intégrée |
+| Architectes | Transverse | Constituer le référentiel d'architecture outillé (fiches, documents de contexte, skills) | Récupérer le référentiel auprès de Mathias, produire un premier jet de skills, créer et épurer le dépôt, laisser Igor le compléter, figer une version 0.1, puis embarquer la conformité numérique |
+| Chefs de projet | DACCORD | Accompagner la génération de tickets de spec | Accompagner Kahina à son retour de congés, en session commune avec Aurélie (SIRENA), mi-août |
 
-### 📅 Planifiées (3)
+### 📅 Planifiées (10)
 
 | Métier | Périmètre | Action | Échéance |
 |---|---|---|---|
 | Architectes | Transverse | Atelier de génération de DA avec l'IA | 3 août |
 | Transverse | Transverse | Claude Enterprise : discussions avec Software One | Atelier le 3 août |
-| Développeurs | VAO | Atelier de formation au développement augmenté | Septembre, à planifier avec Anselme à son retour |
+| Développeurs | DACCORD | Atelier d'amélioration des skills (suite de la mise en commun engagée par l'équipe) | 6 août |
+| Chefs de projet | SIRENA | Former Aurélie à l'usage de l'IA pour le PM et le PO, au-delà de la seule génération de tickets | Mi-août, en session commune avec Kahina (DACCORD), à son retour de congés |
+| Designers | Transverse | Construire avec Louis la solution de prototypes conformes DSFR (skills anti-hallucination) | Août |
+| Transverse | Transverse | Benchmark des modèles et harness, élargi aux modèles disponibles sur Bedrock | Courant août, dès réception de la liste des modèles par AWS |
+| Architectes | Transverse | Demi-journée d'acculturation IA avec Igor et les architectes | Fin août, un mardi ou un jeudi |
+| Transverse | Transverse | Rencontrer Céline Liechti pour être orientés vers les personnes qui gèrent le centre logiciel, et y faire packager les harness cibles | Dès que le créneau est posé |
+| Développeurs | VAO | Atelier de formation au développement augmenté | 8 septembre |
+| Transverse | Transverse | Cartographier les bénéficiaires des comptes Bedrock (internes, et externes sur sujets sensibles) | Fin septembre |
 
-### ⏳ À lancer (4)
+### ⏳ À lancer (3)
 
 | Métier | Périmètre | Action | Première étape |
 |---|---|---|---|
 | Product Owners | Transverse | Former à la fenêtre de contexte et au prompt engineering, présenter un use case | Valider l'intérêt d'une séance d'acculturation IA avec Olivier |
-| Designers | Transverse | Stratégie d'embarquement des designers | Échanger avec Norman et Louis, sur la base des use cases validés et éprouvés sur Egapro |
-| Transverse | Transverse | Outillage IA des internes | Dénombrer les utilisateurs internes à équiper en sièges Claude Enterprise via Bedrock ; point de vigilance : les externes peuvent conserver leur abonnement Claude (forfait), les internes démarreront à environ 20 € par siège plus la consommation au token, au prix du modèle |
-| Transverse | Transverse | Benchmark des modèles et harness alternatifs à Claude | Préparer un scénario Albert (DeepSeek v4 flash via OpenCode) et un scénario Claude avec et sans abonnement |
+| Designers | Transverse | Session d'acculturation de l'ensemble des designers | Éprouver d'abord la solution de prototypes DSFR construite avec Louis ; c'est la condition posée par Norman pour ouvrir la démarche à tous les designers |
+| Transverse | Transverse | Évangéliser les équipes du CEPS rencontrées par Victor | Capitaliser sur le MVP livré à Sabine Lugand : trois jours pour quasi automatiser une newsletter mensuelle, avec un besoin clair |
 
-### 🧭 Déclinaisons à cadrer (11)
+### 🧭 Déclinaisons à cadrer (10)
 
 Actions déjà éprouvées sur un périmètre, à décliner sur les autres une fois le cadrage fait avec chaque équipe.
 
@@ -49,7 +60,7 @@ Actions déjà éprouvées sur un périmètre, à décliner sur les autres une f
 | Former au développement augmenté | SIRENA |
 | Accompagner à la réalisation d'orchestrations | SIRENA · VAO |
 | Piloter le pré-audit d'accessibilité | DACCORD · SIRENA · VAO |
-| Accompagner la génération de tickets de spec | SIRENA · VAO |
+| Accompagner la génération de tickets de spec | VAO |
 | Accompagner à la génération de prototypes | DACCORD · SIRENA · VAO |
 
 ## Matrice de maturité
@@ -74,23 +85,24 @@ La matrice mesure **le niveau auquel l'accompagnement a amené chaque fonction d
 
 | Métier | Use case | Egapro | DACCORD | SIRENA | VAO | Transverse |
 |---|---|:---:|:---:|:---:|:---:|:---:|
-| Chefs de projet | Piloter un projet développé avec l'IA | 1 → 2 | 1 | ? | ? | – |
-| Chefs de projet | Générer des tickets de spec | 1 | 1 | ? | ? | – |
-| Chefs de projet | Organiser le board (sprints, epics) | 3 | 1 | ? | ? | – |
+| Chefs de projet | Piloter un projet développé avec l'IA | 1 → 2 | 1 | 1 | ? | – |
+| Chefs de projet | Générer des tickets de spec | 1 | 1 | 1 | ? | – |
+| Chefs de projet / Développeurs | Organiser le board (sprints, epics) | 3 | 1 | ? | ? | – |
 | Designers | Générer des prototypes HTML/JS | 1 → 3 | ? | ? | ? | – |
 | Développeurs | Générer du code de qualité | 2 | 2 | ? | 1 | – |
 | Développeurs | Générer des tests | 3 | 2 | ? | 1 | – |
 | Développeurs | Utiliser des orchestrations | 3 | 1 | 1 | 1 | – |
 | Développeurs | Pré-auditer l'accessibilité | 1 → 2 | 1 | 1 | 1 | – |
 | Développeurs | Pré-auditer la sécurité | 1 | 1 | 1 | 1 | – |
-| Développeurs | Outils & system prompts communs | 3 | ? | 1 | ? | – |
+| Développeurs | Outils & system prompts communs | 3 | 1 → 2 | 1 | ? | – |
 | Architectes | Générer un dossier d'architecture (DA) | – | – | – | – | 1 |
+| Architectes | Outiller les référentiels d'architecture | – | – | – | – | 1 |
 
 </details>
 
 ## Zoom : coaching développement augmenté, DACCORD (16 juillet)
 
-Session avec les développeurs de l'équipe, couvrant l'ensemble de la chaîne du développement augmenté ([compte rendu](../CR/Feedback_Coaching_Devs_DACCORD.docx)) :
+Session avec les développeurs de l'équipe, couvrant l'ensemble de la chaîne du développement augmenté ([compte rendu](../CR/developpeurs/Feedback_Coaching_Devs_DACCORD.docx)) :
 
 - prompt engineering et enjeu de fenêtre de contexte ;
 - system prompts : agents, rules, skills ;
@@ -105,7 +117,7 @@ Session avec les développeurs de l'équipe, couvrant l'ensemble de la chaîne d
 - « le fait de partir du niveau de l'équipe, et qu'on parvienne quand même à la fin à comprendre les orchestrations, tout en ayant le sentiment que c'est atteignable » ;
 - « la formation permet de se projeter sur les compétences à acquérir ».
 
-L'équipe se projette : un **atelier de co-construction de skills, agents et rules** propres à DACCORD est en préparation pour les prochaines semaines, pour transformer l'élan de la session en pratiques d'équipe.
+L'élan s'est concrétisé sans attendre : **dès le lundi 20 juillet, les développeurs ont engagé de leur propre initiative la mise en commun de leurs system prompts (agents, rules, skills)**, de quoi faire monter le use case « outils et system prompts communs » au niveau 2. La mission a proposé une relecture de leurs premiers skills, avant l'**atelier d'amélioration des skills du 6 août** qui ancrera ces pratiques dans le quotidien de l'équipe.
 
 ## Focus par chantier
 
@@ -114,34 +126,46 @@ L'équipe se projette : un **atelier de co-construction de skills, agents et rul
 - Le périmètre le plus avancé : **5 use cases au niveau maîtrise** (orchestrations, tests, board, outillage commun, prototypes designers).
 - **3 use cases montés de niveau** depuis le début de l'accompagnement : pilotage de projet (1 → 2), prototypes designers (1 → 3), pré-audit d'accessibilité (1 → 2).
 - Ce qui a permis ces progressions : estimations T-shirt, tickets design de visibilité, skills UX et formation prototypes, synchronisation des travaux d'accessibilité.
+- **Accessibilité, trois chantiers distincts** ([compte rendu du 29 juillet](../CR/transverse/Avancement%20RGAA_29-07.txt)) : rendre Egapro accessible (l'audit du code passe de **31 à 16 erreurs**), générer du code accessible (encore adossé au pré-audit, pas de solution autonome), pré-auditer l'accessibilité du code.
+- Sur ce dernier point, un [framework de suivi des performances de l'outil dans le temps](https://github.com/sboukhari-Ippon/RGAA-Tool-Monitoring) a été proposé à Max et Lucas. Lucas partage le besoin de mesurer ; Max, saturé entre trouver la solution et l'instrumenter, préfère se concentrer sur l'accessibilité d'Egapro. **Question ouverte pour Gary : qui porte l'outil de pré-audit hors des sprints Egapro et sans reposer sur Max, avec le dispositif de mesure intégré ?** Sans porteur ni mesure, l'outil restera piloté au feeling.
 - Prochain palier : le pré-audit de sécurité (encore en découverte).
 
 ### DACCORD : l'équipe qui monte
 
 - Coaching développement augmenté du 16 juillet très bien reçu ; l'équipe se projette vers un haut niveau de maîtrise.
+- **Passage à l'acte dès le 20 juillet** : mise en commun des system prompts (agents, rules, skills) engagée par les développeurs de leur propre initiative ; **premier use case DACCORD monté de niveau (1 → 2)**. La mission relit leurs premiers skills.
+- **Atelier d'amélioration des skills le 6 août** avec les développeurs, puis suivi de l'intégration et accompagnement à l'orchestration pour les personnes volontaires.
 - Les orchestrations éprouvées sur Egapro sont en cours d'adaptation à Jira, pour un transfert direct de savoir-faire entre périmètres.
-- Côté chefs de projet, l'accompagnement à la génération de tickets de spec reprend au retour de congés de Kahina.
-- À venir : atelier de co-construction de skills, agents et rules, suivi de leur intégration, accompagnement à l'orchestration pour les personnes volontaires.
+- Côté chefs de projet, Kahina sera accompagnée à son retour de congés sur la génération de tickets de spec, **mi-août, en session commune avec Aurélie (SIRENA)**.
 
-### SIRENA : diagnostic posé
+### SIRENA : diagnostic complété, demande entrante
 
-- Usage IA réel mais individuel : contexte `.claude` global sur l'application, production et revue de code assistées chez une partie des développeurs.
-- Pas encore de coordination d'équipe : outils et documents de contexte non mutualisés, base de contexte exploitée mais non maintenue.
-- L'équipe est intéressée par une démo et un atelier skills ; une vérification de conformité à l'échelle de l'équipe a été évoquée.
-- 6 use cases sur 10 restent à évaluer : l'image se précisera au cadrage.
+- Côté développeurs : usage IA réel mais individuel (contexte `.claude` global sur l'application, production et revue de code assistées chez une partie des développeurs), sans coordination d'équipe — outils et documents de contexte non mutualisés, base de contexte exploitée mais non maintenue.
+- **Côté produit, la cheffe de projet a été rencontrée le 30 juillet** ([compte rendu](../CR/products/CDP-SIRENA-30-07.txt)). Aurélie a repris le projet en juin après Delphine ; elle partagera les rôles PM et PO avec Valérie (prestataire), les deux tenant les deux rôles. L'équipe compte aussi Axelle (design) et Stéphania (recherche utilisateur).
+- Le projet est piloté en mode produit mais ses indicateurs restent projet (coût, délais, qualité). L'usage de l'IA est faible, l'équipe n'a pas de visibilité sur la manière dont ses développeurs s'en servent, et **Aurélie exprime le sentiment de louper le train de l'IA**.
+- **Sa demande est explicite : être formée en même temps que Kahina à l'usage de l'IA pour le PM et le PO, mi-août**, avec l'ambition d'aller au-delà de la seule génération de tickets. Engagement de premier ordre : c'est elle qui est demandeuse.
+- Pistes identifiées avec elle : automatiser et intégrer des agents, mettre en place un workflow de conception et d'exploration dans Jira, suivre la dette technique, renforcer la communication entre développeurs, et — l'équipe ayant accès aux utilisateurs — **s'appuyer sur l'IA pour formuler les questions auxquelles personne n'aurait pensé** lors des entretiens.
+- 4 use cases sur 10 restent à évaluer : l'image se précisera au cadrage.
 
 ### VAO : en découverte
 
 - Niveau découverte sur les 5 use cases évalués (code, tests, orchestrations, pré-audits).
-- L'atelier de formation au développement augmenté est prévu en septembre, à planifier avec Anselme à son retour.
+- L'atelier de formation au développement augmenté est fixé au **8 septembre**.
 
 ### Transverse : la stratégie en marche
 
 - Stratégie en trois horizons présentée et validée ([support](../Livrables/Pr%C3%A9sentation-strat%C3%A9gie-transfo-ia/Point-etape_Adoption-IA.pdf)).
 - Architectes : atelier de génération de DA le 3 août ; générateurs comparatifs Claude / DeepSeek déjà construits ([réalisations](../Livrables/Realisations_par_metier/Architectes/)).
-- Outillage : discussions Software One sur Claude Enterprise (atelier le 3 août), dénombrement des sièges à équiper via Bedrock à lancer. Vigilance coûts : les externes peuvent conserver leur abonnement Claude, les internes démarreront à environ 20 € par siège plus la consommation au token (prix du modèle).
-- Harness : [bench de coding agentique livré](../Livrables/benchHarness/Bench_Coding-Agentique.pdf) ; benchmark élargi en conditions réelles à préparer (scénarios Albert et Claude).
-- POs et designers : deux stratégies d'embarquement à ouvrir (Olivier ; Norman et Louis).
+- **Référentiels d'architecture cadrés avec Igor le 28 juillet** ([intérêt](../CR/transverse/Interet_Igor.txt) · [compte rendu](../CR/transverse/Igor-28-07.txt)) : les référentiels et les DA vivent sur SharePoint, avec les effets connus (versions difficiles à tracer, structure des documents jamais à jour, ressaisie d'information, partage mal maîtrisé). Cible retenue : un dépôt de fiches faisant source de vérité, un dépôt de documents de contexte construits dessus, publiés en GitLab Pages, chaque élément renvoyant vers sa source ; puis une **bibliothèque de skills standards validés par les responsables du référentiel**, pour que la règle d'architecture soit exploitable dans l'IDE au moment où l'on écrit le DA. Gouvernance posée par Igor : relecteurs, arbitrage final par lui, ouverture en lecture à tous les consommateurs (TMA comprise). Il est ouvert sur les documents de contexte à créer et nous invite à y mettre ce qui compte dans notre quotidien.
+- Séquence : récupérer le référentiel auprès de Mathias, produire un premier jet de skills, créer et épurer le dépôt, laisser Igor le compléter, figer une version 0.1, puis embarquer la conformité numérique. Le studio d'architecture, qui détient déjà le cadre de cohérence, peut être sollicité en cas de manque. Créneau de rapprochement : le jeudi de 14 h à 15 h, où Igor réunit les architectes. **Contrainte de calendrier : ses développeurs partent en septembre et en octobre.**
+- **Outillage des postes internes — le point dur de la mission trouve une piste.** Un agent interne sur poste managé ne peut pas installer un harness. Deux voies : le packaging par le **centre logiciel** (Igor nous invite à rencontrer **Céline Liechti**, qui saura nous orienter vers les bonnes personnes) ou la **demande de compte administrateur temporaire** contresignée par le manager. Côté développeurs, la sécurité s'oriente vers des postes à système libre avec une VM dédiée à la bureautique, la bureautique n'ayant pas vocation à tourner sur un environnement aussi ouvert. Point à vérifier : `npx` semble bloqué, HTTP passe.
+- Une **demi-journée d'acculturation IA avec Igor et les architectes est à poser fin août** (un mardi ou un jeudi).
+- **Bedrock cadré avec AWS (23 juillet)** : large catalogue de modèles accessible (dont open-weight chinois) en conservant l'observabilité, donc possibilité de modèles moins chers que ceux d'Anthropic (un levier réel quand on paie au token). En attente : liste des modèles disponibles et documentation d'observabilité. Cartographie des bénéficiaires des comptes Bedrock (internes, et externes sur sujets sensibles) prévue fin septembre. Vigilance coûts : les externes peuvent conserver leur abonnement Claude, les internes démarreront à environ 20 € par siège plus la consommation au token (prix du modèle).
+- Outillage : discussions Software One sur Claude Enterprise (atelier le 3 août).
+- Harness : [bench de coding agentique livré](../Livrables/benchHarness/Bench_Coding-Agentique.pdf) ; élargissement aux modèles Bedrock courant août (dès la liste AWS), puis bench en conditions réelles (scénarios Albert et Claude).
+- Designers : solution de prototypes conformes DSFR à construire avec Louis en août ; une fois éprouvée, session d'acculturation de l'ensemble des designers avec l'appui de Norman.
+- POs : acculturation IA à valider avec Olivier.
+- **Visibilisation hors DNUM (CEPS)** : l'outil de veille du Journal officiel sur les spécialités pharmaceutiques a été livré et **Sabine Lugand est satisfaite** ([compte rendu](../CR/transverse/CEPS_Sabine_Lugand.txt)). La main est passée à Victor Degliame : rendre la solution utilisable par des personnes qui ne peuvent pas installer Python, et intégrer les évolutions demandées. Reste à évangéliser les équipes du CEPS que Victor a rencontrées, avec un argument vérifiable — trois jours pour quasi automatiser une newsletter mensuelle — et un message : l'IA permet de produire vite dès lors que le besoin est clair.
 
 ## Livrables à date
 
@@ -149,7 +173,7 @@ L'équipe se projette : un **atelier de co-construction de skills, agents et rul
 |---|---|---|
 | Stratégie de transformation IA (point d'étape) | Direction | [PDF](../Livrables/Pr%C3%A9sentation-strat%C3%A9gie-transfo-ia/Point-etape_Adoption-IA.pdf) |
 | Bench des harness de coding agentique | Direction, tech leads | [PDF](../Livrables/benchHarness/Bench_Coding-Agentique.pdf) |
-| Kit de configuration dev augmenté (analyse → implémentation → portage Jira) | Développeurs | [tuto-config](../Livrables/Realisations_par_metier/Developpeurs/tuto-config/) |
+| Kit de configuration dev augmenté (analyse → implémentation → portage Jira) | Développeurs | [tuto-config_Orchestration](../Livrables/Realisations_par_metier/Developpeurs/tuto-config_Orchestration/) |
 | Skills de pré-audit RGAA et cyber | Développeurs | [RGAA_et_Cyber](../Livrables/Realisations_par_metier/Developpeurs/RGAA_et_Cyber/) |
 | Skill UX projet, skill d'audit UX, use case maquette | Designers | [Designers](../Livrables/Realisations_par_metier/Designers/) |
 | Générateurs de dossiers d'architecture (Claude / DeepSeek) | Architectes | [Architectes](../Livrables/Realisations_par_metier/Architectes/) |

@@ -1,0 +1,29 @@
+Avancement RGAA
+
+23-07-2026:
+Max présente les avancements sur l'IA.
+
+des réussites sont relevées sur le html sémantique (simple pour l'IA).
+branche "rgaa-persist"
+
+à partir des retours de Marie:
+mis en place des fix 
+
+améliorer la gen de code 
+
+gestion des focus : ia gen
+
+faux positifs 
+- difficultés à voir les pb de gestion de focus 
+- espacements problématiques pas perçus
+
+faux négatifs
+- espacement de textes pas problématiques parfois et remontés -> mettre des captures d'écran
+
+
+Pb d'exploration de fichiers
+Fiabilité des retours: des retours hallucinés
+pb de performance: capacité à soulever les pb
+
+
+

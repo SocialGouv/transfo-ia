@@ -1,0 +1,11 @@
+23-07-2026:
+
+J'ai accompagné Sabine Lugand du CEPS afin de rendre visible l'accompagnement IA du studio Tech de la DNUM.
+
+Le besoin initial était d'automatiser avec de l'IA un mail newsletter sur de la veille du JO concernant les spécialités pharmaceutiques.
+
+Je suis parvenu à atteindre l'objectif sans avoir besoin d'utiliser d'IA dans la solution.
+
+next steps: 
+- tester les edge cases
+- envoyer la solution à Sabine, qui a validé l'intérêt

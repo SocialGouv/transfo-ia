@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Benchmark harness de coding agentique - 4 stacks compares.
+"""Benchmark harness de coding agentique - 7 stacks comparees.
 Charte DSFR Ministeres Sociaux (meme systeme que les decks Point d'etape IA).
-3 slides : (1) matrice comparative 4x4, (2) couts externes vs internes,
+3 slides : (1) matrice comparative 7x5, (2) couts externes vs internes,
 (3) cas d'usage + recommandation.
-Chiffres verifies sur sources primaires le 10/07/2026 (voir notes de chaque slide)."""
+Chiffres verifies sur sources primaires les 10/07 et 23/07/2026 (voir notes de chaque slide)."""
 import os
 from pptx import Presentation
 from pptx.util import Inches, Pt
@@ -21,7 +21,7 @@ LAV="E3E3FD"; CARD="F5F5FE"; CARD2="ECECFE"; RED="E1000F"; GOLD="FFC800"
 WHITE="FFFFFF"; RULE="DDDDDD"
 GREEN="18753C"; AMBER="B85C00"; DOTOFF="D2D2E8"
 MAR = "Marianne"
-DATE = "17/07/2026"
+DATE = "23/07/2026"
 
 SW, SH = 13.333, 7.5
 ML = 0.85
@@ -127,76 +127,101 @@ def build(out):
     # SLIDE 1 — MATRICE COMPARATIVE
     # =========================================================
     s = slide(prs); header(s); footer(s, 1)
-    title_block(s, [R("Coding agentique : comparer 4 stacks", sz=30, b=True, c=INK)])
-    subtitle(s, "Prix, performance, souveraineté, faisabilité. Tarifs vérifiés sur sources primaires (10/07/2026).")
+    title_block(s, [R("Coding agentique : comparer 7 stacks", sz=30, b=True, c=INK)])
+    subtitle(s, "Prix, performance, souveraineté, conformité, faisabilité. Tarifs vérifiés sur sources primaires (23/07/2026).")
 
     # --- geometrie de la grille ---
     labx = ML                 # colonne libelles critere
-    labw = 2.15
-    gx0 = ML + labw + 0.12    # debut colonnes solutions
-    gap = 0.16
-    ncol = 4
+    labw = 1.85
+    gx0 = ML + labw + 0.10    # debut colonnes solutions
+    gap = 0.10
+    ncol = 7
     colw = (MR - gx0 - (ncol-1)*gap) / ncol
     cxs = [gx0 + i*(colw+gap) for i in range(ncol)]
-    hy = 2.38; hh = 0.70      # ligne d'entete
-    ry0 = hy + hh + 0.12      # debut lignes
-    rh = 0.78; rgap = 0.10
+    hy = 2.32; hh = 0.84      # ligne d'entete (harness + modele + provider)
+    ry0 = hy + hh + 0.10      # debut lignes
+    rh = 0.66; rgap = 0.06
 
-    # --- entetes de colonnes (les 4 solutions) ---
+    # --- entetes de colonnes : harness + modele en avant, provider grise ---
     cols = [
-        ("Claude Code", "Opus 4.8", BLUE),
-        ("OpenCode", "Albert · DeepSeek V4 Flash", PERI),
-        ("OpenCode", "GLM 5.2 · OpenRouter", PERI),
-        ("OpenCode", "DeepSeek V4 Pro · OR", PERI),
+        ("Claude Code", "Opus 4.8", "Anthropic", BLUE),
+        ("Claude Code", "Fable 5", "AWS Bedrock", BLUE),
+        ("Vibe", "Medium 3.5", "Mistral", PERI),
+        ("OpenCode", "DeepSeek V4 Flash", "Albert (DINUM)", PERI),
+        ("OpenCode", "DeepSeek V4 Pro", "OpenRouter", PERI),
+        ("OpenCode", "GLM 5.2", "OpenRouter", PERI),
+        ("OpenCode", "Kimi K3", "OpenRouter", PERI),
     ]
-    for i,(a,b,cc) in enumerate(cols):
+    for i,(a,m,pv,cc) in enumerate(cols):
         rect(s, cxs[i], hy, colw, hh, fill=cc, rounded=True, radius=0.08)
-        tf = tb(s, cxs[i]+0.08, hy, colw-0.16, hh, MSO_ANCHOR.MIDDLE)
-        para(tf, [R(a, sz=13.5, b=True, c=WHITE)], align=PP_ALIGN.CENTER, sa=0, ls=1.0, first=True)
-        para(tf, [R(b, sz=10, c="E3E3FD")], align=PP_ALIGN.CENTER, sa=0, sb=2, ls=1.0)
+        tf = tb(s, cxs[i]+0.06, hy, colw-0.12, hh, MSO_ANCHOR.MIDDLE)
+        para(tf, [R(a, sz=11.5, b=True, c=WHITE)], align=PP_ALIGN.CENTER, sa=0, ls=1.0, first=True)
+        para(tf, [R(m, sz=10, b=True, c=WHITE)], align=PP_ALIGN.CENTER, sa=0, sb=1, ls=1.0)
+        para(tf, [R(pv, sz=8.5, c="C9C9F2")], align=PP_ALIGN.CENTER, sa=0, sb=2, ls=1.0)
 
-    # --- lignes (criteres) : (icone, libelle, [ (score, val_lignes) x4 ]) ---
+    # --- lignes (criteres) : (icone, libelle, [ (score, val_lignes) x7 ]) ---
     rows = [
         ("bank", "Prix", "/ 1M tokens", [
             (2, ["5 $ / 25 $", "+ siège 20–125 $/m"]),
+            (1, ["10 $ / 50 $", "+ siège ≈20 €/m"]),
+            (4, ["1,50 $ / 7,50 $", "plans dès 14,99 $/m"]),
             (5, ["Gratuit", "quotas, agents État"]),
-            (4, ["≈1,40 $ / 4,40 $", ""]),
             (5, ["0,44 $ / 0,87 $", "tarif preview *"]),
+            (4, ["1,40 $ / 4,40 $", ""]),
+            (3, ["3 $ / 15 $", "cache −60/80 %"]),
         ]),
         ("code-s-slash", "Performance", "SWE-bench Verified", [
             (5, ["88,6 %", ""]),
-            (4, ["≈79 % *", "via DeepSeek V4 Flash"]),
-            (4, ["≈78 % *", "Term-Bench 81–83 %"]),
+            (5, ["95,0 %", "tête du bench"]),
+            (4, ["77,6 %", ""]),
+            (4, ["≈79 % *", "estimée"]),
             (4, ["80,6 %", ""]),
+            (4, ["≈78 % *", "estimée"]),
+            (5, ["93,4 % *", "annoncé éditeur"]),
         ]),
-        ("shield-check", "Souveraineté", "éditeur / hébergement", [
-            (2, ["Éditeur US", "CLOUD Act"]),
+        ("shield-check", "Souveraineté", "au sens CNIL", [
+            (1, ["Éditeur US", "CLOUD Act"]),
+            (1, ["Cloud US", "CLOUD Act (CNIL)"]),
+            (4, ["Éditeur FR", "SecNumCloud en opt."]),
             (5, ["État FR", "SecNumCloud"]),
             (1, ["Éditeur CN", "+ routeur US"]),
             (1, ["Éditeur CN", "+ routeur US"]),
+            (1, ["Éditeur CN", "+ routeur US"]),
+        ]),
+        ("shield-check", "Conformité", "RGPD / données", [
+            (3, ["Partielle", "transfert hors UE"]),
+            (4, ["Bonne", "région UE · DPA AWS"]),
+            (5, ["Bonne", "RGPD · éditeur FR"]),
+            (5, ["Bonne", "cadre État (DINUM)"]),
+            (1, ["Insuffisante", "sans garanties UE"]),
+            (1, ["Insuffisante", "sans garanties UE"]),
+            (1, ["Insuffisante", "sans garanties UE"]),
         ]),
         ("settings-3", "Faisabilité", "poste interne", [
-            (4, ["Mac/Linux/Win natif", "outil mûr, admin. ent."]),
-            (3, ["OpenAI-compat.", "agents État · quotas CI"]),
+            (4, ["Multi-OS natif", "outil mûr, admin ent."]),
+            (3, ["Bedrock (IAM)", "data sharing requis"]),
+            (3, ["CLI + VS Code", "clé Mistral ou plan"]),
+            (3, ["OpenAI-compat.", "agents État · quotas"]),
             (3, ["clé OpenRouter", "Mac/Linux/Win (WSL)"]),
             (3, ["clé OpenRouter", "Mac/Linux/Win (WSL)"]),
+            (3, ["clé OpenRouter", "capacité limitée"]),
         ]),
     ]
 
     for r,(ic,lab,sub,cells) in enumerate(rows):
         ry = ry0 + r*(rh+rgap)
         rect(s, labx, ry, MR-labx, rh, fill=CARD, rounded=True, radius=0.05)
-        icon(s, ic, labx+0.16, ry+(rh-0.40)/2, 0.40)
-        tfl = tb(s, labx+0.70, ry, labw-0.72, rh, MSO_ANCHOR.MIDDLE)
-        para(tfl, [R(lab, sz=14.5, b=True, c=INK)], sa=0, ls=1.0, first=True)
-        para(tfl, [R(sub, sz=9.5, c=MENTION)], sa=0, sb=2, ls=1.0)
+        icon(s, ic, labx+0.14, ry+(rh-0.36)/2, 0.36)
+        tfl = tb(s, labx+0.62, ry, labw-0.64, rh, MSO_ANCHOR.MIDDLE)
+        para(tfl, [R(lab, sz=13, b=True, c=INK)], sa=0, ls=1.0, first=True)
+        para(tfl, [R(sub, sz=9, c=MENTION)], sa=0, sb=2, ls=1.0)
         for i,(score,vals) in enumerate(cells):
             cx = cxs[i]
-            dots(s, cx+0.12, ry+0.10, colw-0.2, score, col_for(score))
-            tfc = tb(s, cx+0.12, ry+0.38, colw-0.2, rh-0.42, MSO_ANCHOR.TOP)
-            para(tfc, [R(vals[0], sz=11.5, b=True, c=INK)], align=PP_ALIGN.LEFT, sa=0, ls=1.0, first=True)
+            dots(s, cx+0.08, ry+0.05, colw-0.14, score, col_for(score))
+            tfc = tb(s, cx+0.08, ry+0.30, colw-0.14, rh-0.32, MSO_ANCHOR.TOP)
+            para(tfc, [R(vals[0], sz=10, b=True, c=INK)], align=PP_ALIGN.LEFT, sa=0, ls=1.0, first=True)
             if len(vals)>1 and vals[1]:
-                para(tfc, [R(vals[1], sz=9.5, c=MENTION)], align=PP_ALIGN.LEFT, sa=0, sb=1, ls=1.0)
+                para(tfc, [R(vals[1], sz=8, c=MENTION)], align=PP_ALIGN.LEFT, sa=0, sb=1, ls=1.0)
 
     # legende + note bas
     ly = ry0 + len(rows)*(rh+rgap) + 0.02
@@ -204,10 +229,26 @@ def build(out):
     para(tf, [R("● ● ● ● ● ", sz=10.5, c=GREEN), R("favorable    ", sz=10, c=MENTION),
               R("● ● ● ", sz=10.5, c=AMBER), R("moyen    ", sz=10, c=MENTION),
               R("● ", sz=10.5, c=RED), R("défavorable", sz=10, c=MENTION),
-              R("        * DeepSeek V4 : tarif preview (doublement « peak » mi-07/2026) ; GLM et Albert : perf estimée, catalogue Albert à confirmer.",
+              R("        * DeepSeek V4 : tarif preview ; GLM et Albert : perf estimée ; Kimi K3 : score annoncé par l'éditeur.",
                 sz=9.5, c=MENTION, i=True)], sa=0, first=True)
 
-    notes(s, "Matrice comparative des 4 stacks de coding agentique. Chiffres verifies (sources primaires, 10/07/2026). "
+    notes(s, "Matrice comparative des 7 stacks de coding agentique. Chiffres verifies (sources primaires, 10/07 et 23/07/2026). "
+             "AJOUTS DU 23/07/2026 : (a) Claude Code / Fable 5 via Bedrock : 95,0% SWE-bench Verified (llm-stats.com), "
+             "10$/50$ par 1M (2x Opus 4.8), disponible sur Bedrock (profil global.anthropic.claude-fable-5, "
+             "docs.aws.amazon.com) - contraintes : activation d'un parametre de data sharing + retention 30 jours obligatoire. "
+             "(b) Vibe / Mistral Medium 3.5 : Vibe = agent de codage CLI + VS Code de Mistral (mai 2026) ; Medium 3.5 = 77,6% "
+             "SWE-bench Verified, 1,50$/7,50$ par 1M, poids ouverts licence MIT modifiee (mistral.ai/news/vibe-remote-agents-"
+             "mistral-medium-3-5) ; plans Le Chat Pro 14,99$/Team 24,99$/mois ; deploiement SecNumCloud possible via Outscale "
+             "(offre enterprise). (c) OpenCode / Kimi K3 via OpenRouter : 3$/15$ par 1M (openrouter.ai/moonshotai/kimi-k3), "
+             "93,4% SWE-bench Verified ANNONCE par Moonshot - des evaluations independantes citent des scores bien plus bas "
+             "selon le harness ; capacite amont limitee (erreurs 429 frequentes). "
+             "CORRECTION SOUVERAINETE : Bedrock n'est PAS souverain au sens de la CNIL - AWS reste soumis au CLOUD Act "
+             "quelle que soit la region ; pastille rouge (avant : orange 'partielle'). Seuls Albert (SecNumCloud, Etat FR) "
+             "et Mistral (editeur FR, SecNumCloud en option via Outscale) tiennent la souverainete. "
+             "NOUVEL AXE CONFORMITE (RGPD/donnees) - distinct de la souverainete : bons = Mistral (editeur FR, RGPD), "
+             "Albert (cadre Etat) et modeles Anthropic via Bedrock (region UE ex. Paris, DPA AWS) ; Anthropic direct = "
+             "partielle (transfert hors UE) ; OpenRouter = insuffisante (routage via intermediaire US, sans garanties UE). "
+             "RAPPEL DONNEES INITIALES (10/07/2026) : "
              "PRIX/1M tokens : Opus 4.8 = 5$ input / 25$ output (platform.claude.com/docs/.../pricing), en sus des sieges "
              "Claude Code (Pro 17$, Team 20-25$, Premium 100-125$/mois - claude.com/pricing). DeepSeek V4 Pro = 0,435$/0,87$ "
              "(openrouter.ai/deepseek/deepseek-v4-pro + api-docs.deepseek.com) MAIS tarif preview, doublement 'peak' annonce "
@@ -259,7 +300,7 @@ def build(out):
     for i,(k) in enumerate([
         "Sièges Claude Enterprise via Bedrock",
         "Coût à l'usage : l'agentique consomme beaucoup",
-        "Souveraineté partielle : sensible au CLOUD Act",
+        "Non souverain au sens CNIL (CLOUD Act) · RGPD ok",
     ]):
         para(tr, [R("▪  ", sz=12, c=PERI), R(k, sz=13, c=BODY)], sa=6, ls=1.08, bullet=True, first=(i==0))
 
@@ -277,12 +318,14 @@ def build(out):
     fy = by+bh2+0.18
     tf = tb(s, ML, fy, MR-ML, 0.3)
     para(tf, [R("Repères / 1M tokens (entrée / sortie) : ", sz=10.5, b=True, c=MENTION),
-              R("Opus 4.8 : 5 $ / 25 $ · GLM 5.2 : 1,40 $ / 4,40 $ · DeepSeek V4 Pro : 0,44 $ / 0,87 $ · Albert (DeepSeek V4 Flash) : gratuit, quotas.",
+              R("Fable 5 : 10 $ / 50 $ · Opus 4.8 : 5 $ / 25 $ · Kimi K3 : 3 $ / 15 $ · Mistral Medium 3.5 : 1,50 $ / 7,50 $ · GLM 5.2 : 1,40 $ / 4,40 $ · DeepSeek V4 Pro : 0,44 $ / 0,87 $ · Albert : gratuit, quotas.",
                 sz=10.5, c=MENTION)], sa=0, first=True)
 
-    notes(s, "Gradation de souverainete : Albert (Etat FR, SecNumCloud) > Opus 4.8 via Bedrock (partielle, sensible au "
-             "CLOUD Act) > Opus 4.8 via Anthropic et GLM/DeepSeek via OpenRouter (non souveraines, a reserver eventuellement "
-             "aux externes). Albert s'utilise avec OpenCode : guide officiel DINUM "
+    notes(s, "Souverainete (corrigee le 23/07/2026) : au sens de la CNIL, seules Albert (Etat FR, SecNumCloud) et Mistral "
+             "(editeur FR, SecNumCloud en option) sont souveraines. Bedrock N'EST PAS souverain : AWS est soumis au CLOUD Act "
+             "quelle que soit la region d'hebergement. En revanche, sur l'axe CONFORMITE (RGPD), Bedrock en region UE (Paris) "
+             "avec DPA AWS reste une voie conforme pour les modeles Anthropic ; Anthropic direct = transfert hors UE ; "
+             "OpenRouter = sans garanties UE. Albert s'utilise avec OpenCode : guide officiel DINUM "
              "guides.ia.numerique.gouv.fr/albert-api/guides/ide#agentic-coding-opencode. "
              "La problematique de deploiement : les prestataires externes peuvent rester sur leur abonnement Claude "
              "(forfait mensuel, consommation incluse, cout previsible). Les agents internes, eux, demarreront a "
@@ -309,11 +352,12 @@ def build(out):
     tl = tb(s, ML+0.36, cy+0.90, cw-0.7, chh-0.98)
     for i,(k,v) in enumerate([
         ("Claude Code", "siège 20–125 $/dev/mois"),
+        ("Vibe (Mistral)", "plan 14,99–24,99 $/m ou clé API"),
         ("OpenCode + OpenRouter", "clé, paiement au token"),
-        ("OpenCode + Albert", "DeepSeek V4 Flash · clé agent État, gratuit"),
+        ("OpenCode + Albert", "clé agent État, gratuit"),
     ]):
-        para(tl, [R("▪  ", sz=12, c=PERI), R(k+" : ", sz=13.5, b=True, c=INK), R(v, sz=13, c=BODY)],
-             sa=6, ls=1.06, bullet=True, first=(i==0))
+        para(tl, [R("▪  ", sz=12, c=PERI), R(k+" : ", sz=13, b=True, c=INK), R(v, sz=12.5, c=BODY)],
+             sa=4, ls=1.05, bullet=True, first=(i==0))
     # -- Carte B : CI/CD --
     rx = ML+cw+0.5
     rect(s, rx, cy, cw, chh, fill=CARD2, rounded=True, radius=0.05)
@@ -323,11 +367,11 @@ def build(out):
     tr = tb(s, rx+0.36, cy+0.90, cw-0.7, chh-0.98)
     for i,(k,v) in enumerate([
         ("Au token pour tous", "pas de siège, clé API"),
-        ("Tarifs / 1M", "Claude 5/25 · DeepSeek 0,44/0,87 · GLM 1,40/4,40"),
+        ("Tarifs / 1M en sortie", "de 0,87 $ (DeepSeek) à 50 $ (Fable 5)"),
         ("Albert", "gratuit mais quotas 10–50 req/min"),
     ]):
-        para(tr, [R("▪  ", sz=12, c=PERI), R(k+" : ", sz=13.5, b=True, c=INK), R(v, sz=13, c=BODY)],
-             sa=6, ls=1.06, bullet=True, first=(i==0))
+        para(tr, [R("▪  ", sz=12, c=PERI), R(k+" : ", sz=13, b=True, c=INK), R(v, sz=12.5, c=BODY)],
+             sa=4, ls=1.05, bullet=True, first=(i==0))
 
     # -- Bandeau reco (3 colonnes) --
     ry = cy+chh+0.16
@@ -335,31 +379,34 @@ def build(out):
     para(tf, [R("Recommandation selon la priorité", sz=15, b=True, c=INK)], sa=0, first=True)
     ry2 = ry+0.42; rbh=1.42
     recos = [
-        ("rocket", "Performance & maturité", "Claude Code / Opus 4.8",
-         "88,6 % SWE-bench, outil mûr.", "Coûteux, éditeur US.", BLUE),
-        ("government", "Souveraineté & coût", "Albert · DeepSeek V4 Flash",
+        ("rocket", "Performance", "Claude Code · Fable 5",
+         "95,0 % SWE-bench, via Bedrock.", "Le plus cher, CLOUD Act.", BLUE),
+        ("government", "Souveraineté & coût", "Albert · DeepSeek Flash",
          "Gratuit, SecNumCloud, ≈79 %.", "Réservé agents État.", GREEN),
-        ("focus-3", "Rapport perf / prix", "DeepSeek V4 Pro / OR",
-         "80,6 % pour ~0,9 $ / 1M.", "Éditeur CN, routeur US, preview.", AMBER),
+        ("shield-check", "Conformité UE", "Vibe · Mistral Medium 3.5",
+         "77,6 %, RGPD, éditeur FR.", "Perf en retrait.", PERI),
+        ("focus-3", "Rapport perf / prix", "DeepSeek V4 Pro · OR",
+         "80,6 % pour ~0,9 $ / 1M.", "Éditeur CN, routeur US.", AMBER),
     ]
-    rcw = (MR-ML-2*0.4)/3
+    rcw = (MR-ML-3*0.3)/4
     for i,(ic,lab,sol,plus,minus,cc) in enumerate(recos):
-        cx = ML+i*(rcw+0.4)
+        cx = ML+i*(rcw+0.3)
         rect(s, cx, ry2, rcw, rbh, fill=WHITE, line=cc, lw=1.4, rounded=True, radius=0.06)
-        icon(s, ic, cx+0.26, ry2+0.20, 0.42)
-        tfh = tb(s, cx+0.82, ry2+0.18, rcw-1.0, 0.5, MSO_ANCHOR.MIDDLE)
-        para(tfh, [R(lab, sz=11.5, b=True, c=cc)], sa=0, ls=0.98, first=True)
-        tft = tb(s, cx+0.26, ry2+0.72, rcw-0.5, rbh-0.80)
-        para(tft, [R(sol, sz=13, b=True, c=INK)], sa=0, ls=1.0, first=True)
-        para(tft, [R(plus+" ", sz=10, c=BODY), R(minus, sz=10, c=MENTION, i=True)], sa=0, sb=3, ls=1.08)
+        icon(s, ic, cx+0.22, ry2+0.18, 0.40)
+        tfh = tb(s, cx+0.74, ry2+0.16, rcw-0.9, 0.5, MSO_ANCHOR.MIDDLE)
+        para(tfh, [R(lab, sz=11, b=True, c=cc)], sa=0, ls=0.98, first=True)
+        tft = tb(s, cx+0.22, ry2+0.70, rcw-0.42, rbh-0.78)
+        para(tft, [R(sol, sz=12, b=True, c=INK)], sa=0, ls=1.0, first=True)
+        para(tft, [R(plus+" ", sz=9.5, c=BODY), R(minus, sz=9.5, c=MENTION, i=True)], sa=0, sb=3, ls=1.06)
 
     # -- Reserves / a valider --
-    fy = ry2+rbh+0.14
+    fy = ry2+rbh+0.10
     tf = tb(s, ML, fy, MR-ML, 0.5)
     para(tf, [R("À noter : ", sz=10, b=True, c=MENTION),
-              R("OpenCode + Albert est documenté officiellement par la DINUM (guides.ia.numerique.gouv.fr) · "
-                "catalogue Albert à confirmer via /v1/models · DeepSeek V4 = tarif preview · tarifs OpenRouter = "
-                "catalogue (caching −60/80 %) · tokenizer Opus 4.8 ≈ +30 % de tokens.", sz=10, c=MENTION, i=True)],
+              R("OpenCode + Albert documenté par la DINUM (guides.ia.numerique.gouv.fr) · catalogue Albert à confirmer "
+                "via /v1/models · DeepSeek V4 = tarif preview · Kimi K3 = score annoncé éditeur, capacité OpenRouter limitée · "
+                "Fable 5 sur Bedrock = data sharing à activer + rétention 30 j · tarifs OpenRouter = catalogue "
+                "(caching −60/80 %).", sz=10, c=MENTION, i=True)],
          sa=0, ls=1.08, first=True)
 
     notes(s, "Deux cas d'usage a distinguer. (1) CODE AGENTIQUE SUR POSTE : Claude Code se consomme via un SIEGE d'abonnement "
@@ -369,8 +416,12 @@ def build(out):
              "un token OAuth d'abonnement CLAUDE_CODE_OAUTH_TOKEN est aussi possible mais Anthropic recommande la cle API pour "
              "l'automation partagee). DeepSeek V4 Pro 0,44$/0,87$, GLM 5.2 ~1,40$/4,40$ via OpenRouter. Albert est gratuit mais "
              "ses quotas (10-50 requetes/min en experimentation) peuvent brider un usage CI/CD intensif - a augmenter sur demande. "
-             "RECOMMANDATION selon priorite : perf/maturite -> Claude/Opus 4.8 ; souverainete/cout -> Albert ; rapport perf-prix "
-             "brut -> DeepSeek V4 Pro via OpenRouter. RESERVES : 'Open Claw' n'a pas ete confirme comme outil de coding (le seul "
+             "RECOMMANDATION selon priorite (MAJ 23/07/2026) : performance -> Claude Code/Fable 5 via Bedrock (95,0% SWE-bench, "
+             "10$/50$ par 1M, conforme RGPD en region UE mais non souverain - CLOUD Act) ; souverainete/cout -> Albert ; "
+             "conformite UE avec editeur prive -> Vibe/Mistral Medium 3.5 (77,6%, 1,50$/7,50$, plans Le Chat des 14,99$/mois) ; "
+             "rapport perf-prix brut -> DeepSeek V4 Pro via OpenRouter. Kimi K3 via OpenRouter (3$/15$) annonce 93,4% SWE-bench "
+             "Verified mais le score n'est pas verifie independamment et la capacite OpenRouter est limitee (429). "
+             "RESERVES : 'Open Claw' n'a pas ete confirme comme outil de coding (le seul "
              "depot de ce nom est un assistant de messagerie) - candidats reels : OpenCode, Crush (Charmbracelet), Claude Code "
              "Router. Le catalogue Albert observe sur les docs publiques ne liste pas DeepSeek V4 Flash ni Mistral Medium 3.5 "
              "(mais Mistral-Small, Ministral-3-8B, gpt-oss-120b, Qwen3-Coder) - a confirmer via un appel authentifie /v1/models "

@@ -1,0 +1,88 @@
+Haggai Ruben - Aws
+Bellamine Yahia - AWS
+Matthieu Cantau - Software one
+Bouzarkouna Abdelbari - Software One
+
+Commercial AWS secteur public
+architecte solution aws le yahia, même équipe que ruben
+il représente le pendant technique de l'account manager
+
+Expérimentation ? scaling?
+
+des projets pilotes depuis 6 mois
+on a aussi des systemes automatisés dans la CI, des quality gates
+
+la problématique d'aujourd'hui: attribuer des licences legits
+on a des prestas qui peuvent utiliser ce qu'ils veulent sur les projets open source
+
+pb: on a pas assez de traçabilité, et on veut offrir aux internes les mêmes outils que ceux des externes
+
+une cinquantaine de personnes 
+
+pour passer par la marketplace il faut + que 20 licences
+
+modèles de contractualisation via aws marketplace
+et qu'est-ce que bedrock
+
+choix de localisation de l'inférence et de la localisation du modele
+si on choisit paris les données restent dans les data centers de Paris, ça part pas ailleurs 
+
+openai, mistral, anthropic, 
+
+les derniers modèles sont dispos quasi instant
+
+anthropic peut pas garantir le lieu de l'inference, AWS si
+
+AWS 18% investisseur dans Anthropic
+
+si un modèle est coupé, on y a plus accès, mais on peut passer à un autre 
+
+les modèles partenaires: dispo instant
+les modèles chinois open-weight: dispos au bout de quelques semaines
+
+mise en place de garde fou -> des questions pas répondue, des alertes 
+
+infra mise en place en une semaine
+
+aspect financement : qu'est-ce que ça implique en temps et en argent
+
+Aws peut facturer ? une semaine de set up de bedrock -> mais semble être offert
+
+services AWS services APIfiés
+on tape appel api + modèles on a une réponse
+
+l'enjeu des entreprises: aussi av oir un contr^pole sur le coût
+donc l'intéret d'une infra de gestion de coût par equipe et user pour qu'on puisse monitorer gérer et controler la conso des users sur un harness
+et aussi on peut remonter des metrics open telemetry: nb de lignes de code, commits faits via claude code ...etc afin de monitorer la conso des développeurs qui utiliseraient claude code dans l'infra.
+
+pas de coûts de licences qui s'ajoute avec AWS
+
+la partie 
+
+garanties aditionnelles contre le cloud act
+alerte si le gouv a demandé
+possibilité de chiffrer des données qui seront données chifrées à l'état ... 
+refus systematique...
+bullshit: ils disent qu'ils sont capables de ne pas respecter le cloud act.
+
+
+paiement d'un siège de démarrage + paiement à l'usage via token, prix de bedrock.
+
+profils utilisateurs on peut faire du forecast.
+pricing pas différeent 
+
+généralement les mêmes prixc
+
+le pricing par modèles
+
+15k e de licences pour 50 postes
+
+modèles moonshotAI
+modèles deepseek
+modèles qwen
+modèles Z AI
+modèles mistral
+
+
+cloud watch
+
