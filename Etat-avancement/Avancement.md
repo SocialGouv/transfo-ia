@@ -190,7 +190,7 @@ Réalisé:
 | Déclinaisons à cadrer | 11 | **10** *(SIRENA sort des tickets de spec)* |
 | Use cases SIRENA en découverte | 4 | **6** *(2 sortent de « à évaluer »)* |
 
-Ces chiffres sont déjà répercutés dans [`build/generate_charts.py`](build/generate_charts.py), les SVG régénérés, le [README](../README.md) et l'[état d'avancement détaillé](Etat-avancement-detaille.md).
+Ces chiffres sont déjà répercutés dans [`build/generate_charts.py`](build/generate_charts.py), les SVG régénérés, le [README](../README.md) et l'[état d'avancement détaillé](../Details.md).
 
 ---
 

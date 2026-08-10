@@ -1,0 +1,64 @@
+intro: 
+skills à l'état de concept
+- irritant : pas assez de forfait -> opencode
+
+
+Couverture des skills:
+- changement de version: impact un system de vérif donc pas anodin de le faire 
+- changelog
+- dev front
+- dev back bonnes pratiques, archi
+- plan d'implem
+
+volonté:
+- tests e2e
+
+outil qualité:
+- rien
+
+reco:
+- ajouter des skills de tests back et front
+
+flo: 
+mardi 10h-12h
+
+seb :
+cet aprem
+
+sylvain:
+3 septembre
+
+
+Analyse de pertinence des skills:
+
+
+
+
+Comment améliorer les skills au quotidien:
+
+
+
+
+Harness
+Loop engineering
+Collaboration avec des outils CI: 
+- Sonar ?
+- ESLint ?
+
+
+
+
+
+Mob programming avec l'IA?
+
+
+outillage à venir:
+- sonar 
+- eslint
+
+
+next steps:
+- je vais vers seb et flo, on va opti et poser des bases pour l'orchestration
+- je vais avoir accès au code pour faire une analyse et des suggestions
+-- remi peut m'ajouter à pic puis je me fais ajouter
+- voir avec gary pour l'usage llm

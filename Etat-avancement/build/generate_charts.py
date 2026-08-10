@@ -14,7 +14,7 @@ import os
 # DONNÉES — à mettre à jour chaque semaine
 # ============================================================================
 
-MAJ = "30 juillet 2026"
+MAJ = "10 août 2026"
 
 # Matrice de maturité : niveau constaté par use case et périmètre.
 # Valeurs : 1 à 5, (avant, après) pour une progression, None = NA.
@@ -39,16 +39,27 @@ MATRICE = [
     ("Architectes",     "Outiller les référentiels d'architecture", [None, None, None, None, 1]),
 ]
 
-# Plan d'actions : (statut, nombre) — ordre = pipeline
-ACTIONS = [("Réalisées", 8), ("En cours", 4), ("Planifiées", 10), ("À lancer", 3)]
-A_CADRER = 10  # déclinaisons d'actions existantes restant à cadrer par périmètre
+# Maturité d'organisation par périmètre : (périmètre, niveau avant accompagnement,
+# niveau actuel, ce que l'accompagnement a changé). Échelle 1-5 (règle Selim 10/08) :
+# 1-2 de rien à la découverte de l'IA · 3 des skills utilisés, des use cases pratiqués,
+# une orga perfectible · 4 des orchestrations, une orga maîtrisée · 5 + volume de cas
+# d'usage (dev, PM/PO), bonnes pratiques renseignées, vrai craft.
+MATURITE_ORG = [
+    ("Egapro",      3, 4, "orchestrations en routine, orga maîtrisée"),
+    ("DACCORD",     1, 2, "skills partagés, accompagnement individuel"),
+    ("SIRENA",      2, 2, ""),
+    ("VAO",         1, 1, ""),
+    ("BIO2",        1, 1, ""),
+    ("Architectes", 1, 2, "premiers use cases IA identifiés (atelier DA)"),
+]
+NIVEAUX_ORG = ["Rien", "Découverte", "Skills · use cases", "Orchestrations", "Craft · volume"]
 
 # KPI (label, valeur, sous-texte, sous-texte vert facultatif)
 KPIS = [
+    ("Périmètres montés en maturité", "3", "· architectes", "▲ Egapro · DACCORD "),
     ("Use cases montés de niveau", "4", "· 1 sur DACCORD", "▲ 3 sur Egapro "),
-    ("Actions réalisées", "8", "sur 25 engagées · 4 en cours", None),
-    ("Équipes accompagnées", "6", "4 en actif · 4 métiers couverts", None),
-    ("Prochain jalon", "3 août", "ateliers DA et Claude Enterprise", None),
+    ("Actions à impact déterminant", "15", "chacune décrite dans le détaillé", None),
+    ("Prochain jalon", "Mi-août", "formation PM/PO SIRENA · DACCORD", None),
 ]
 
 # Jalons : (jour depuis le 13 juillet, lignes, statut done|next|futur, label au-dessus ?)
@@ -57,22 +68,17 @@ JALONS = [
     # certains jours sont décalés de 1 à 3 jours pour desserrer les étiquettes
     (3,  ["16 juillet", "Coaching dev augmenté", "équipe DACCORD"], "done", True),
     (14, ["28-30 juillet", "Référentiels archi", "CDP SIRENA · CEPS"], "done", False),
-    (20, ["3 août", "Ateliers DA", "et Claude Enterprise"], "next", True),
-    (25, ["6 août", "Atelier skills", "devs DACCORD"], "next", False),
+    (22, ["4 août", "Atelier DA", "avec les architectes"], "done", True),
+    (25, ["6 août", "Atelier skills", "+ pt produit IA"], "done", False),
     (35, ["Mi-août", "Formation PM/PO", "SIRENA · DACCORD"], "next", True),
-    (39, ["Courant août", "Prototypes DSFR", "+ bench Bedrock"], "next", False),
-    (47, ["Fin août", "Acculturation IA", "avec Igor"], "next", True),
-    (57, ["8 septembre", "Atelier dev augmenté", "équipe VAO"], "futur", False),
+    (38, ["Courant août", "Catalogue de skills", "DSFR · bench Bedrock"], "next", False),
+    (46, ["Fin août", "Acculturation IA", "avec Igor"], "next", True),
+    (51, ["Sem. du 31 août", "Sélection use cases", "architectes"], "next", False),
+    (59, ["8 septembre", "Dev augmenté VAO", "+ tickets BIO2 (Yuna)"], "futur", True),
     (78, ["Fin septembre", "Cartographie des comptes", "Bedrock (bénéficiaires)"], "futur", True),
 ]
 ROADMAP_NOTE = ("Ensuite, moyen terme : communauté de référents IA, CI/CD augmentée, "
                 "observabilité · long terme : harness souverain")
-
-# Use cases montés de niveau, nommés (le décompte est calculé depuis la matrice)
-MATURITE_IMPACT = {
-    "Egapro": "pilotage · prototypes · pré-audit accessibilité",
-    "DACCORD": "outils et system prompts communs",
-}
 
 # Impact des actions engagées : (libellé, nb de losanges, sous-texte)
 IMPACT_LEVELS = [
@@ -83,10 +89,11 @@ IMPACT_LEVELS = [
 # (chantier, déterminant, élevé, modéré)
 IMPACTS = [
     ("Egapro",     4, 0, 0),
-    ("DACCORD",    3, 1, 0),
+    ("DACCORD",    4, 1, 0),
     ("SIRENA",     0, 1, 0),
-    ("VAO",        0, 1, 0),
-    ("Transverse", 4, 3, 8),
+    ("VAO",        1, 1, 0),
+    ("BIO2",       1, 0, 0),
+    ("Transverse", 5, 3, 11),
 ]
 IMPACT_NOTE = ("Les actions à impact modéré sont toutes transverses : les chantiers de fond "
                "(bench, Bedrock, outillage des postes) qui conditionnent le passage à l'échelle.")
@@ -216,56 +223,46 @@ def chart_kpi(t):
 
 
 # ============================================================================
-# 2. Maturité moyenne par périmètre
+# 2. Maturité d'organisation par périmètre
 # ============================================================================
 
-def chart_maturite(t):
-    """Tableau chiffré : nombre de use cases par niveau atteint (échelle 1 à 5) et par
-    périmètre, avec les use cases montés de niveau nommés (l'impact de l'accompagnement)."""
+def chart_maturite_org(t):
+    """Tableau chiffré : niveau d'organisation par périmètre (échelle 1 à 5), la
+    progression apportée par l'accompagnement en vert, avec ce qu'elle a changé."""
     x_p = 32
-    lvl_x = [140, 240, 340, 440, 540]  # colonnes niveaux 1 → 5
-    x_imp = 600
-    y0, pitch = 148, 52
-    h = y0 + 4 * pitch + 40
+    lvl_x = [150, 250, 350, 450, 550]  # colonnes niveaux 1 → 5
+    x_imp = 610
+    y0, pitch = 148, 46
+    n = len(MATURITE_ORG)
+    h = y0 + n * pitch + 30
     s = svg_open(h, t)
-    s += title_block(t, "Niveaux atteints, périmètre par périmètre",
-                     "nombre de use cases métier par niveau atteint (échelle de 1 à 5) · 10 use cases suivis par périmètre")
+    s += title_block(t, "Maturité par périmètre : Egapro passe de 3 à 4",
+                     "niveau d'organisation atteint (échelle de 1 à 5) · en vert : la progression apportée par l'accompagnement")
     # en-têtes : pastille de niveau, libellé dessous
     hy1, hy2 = y0 - 52, y0 - 30
     for lv, xc in enumerate(lvl_x, start=1):
         s += f'<rect x="{xc - 9}" y="{hy1 - 13}" width="18" height="18" rx="4" fill="{t["ramp5"][lv - 1]}"/>'
         s += txt(xc, hy1, str(lv), 11, t["on_ramp5"][lv - 1], "600", anchor="middle")
-        s += txt(xc, hy2, NIVEAUX[lv - 1], 10.5, t["sec"], "600", anchor="middle")
-    s += txt(x_imp, hy2, "▲ Montés de niveau grâce à l'accompagnement", 12, t["good"], "600")
-    for i, p in enumerate(PERIMETRES[:4]):
-        counts = {lv: 0 for lv in range(1, 6)}
-        prog = 0
-        for _, _, levels in MATRICE:
-            v = levels[i]
-            if v is None:
-                continue
-            if isinstance(v, tuple):
-                counts[v[1]] += 1
-                prog += 1
-            else:
-                counts[v] += 1
+        s += txt(xc, hy2, NIVEAUX_ORG[lv - 1], 10.5, t["sec"], "600", anchor="middle")
+    s += txt(x_imp, hy2, "▲ Ce que l'accompagnement a changé", 12, t["good"], "600")
+    for i, (p, avant, actuel, changed) in enumerate(MATURITE_ORG):
         y = y0 + i * pitch
         if i:
-            s += f'<line x1="32" y1="{y - 26}" x2="888" y2="{y - 26}" stroke="{t["grid"]}" stroke-width="1"/>'
+            s += f'<line x1="32" y1="{y - 23}" x2="888" y2="{y - 23}" stroke="{t["grid"]}" stroke-width="1"/>'
         s += txt(x_p, y + 7, p, 13.5, t["ink"], "600")
-        for lv, xc in enumerate(lvl_x, start=1):
-            n = counts[lv]
-            if n:
-                s += txt(xc, y + 8, str(n), 20, t["ink"], "600", anchor="middle", tabular=True)
-            else:
-                s += txt(xc, y + 7, "–", 13, t["muted"], anchor="middle")
-        if prog:
-            s += txt(x_imp, y + 8, f"▲ {prog}", 20, t["good"], "600", tabular=True)
-            s += txt(x_imp + 46, y + 7, MATURITE_IMPACT.get(p, ""), 11, t["sec"])
+        xc = lvl_x[actuel - 1]
+        if actuel > avant:
+            s += txt(xc, y + 8, f"{avant} → {actuel}", 17, t["good"], "600", anchor="middle", tabular=True)
+        else:
+            s += txt(xc, y + 8, str(actuel), 20, t["ink"], "600", anchor="middle", tabular=True)
+        if changed:
+            s += txt(x_imp, y + 7, changed, 11.5, t["sec"])
         else:
             s += txt(x_imp + 14, y + 7, "–", 13, t["muted"], anchor="middle")
-    s += txt(32, h - 20, "Le détail use case par use case figure dans la matrice de maturité "
-             "de l'état d'avancement détaillé.", 11.5, t["muted"])
+    s += txt(32, h - 38, "Échelle : 1-2 de rien à la découverte de l'IA · 3 des skills utilisés, "
+             "des use cases pratiqués, une orga perfectible", 11.5, t["muted"])
+    s += txt(32, h - 20, "4 des orchestrations, une organisation maîtrisée · 5 + volume de cas "
+             "d'usage (dev et PM/PO), bonnes pratiques, vrai craft", 11.5, t["muted"])
     return s + "</svg>", h
 
 
@@ -274,19 +271,19 @@ def chart_maturite(t):
 # ============================================================================
 
 def chart_impact(t):
-    """Tableau chiffré : nombre d'actions engagées par niveau d'impact et par chantier,
-    dans la même forme que le tableau des niveaux atteints (chiffres nus, axes lisibles)."""
+    """Tableau chiffré : nombre d'actions à impact par niveau et par chantier,
+    dans la même forme que le tableau de maturité (chiffres nus, axes lisibles)."""
     x_p = 32
-    lvl_x = [300, 480, 650]   # colonnes déterminant, élevé, modéré
-    x_tot = 800
+    lvl_x = [340, 560, 780]   # colonnes déterminant, élevé, modéré
     y0, pitch = 160, 46
     n = len(IMPACTS)
     total_y = y0 + n * pitch
     h = total_y + pitch + 40
     total = [sum(row[k + 1] for row in IMPACTS) for k in range(3)]
     s = svg_open(h, t)
-    s += title_block(t, f"Impact des actions : {sum(total)} engagées, {total[0]} déterminantes",
-                     "chaque action est classée selon ce qu'elle change pour les équipes")
+    s += title_block(t, f"Actions à impact : {total[0]} déterminantes",
+                     "chaque action est classée selon ce qu'elle change pour les équipes · "
+                     "les déterminantes sont décrites une à une dans le détaillé")
     # en-têtes : losanges, libellé, définition courte
     hy1, hy2, hy3 = y0 - 64, y0 - 44, y0 - 28
     for k, (lab, nb, sub) in enumerate(IMPACT_LEVELS):
@@ -294,7 +291,6 @@ def chart_impact(t):
         s += txt(xc, hy1, "◆" * nb, 12, t["impact3"][k], "600", anchor="middle", spacing="0.14em")
         s += txt(xc, hy2, lab, 12, t["sec"], "600", anchor="middle")
         s += txt(xc, hy3, sub, 10.5, t["muted"], anchor="middle")
-    s += txt(x_tot, hy2, "Total", 12, t["sec"], "600", anchor="middle")
     for i, (chantier, *counts) in enumerate(IMPACTS):
         y = y0 + i * pitch
         if i:
@@ -305,43 +301,12 @@ def chart_impact(t):
                 s += txt(lvl_x[k], y + 8, str(v), 20, t["ink"], "600", anchor="middle", tabular=True)
             else:
                 s += txt(lvl_x[k], y + 7, "–", 13, t["muted"], anchor="middle")
-        s += txt(x_tot, y + 8, str(sum(counts)), 15, t["sec"], "600", anchor="middle", tabular=True)
-    # ligne de total
+    # ligne de total par niveau d'impact
     s += f'<line x1="32" y1="{total_y - 23}" x2="888" y2="{total_y - 23}" stroke="{t["baseline"]}" stroke-width="1.5"/>'
     s += txt(x_p, total_y + 7, "Total", 13.5, t["sec"], "600")
     for k, v in enumerate(total):
         s += txt(lvl_x[k], total_y + 8, str(v), 20, t["ink"], "600", anchor="middle", tabular=True)
-    s += txt(x_tot, total_y + 8, str(sum(total)), 15, t["sec"], "600", anchor="middle", tabular=True)
     s += txt(32, h - 20, IMPACT_NOTE, 11.5, t["muted"])
-    return s + "</svg>", h
-
-
-# ============================================================================
-# 3. Pipeline du plan d'actions
-# ============================================================================
-
-def chart_actions(t):
-    """Quatre chiffres, un par statut du pipeline. Pas de graphique : des nombres."""
-    total = sum(n for _, n in ACTIONS)
-    h = 208
-    s = svg_open(h, t)
-    s += title_block(t, f"Plan d'actions : {total} actions engagées",
-                     f"s'y ajoutent {A_CADRER} déclinaisons des actions réalisées, "
-                     "à cadrer sur DACCORD, SIRENA et VAO")
-    tile_w = (W - 64) / 4
-    ly, vy = 102, 144
-    for i, (label, n) in enumerate(ACTIONS):
-        x = 32 + i * tile_w
-        if i:
-            s += f'<line x1="{x - 14}" y1="{ly - 14}" x2="{x - 14}" y2="{vy + 8}" stroke="{t["grid"]}" stroke-width="1"/>'
-        if i == 0:
-            s += txt(x, ly, label, 12.5, t["good"], "600")
-            s += txt(x, vy, f"✓ {n}", 30, t["good"], "600", tabular=True)
-        else:
-            s += txt(x, ly, label, 12.5, t["sec"])
-            s += txt(x, vy, str(n), 30, t["ink"], "600", tabular=True)
-    s += txt(32, h - 24, "Le détail action par action figure dans l'état d'avancement détaillé.",
-             11.5, t["muted"])
     return s + "</svg>", h
 
 
@@ -484,9 +449,8 @@ def chart_bench(t):
 
 CHARTS = {
     "01-kpi": chart_kpi,
-    "02-maturite": chart_maturite,
+    "02-maturite-org": chart_maturite_org,
     "07-impact": chart_impact,
-    "03-actions": chart_actions,
     "04-roadmap": chart_roadmap,
     "05-matrice": chart_matrice,
     "06-bench": chart_bench,

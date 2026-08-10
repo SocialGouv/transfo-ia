@@ -1,0 +1,64 @@
+CR atelier du 4-08-26
+
+**Objectif de l'atelier:**
+
+* Identifier le champ des possibles avec l'IA en ce qui concerne les architectes.
+
+
+
+**Moyen:**
+
+* Montrer une application de l'IA: la génération d'un DA en partant d'un code source, afin de démontrer différents mécanismes exploitables
+
+
+
+**Usage de l'IA au quotidien, avant l'intégration d'un harness au centre logiciel:** 
+
+Selim a présenté deux solutions permettant d'utiliser l'IA sur un PC du ministère:
+
+* À partir de VS Code, passer par le plug-in Claude Code, à brancher avec une clé Bedrock quand la contractualisation aura été faite (solution légale, données traçables qui restent en Europe)
+* À partir d'Opencode Desktop : ne nécessite pas de droits admin, peut être branché à une clé Albert
+
+
+
+**Démonstration sur un use case visant à appréhender ce qu'il est possible de faire avec l'IA:**
+
+Selim a présenté un outil qui permet à l'IA de générer un DA.
+
+Cet outil a été l'occasion de voir plusieurs applications possibles de l'IA:
+
+* Se faire questionner par l'IA sur un contenu à générer
+* Générer un projet qui, sur la base de scripts, va soutenir le travail de l'IA dans la complétion d'un DA
+
+
+
+**Retour des architectes:**
+
+Le point a aussi été l'occasion d'identifier qu'il existe un modèle de DA propre aux applications sur Atlas
+
+
+
+Les architectes ont aussi remonté deux irritants liés au DA:
+
+* Le DA a une ergonomie désagréable, ce qui est problématique lorsqu'on souhaite le remplir
+* Il est difficile de percevoir des incohérences dans les choix techniques 
+
+
+
+Les architectes ont confirmé que le use case présent n'avait pas beaucoup de valeur ajoutée en soi, mais cela a permis d'identifier différents use cases à explorer:
+
+* L'IA challenge la cohérence des différents choix techniques
+* L'IA challenge la cohérence des choix techniques vis-à-vis du fonctionnel d'un projet
+* À partir d'une image de schéma d'architecture figée, l'IA génère un schéma éditable en draw.io
+* L'IA challenge la "compliance" des schémas réalisés dans un DA, par rapport au modèle de DA
+* L'IA extrait des informations d'un code source, puis les exploite pour établir les écarts entre un DA et la réalité documentée
+
+
+
+**Next steps:**
+
+* *Les architectes* vont valider / enrichir la liste de use cases, en y intégrant le niveau d'impact que ça aurait pour eux de réaliser ces use cases, *d'ici au 21 août*
+* *Les architectes* vont mapper les parties du DA à leurs sources d'informations , *d'ici au 21 août*
+* *Selim* va organiser un point de synchronisation, qui sera l'occasion de sélectionner les use cases, et éventuellement, d'en explorer un de la liste qui aura pu être réalisé dans les temps : viser la *semaine du 31 août*
+* *Selim* va mettre à disposition le projet expérimental de génération d'un DA à la suite de l'atelier, le *4 août*
+
