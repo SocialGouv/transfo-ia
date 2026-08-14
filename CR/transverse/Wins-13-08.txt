@@ -1,0 +1,34 @@
+Wins:
+
+Architectes:
+De zéro intérêt pour l'IA, à 5 use cases identifiés en atelier
+
+Développeurs:
+DACCORD: 
+D'une utilisation et compréhension peu mature de l'IA, à la mise en place d'une orchestration (en cours)
+
+Egapro:
+Optimisation de l'orchestration, avec une importante sécurisation (séparation du codeur et du testeur
+
+VAO:
+Atelier prévu début septembre
+
+Products:
+DACCORD et SIRENA:
+Atelier prévu de formation à la création de tickets Jira à partir des pc ministères:
+- impact 1: moins d'aller retours entre métier et développeurs/designers
+- impact 2: génération automatique des tests d'acceptation
+- impact 3: formalisation du ticket par IA, le métier se focalise sur sa vraie valeur ajoutée
+Daccord: 25 Août
+SIRENA: Date à définir
+
+Design:
+De "l'IA a peu de valeur pour nous" à, des pc ministères:
+- générer un prototype html, et même plusieurs, utilisant le DSFR, et pouvant être testés par des utilisateurs
+- à partir d'un prototype html, générer la maquette figma avec le respect du DSFR
+
+Transverse:
+faire fonctionner l'IA gen sur des PC ministères:
+- Opendesktop 
+- VS code + plugin Claude Code
+

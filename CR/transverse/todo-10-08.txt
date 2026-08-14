@@ -51,3 +51,6 @@ https://guides.ia.numerique.gouv.fr/albert-api/prise-en-main/quickstart
 -- présenter à Joe la partie doc à faire, lui en parler lundi au point
 
 Mardi: mail social gouv 
+
+
+Design: réfléchir à comment susciter la collaboration

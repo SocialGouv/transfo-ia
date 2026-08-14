@@ -1,0 +1,10 @@
+Louis voit beaucoup de valeur en la capacité à mettre en place des prototypes.
+
+Selim lui a montré expliqué qu'il peut faire des proto plus fiables sur la partie design-system avec du loop engineering controlant le respect du DSFR.
+
+Louis s'est demandé si partager des prototypes aux devs pourrait suffir.
+
+Selim lui a montré que, dans un premier temps, pour ne pas trop changer les habitudes et permettre une vision d'ensemble sur le parcours, il est possible de générer une maquette figma à partir d'un proto, dès lors que nous possédons un compte full.
+Par ailleurs, ces maquettes utilisent des composants DSFR officiels, écartant les risques de mauvaise interprétation du design-system par le designer.
+
+Louis a vu beaucoup de valeur en ce use case.

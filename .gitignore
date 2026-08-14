@@ -8,14 +8,3 @@ __pycache__/
 
 # Artefacts de debug des builds
 _dbg_*.png
-
-# Intermédiaires régénérables des dossiers build/ : rendus de pages et dumps
-# d'extraction. Les sources y restent versionnées (generate_charts.py, deck.py,
-# extract*.py, build/assets/) — sans elles, plus de régénération possible.
-**/build/*.jpg
-**/build/page-*.png
-**/build/files.json
-
-# Outillage tiers volumineux et archives d'artefacts (rejetés par GitHub > 100 Mo)
-**/.tools/
-Livrables/Realisations_par_metier/Architectes/**/*.zip
