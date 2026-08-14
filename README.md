@@ -49,11 +49,11 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 | Chantier | Statut | Où on en est | Prochaine étape |
 |---|:---:|---|---|
 | **Egapro** | 🟢 ↗ | Périmètre pilote : orchestrations en routine, designers autonomes sur les prototypes, 3 use cases montés de niveau. Accessibilité : l'audit du code passe de 31 à 16 erreurs | Arbitrer avec Gary le portage de l'outil de pré-audit hors des sprints |
-| **DACCORD** | 🟢 ↗ | Atelier skills du 6/08 : skills couvrant changement de version, changelog, dev front, dev back et plan d'implem ; tests back / front à ajouter. Orchestrations Egapro en cours d'adaptation à Jira | Accompagnement individuel : Florian le 11/08, Sébastien courant août, Sylvain début septembre |
+| **DACCORD** | 🟢 ↗ | Atelier skills du 6/08 : skills couvrant changement de version, changelog, dev front, dev back et plan d'implem ; tests back / front à ajouter. Orchestrations en cours | Accompagnement individuel : Orchstration à mettre en place sur le frontend et le backend |
 | **SIRENA** | 🟢 ↗ | Diagnostic complété côté produit : Aurélie a repris le projet en juin et demande explicitement à être formée à l'usage de l'IA pour le PM / PO | Formation à la génération de tickets : créneau à caler (la session DACCORD a lieu le 25/08) |
 | **VAO** | 🟡 → | Équipe en découverte ; Halim identifié pour la génération de tickets intelligibles via MCP (point produit du 6/08) | Caler le créneau avec Halim · atelier dev augmenté le 8 septembre |
-| **BIO2** | 🟡 → | Nouveau périmètre : produit de refonte côté santé, entré dans le suivi au point produit du 6/08 | Accompagner Yuna sur la génération de tickets au lancement de la refonte (début septembre) |
-| **Transverse** | 🟢 ↗ | Stratégie 3 horizons validée · bench des harness livré · Bedrock cadré avec AWS (23/07) · référentiels d'architecture cadrés avec Igor (28/07) · 5 use cases IA identifiés avec les architectes (4/08) · population produit cadrée (6/08) | Priorisation des use cases par les architectes d'ici au 21 août |
+| **BIO2** | 🟡 → | Nouveau périmètre : produit de refonte côté santé, entré dans le suivi au point produit du 6/08 | Valider l'intérêt d'accompagner Yuna sur la génération de tickets au lancement de la refonte (début septembre) |
+| **Transverse** | 🟢 ↗ | bench des harness livré · matrice des harness disponibles aux collaborateurs livré · Bedrock cadré avec AWS · référentiels d'architecture et de bonnes pratiques cadrés avec Igor (28/07) · 5 use cases IA identifiés avec les architectes (4/08) · population produit cadrée (6/08) | Priorisation des use cases par les architectes d'ici au 21 août · Produire une bibliothèque de skills basées sur les référentiels d'Igor|
 
 <sub>🟢 sur la trajectoire · 🟡 cadrage en cours · 🔴 point d'attention. SRDT et DomiFA, rencontrées en exploration, rejoindront le suivi actif au fil de l'eau.</sub>
 
