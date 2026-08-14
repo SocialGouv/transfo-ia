@@ -4,21 +4,21 @@
 
 ## 🏆 Ce que l'accompagnement a changé, métier par métier
 
-Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonction sait faire aujourd'hui.
+Le point de départ constaté à l'arrivée de la mission, ce que chaque fonction sait faire aujourd'hui, et la prochaine étape pour chacune.
 
-| Métier | Point de départ | Aujourd'hui |
-|---|---|---|
-| **Architectes** | Aucun intérêt exprimé pour l'IA | Intérêt suscité pour l'IA par notre atelier, **Cinq use cases identifiés** |
-| **Développeurs · Egapro** | Des usages IA bons, mais avec un cadre perfectible | Orchestrations en routine, désormais **optimisées et sécurisées** : codeur et testeur séparés, le code n'est plus testé par l'agent qui l'a écrit |
-| **Développeurs · DACCORD** | Usage et compréhension de l'IA peu matures | L'équipe **monte sa propre orchestration** (accompagnement individuel en cours) |
-| **Chef de projet · Egapro** | Un suivi décalé de la vitesse réelle du dev augmenté, roadmap design invisible | **Pilotage adapté à l'IA** : lancement d'un chantier d'amélioration du pilotage |
-| **Chefs de projet · DACCORD, SIRENA** | Tickets rédigés à la main, allers-retours entre métier et équipes | **Formation actée** à la génération de tickets Jira sur poste ministère (DACCORD le 25 août, créneau SIRENA à caler), valeur ajoutée validée par les chefs de projet |
-| **Designers** | « L'IA a peu de valeur pour nous » | Depuis un poste ministère : **prototypes HTML au DSFR** testables par des utilisateurs, puis **maquette Figma générée** du prototype retenu, DSFR respecté |
-| **Poste de travail** | Pas d'IA générative possible sur PC ministère | **Deux voies opérationnelles** : OpenCode Desktop (sans droits admin, clé Albert) · Claude Code dans VS Code (clé api) · [qui peut utiliser quoi](#qui-peut-utiliser-quoi) |
+| Métier | Point de départ | Aujourd'hui | Prochaine étape |
+|---|---|---|---|
+| **Architectes** | Aucun intérêt exprimé pour l'IA | Intérêt suscité pour l'IA par notre atelier, **cinq use cases identifiés** | Priorisation des use cases par les architectes d'ici au 21/08 · bibliothèque de skills sur les référentiels d'Igor |
+| **Développeurs · Egapro** | Des usages IA bons, mais avec un cadre perfectible | Orchestration désormais **optimisées et sécurisées** : codeur et testeur séparés, le code n'est plus testé par l'agent qui l'a écrit | Amélioration des skills d'orchestration |
+| **Développeurs · DACCORD** | Usage et compréhension de l'IA peu matures | L'équipe **monte sa propre orchestration** (accompagnement individuel en cours) | Orchestration à mettre en place sur le frontend et le backend |
+| **Chef de projet · Egapro** | Un suivi décalé de la vitesse réelle du dev augmenté, roadmap design invisible | **Pilotage adapté à l'IA** | Chantier d'amélioration du pilotage |
+| **Chefs de projet · DACCORD, SIRENA** | Tickets rédigés à la main, allers-retours entre métier et équipes | **Formation actée** à la génération de tickets Jira sur poste ministère, valeur ajoutée validée par les chefs de projet | Session DACCORD le 25/08 avec Richard et Noura · créneau SIRENA à caler |
+| **Designers** | « L'IA a peu de valeur pour nous » | Depuis un poste ministère : **prototypes HTML au DSFR** testables par des utilisateurs, puis **maquette Figma générée** du prototype retenu, DSFR respecté | Industrialiser la solution de prototypes avec Louis, puis acculturer l'ensemble des designers |
+| **Poste de travail** | Pas d'IA générative possible sur PC ministère | **Deux voies opérationnelles** : OpenCode Desktop (sans droits admin, clé Albert) · Claude Code dans VS Code (clé api) · [qui peut utiliser quoi](#qui-peut-utiliser-quoi) | Explorer Scaleway et Google Vertex AI · packager les harness cibles au centre logiciel (introduction par Olivier) |
 
-<sub>La dynamique s'étend : VAO entre dans la boucle avec l'atelier dev augmenté du 8 septembre.</sub>
+<sub>La dynamique s'étend : VAO entre dans la boucle (atelier dev augmenté le 8 septembre, créneau tickets avec Halim à caler) ; BIO2 (refonte côté santé, lancement début septembre) rejoindra le suivi au fil de l'eau.</sub>
 
-## Avancement par chantier
+## Maturité par chantier
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/02-maturite-org-dark.svg">
@@ -26,16 +26,6 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 </picture>
 
 **L'échelle** : 1-2 de rien à la découverte de l'IA · 3 des skills utilisés, des use cases pratiqués, une organisation perfectible · 4 des orchestrations, une organisation maîtrisée · 5 orchestrations, volume de cas d'usage (dev et PM/PO), bonnes pratiques renseignées, vrai craft.
-
-| Chantier | Accompagnement | Prochaine étape |
-|---|:---:|---|
-| **Egapro** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Amélioration des skills d'orchestration, du pilotage |
-| **DACCORD** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Accompagnement individuel : orchestration à mettre en place sur le frontend et le backend · Formation à la génération de tickets le 25/08 avec Richard et Noura |
-| **SIRENA** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Formation à la génération de tickets : créneau à caler |
-| **VAO** | <img src="Etat-avancement/assets/icone-rond-blanc.svg" width="14" alt="pas de changement"> | Caler le créneau avec Halim · atelier dev augmenté le 8 septembre |
-| **Transverse** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Priorisation des use cases par les architectes d'ici au 21 août · Produire une bibliothèque de skills basées sur les référentiels d'Igor · Explorer Scaleway et Google Vertex AI (observabilité indépendante du harness) |
-
-<sub><img src="Etat-avancement/assets/icone-fleche-verte.svg" width="12" alt=""> l'accompagnement a changé quelque chose · <img src="Etat-avancement/assets/icone-rond-blanc.svg" width="12" alt=""> pas encore de changement. BIO2 (refonte côté santé, lancement début septembre) rejoindra le suivi actif au fil de l'eau.</sub>
 
 → [La maturité périmètre par périmètre](Details.md#maturité-par-périmètre) · [le diagnostic fin, use case par use case](Details.md#matrice-de-maturité) · [le focus de chaque chantier](Details.md#focus-par-chantier)
 
@@ -86,14 +76,16 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 
 ## La cible : l'usine logicielle
 
-Un des objectifs de l'accompagnement : une usine logicielle où chaque étape du cycle combine deux rails — un rail agentique qui génère, un rail déterministe qui vérifie. L'agent propose, la règle prouve, l'humain valide. Son pilotage s'adosse à DORA, chaque indicateur lu avant / après pour isoler l'apport de l'IA.
-
-Une équipe pilote identifiée: SIGeSS.
+Un des objectifs de l'accompagnement : une usine logicielle où chaque étape du cycle combine deux rails — un rail agentique qui génère, un rail déterministe qui vérifie. L'agent propose, la règle prouve, l'humain valide. Une équipe pilote est identifiée : **SIGeSS**.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/08-usine-dark.svg">
   <img alt="Usine logicielle cible : à chaque étape (product, design, build, livraison), deux rails. Le rail agentique génère : challenge par l'IA de la clarté du besoin, formalisation et critères d'acceptation ; prototypes basés sur le design system ; génération de code, tests, revue et recette assistée par agent ; notes de version, changelog et documentation automatisée. Le rail déterministe vérifie : formatage des specs et Definition of Ready ; respect du design system et audit d'accessibilité ; pipeline CI avec formatage, tests, couverture Sonar et review humaine ; validation humaine de la livraison" src="Etat-avancement/assets/08-usine-light.svg" width="100%">
 </picture>
+
+### Son pilotage : un tableau de bord adossé à DORA
+
+Une usine ne vaut que si l'on mesure ce qu'elle change : chaque indicateur sera lu **avant / après** pour isoler l'apport de l'IA. Le socle est DORA (référentiel DevOps reconnu), complété de trois axes propres au contexte : coût, adoption IA, risque.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/09-tdb-dora-dark.svg">
@@ -102,7 +94,13 @@ Une équipe pilote identifiée: SIGeSS.
 
 ## Outillage
 
-L'outillage se joue sur trois plans : ce que valent les stacks (performance, prix, souveraineté, conformité), qui prépare le choix de la stack interne ; ce que chaque population peut réellement installer, selon le poste et le statut ; et la voie d'accès aux modèles, qui conditionne l'observabilité et la liberté de choisir son harness. À ce stade, deux voies passent pour toutes les populations : OpenCode Desktop et VS Code avec le plugin Claude Code, adossés à Bedrock / Scaleway ou Albert.
+L'outillage se joue sur trois plans :
+
+- **ce que valent les stacks** : performance, prix, souveraineté, conformité ;
+- **ce que chaque population peut installer**, selon le poste et le statut du collaborateur ;
+- **la voie d'accès aux modèles**, qui conditionne l'observabilité et la liberté de choisir son harness.
+
+À ce stade, deux voies passent pour toutes les populations : OpenCode Desktop et VS Code avec le plugin Claude Code, adossés à Bedrock / Scaleway ou Albert.
 
 ### Ce que dit le bench
 

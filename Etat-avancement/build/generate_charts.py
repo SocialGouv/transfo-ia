@@ -503,15 +503,13 @@ def chart_usine(t):
     x0, gap = 180, 12
     col_w = (W - 32 - x0 - (len(USINE_COLS) - 1) * gap) / len(USINE_COLS)
     row_h, row_gap = 100, 14
-    y_gen = 118
+    y_gen = 50  # titre porté par le markdown du README, pas par le SVG
     y_ver = y_gen + row_h + row_gap
     h = y_ver + row_h + 46
     s = svg_open(h, t)
-    s += title_block(t, "La cible : l'usine logicielle",
-                     "à chaque étape, un rail agentique qui génère et un rail déterministe qui vérifie · l'agent propose, la règle prouve, l'humain valide")
     for j, c in enumerate(USINE_COLS):
         cx = x0 + j * (col_w + gap) + col_w / 2
-        s += txt(cx, 100, c.upper(), 11, t["muted"], "600", anchor="middle", spacing="0.08em")
+        s += txt(cx, 36, c.upper(), 11, t["muted"], "600", anchor="middle", spacing="0.08em")
     for y, rail_fill, cell_fill, lab, sub, cells in (
         (y_gen, t["ramp5"][3], t["cell_gen"], "Rail agentique", "génère", USINE_GEN),
         (y_ver, t["rail_ver"], t["cell_ver"], "Rail déterministe", "vérifie", USINE_VER),
@@ -539,12 +537,10 @@ def chart_tdb(t):
     """Tableau : indicateurs DORA + coût, adoption IA, risque, chacun avec son
     mode de calcul, sa source (outillage prévu aux ministères) et son type."""
     x_axe, x_ind, x_calc, x_src, x_typ = 32, 118, 330, 648, 796
-    y0, pitch = 130, 44
+    y0, pitch = 62, 44  # titre porté par le markdown du README, pas par le SVG
     n = len(TDB)
     h = y0 + n * pitch + 58
     s = svg_open(h, t)
-    s += title_block(t, "Le tableau de bord, adossé à DORA",
-                     "référentiel DevOps reconnu, complété de trois axes propres au contexte : coût, adoption IA, risque · lecture avant / après")
     hy = y0 - 30
     for x, lab in ((x_axe, "Axe"), (x_ind, "Indicateur"), (x_calc, "Mode de calcul"),
                    (x_src, "Source"), (x_typ, "Type de source")):
