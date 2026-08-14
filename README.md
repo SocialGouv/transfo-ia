@@ -33,9 +33,9 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 | **DACCORD** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Atelier skills du 6/08 : skills couvrant changement de version, changelog, dev front, dev back et plan d'implem ; tests back / front à ajouter. Orchestrations en cours | Accompagnement individuel : Orchstration à mettre en place sur le frontend et le backend |
 | **SIRENA** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Diagnostic complété côté produit : Aurélie a repris le projet en juin et demande explicitement à être formée à l'usage de l'IA pour le PM / PO | Formation à la génération de tickets : créneau à caler (la session DACCORD a lieu le 25/08) |
 | **VAO** | <img src="Etat-avancement/assets/icone-rond-blanc.svg" width="14" alt="pas de changement"> | Équipe en découverte ; Halim identifié pour la génération de tickets intelligibles via MCP (point produit du 6/08) | Caler le créneau avec Halim · atelier dev augmenté le 8 septembre |
-| **Transverse** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | bench des harness livré · matrice des harness disponibles aux collaborateurs livré · Bedrock cadré avec AWS · référentiels d'architecture et de bonnes pratiques cadrés avec Igor (28/07) · 5 use cases IA identifiés avec les architectes (4/08) · population produit cadrée (6/08) | Priorisation des use cases par les architectes d'ici au 21 août · Produire une bibliothèque de skills basées sur les référentiels d'Igor|
+| **Transverse** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | bench des harness livré · matrice des harness disponibles aux collaborateurs livré · Bedrock cadré avec AWS · référentiels d'architecture et de bonnes pratiques cadrés avec Igor (28/07) · 5 use cases IA identifiés avec les architectes (4/08) · population produit cadrée (6/08) | Priorisation des use cases par les architectes d'ici au 21 août · Produire une bibliothèque de skills basées sur les référentiels d'Igor · Explorer Scaleway et Google Vertex AI (observabilité indépendante du harness)|
 
-<sub><img src="Etat-avancement/assets/icone-fleche-verte.svg" width="12" alt=""> l'accompagnement a changé quelque chose · <img src="Etat-avancement/assets/icone-rond-blanc.svg" width="12" alt=""> pas encore de changement. BIO2 (refonte côté santé, lancement début septembre), SRDT et DomiFA, rencontrées en exploration, rejoindront le suivi actif au fil de l'eau.</sub>
+<sub><img src="Etat-avancement/assets/icone-fleche-verte.svg" width="12" alt=""> l'accompagnement a changé quelque chose · <img src="Etat-avancement/assets/icone-rond-blanc.svg" width="12" alt=""> pas encore de changement. BIO2 (refonte côté santé, lancement début septembre),rejoindra le suivi actif au fil de l'eau.</sub>
 
 → [La maturité périmètre par périmètre](Details.md#maturité-par-périmètre) · [le diagnostic fin, use case par use case](Details.md#matrice-de-maturité) · [le focus de chaque chantier](Details.md#focus-par-chantier)
 
@@ -69,7 +69,7 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 |---|---|
 | 🔄 **En cours** | accompagnement individuel skills et orchestration DACCORD (Sébastien, Florian, Sylvain) · orchestrations Egapro → Jira (DACCORD) · pré-audit d'accessibilité Egapro · tickets de spec DACCORD · constitution du référentiel d'architecture outillé |
 | 📅 **Planifié** | formation PM / PO : DACCORD le 25/08, SIRENA à caler · prototypes DSFR avec Louis (août) · bench élargi Bedrock (août) · catalogue de skills partagés (courant août) · acculturation IA des architectes (fin août) · sélection des use cases DA (sem. du 31/08) · tickets BIO2 avec Yuna (début sept.) · rencontre du centre logiciel (introduction par Olivier) · atelier dev augmenté VAO (8/09) · cartographie des comptes Bedrock (fin sept.) |
-| ⏭️ **À lancer** | tickets VAO avec Halim · acculturation IA des PO · acculturation de l'ensemble des designers · centralisation de la documentation fonctionnelle · évangélisation des équipes du CEPS |
+| ⏭️ **À lancer** | explorations Scaleway et Google Vertex AI (une observabilité sans harness imposé) · tickets VAO avec Halim · acculturation IA des PO · acculturation de l'ensemble des designers · centralisation de la documentation fonctionnelle · évangélisation des équipes du CEPS |
 
 <sub>S'y ajoutent les déclinaisons des actions éprouvées, à cadrer sur DACCORD, SIRENA et VAO.</sub>
 
@@ -100,7 +100,7 @@ Un des objectifs de l'accompagnement : une usine logicielle où chaque étape du
 
 ## Outillage
 
-L'outillage se joue sur deux plans : ce que valent les stacks (performance, prix, souveraineté, conformité), qui prépare le choix de la stack interne ; et ce que chaque population peut réellement installer, selon le poste et le statut. À ce stade, deux voies passent pour toutes les populations : OpenCode Desktop et VS Code avec le plugin Claude Code, adossés à Bedrock / Scaleway ou Albert.
+L'outillage se joue sur trois plans : ce que valent les stacks (performance, prix, souveraineté, conformité), qui prépare le choix de la stack interne ; ce que chaque population peut réellement installer, selon le poste et le statut ; et la voie d'accès aux modèles, qui conditionne l'observabilité et la liberté de choisir son harness. À ce stade, deux voies passent pour toutes les populations : OpenCode Desktop et VS Code avec le plugin Claude Code, adossés à Bedrock / Scaleway ou Albert.
 
 ### Ce que dit le bench
 
@@ -146,13 +146,30 @@ Tout le reste bute sur le poste interne (Claude Desktop et Codex, impossibles su
 
 </details>
 
+### Trois voies d'accès aux modèles
+
+<details>
+<summary>Bedrock exploré : viable, mais il impose Claude Code · Scaleway et Google Vertex AI à explorer</summary>
+
+L'exploration avec AWS a validé une solution viable : Claude Code adossé à l'observabilité Bedrock (usage et coûts suivis). Mais cette voie verrouille le choix du harness, d'où deux pistes à instruire.
+
+| Fournisseur | Ce qu'il apporte | Le point à lever | Où on en est |
+|---|---|---|---|
+| **AWS Bedrock** | Claude Code avec observabilité complète · région UE · large catalogue de modèles | L'observabilité est adossée à Claude Code : le harness est imposé | ✅ Exploré avec AWS ([CR du 23/07](CR/transverse/AWS-Bedrock-23-07-2026.txt)) : viable |
+| **Scaleway** | Des modèles open-weight intéressants · souveraineté française | Valider le champ des possibles côté observabilité | 🔍 À explorer |
+| **Google Vertex AI** | Un accès à des modèles frontier de plusieurs éditeurs (à confirmer) | Vérifier l'observabilité depuis n'importe quel harness | 🔍 À explorer |
+
+**Pourquoi chercher au-delà de Bedrock** : imposer Claude Code n'est pas neutre. Ce harness est très gourmand en contexte : taillé pour les modèles frontier, il risque de moins bien fonctionner avec les modèles moins onéreux (open-weight chinois notamment). La cible : une observabilité indépendante du harness, pour choisir librement le couple harness × modèle selon la tâche et le budget.
+
+</details>
+
 ## ⚖️ Décisions attendues
 
 | Décision | Ce qui est en jeu | Qui tranche, quand |
 |---|---|---|
 | **Porteur du pré-audit d'accessibilité** — hors des sprints Egapro, sans reposer sur Max, avec la mesure intégrée | Sans porteur ni mesure, l'outil restera piloté au feeling | **Gary** · arbitrage attendu |
 | **Accès au centre logiciel** pour y packager les harness cibles | Sans cela, l'adoption reste cantonnée aux prestataires : un poste interne managé ne peut pas installer un harness | Avancée du 6/08 : le centre peut tolérer des outils restreints à une liste de personnes, et **Olivier** introduit la mission |
-| **Stack des agents internes** — meilleur rapport performance / prix / souveraineté / conformité | Le coût interne suit l'usage : ≈20 € par siège **plus chaque token consommé** | À instruire après le [bench élargi aux modèles Bedrock](#ce-que-dit-le-bench) (août) |
+| **Stack des agents internes** — meilleur rapport performance / prix / souveraineté / conformité | Le coût interne suit l'usage : ≈20 € par siège **plus chaque token consommé** | À instruire après le [bench élargi aux modèles Bedrock](#ce-que-dit-le-bench) (août) et les [explorations Scaleway / Vertex AI](#trois-voies-daccès-aux-modèles) |
 
 ## Repères
 
