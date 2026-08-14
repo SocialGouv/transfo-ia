@@ -1,17 +1,6 @@
 # Transformation IA · Ministères sociaux
 
-**Accompagner l'adoption de l'IA par les équipes du numérique** (Secrétariat général · Direction du numérique) : trois enjeux (identifier les usages, accompagner la maîtrise, évangéliser), quatre métiers (architectes, chefs de projet, designers, développeurs).
-
-### L'adoption devient une dynamique d'équipe
-
-L'impact se mesure en maturité gagnée : **trois périmètres ont monté de niveau** — Egapro passe de 3 à 4 (les orchestrations tournent en routine, l'organisation est maîtrisée), DACCORD et les architectes amorcent la même pente (1 → 2). Et les dernières demandes sont **entrantes** : la cheffe de projet SIRENA demande à être formée, l'architecte du cadre de cohérence propose d'outiller ses référentiels, trois développeurs DACCORD s'engagent dans un accompagnement individuel.
-
 **Édition du lundi 10 août 2026** · mise à jour hebdomadaire · [le détail, chantier par chantier](Details.md) · [la stratégie (PDF)](Livrables/Pr%C3%A9sentation-strat%C3%A9gie-transfo-ia/Point-etape_Adoption-IA.pdf) · [dashboard GitHub](https://github.com/orgs/SocialGouv/projects/198) · [Grist](https://grist.numerique.gouv.fr/o/tranfo-ia/rFkVL6aLFbrE/Etat-davancement)
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/01-kpi-dark.svg">
-  <img alt="3 périmètres montés en maturité (Egapro, DACCORD, architectes) ; 4 use cases montés de niveau (3 sur Egapro, 1 sur DACCORD) ; 15 actions à impact déterminant, chacune décrite dans le détaillé ; prochain jalon mi-août (formation PM/PO SIRENA et DACCORD)" src="Etat-avancement/assets/01-kpi-light.svg" width="100%">
-</picture>
 
 ## 🏆 Ce que l'accompagnement a changé, métier par métier
 
@@ -25,41 +14,35 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 | **Chef de projet · Egapro** | Un suivi décalé de la vitesse réelle du dev augmenté, roadmap design invisible | **Pilotage adapté à l'IA** : estimations en taille de T-shirt ; le designer crée désormais ses tickets, la roadmap design devient visible et challengeable |
 | **Chefs de projet · DACCORD, SIRENA** | Tickets rédigés à la main, allers-retours entre métier et équipes | **Formation actée** à la génération de tickets Jira sur poste ministère (DACCORD le 25 août, créneau SIRENA à caler) : le ticket arrive formalisé, tests d'acceptation inclus, le métier se recentre sur sa valeur ajoutée |
 | **Designers** | « L'IA a peu de valeur pour nous » | Depuis un poste ministère : **prototypes HTML au DSFR** testables par des utilisateurs, puis **maquette Figma générée** du prototype retenu, DSFR respecté |
-| **Poste de travail** | Pas d'IA générative possible sur PC ministère | **Deux voies opérationnelles** : OpenCode Desktop (sans droits admin, clé Albert) · Claude Code dans VS Code (clé Bedrock) · [qui peut utiliser quoi](#outillage--qui-peut-utiliser-quoi) |
+| **Poste de travail** | Pas d'IA générative possible sur PC ministère | **Deux voies opérationnelles** : OpenCode Desktop (sans droits admin, clé Albert) · Claude Code dans VS Code (clé Bedrock) · [qui peut utiliser quoi](#qui-peut-utiliser-quoi) |
 
 <sub>La dynamique s'étend : VAO entre dans la boucle avec l'atelier dev augmenté du 8 septembre.</sub>
-
-## ⚖️ Décisions attendues
-
-| Décision | Ce qui est en jeu | Qui tranche, quand |
-|---|---|---|
-| **Porteur du pré-audit d'accessibilité** — hors des sprints Egapro, sans reposer sur Max, avec la mesure intégrée | Sans porteur ni mesure, l'outil restera piloté au feeling | **Gary** · arbitrage attendu |
-| **Accès au centre logiciel** pour y packager les harness cibles | Sans cela, l'adoption reste cantonnée aux prestataires : un poste interne managé ne peut pas installer un harness | Avancée du 6/08 : le centre peut tolérer des outils restreints à une liste de personnes, et **Olivier** introduit la mission |
-| **Stack des agents internes** — meilleur rapport performance / prix / souveraineté / conformité | Le coût interne suit l'usage : ≈20 € par siège **plus chaque token consommé** | À instruire après le [bench élargi aux modèles Bedrock](#outillage--ce-que-dit-le-bench) (août) |
 
 ## Avancement par chantier
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/02-maturite-org-dark.svg">
-  <img alt="Maturité d'organisation par périmètre, sur une échelle de 1 à 5 : Egapro passé de 3 à 4 (orchestrations en routine, organisation maîtrisée) ; DACCORD passé de 1 à 2 (skills partagés, accompagnement individuel) ; SIRENA à 2 ; VAO et BIO2 à 1 ; architectes passés de 1 à 2 (premiers use cases IA identifiés à l'atelier DA)" src="Etat-avancement/assets/02-maturite-org-light.svg" width="100%">
+  <img alt="Maturité d'organisation par périmètre, sur une échelle de 1 à 5 : Egapro progresse de 3 à 4 (orchestrations en routine, organisation maîtrisée) ; DACCORD progresse de 1 à 2 (skills partagés, accompagnement individuel) ; SIRENA à 2 et VAO à 1, sans changement à ce stade ; les architectes progressent de 1 à 2 (premiers use cases IA identifiés à l'atelier DA). Une flèche verte marque la progression apportée par l'accompagnement, un rond blanc l'absence de changement" src="Etat-avancement/assets/02-maturite-org-light.svg" width="100%">
 </picture>
 
 **L'échelle** : 1-2 de rien à la découverte de l'IA · 3 des skills utilisés, des use cases pratiqués, une organisation perfectible · 4 des orchestrations, une organisation maîtrisée · 5 orchestrations, volume de cas d'usage (dev et PM/PO), bonnes pratiques renseignées, vrai craft.
 
-| Chantier | Statut | Où on en est | Prochaine étape |
+| Chantier | Accompagnement | Où on en est | Prochaine étape |
 |---|:---:|---|---|
-| **Egapro** | 🟢 ↗ | Périmètre pilote : orchestrations en routine, designers autonomes sur les prototypes, 3 use cases montés de niveau. Accessibilité : l'audit du code passe de 31 à 16 erreurs | Arbitrer avec Gary le portage de l'outil de pré-audit hors des sprints |
-| **DACCORD** | 🟢 ↗ | Atelier skills du 6/08 : skills couvrant changement de version, changelog, dev front, dev back et plan d'implem ; tests back / front à ajouter. Orchestrations en cours | Accompagnement individuel : Orchstration à mettre en place sur le frontend et le backend |
-| **SIRENA** | 🟢 ↗ | Diagnostic complété côté produit : Aurélie a repris le projet en juin et demande explicitement à être formée à l'usage de l'IA pour le PM / PO | Formation à la génération de tickets : créneau à caler (la session DACCORD a lieu le 25/08) |
-| **VAO** | 🟡 → | Équipe en découverte ; Halim identifié pour la génération de tickets intelligibles via MCP (point produit du 6/08) | Caler le créneau avec Halim · atelier dev augmenté le 8 septembre |
-| **BIO2** | 🟡 → | Nouveau périmètre : produit de refonte côté santé, entré dans le suivi au point produit du 6/08 | Valider l'intérêt d'accompagner Yuna sur la génération de tickets au lancement de la refonte (début septembre) |
-| **Transverse** | 🟢 ↗ | bench des harness livré · matrice des harness disponibles aux collaborateurs livré · Bedrock cadré avec AWS · référentiels d'architecture et de bonnes pratiques cadrés avec Igor (28/07) · 5 use cases IA identifiés avec les architectes (4/08) · population produit cadrée (6/08) | Priorisation des use cases par les architectes d'ici au 21 août · Produire une bibliothèque de skills basées sur les référentiels d'Igor|
+| **Egapro** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Périmètre pilote : orchestrations en routine, designers autonomes sur les prototypes, 3 use cases montés de niveau. Accessibilité : l'audit du code passe de 31 à 16 erreurs | Arbitrer avec Gary le portage de l'outil de pré-audit hors des sprints |
+| **DACCORD** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Atelier skills du 6/08 : skills couvrant changement de version, changelog, dev front, dev back et plan d'implem ; tests back / front à ajouter. Orchestrations en cours | Accompagnement individuel : Orchstration à mettre en place sur le frontend et le backend |
+| **SIRENA** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Diagnostic complété côté produit : Aurélie a repris le projet en juin et demande explicitement à être formée à l'usage de l'IA pour le PM / PO | Formation à la génération de tickets : créneau à caler (la session DACCORD a lieu le 25/08) |
+| **VAO** | <img src="Etat-avancement/assets/icone-rond-blanc.svg" width="14" alt="pas de changement"> | Équipe en découverte ; Halim identifié pour la génération de tickets intelligibles via MCP (point produit du 6/08) | Caler le créneau avec Halim · atelier dev augmenté le 8 septembre |
+| **Transverse** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | bench des harness livré · matrice des harness disponibles aux collaborateurs livré · Bedrock cadré avec AWS · référentiels d'architecture et de bonnes pratiques cadrés avec Igor (28/07) · 5 use cases IA identifiés avec les architectes (4/08) · population produit cadrée (6/08) | Priorisation des use cases par les architectes d'ici au 21 août · Produire une bibliothèque de skills basées sur les référentiels d'Igor|
 
-<sub>🟢 sur la trajectoire · 🟡 cadrage en cours · 🔴 point d'attention. SRDT et DomiFA, rencontrées en exploration, rejoindront le suivi actif au fil de l'eau.</sub>
+<sub><img src="Etat-avancement/assets/icone-fleche-verte.svg" width="12" alt=""> l'accompagnement a changé quelque chose · <img src="Etat-avancement/assets/icone-rond-blanc.svg" width="12" alt=""> pas encore de changement. BIO2 (refonte côté santé, lancement début septembre), SRDT et DomiFA, rencontrées en exploration, rejoindront le suivi actif au fil de l'eau.</sub>
 
 → [La maturité périmètre par périmètre](Details.md#maturité-par-périmètre) · [le diagnostic fin, use case par use case](Details.md#matrice-de-maturité) · [le focus de chaque chantier](Details.md#focus-par-chantier)
 
-## Plan d'actions
+### Plan d'actions détaillé
+
+<details>
+<summary>Le réalisé et son impact, la suite en cours et planifiée</summary>
 
 **Le réalisé, l'impact en face** : ◆◆◆ du concret livré (skills, orchestrations, solutions) · ◆◆ formation, acculturation · ◆ cadrage, étude, communication.
 
@@ -67,14 +50,14 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 |---|---|:---:|---|
 | Orchestration « codeur / testeur » en routine | Egapro | ◆◆◆ | Le code arrive testé par une instance indépendante : la qualité ne repose plus sur la seule relecture humaine |
 | Pilotage adapté à l'IA : estimations T-shirt, tickets design | Egapro | ◆◆◆ | Le suivi colle à la vitesse réelle du dev augmenté ; la roadmap design devient visible et challengeable |
-| Designers outillés : skills UX, formation prototypes | Egapro | ◆◆◆ | Plusieurs prototypes HTML générés avant de maquetter : le designer se projette au lieu d'itérer à l'aveugle |
-| Outil de veille du Journal officiel livré au CEPS (30/07) | Transverse | ◆◆◆ | Une newsletter quasi automatisée en trois jours : la preuve, visible hors DNUM, que l'IA livre vite sur un besoin clair |
+| Designer outillé : skills UX, formation prototypes | Egapro | ◆◆◆ | Plusieurs prototypes HTML générés avant de maquetter : le designer se projette au lieu d'itérer à l'aveugle |
+| Designer outillé : transférer un prototype vers figma en respectant parfaitement le DSFR | transverse | ◆◆◆ | Le prototype automatisé permet d'aller plus vite, le transfert vers Figma permet l'utilisation de composants DSFR officiels, garantissant la fiabilité des maquettes |
 | Atelier de génération de DA avec les architectes (4/08) | Transverse | ◆◆◆ | Les architectes repartent acteurs : cinq use cases identifiés par eux-mêmes |
 | Atelier d'amélioration des skills (6/08) | DACCORD | ◆◆◆ | Les skills couvrent cinq domaines et s'améliorent en commun, plus chacun dans son coin |
 | Coaching développement augmenté (16/07) | DACCORD | ◆◆ | Dès le lundi suivant, les développeurs mettaient leurs system prompts en commun, de leur propre initiative |
-| Bench des harness et modèles | Transverse | ◆ | Sept stacks comparées en perf / prix / souveraineté / conformité : la base de la décision de stack |
-| Cadrage de la voie Bedrock avec AWS (23/07) | Transverse | ◆ | Catalogue de modèles élargi à observabilité conservée : la voie interne se précise |
-| Claude Enterprise : discussions avec Software One (23/07) | Transverse | ◆ | L'option d'abonnement Claude pour les équipes est instruite |
+| Benchmark des harness et modèles | Transverse | ◆ | Sept stacks comparées en perf / prix / souveraineté / conformité : la base de la décision de stack |
+| Tableau des outillages collaborateurs | Transverse | ◆ | Exploration des possibilités offertes par les pc du ministères et comparatif avec les possibilités d'outillage des externes |
+| Cadrage de la voie Bedrock avec AWS (23/07) | Transverse | ◆ | Possibilité d'outiller en licences Claude (paiement au token) avec de l'observabilité |
 | Cadrage des référentiels d'architecture avec Igor (28/07) | Transverse | ◆ | Le référentiel outillé, en construction, part sur des bases partagées |
 | Point d'adoption IA population produit (6/08) | Transverse | ◆ | Les use cases RU et PM / PO se formalisent ; VAO et BIO2 entrent dans le suivi |
 
@@ -92,6 +75,8 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 
 → [Le plan d'actions commenté, action par action](Details.md#plan-dactions) · [l'impact de chaque action, y compris à venir](Details.md#impact-des-actions)
 
+</details>
+
 ## Roadmap
 
 <picture>
@@ -99,7 +84,28 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
   <img alt="Jalons : coaching dev augmenté DACCORD réalisé le 16 juillet ; du 28 au 30 juillet, cadrage des référentiels d'architecture avec Igor, rencontre de la cheffe de projet SIRENA et livraison de l'outil CEPS ; atelier DA avec les architectes réalisé le 4 août ; atelier skills DACCORD et point d'adoption IA produit réalisés le 6 août ; mi-août, formation à l'usage de l'IA pour le PM et le PO, SIRENA et DACCORD ; courant août, catalogue de skills partagés, prototypes DSFR avec Louis et bench élargi aux modèles Bedrock ; fin août, demi-journée d'acculturation IA avec Igor et les architectes ; semaine du 31 août, sélection des use cases architectes ; 8 septembre, atelier dev augmenté VAO et tickets BIO2 avec Yuna ; cartographie des bénéficiaires des comptes Bedrock fin septembre" src="Etat-avancement/assets/04-roadmap-light.svg" width="100%">
 </picture>
 
-## Outillage : ce que dit le bench
+## La cible : l'usine logicielle
+
+Un des objectifs de l'accompagnement : une usine logicielle où chaque étape du cycle combine deux rails — un rail agentique qui génère, un rail déterministe qui vérifie. L'agent propose, la règle prouve. Son pilotage s'adosse à DORA, chaque indicateur lu avant / après pour isoler l'apport de l'IA.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/08-usine-dark.svg">
+  <img alt="Usine logicielle cible : à chaque étape (product, design, build, livraison), deux rails. Le rail agentique génère : challenge par l'IA de la clarté du besoin, formalisation et critères d'acceptation ; prototypes basés sur le design system ; génération de code, tests, revue et recette assistée par agent ; notes de version et changelog générés. Le rail déterministe vérifie : Definition of Ready vérifiable et formatage des specs ; respect du design system et audit d'accessibilité ; pipeline CI avec formatage, tests et couverture Sonar ; déploiement piloté et activation progressive" src="Etat-avancement/assets/08-usine-light.svg" width="100%">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/09-tdb-dora-dark.svg">
+  <img alt="Tableau de bord adossé à DORA : vitesse avec le cycle time et le débit à effectif constant (GitHub et Jira) ; qualité avec les régressions et le rétablissement, la couverture et la dette (SonarQube), l'exhaustivité de la documentation (audit des repos GitHub) ; coût par fonctionnalité en tokens consommés Bedrock ou Albert plus temps de review ; adoption IA avec l'usage réel mesuré par l'observabilité Bedrock et Albert, la maturité d'équipe sur une échelle de 1 à 5 et le gain de temps perçu par questionnaire ; risque avec la conformité d'usage à la charte face au shadow IT. Sources outillées pour l'essentiel, expertise structurée pour la maturité, déclaratif corroboratif pour le gain perçu" src="Etat-avancement/assets/09-tdb-dora-light.svg" width="100%">
+</picture>
+
+## Outillage
+
+L'outillage se joue sur deux plans : ce que valent les stacks (performance, prix, souveraineté, conformité), qui prépare le choix de la stack interne ; et ce que chaque population peut réellement installer, selon le poste et le statut. À ce stade, deux voies passent pour toutes les populations : OpenCode Desktop et VS Code avec le plugin Claude Code, adossés à Bedrock / Scaleway ou Albert.
+
+### Ce que dit le bench
+
+<details>
+<summary>Le comparatif des sept stacks : performance, prix, souveraineté, conformité</summary>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/06-bench-dark.svg">
@@ -114,7 +120,12 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 > [!WARNING]
 > **Le coût ne se pose pas pareil pour les externes et les internes.** Les externes peuvent rester sur leur abonnement Claude (forfait, consommation incluse). Les internes démarreront à environ 20 € par siège, **plus chaque token consommé au prix du modèle** : leur coût suivra l'usage — d'où l'enjeu du bench pour les internes et la CI/CD.
 
-## Outillage : qui peut utiliser quoi
+</details>
+
+### Qui peut utiliser quoi
+
+<details>
+<summary>La matrice harness × population : ce qu'il est possible d'installer</summary>
 
 Le bench dit ce que vaut chaque stack ; cette matrice dit ce qu'il est possible d'installer, population par population : 🟢 possible · 🟠 possible mais non conforme · 🔴 impossible · ⏳ à instruire.
 
@@ -129,9 +140,19 @@ Le bench dit ce que vaut chaque stack ; cette matrice dit ce qu'il est possible 
 | Codex + Bedrock / Scaleway | 🔴 | ⏳ | 🟠 | 🟠 | 🟠 |
 | Codex + clé personnelle | 🔴 | ⏳ | 🟠 | 🟠 | 🟠 |
 
-**Deux voies passent pour toutes les populations** : OpenCode Desktop et VS Code avec le plugin Claude Code, adossés à Bedrock / Scaleway ou Albert — les mêmes que celles déjà opérationnelles sur poste ministère. Tout le reste bute sur le poste interne (Claude Desktop et Codex, impossibles sur Windows) ou sur la conformité (clés personnelles, modèles gratuits).
+Tout le reste bute sur le poste interne (Claude Desktop et Codex, impossibles sur Windows) ou sur la conformité (clés personnelles, modèles gratuits).
 
 <sub>Poste Linux interne : faisabilité à instruire. Matrice de travail : [Livrables/Outillage/matrice-outillage.md](Livrables/Outillage/matrice-outillage.md).</sub>
+
+</details>
+
+## ⚖️ Décisions attendues
+
+| Décision | Ce qui est en jeu | Qui tranche, quand |
+|---|---|---|
+| **Porteur du pré-audit d'accessibilité** — hors des sprints Egapro, sans reposer sur Max, avec la mesure intégrée | Sans porteur ni mesure, l'outil restera piloté au feeling | **Gary** · arbitrage attendu |
+| **Accès au centre logiciel** pour y packager les harness cibles | Sans cela, l'adoption reste cantonnée aux prestataires : un poste interne managé ne peut pas installer un harness | Avancée du 6/08 : le centre peut tolérer des outils restreints à une liste de personnes, et **Olivier** introduit la mission |
+| **Stack des agents internes** — meilleur rapport performance / prix / souveraineté / conformité | Le coût interne suit l'usage : ≈20 € par siège **plus chaque token consommé** | À instruire après le [bench élargi aux modèles Bedrock](#ce-que-dit-le-bench) (août) |
 
 ## Repères
 

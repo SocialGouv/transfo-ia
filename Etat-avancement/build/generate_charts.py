@@ -49,7 +49,6 @@ MATURITE_ORG = [
     ("DACCORD",     1, 2, "skills partagés, accompagnement individuel"),
     ("SIRENA",      2, 2, ""),
     ("VAO",         1, 1, ""),
-    ("BIO2",        1, 1, ""),
     ("Architectes", 1, 2, "premiers use cases IA identifiés (atelier DA)"),
 ]
 NIVEAUX_ORG = ["Rien", "Découverte", "Skills · use cases", "Orchestrations", "Craft · volume"]
@@ -127,6 +126,48 @@ BENCH = [
 BENCH_NOTE = ("Lecture : la conformité RGPD passe par Bedrock (région UE), Mistral ou Albert ; "
               "la souveraineté (sens CNIL) par Albert ou Mistral · * score annoncé par l'éditeur")
 
+# Usine logicielle cible : à chaque étape, deux rails (agentique génère, déterministe
+# vérifie). Cellules en lignes pré-coupées pour le rendu SVG.
+USINE_COLS = ["Product", "Design", "Build", "Livraison"]
+USINE_GEN = [
+    ["Challenge par l'IA de la", "clarté du besoin,", "formalisation, critères", "d'acceptation"],
+    ["Prototypes basés sur", "le design system"],
+    ["Génération de code,", "tests, revue, recette", "assistée par agent"],
+    ["Notes de version et", "changelog générés"],
+]
+USINE_VER = [
+    ["Definition of Ready", "vérifiable, formatage", "des specs"],
+    ["Respect du design", "system, audit", "d'accessibilité"],
+    ["Pipeline CI : formatage,", "tests, couverture Sonar"],
+    ["Déploiement piloté,", "activation progressive"],
+]
+USINE_NOTE = "Cible illustrative : le détail du pipeline se précise chantier par chantier, avec les équipes."
+
+# Tableau de bord adossé à DORA, sources = outillage prévu aux ministères sociaux
+# (axe, indicateur, mode de calcul (lignes), source (lignes), type de source)
+TDB = [
+    ("Vitesse", "Cycle time", ["Délai issue → PR → prod,", "moyenne glissante (lead time DORA)"],
+     ["GitHub / Jira"], "outille"),
+    ("Vitesse", "Débit à effectif constant", ["Évolutions livrées / sprint,", "avant vs pendant"],
+     ["GitHub / Jira (backlog)"], "outille"),
+    ("Qualité", "Régressions &amp; rétablissement", ["Bugs prod / tickets livrés,", "délai moyen de résolution (DORA)"],
+     ["Incidents + réclamations"], "outille"),
+    ("Qualité", "Couverture &amp; dette", ["Delta couverture de tests", "et dette technique"],
+     ["SonarQube / CI"], "outille"),
+    ("Qualité", "Exhaustivité documentation", ["% de repos avec doc à jour", "(README, ADR)"],
+     ["Audit des repos GitHub"], "outille"),
+    ("Coût", "Coût par fonctionnalité", ["Tokens consommés (Bedrock · Albert)", "+ temps de review / fonctionnalité"],
+     ["Facturation AWS · Albert", "+ Jira"], "outille"),
+    ("Adoption IA", "Usage réel de l'IA", ["% de devs actifs / jour sur les harness,", "tokens consommés par projet"],
+     ["Observabilité", "Bedrock · Albert"], "outille"),
+    ("Adoption IA", "Maturité d'équipe (1 à 5)", ["Score par périmètre, à chaque jalon"],
+     ["Grille de maturité", "+ accompagnement"], "expertise"),
+    ("Adoption IA", "Gain de temps perçu", ["Heures estimées / sem / dev,", "agrégées par équipe"],
+     ["Questionnaire court"], "declaratif"),
+    ("Risque", "Conformité d'usage", ["% d'usages cadrés par la charte,", "vs shadow IT"],
+     ["Charte IA + audit", "des accès"], "outille"),
+]
+
 # ============================================================================
 # PALETTES (validées via dataviz/scripts/validate_palette.js, clair + sombre)
 # ============================================================================
@@ -142,6 +183,8 @@ THEMES = {
         "ramp5": ["#d8e8fb", "#8ab8f0", "#3987e5", "#1c5cab", "#0d366b"],
         "on_ramp5": ["#0b0b0b", "#0b0b0b", "#0b0b0b", "#ffffff", "#ffffff"],
         "impact3": ["#0d366b", "#3987e5", "#8ab8f0"],  # déterminant, élevé, modéré
+        "rail_ver": "#006300", "cell_gen": "#edf2fb", "cell_ver": "#ecf4ec",
+        "warn_text": "#a35d00",
     },
     "dark": {
         "surface": "#1a1a19", "ink": "#ffffff", "sec": "#c3c2b7", "muted": "#898781",
@@ -151,6 +194,8 @@ THEMES = {
         "ramp5": ["#dfeafc", "#92bef2", "#4f92e8", "#2565bd", "#123f77"],
         "on_ramp5": ["#0b0b0b", "#0b0b0b", "#0b0b0b", "#ffffff", "#ffffff"],
         "impact3": ["#dfeafc", "#92bef2", "#4f92e8"],  # déterminant, élevé, modéré
+        "rail_ver": "#006300", "cell_gen": "#20242c", "cell_ver": "#1f271f",
+        "warn_text": "#fab219",
     },
 }
 
@@ -227,8 +272,9 @@ def chart_kpi(t):
 # ============================================================================
 
 def chart_maturite_org(t):
-    """Tableau chiffré : niveau d'organisation par périmètre (échelle 1 à 5), la
-    progression apportée par l'accompagnement en vert, avec ce qu'elle a changé."""
+    """Tableau : niveau d'organisation par périmètre (échelle 1 à 5). Flèche verte
+    de l'avant vers l'actuel quand l'accompagnement a fait progresser le périmètre,
+    rond blanc sur le niveau quand rien n'a encore changé."""
     x_p = 32
     lvl_x = [150, 250, 350, 450, 550]  # colonnes niveaux 1 → 5
     x_imp = 610
@@ -237,7 +283,7 @@ def chart_maturite_org(t):
     h = y0 + n * pitch + 30
     s = svg_open(h, t)
     s += title_block(t, "Maturité par périmètre : Egapro passe de 3 à 4",
-                     "niveau d'organisation atteint (échelle de 1 à 5) · en vert : la progression apportée par l'accompagnement")
+                     "niveau d'organisation atteint (échelle de 1 à 5) · flèche verte : la progression apportée par l'accompagnement · rond blanc : pas encore de changement")
     # en-têtes : pastille de niveau, libellé dessous
     hy1, hy2 = y0 - 52, y0 - 30
     for lv, xc in enumerate(lvl_x, start=1):
@@ -250,11 +296,15 @@ def chart_maturite_org(t):
         if i:
             s += f'<line x1="32" y1="{y - 23}" x2="888" y2="{y - 23}" stroke="{t["grid"]}" stroke-width="1"/>'
         s += txt(x_p, y + 7, p, 13.5, t["ink"], "600")
-        xc = lvl_x[actuel - 1]
+        cy = y + 2
         if actuel > avant:
-            s += txt(xc, y + 8, f"{avant} → {actuel}", 17, t["good"], "600", anchor="middle", tabular=True)
+            xs, xe = lvl_x[avant - 1], lvl_x[actuel - 1]
+            s += f'<circle cx="{xs}" cy="{cy}" r="3.5" fill="{t["good"]}"/>'
+            s += f'<line x1="{xs}" y1="{cy}" x2="{xe - 9}" y2="{cy}" stroke="{t["good"]}" stroke-width="2.5"/>'
+            s += f'<path d="M{xe},{cy} l-10,-5.5 v11 z" fill="{t["good"]}"/>'
         else:
-            s += txt(xc, y + 8, str(actuel), 20, t["ink"], "600", anchor="middle", tabular=True)
+            s += (f'<circle cx="{lvl_x[actuel - 1]}" cy="{cy}" r="7" fill="#ffffff" '
+                  f'stroke="{t["muted"]}" stroke-width="1.5"/>')
         if changed:
             s += txt(x_imp, y + 7, changed, 11.5, t["sec"])
         else:
@@ -444,6 +494,89 @@ def chart_bench(t):
 
 
 # ============================================================================
+# 8. Usine logicielle cible
+# ============================================================================
+
+def chart_usine(t):
+    """Deux rails par étape du pipeline : le rail agentique génère, le rail
+    déterministe vérifie — l'agent propose, la règle prouve."""
+    x0, gap = 180, 12
+    col_w = (W - 32 - x0 - (len(USINE_COLS) - 1) * gap) / len(USINE_COLS)
+    row_h, row_gap = 100, 14
+    y_gen = 118
+    y_ver = y_gen + row_h + row_gap
+    h = y_ver + row_h + 46
+    s = svg_open(h, t)
+    s += title_block(t, "La cible : l'usine logicielle",
+                     "à chaque étape, un rail agentique qui génère et un rail déterministe qui vérifie · l'agent propose, la règle prouve")
+    for j, c in enumerate(USINE_COLS):
+        cx = x0 + j * (col_w + gap) + col_w / 2
+        s += txt(cx, 100, c.upper(), 11, t["muted"], "600", anchor="middle", spacing="0.08em")
+    for y, rail_fill, cell_fill, lab, sub, cells in (
+        (y_gen, t["ramp5"][3], t["cell_gen"], "Rail agentique", "génère", USINE_GEN),
+        (y_ver, t["rail_ver"], t["cell_ver"], "Rail déterministe", "vérifie", USINE_VER),
+    ):
+        s += f'<rect x="32" y="{y}" width="136" height="{row_h}" rx="10" fill="{rail_fill}"/>'
+        w1, w2 = lab.split()
+        s += txt(100, y + row_h / 2 - 12, w1, 12.5, "#ffffff", "600", anchor="middle")
+        s += txt(100, y + row_h / 2 + 5, w2, 12.5, "#ffffff", "600", anchor="middle")
+        s += txt(100, y + row_h / 2 + 24, sub, 11, "#ffffff", anchor="middle")
+        for j, lines in enumerate(cells):
+            cx0 = x0 + j * (col_w + gap)
+            s += f'<rect x="{cx0}" y="{y}" width="{col_w}" height="{row_h}" rx="8" fill="{cell_fill}"/>'
+            ty = y + row_h / 2 - (len(lines) - 1) * 8 + 4
+            for k, ln in enumerate(lines):
+                s += txt(cx0 + 14, ty + k * 16, ln, 12, t["ink"])
+    s += txt(32, h - 20, USINE_NOTE, 11.5, t["muted"])
+    return s + "</svg>", h
+
+
+# ============================================================================
+# 9. Tableau de bord adossé à DORA
+# ============================================================================
+
+def chart_tdb(t):
+    """Tableau : indicateurs DORA + coût, adoption IA, risque, chacun avec son
+    mode de calcul, sa source (outillage prévu aux ministères) et son type."""
+    x_axe, x_ind, x_calc, x_src, x_typ = 32, 118, 330, 648, 796
+    y0, pitch = 130, 44
+    n = len(TDB)
+    h = y0 + n * pitch + 58
+    s = svg_open(h, t)
+    s += title_block(t, "Le tableau de bord, adossé à DORA",
+                     "référentiel DevOps reconnu, complété de trois axes propres au contexte : coût, adoption IA, risque · lecture avant / après")
+    hy = y0 - 30
+    for x, lab in ((x_axe, "Axe"), (x_ind, "Indicateur"), (x_calc, "Mode de calcul"),
+                   (x_src, "Source"), (x_typ, "Type de source")):
+        s += txt(x, hy, lab, 11, t["sec"], "600")
+    s += f'<line x1="32" y1="{hy + 12}" x2="888" y2="{hy + 12}" stroke="{t["baseline"]}" stroke-width="1.5"/>'
+    axe_col = {"Vitesse": t["accent"], "Qualité": t["good"], "Coût": t["warn_text"],
+               "Adoption IA": t["accent"], "Risque": t["status"]["bad"]}
+    typ_style = {"outille": (["Outillé"], t["good"]),
+                 "expertise": (["Expertise", "structurée"], t["accent"]),
+                 "declaratif": (["Déclaratif", "corroboratif"], t["warn_text"])}
+    for i, (axe, ind, calc, src, typ) in enumerate(TDB):
+        y = y0 + i * pitch
+        if i:
+            s += f'<line x1="32" y1="{y - 14}" x2="888" y2="{y - 14}" stroke="{t["grid"]}" stroke-width="1"/>'
+        base = y + 8
+        s += txt(x_axe, base, axe, 11.5, axe_col[axe], "600")
+        s += txt(x_ind, base, ind, 11.5, t["ink"], "600")
+        for k, ln in enumerate(calc):
+            s += txt(x_calc, base + k * 15, ln, 11, t["sec"])
+        for k, ln in enumerate(src):
+            s += txt(x_src, base + k * 15, ln, 11, t["sec"])
+        lines, col = typ_style[typ]
+        for k, ln in enumerate(lines):
+            s += txt(x_typ, base + k * 15, ln, 11, col, "600")
+    s += txt(32, h - 38, "DORA : fréquence de déploiement, lead time, taux d'échec des changements, "
+             "temps de rétablissement.", 11.5, t["muted"])
+    s += txt(32, h - 20, "Le tableau de bord vit en rétrospective bimensuelle pendant l'accompagnement, "
+             "lu ensemble, équipe par équipe.", 11.5, t["muted"])
+    return s + "</svg>", h
+
+
+# ============================================================================
 # Génération
 # ============================================================================
 
@@ -454,6 +587,8 @@ CHARTS = {
     "04-roadmap": chart_roadmap,
     "05-matrice": chart_matrice,
     "06-bench": chart_bench,
+    "08-usine": chart_usine,
+    "09-tdb-dora": chart_tdb,
 }
 
 if __name__ == "__main__":
