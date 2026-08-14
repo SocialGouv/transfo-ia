@@ -8,7 +8,7 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 
 | Métier | Point de départ | Aujourd'hui |
 |---|---|---|
-| **Architectes** | Aucun intérêt exprimé pour l'IA | **Cinq use cases identifiés** en atelier ([4 août](CR/transverse/CR_Architectes-atelier-4-08-26.txt)) ; les architectes les priorisent eux-mêmes d'ici au 21 août |
+| **Architectes** | Aucun intérêt exprimé pour l'IA | Intérêt suscité pour l'IA par notre atelier, **Cinq use cases identifiés** |
 | **Développeurs · Egapro** | Des usages IA bons, mais avec un cadre perfectible | Orchestrations en routine, désormais **optimisées et sécurisées** : codeur et testeur séparés, le code n'est plus testé par l'agent qui l'a écrit |
 | **Développeurs · DACCORD** | Usage et compréhension de l'IA peu matures | L'équipe **monte sa propre orchestration** (accompagnement individuel en cours) |
 | **Chef de projet · Egapro** | Un suivi décalé de la vitesse réelle du dev augmenté, roadmap design invisible | **Pilotage adapté à l'IA** : estimations en taille de T-shirt ; le designer crée désormais ses tickets, la roadmap design devient visible et challengeable |
