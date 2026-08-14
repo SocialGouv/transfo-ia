@@ -133,13 +133,13 @@ USINE_GEN = [
     ["Challenge par l'IA de la", "clarté du besoin,", "formalisation, critères", "d'acceptation"],
     ["Prototypes basés sur", "le design system"],
     ["Génération de code,", "tests, revue, recette", "assistée par agent"],
-    ["Notes de version et", "changelog générés"],
+    ["Notes de version et", "changelog générés,", "documentation", "automatisée"],
 ]
 USINE_VER = [
-    ["Definition of Ready", "vérifiable, formatage", "des specs"],
+    ["Formatage des specs,", "Definition of Ready"],
     ["Respect du design", "system, audit", "d'accessibilité"],
-    ["Pipeline CI : formatage,", "tests, couverture Sonar"],
-    ["Déploiement piloté,", "activation progressive"],
+    ["Pipeline CI : formatage,", "tests, couverture Sonar,", "review humaine"],
+    ["Validation humaine"],
 ]
 USINE_NOTE = "Cible illustrative : le détail du pipeline se précise chantier par chantier, avec les équipes."
 
@@ -499,7 +499,7 @@ def chart_bench(t):
 
 def chart_usine(t):
     """Deux rails par étape du pipeline : le rail agentique génère, le rail
-    déterministe vérifie — l'agent propose, la règle prouve."""
+    déterministe vérifie — l'agent propose, la règle prouve, l'humain valide."""
     x0, gap = 180, 12
     col_w = (W - 32 - x0 - (len(USINE_COLS) - 1) * gap) / len(USINE_COLS)
     row_h, row_gap = 100, 14
@@ -508,7 +508,7 @@ def chart_usine(t):
     h = y_ver + row_h + 46
     s = svg_open(h, t)
     s += title_block(t, "La cible : l'usine logicielle",
-                     "à chaque étape, un rail agentique qui génère et un rail déterministe qui vérifie · l'agent propose, la règle prouve")
+                     "à chaque étape, un rail agentique qui génère et un rail déterministe qui vérifie · l'agent propose, la règle prouve, l'humain valide")
     for j, c in enumerate(USINE_COLS):
         cx = x0 + j * (col_w + gap) + col_w / 2
         s += txt(cx, 100, c.upper(), 11, t["muted"], "600", anchor="middle", spacing="0.08em")
