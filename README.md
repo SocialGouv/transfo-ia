@@ -14,7 +14,7 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 | **Chef de projet · Egapro** | Un suivi décalé de la vitesse réelle du dev augmenté, roadmap design invisible | **Pilotage adapté à l'IA** : lancement d'un chantier d'amélioration du pilotage |
 | **Chefs de projet · DACCORD, SIRENA** | Tickets rédigés à la main, allers-retours entre métier et équipes | **Formation actée** à la génération de tickets Jira sur poste ministère (DACCORD le 25 août, créneau SIRENA à caler), valeur ajoutée validée par les chefs de projet |
 | **Designers** | « L'IA a peu de valeur pour nous » | Depuis un poste ministère : **prototypes HTML au DSFR** testables par des utilisateurs, puis **maquette Figma générée** du prototype retenu, DSFR respecté |
-| **Poste de travail** | Pas d'IA générative possible sur PC ministère | **Deux voies opérationnelles** : OpenCode Desktop (sans droits admin, clé Albert) · Claude Code dans VS Code (clé Bedrock) · [qui peut utiliser quoi](#qui-peut-utiliser-quoi) |
+| **Poste de travail** | Pas d'IA générative possible sur PC ministère | **Deux voies opérationnelles** : OpenCode Desktop (sans droits admin, clé Albert) · Claude Code dans VS Code (clé api) · [qui peut utiliser quoi](#qui-peut-utiliser-quoi) |
 
 <sub>La dynamique s'étend : VAO entre dans la boucle avec l'atelier dev augmenté du 8 septembre.</sub>
 
