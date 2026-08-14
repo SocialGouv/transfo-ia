@@ -58,7 +58,7 @@ KPIS = [
     ("Périmètres montés en maturité", "3", "· architectes", "▲ Egapro · DACCORD "),
     ("Use cases montés de niveau", "4", "· 1 sur DACCORD", "▲ 3 sur Egapro "),
     ("Actions à impact déterminant", "15", "chacune décrite dans le détaillé", None),
-    ("Prochain jalon", "Mi-août", "formation PM/PO SIRENA · DACCORD", None),
+    ("Prochain jalon", "25 août", "formation PM/PO DACCORD", None),
 ]
 
 # Jalons : (jour depuis le 13 juillet, lignes, statut done|next|futur, label au-dessus ?)
@@ -67,17 +67,17 @@ JALONS = [
     # certains jours sont décalés de 1 à 3 jours pour desserrer les étiquettes
     (3,  ["16 juillet", "Coaching dev augmenté", "équipe DACCORD"], "done", True),
     (14, ["28-30 juillet", "Référentiels archi", "CDP SIRENA · CEPS"], "done", False),
-    (22, ["4 août", "Atelier DA", "avec les architectes"], "done", True),
-    (25, ["6 août", "Atelier skills", "+ pt produit IA"], "done", False),
-    (35, ["Mi-août", "Formation PM/PO", "SIRENA · DACCORD"], "next", True),
-    (38, ["Courant août", "Catalogue de skills", "DSFR · bench Bedrock"], "next", False),
-    (46, ["Fin août", "Acculturation IA", "avec Igor"], "next", True),
-    (51, ["Sem. du 31 août", "Sélection use cases", "architectes"], "next", False),
-    (59, ["8 septembre", "Dev augmenté VAO", "+ tickets BIO2 (Yuna)"], "futur", True),
+    (22, ["4 août", "Atelier DA", "architectes"], "done", True),
+    (26, ["6 août", "Atelier skills", "+ pt produit IA"], "done", False),
+    (33, ["13 août", "Point design Louis", "DSFR → Figma"], "done", True),
+    (43, ["25 août", "Formation PM/PO", "DACCORD"], "next", False),
+    (47, ["Fin août", "Acculturation IA", "avec Igor"], "next", True),
+    (53, ["Sem. du 31 août", "Sélection use", "cases DA"], "next", False),
+    (59, ["8 septembre", "Dev augmenté VAO", "+ tickets BIO2"], "futur", True),
     (78, ["Fin septembre", "Cartographie des comptes", "Bedrock (bénéficiaires)"], "futur", True),
 ]
-ROADMAP_NOTE = ("Ensuite, moyen terme : communauté de référents IA, CI/CD augmentée, "
-                "observabilité · long terme : harness souverain")
+ROADMAP_NOTE = ("À dater, courant août : catalogue de skills · bench Bedrock · formation SIRENA · "
+                "puis : référents IA, CI/CD augmentée, harness souverain")
 
 # Impact des actions engagées : (libellé, nb de losanges, sous-texte)
 IMPACT_LEVELS = [
@@ -92,7 +92,7 @@ IMPACTS = [
     ("SIRENA",     0, 1, 0),
     ("VAO",        1, 1, 0),
     ("BIO2",       1, 0, 0),
-    ("Transverse", 5, 3, 11),
+    ("Transverse", 5, 4, 11),
 ]
 IMPACT_NOTE = ("Les actions à impact modéré sont toutes transverses : les chantiers de fond "
                "(bench, Bedrock, outillage des postes) qui conditionnent le passage à l'échelle.")

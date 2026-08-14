@@ -8,7 +8,7 @@ Semaine du 3 au 7 août 2026 · [← retour à la synthèse](README.md)
 
 Le cœur du suivi : ce qui a été réalisé, ce qui est en cours, ce qui reste à faire. Chaque ligne indique le périmètre, l'action et le métier concerné.
 
-### ✅ Réalisées (12)
+### ✅ Réalisées (13)
 
 - **DACCORD · Former au développement augmenté** *(développeurs)* — session de coaching du 16 juillet, détaillée dans le [zoom](#zoom--coaching-développement-augmenté-daccord-16-juillet).
 - **Egapro · Accompagner à la réalisation d'orchestrations** *(développeurs)* — orchestration « séparation codeur / testeur » en place.
@@ -22,19 +22,20 @@ Le cœur du suivi : ce qui a été réalisé, ce qui est en cours, ce qui reste 
 - **Transverse · Atelier de génération de DA avec l'IA** *(architectes)* — [atelier du 4 août](CR/transverse/CR_Architectes-atelier-4-08-26.txt) : démonstration de la génération d'un DA depuis un code source et présentation de deux voies d'usage de l'IA sur poste ministère (Claude Code via Bedrock, OpenCode Desktop via Albert). 5 use cases identifiés par les architectes ; ils les priorisent par impact et mappent les parties du DA à leurs sources d'ici au 21 août, sélection lors d'un point de synchronisation semaine du 31 août. Le projet expérimental de génération de DA leur est mis à disposition.
 - **DACCORD · Atelier d'amélioration des skills** *(développeurs)* — [atelier du 6 août](CR/transverse/daccord-ia-06-08.txt) : l'équipe a avancé sur ses skills, qui couvrent le changement de version (sensible : il impacte un système de vérification), le changelog, le dev front, le dev back (bonnes pratiques, architecture) et le plan d'implémentation. Recommandation de la mission : ajouter des skills de tests back et front, l'équipe visant aussi les tests e2e. Irritant remonté : un forfait trop juste, qui pousse vers OpenCode. Suite immédiate : accompagnement individuel de Sébastien, Florian et Sylvain (voir En cours).
 - **Transverse · Point d'adoption IA pour la population produit** — [point du 6 août](CR/products/Adoption-IA-Products-6-08.txt) : la population produit à outiller est hétérogène (coachs, PM/PO, recherche utilisateur), avec des craintes explicites côté RU (être remplacés par l'IA, voir la donnée partir n'importe où). Félix formalise les use cases RU et PM/PO, Olivier liste les équipes prioritaires. L'accompagnement des PM à la génération de tickets intelligibles via MCP est étendu à VAO (Halim) et BIO2 (Yuna, refonte début septembre). Deux avancées connexes : Olivier introduira la mission auprès du centre logiciel, et la centralisation de la documentation fonctionnelle est jugée prioritaire.
+- **Transverse · Point design avec Louis : prototypes DSFR fiabilisés, flux vers Figma** *(designers)* — [point du 13 août](CR/design/Louis-13-08.txt) : démonstration du loop engineering qui contrôle le respect du DSFR, et du transfert d'un prototype vers une maquette Figma en composants DSFR officiels (pas de mauvaise interprétation du design system, une vision d'ensemble du parcours pour les développeurs). **Louis valide le use case (« beaucoup de valeur »)** ; condition pour passer à l'échelle : un compte Figma full.
 
-### 🔄 En cours (5)
+### 🔄 En cours (6)
 
 - **DACCORD · Accompagner individuellement l'optimisation des skills et poser les bases de l'orchestration** *(développeurs)* → Sébastien accompagné dès le 6 août, poursuite courant août ; Florian le mardi 11 août ; Sylvain début septembre (congés en août). En parallèle : obtenir l'accès au code via Rémi pour une analyse et des suggestions, et voir avec Gary l'usage des LLM.
 - **DACCORD · Adapter les orchestrations Egapro à Jira** *(développeurs)* → poursuivre l'adaptation, puis la mettre entre les mains de l'équipe.
 - **Egapro · Piloter le pré-audit d'accessibilité** *(développeurs)* → un [framework de suivi des performances](https://github.com/sboukhari-Ippon/RGAA-Tool-Monitoring) a été proposé à Max et Lucas ; Lucas partage le besoin de mesurer, Max préfère se concentrer sur l'accessibilité d'Egapro. À arbitrer avec Gary : qui porte l'outil de pré-audit hors des sprints Egapro, avec la mesure intégrée.
 - **Transverse · Constituer le référentiel d'architecture outillé** (fiches, documents de contexte, skills) *(architectes)* → récupérer le référentiel auprès de Mathias, produire un premier jet de skills, créer et épurer le dépôt, laisser Igor le compléter, figer une version 0.1, puis embarquer la conformité numérique.
-- **DACCORD · Accompagner la génération de tickets de spec** *(chefs de projet)* → accompagner Kahina à son retour de congés, en session commune avec Aurélie (SIRENA), mi-août.
+- **DACCORD · Accompagner la génération de tickets de spec** *(chefs de projet)* → accompagner Kahina à son retour de congés ; formation à la création de tickets Jira actée le **25 août**, avec Richard et Noura.
+- **Transverse · Construire avec Louis la solution de prototypes conformes DSFR** (skills anti-hallucination) *(designers)* → démo validée par Louis le 13 août, construction en cours.
 
-### 📅 Planifiées (10)
+### 📅 Planifiées (9)
 
-- **Mi-août — SIRENA · Former Aurélie à l'usage de l'IA pour le PM et le PO**, au-delà de la seule génération de tickets *(chefs de projet)* — en session commune avec Kahina (DACCORD), à son retour de congés.
-- **Août — Transverse · Construire avec Louis la solution de prototypes conformes DSFR** (skills anti-hallucination) *(designers)*.
+- **Créneau à caler — SIRENA · Former Aurélie à l'usage de l'IA pour le PM et le PO**, au-delà de la seule génération de tickets *(chefs de projet)*.
 - **Courant août — Transverse · Benchmark élargi aux modèles disponibles sur Bedrock** — dès réception de la liste des modèles par AWS.
 - **Courant août — Transverse · Définir et partager un catalogue de skills communs** : besoin PO (besoin métier, US, tests d'acceptance), plan technique orienté ATDD (features passées et futures impactées), dev en ATDD (séparation codeur / testeur), refacto adossé à Sonar.
 - **Fin août — Transverse · Demi-journée d'acculturation IA avec Igor et les architectes** — un mardi ou un jeudi.
@@ -78,7 +79,7 @@ Le niveau d'organisation que l'accompagnement a apporté à chaque périmètre, 
 |---|:---:|---|
 | Egapro | **3 → 4** | Les orchestrations tournent en routine et l'organisation est maîtrisée — c'était le chaos, ça ne l'est plus |
 | DACCORD | **1 → 2** | Coaching, skills partagés couvrant cinq domaines, accompagnement individuel engagé. Le niveau 3 se validera quand les skills seront réellement utilisés au quotidien |
-| SIRENA | 2 | Usage IA réel mais individuel, sans coordination d'équipe ; pas encore d'effet de l'accompagnement (formation mi-août) |
+| SIRENA | 2 | Usage IA réel mais individuel, sans coordination d'équipe ; pas encore d'effet de l'accompagnement (formation à venir, créneau à caler) |
 | VAO | 1 | Accompagnement à venir (atelier du 8 septembre, tickets avec Halim) |
 | BIO2 | 1 | Nouveau périmètre, accompagnement au lancement de la refonte (début septembre) |
 | Architectes | **1 → 2** | L'atelier DA a fait passer la fonction de rien à la découverte : cinq use cases identifiés, priorisation en cours |
@@ -102,10 +103,10 @@ Toutes les actions ne pèsent pas pareil. Chaque action engagée est classée se
 | SIRENA | – | 1 | – |
 | VAO | 1 | 1 | – |
 | BIO2 | 1 | – | – |
-| Transverse | 5 | 3 | 11 |
-| **Total** | **15** | **6** | **11** |
+| Transverse | 5 | 4 | 11 |
+| **Total** | **15** | **7** | **11** |
 
-**Lecture** : sur les périmètres actifs, l'impact est presque exclusivement du concret — Egapro et DACCORD ne comptent qu'une seule action non déterminante (le coaching du 16 juillet, classé formation). Les actions modérées sont toutes transverses : ce sont les chantiers de fond (bench, Bedrock, outillage) qui conditionnent le passage à l'échelle. La formation PM/PO de mi-août étant une session commune SIRENA · DACCORD, elle est comptée sur SIRENA, où elle a été demandée. Le point produit du 6 août fait entrer deux périmètres directement sur des actions déterminantes : VAO (Halim) et BIO2, nouveau périmètre côté santé (Yuna).
+**Lecture** : sur les périmètres actifs, l'impact est presque exclusivement du concret — Egapro et DACCORD ne comptent qu'une seule action non déterminante (le coaching du 16 juillet, classé formation). Les actions modérées sont toutes transverses : ce sont les chantiers de fond (bench, Bedrock, outillage) qui conditionnent le passage à l'échelle. La formation PM/PO (DACCORD le 25 août, créneau SIRENA à caler) est comptée sur SIRENA, où elle a été demandée. Le point produit du 6 août fait entrer deux périmètres directement sur des actions déterminantes : VAO (Halim) et BIO2, nouveau périmètre côté santé (Yuna).
 
 ### Le classement, action par action
 
@@ -124,17 +125,18 @@ Toutes les actions ne pèsent pas pareil. Chaque action engagée est classée se
 | Constituer le référentiel d'architecture outillé (fiches, skills) | Transverse | 🔄 En cours | La règle d'architecture devient exploitable dans l'IDE au moment d'écrire le DA, au lieu d'un PDF SharePoint retrouvé après coup |
 | Accompagner la génération de tickets de spec (Kahina) | DACCORD | 🔄 En cours | Des tickets intelligibles du premier coup : moins d'allers-retours entre PM et développeurs |
 | Accompagnement individuel skills et bases d'orchestration (Sébastien, Florian, Sylvain) | DACCORD | 🔄 En cours | Du sur-mesure pour transformer les skills en pratique quotidienne et poser les bases de l'orchestration |
-| Solution de prototypes conformes DSFR avec Louis (août) | Transverse | 📅 Planifiée | Des prototypes sans hallucination DSFR : la condition posée par Norman pour ouvrir l'IA à tous les designers |
+| Solution de prototypes conformes DSFR avec Louis (démo validée le 13 août) | Transverse | 🔄 En cours | Des prototypes sans hallucination DSFR : la condition posée par Norman pour ouvrir l'IA à tous les designers |
 | Catalogue de skills partagés : besoin PO, plan tech ATDD, dev ATDD, refacto Sonar (courant août) | Transverse | 📅 Planifiée | Un socle commun mutualisé entre périmètres, au lieu de reconstruire les mêmes skills équipe par équipe |
 | Accompagner Yuna sur la génération de tickets à la refonte (début septembre) | BIO2 | 📅 Planifiée | Les bons réflexes IA posés dès le premier sprint de la refonte |
 | Accompagner Halim sur la génération de tickets intelligibles | VAO | ⏳ À lancer | Moins d'allers-retours entre PM et développeurs sur VAO |
 
-**◆◆ Élevé (6)**
+**◆◆ Élevé (7)**
 
 | Action | Chantier | Statut |
 |---|---|---|
 | Coaching développement augmenté du 16 juillet¹ | DACCORD | ✅ Réalisée |
-| Formation à l'usage de l'IA pour le PM et le PO (mi-août, session commune avec Kahina) | SIRENA | 📅 Planifiée |
+| Point design avec Louis : prototypes DSFR fiabilisés, flux vers Figma (13 août) | Transverse | ✅ Réalisée |
+| Formation à l'usage de l'IA pour le PM et le PO (créneau à caler) | SIRENA | 📅 Planifiée |
 | Demi-journée d'acculturation IA avec Igor et les architectes (fin août) | Transverse | 📅 Planifiée |
 | Atelier de formation au développement augmenté (8 septembre) | VAO | 📅 Planifiée |
 | Acculturation IA des PO (à valider avec Olivier) | Transverse | ⏳ À lancer |
@@ -239,16 +241,16 @@ L'élan s'est concrétisé sans attendre : **dès le lundi 20 juillet, les déve
 - **Accompagnement individuel engagé dans la foulée** : Sébastien dès l'après-midi du 6 août (poursuite courant août), Florian le mardi 11 août, Sylvain début septembre (congés en août). Objectif : optimiser les skills et poser les bases de l'orchestration.
 - En parallèle : la mission obtient l'accès au code via Rémi pour produire une analyse et des suggestions ; l'usage des LLM est à voir avec Gary. Irritant remonté par l'équipe : **un forfait trop juste, qui la pousse vers OpenCode**.
 - Les orchestrations éprouvées sur Egapro sont en cours d'adaptation à Jira, pour un transfert direct de savoir-faire entre périmètres.
-- Côté chefs de projet, Kahina sera accompagnée à son retour de congés sur la génération de tickets de spec, **mi-août, en session commune avec Aurélie (SIRENA)**.
+- Côté chefs de projet, Kahina sera accompagnée sur la génération de tickets de spec : **formation à la création de tickets Jira le 25 août, avec Richard et Noura**.
 
 ### SIRENA : diagnostic complété, demande entrante
 
 - Côté développeurs : usage IA réel mais individuel (contexte `.claude` global sur l'application, production et revue de code assistées chez une partie des développeurs), sans coordination d'équipe — outils et documents de contexte non mutualisés, base de contexte exploitée mais non maintenue.
 - **Côté produit, la cheffe de projet a été rencontrée le 30 juillet** ([compte rendu](CR/products/CDP-SIRENA-30-07.txt)). Aurélie a repris le projet en juin après Delphine ; elle partagera les rôles PM et PO avec Valérie (prestataire), les deux tenant les deux rôles. L'équipe compte aussi Axelle (design) et Stéphania (recherche utilisateur).
 - Le projet est piloté en mode produit mais ses indicateurs restent projet (coût, délais, qualité). L'usage de l'IA est faible, l'équipe n'a pas de visibilité sur la manière dont ses développeurs s'en servent, et **Aurélie exprime le sentiment de louper le train de l'IA**.
-- **Sa demande est explicite : être formée en même temps que Kahina à l'usage de l'IA pour le PM et le PO, mi-août**, avec l'ambition d'aller au-delà de la seule génération de tickets. Engagement de premier ordre : c'est elle qui est demandeuse.
+- **Sa demande est explicite : être formée à l'usage de l'IA pour le PM et le PO**, avec l'ambition d'aller au-delà de la seule génération de tickets — créneau à caler. Engagement de premier ordre : c'est elle qui est demandeuse.
 - Pistes identifiées avec elle : automatiser et intégrer des agents, mettre en place un workflow de conception et d'exploration dans Jira, suivre la dette technique, renforcer la communication entre développeurs, et — l'équipe ayant accès aux utilisateurs — **s'appuyer sur l'IA pour formuler les questions auxquelles personne n'aurait pensé** lors des entretiens.
-- L'ensemble des use cases est au niveau découverte (les non observés sont notés 1 par convention) : l'image se précisera au cadrage de mi-août.
+- L'ensemble des use cases est au niveau découverte (les non observés sont notés 1 par convention) : l'image se précisera lors de sa formation.
 
 ### VAO : en découverte
 
@@ -276,6 +278,7 @@ Le chantier le plus structurant du semestre, ouvert avec Igor le 28 juillet ([in
 
 - **Egapro** : grâce aux skills fournis, Raphael **génère plusieurs prototypes HTML avant de maquetter** — il se projette au lieu d'itérer à l'aveugle ([compte rendu](CR/design/Avancement-Design.txt)).
 - **Août, avec Louis** : industrialiser un framework de skills générant des prototypes **conformes au DSFR** (anti-hallucination), Louis sur les règles d'UX, Selim sur la performance des skills.
+- **Point du 13 août avec Louis** ([compte rendu](CR/design/Louis-13-08.txt)) : démonstration du loop engineering qui contrôle le respect du DSFR, et du flux prototype → maquette Figma en composants DSFR officiels. **Louis valide le use case (« beaucoup de valeur »)** ; condition pour passer à l'échelle : un compte Figma full.
 - **Ensuite** : session d'acculturation de l'ensemble des designers — Norman la conditionne à une solution éprouvée.
 
 ### Population produit : PM/PO, POs, recherche utilisateur
