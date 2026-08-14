@@ -2,17 +2,17 @@
 
 **Édition du lundi 10 août 2026** · mise à jour hebdomadaire · [le détail, chantier par chantier](Details.md) · [la stratégie (PDF)](Livrables/Pr%C3%A9sentation-strat%C3%A9gie-transfo-ia/Point-etape_Adoption-IA.pdf) · [dashboard GitHub](https://github.com/orgs/SocialGouv/projects/198) · [Grist](https://grist.numerique.gouv.fr/o/tranfo-ia/rFkVL6aLFbrE/Etat-davancement)
 
-## 🏆 Ce que l'accompagnement a changé, métier par métier
+## Ce que l'accompagnement change
 
 Le point de départ constaté à l'arrivée de la mission, ce que chaque fonction sait faire aujourd'hui, et la prochaine étape pour chacune.
 
 | Métier | Point de départ | Aujourd'hui | Prochaine étape |
 |---|---|---|---|
-| **Architectes** | Aucun intérêt exprimé pour l'IA | Intérêt suscité pour l'IA par notre atelier, **cinq use cases identifiés** | Priorisation des use cases par les architectes d'ici au 21/08 · bibliothèque de skills sur les référentiels d'Igor |
-| **Développeurs · Egapro** | Des usages IA bons, mais avec un cadre perfectible | Orchestration désormais **optimisées et sécurisées** : codeur et testeur séparés, le code n'est plus testé par l'agent qui l'a écrit | Amélioration des skills d'orchestration |
-| **Développeurs · DACCORD** | Usage et compréhension de l'IA peu matures | L'équipe **monte sa propre orchestration** (accompagnement individuel en cours) | Orchestration à mettre en place sur le frontend et le backend |
-| **Chef de projet · Egapro** | Un suivi décalé de la vitesse réelle du dev augmenté, roadmap design invisible | **Pilotage adapté à l'IA** | Chantier d'amélioration du pilotage |
-| **Chefs de projet · DACCORD, SIRENA** | Tickets rédigés à la main, allers-retours entre métier et équipes | **Formation actée** à la génération de tickets Jira sur poste ministère, valeur ajoutée validée par les chefs de projet | Session DACCORD le 25/08 avec Richard et Noura · créneau SIRENA à caler |
+| **Architectes** | Aucun intérêt exprimé pour l'IA | Intérêt suscité par notre atelier : **cinq use cases identifiés** | Priorisation des use cases d'ici au 21/08, par eux-mêmes · bibliothèque de skills sur les référentiels d'Igor |
+| **Développeurs · Egapro** | Des usages IA bons, mais avec un cadre perfectible | Orchestration désormais **sécurisée** : codeur et testeur séparés, le code n'est plus testé par l'agent qui l'a écrit | Amélioration des skills d'orchestration |
+| **Développeurs · DACCORD** | Usage et compréhension de l'IA peu matures | L'équipe **est accompagnée pour monter l'orchestration frontend et backend** | L'étendre à la documentation et au changelog |
+| **Chef de projet · Egapro** | Un suivi décalé de la vitesse réelle du dev augmenté, roadmap design invisible | Identification du besoin d'un meilleur **Pilotage, adapté à l'IA** | Chantier d'amélioration dédié |
+| **Chefs de projet · DACCORD, SIRENA** | Tickets rédigés à la main, allers-retours entre métier et équipes | **Formation actée** à la génération de tickets Jira sur poste ministère, valeur ajoutée validée | Session DACCORD le 25/08 avec Richard et Noura · créneau SIRENA à caler |
 | **Designers** | « L'IA a peu de valeur pour nous » | Depuis un poste ministère : **prototypes HTML au DSFR** testables par des utilisateurs, puis **maquette Figma générée** du prototype retenu, DSFR respecté | Industrialiser la solution de prototypes avec Louis, puis acculturer l'ensemble des designers |
 | **Poste de travail** | Pas d'IA générative possible sur PC ministère | **Deux voies opérationnelles** : OpenCode Desktop (sans droits admin, clé Albert) · Claude Code dans VS Code (clé api) · [qui peut utiliser quoi](#qui-peut-utiliser-quoi) | Explorer Scaleway et Google Vertex AI · packager les harness cibles au centre logiciel (introduction par Olivier) |
 
@@ -45,21 +45,13 @@ Le point de départ constaté à l'arrivée de la mission, ce que chaque fonctio
 | Atelier d'amélioration des skills (6/08) | DACCORD | ◆◆◆ | Les skills couvrent cinq domaines et s'améliorent en commun, plus chacun dans son coin |
 | Coaching développement augmenté (16/07) | DACCORD | ◆◆ | Dès le lundi suivant, les développeurs mettaient leurs system prompts en commun, de leur propre initiative |
 | Point design avec Louis : transférer un prototype vers Figma en respectant parfaitement le DSFR (13/08) | Transverse | ◆◆ | Le prototype automatisé permet d'aller plus vite, la maquette Figma en composants DSFR officiels garantit la fiabilité ; Louis valide le use case, condition pour l'échelle : un compte Figma full |
-| Benchmark des harness et modèles | Transverse | ◆ | Sept stacks comparées en perf / prix / souveraineté / conformité : la base de la décision de stack |
+| Benchmark des harness, modèles et providers | Transverse | ◆ | Sept combinaisons comparées en perf / prix / souveraineté / conformité |
 | Tableau des outillages collaborateurs | Transverse | ◆ | Exploration des possibilités offertes par les pc du ministères et comparatif avec les possibilités d'outillage des externes |
 | Cadrage de la voie Bedrock avec AWS (23/07) | Transverse | ◆ | Possibilité d'outiller en licences Claude (paiement au token) avec de l'observabilité |
 | Cadrage des référentiels d'architecture avec Igor (28/07) | Transverse | ◆ | Le référentiel outillé, en construction, part sur des bases partagées |
 | Point d'adoption IA population produit (6/08) | Transverse | ◆ | Les use cases RU et PM / PO se formalisent ; VAO et BIO2 entrent dans le suivi |
 
 <sub>Sur les périmètres actifs, l'impact est presque exclusivement du concret ; les actions modérées sont toutes transverses : les chantiers de fond qui conditionnent le passage à l'échelle.</sub>
-
-**La suite** :
-
-| Statut | Actions |
-|---|---|
-| 🔄 **En cours** | accompagnement individuel skills et orchestration DACCORD (Sébastien, Florian, Sylvain) · orchestrations Egapro → Jira (DACCORD) · pré-audit d'accessibilité Egapro · tickets de spec DACCORD · constitution du référentiel d'architecture outillé · solution de prototypes DSFR avec Louis (démo validée le 13/08) |
-| 📅 **Planifié** | formation PM / PO : DACCORD le 25/08, SIRENA à caler · bench élargi Bedrock (août) · catalogue de skills partagés (courant août) · acculturation IA des architectes (fin août) · sélection des use cases DA (sem. du 31/08) · tickets BIO2 avec Yuna (début sept.) · rencontre du centre logiciel (introduction par Olivier) · atelier dev augmenté VAO (8/09) · cartographie des comptes Bedrock (fin sept.) |
-| ⏭️ **À lancer** | explorations Scaleway et Google Vertex AI (une observabilité sans harness imposé) · tickets VAO avec Halim · acculturation IA des PO · acculturation de l'ensemble des designers · centralisation de la documentation fonctionnelle · évangélisation des équipes du CEPS |
 
 <sub>S'y ajoutent les déclinaisons des actions éprouvées, à cadrer sur DACCORD, SIRENA et VAO.</sub>
 
@@ -89,7 +81,7 @@ Une usine ne vaut que si l'on mesure ce qu'elle change : chaque indicateur sera 
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/09-tdb-dora-dark.svg">
-  <img alt="Tableau de bord adossé à DORA : vitesse avec le cycle time et le débit à effectif constant (GitHub et Jira) ; qualité avec les régressions et le rétablissement, la couverture et la dette (SonarQube), l'exhaustivité de la documentation (audit des repos GitHub) ; coût par fonctionnalité en tokens consommés Bedrock ou Albert plus temps de review ; adoption IA avec l'usage réel mesuré par l'observabilité Bedrock et Albert, la maturité d'équipe sur une échelle de 1 à 5 et le gain de temps perçu par questionnaire ; risque avec la conformité d'usage à la charte face au shadow IT. Sources outillées pour l'essentiel, expertise structurée pour la maturité, déclaratif corroboratif pour le gain perçu" src="Etat-avancement/assets/09-tdb-dora-light.svg" width="100%">
+  <img alt="Tableau de bord adossé à DORA : vitesse avec le cycle time et le débit à effectif constant (GitHub et Jira) ; qualité avec les régressions et le rétablissement, la couverture et la dette (SonarQube), l'exhaustivité de la documentation (audit des repos GitHub) ; coût par fonctionnalité en tokens consommés auprès du provider d'IA plus temps de review ; adoption IA avec l'usage réel mesuré par l'observabilité du provider d'IA, la maturité d'équipe sur une échelle de 1 à 5 et le gain de temps perçu par questionnaire ; risque avec la conformité d'usage à la charte face au shadow IT. Sources outillées pour l'essentiel, expertise structurée pour la maturité, déclaratif corroboratif pour le gain perçu" src="Etat-avancement/assets/09-tdb-dora-light.svg" width="100%">
 </picture>
 
 ## Outillage
