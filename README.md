@@ -27,13 +27,13 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 
 **L'échelle** : 1-2 de rien à la découverte de l'IA · 3 des skills utilisés, des use cases pratiqués, une organisation perfectible · 4 des orchestrations, une organisation maîtrisée · 5 orchestrations, volume de cas d'usage (dev et PM/PO), bonnes pratiques renseignées, vrai craft.
 
-| Chantier | Accompagnement | Où on en est | Prochaine étape |
-|---|:---:|---|---|
-| **Egapro** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Périmètre pilote : orchestrations en routine, designer autonome sur les prototypes, 3 use cases montés de niveau. Accessibilité : l'audit du code passe de 31 à 16 erreurs | Arbitrer avec Gary le portage de l'outil de pré-audit hors des sprints |
-| **DACCORD** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Atelier skills du 6/08 : skills couvrant changement de version, changelog, dev front, dev back et plan d'implem ; tests back / front à ajouter. Orchestrations en cours | Accompagnement individuel : orchestration à mettre en place sur le frontend et le backend · Formation à la génération de tickets le 25/08 avec Richard et Noura |
-| **SIRENA** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Diagnostic complété côté produit : Aurélie a repris le projet en juin et demande explicitement à être formée à l'usage de l'IA pour le PM / PO | Formation à la génération de tickets : créneau à caler |
-| **VAO** | <img src="Etat-avancement/assets/icone-rond-blanc.svg" width="14" alt="pas de changement"> | Équipe en découverte ; Halim identifié pour la génération de tickets intelligibles via MCP (point produit du 6/08) | Caler le créneau avec Halim · atelier dev augmenté le 8 septembre |
-| **Transverse** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | bench des harness livré · matrice des harness disponibles aux collaborateurs livré · Bedrock cadré avec AWS · référentiels d'architecture et de bonnes pratiques cadrés avec Igor (28/07) · 5 use cases IA identifiés avec les architectes (4/08) · population produit cadrée (6/08) | Priorisation des use cases par les architectes d'ici au 21 août · Produire une bibliothèque de skills basées sur les référentiels d'Igor · Explorer Scaleway et Google Vertex AI (observabilité indépendante du harness)|
+| Chantier | Accompagnement | Prochaine étape |
+|---|:---:|---|
+| **Egapro** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Amélioration des skills d'orchestration, du pilotage |
+| **DACCORD** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Accompagnement individuel : orchestration à mettre en place sur le frontend et le backend · Formation à la génération de tickets le 25/08 avec Richard et Noura |
+| **SIRENA** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Formation à la génération de tickets : créneau à caler |
+| **VAO** | <img src="Etat-avancement/assets/icone-rond-blanc.svg" width="14" alt="pas de changement"> | Caler le créneau avec Halim · atelier dev augmenté le 8 septembre |
+| **Transverse** | <img src="Etat-avancement/assets/icone-fleche-verte.svg" width="14" alt="progression"> | Priorisation des use cases par les architectes d'ici au 21 août · Produire une bibliothèque de skills basées sur les référentiels d'Igor · Explorer Scaleway et Google Vertex AI (observabilité indépendante du harness) |
 
 <sub><img src="Etat-avancement/assets/icone-fleche-verte.svg" width="12" alt=""> l'accompagnement a changé quelque chose · <img src="Etat-avancement/assets/icone-rond-blanc.svg" width="12" alt=""> pas encore de changement. BIO2 (refonte côté santé, lancement début septembre) rejoindra le suivi actif au fil de l'eau.</sub>
 
@@ -87,6 +87,8 @@ Le point de départ constaté à l'arrivée de la mission, et ce que chaque fonc
 ## La cible : l'usine logicielle
 
 Un des objectifs de l'accompagnement : une usine logicielle où chaque étape du cycle combine deux rails — un rail agentique qui génère, un rail déterministe qui vérifie. L'agent propose, la règle prouve, l'humain valide. Son pilotage s'adosse à DORA, chaque indicateur lu avant / après pour isoler l'apport de l'IA.
+
+Une équipe pilote identifiée: SIGeSS.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="Etat-avancement/assets/08-usine-dark.svg">
