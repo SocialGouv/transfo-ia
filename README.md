@@ -167,9 +167,9 @@ L'exploration avec AWS a validé une solution viable : Claude Code adossé à l'
 
 | Décision | Ce qui est en jeu | Qui tranche, quand |
 |---|---|---|
-| **Porteur du pré-audit d'accessibilité** — hors des sprints Egapro, sans reposer sur Max, avec la mesure intégrée | Sans porteur ni mesure, l'outil restera piloté au feeling | **Gary** · arbitrage attendu |
-| **Accès au centre logiciel** pour y packager les harness cibles | Sans cela, l'adoption reste cantonnée aux prestataires : un poste interne managé ne peut pas installer un harness | Avancée du 6/08 : le centre peut tolérer des outils restreints à une liste de personnes, et **Olivier** introduit la mission |
-| **Stack des agents internes** — meilleur rapport performance / prix / souveraineté / conformité | Le coût interne suit l'usage : ≈20 € par siège **plus chaque token consommé** | À instruire après le [bench élargi aux modèles Bedrock](#ce-que-dit-le-bench) (août) et les [explorations Scaleway / Vertex AI](#trois-voies-daccès-aux-modèles) |
+| **Porteur du pré-audit d'accessibilité** : hors des sprints, sans reposer sur Egapro, avec la mesure intégrée | Sans porteur ni mesure, l'outil restera piloté au feeling | **Gary** · arbitrage attendu |
+| **Accès au centre logiciel** pour y packager les harness cibles | Deux voies passent déjà pour les internes ([la matrice](#qui-peut-utiliser-quoi)) : l'enjeu est la **liberté du choix du harness** | **Les personnes du centre logiciel** · introduction par Olivier à venir |
+| **Stack des agents internes, et des externes sur sujets confidentiels** | Trouver la formule optimale en rapport qualité / prix, au plus près des exigences de souveraineté et de légalité | À instruire après le [bench élargi aux modèles Bedrock](#ce-que-dit-le-bench) (août) et les [explorations Scaleway / Vertex AI](#trois-voies-daccès-aux-modèles) |
 
 ## Repères
 
