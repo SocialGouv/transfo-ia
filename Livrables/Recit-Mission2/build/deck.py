@@ -89,13 +89,26 @@ def card(slide, x, y, w, h, title, sub, paras, arrow=None,
     if sub:
         text(slide, x + 0.12, yy, w - 0.24, 0.25, sub, size=8.5, color=G425, bold=True)
         yy += 0.26
-    body = list(paras) + ([f"→ {arrow}"] if arrow else [])
-    colors = [INK2] * len(paras) + ([SOFT] if arrow else [])
-    for para, c in zip(body, colors):
-        tb = text(slide, x + 0.12, yy, w - 0.24, h - (yy - y) - 0.08, para,
-                  size=size, color=c, bold=(c is SOFT), bold_color=BLACK)
-        yy += 0.205 * sum(1 for _ in tb.text_frame.paragraphs) + 0.14 + \
-            0.155 * (len(para) // int((w - 0.24) * 15))
+    # corps en un seul bloc : les paragraphes puis la flèche s'enchaînent sans
+    # calcul de hauteur, donc sans chevauchement possible
+    tb = slide.shapes.add_textbox(Inches(x + 0.12), Inches(yy),
+                                  Inches(w - 0.24), Inches(h - (yy - y) - 0.08))
+    tf = tb.text_frame
+    tf.word_wrap = True
+    specs = [(p, INK2, False, BLACK) for p in paras]
+    if arrow:
+        specs.append((f"→ {arrow}", SOFT, True, SOFT))
+    for i, (para, color, bold_all, bcolor) in enumerate(specs):
+        p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
+        p.space_after = Pt(6)
+        p.line_spacing = 1.15
+        for seg, b in runs_of(para):
+            r = p.add_run()
+            r.text = seg
+            r.font.name = "Marianne"
+            r.font.size = Pt(size)
+            r.font.bold = bold_all or b
+            r.font.color.rgb = bcolor if b else color
 
 
 def band(slide, x, y, w, h, paras, edge=BF, fill=BF975, title=None, size=10.5):
@@ -225,7 +238,7 @@ def build_three_slides():
          "l'acculturation pouvait créer la demande"),
     ]
     for i, (t, sub, paras, arrow) in enumerate(items):
-        card(s, 0.6 + i * 4.115, 2.75, 3.92, 2.3, t, sub, paras, arrow, size=10.5)
+        card(s, 0.6 + i * 4.115, 2.75, 3.92, 1.95, t, sub, paras, arrow, size=10.5)
 
     # Slide 2 — le déclic
     s = blank(prs)
@@ -277,9 +290,9 @@ def build_three_slides():
          "un choix documenté, pas un pari"),
     ]
     for i, (t, sub, paras, arrow) in enumerate(items):
-        card(s, 0.6 + i * 4.115, 1.62, 3.92, 3.1, t, sub, paras, arrow, size=10.5)
+        card(s, 0.6 + i * 4.115, 1.62, 3.92, 2.75, t, sub, paras, arrow, size=10.5)
 
-    band(s, 0.6, 5.05, 12.15, 1.15,
+    band(s, 0.6, 4.62, 12.15, 1.15,
          "**La boucle se ferme.** À chaque métier accompagné, la demande arrive ensuite "
          "d'elle-même (SIRENA, architectes, designers, PO/RU). Accompagnement réel + freins levés "
          "= l'adoption devient **une dynamique d'équipe**, et non plus une somme d'usages individuels.",
