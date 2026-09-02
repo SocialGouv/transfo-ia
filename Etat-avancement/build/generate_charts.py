@@ -70,13 +70,13 @@ JALONS = [
     (22, ["4 août", "Atelier DA", "architectes"], "done", True),
     (26, ["6 août", "Atelier skills", "+ pt produit IA"], "done", False),
     (33, ["13 août", "Point design Louis", "DSFR → Figma"], "done", True),
-    (43, ["25 août", "Formation PM/PO", "DACCORD"], "next", False),
-    (47, ["Fin août", "Acculturation IA", "avec Igor"], "next", True),
-    (53, ["Sem. du 31 août", "Sélection use", "cases DA"], "next", False),
-    (59, ["8 septembre", "Dev augmenté VAO", "+ tickets BIO2"], "futur", True),
-    (78, ["Fin septembre", "Cartographie des comptes", "Bedrock (bénéficiaires)"], "futur", True),
+    (45, ["3 septembre", "Dev augmenté VAO · design &amp; IA", "du proto à la maquette Figma DSFR"], "next", False),
+    (56, ["Début sept.", "Use cases archi", "sélection + exploration"], "next", True),
+    (63, ["8 septembre", "Formation PM/PO", "DACCORD"], "next", False),
+    (68, ["9 septembre", "Acculturation IA", "avec Igor"], "next", True),
+    (78, ["Fin septembre", "Cartographie des comptes", "Bedrock (bénéficiaires)"], "futur", False),
 ]
-ROADMAP_NOTE = ("À dater, courant août : catalogue de skills · bench Bedrock · formation SIRENA · "
+ROADMAP_NOTE = ("Courant septembre : formation PM/PO SIRENA · à dater : catalogue de skills · bench Bedrock · "
                 "puis : référents IA, CI/CD augmentée, harness souverain")
 
 # Impact des actions engagées : (libellé, nb de losanges, sous-texte)
@@ -98,33 +98,48 @@ IMPACT_NOTE = ("Les actions à impact modéré sont toutes transverses : les cha
                "(bench, Bedrock, outillage des postes) qui conditionnent le passage à l'échelle.")
 
 # Bench harness : (harness · modèle en tête, provider grisé dessous)
+W_BENCH = 1120  # ce chart est plus large : 3 colonnes de performance
+NP = "non publié"
 BENCH = [
-    # (harness, modèle, provider, perf %, label perf, prix sortie $/1M, label prix,
+    # (harness, modèle, provider,
+    #  DeepSWE v1.1 % (None = non publié), label DeepSWE, label Terminal-Bench 2.1, label SWE-bench Verified,
+    #  prix entrée /1M, label entrée, prix sortie /1M, label sortie,
     #  souveraineté (statut, libellé, détail), conformité RGPD (statut, libellé, détail))
-    ("Claude Code", "Fable 5", "AWS Bedrock", 95.0, "95,0 %", 50.0, "50 $",
+    ("Claude Code", "Opus 5", "AWS Bedrock",
+     74.0, "74,0 % (±4)", "89,1 %", "97,0 % *", 5.0, "5 $", 25.0, "25 $",
      ("bad", "Non souveraine", "CLOUD Act (CNIL)"),
      ("good", "Bonne", "région UE · DPA AWS")),
-    ("OpenCode", "Kimi K3", "OpenRouter", 93.4, "≈93 % *", 15.0, "15 $",
+    ("Claude Code", "Fable 5", "AWS Bedrock",
+     70.0, "70,0 %", NP, "95,0 %", 10.0, "10 $", 50.0, "50 $",
+     ("bad", "Non souveraine", "CLOUD Act (CNIL)"),
+     ("good", "Bonne", "région UE · DPA AWS")),
+    ("OpenCode", "Kimi K3", "OpenRouter",
+     69.0, "≈69 %", "88,3 %ᵛ", "93,4 %ᵛ", 2.55, "2,55 $", 12.75, "12,75 $",
      ("bad", "Non souveraine", "éditeur CN, routeur US"),
      ("bad", "Insuffisante", "sans garanties UE")),
-    ("Claude Code", "Opus 4.8", "Anthropic", 88.6, "88,6 %", 25.0, "25 $",
-     ("bad", "Non souveraine", "éditeur US"),
-     ("mid", "Partielle", "transfert hors UE")),
-    ("OpenCode", "DeepSeek V4 Pro", "OpenRouter", 80.6, "80,6 %", 0.87, "0,87 $ (preview)",
-     ("bad", "Non souveraine", "éditeur CN, routeur US"),
-     ("bad", "Insuffisante", "sans garanties UE")),
-    ("OpenCode", "DeepSeek V4 Flash", "Albert (DINUM)", 79.0, "≈79 %", 0.0, "gratuit (agents État)",
+    ("Claude Code", "Sonnet 5", "AWS Bedrock",
+     None, NP, "85,2 %", "82,1 %", 2.0, "2 $", 10.0, "10 $",
+     ("bad", "Non souveraine", "CLOUD Act (CNIL)"),
+     ("good", "Bonne", "région UE · DPA AWS")),
+    ("OpenCode", "DeepSeek V4 Flash 0731", "Scaleway",
+     54.4, "54,4 %ᵛ", "82,7 %ᵛ", NP, 0.40, "0,40 €", 0.80, "0,80 €",
+     ("good", "Souveraine (UE)", "cloud FR, hébergé UE"),
+     ("good", "Bonne", "RGPD · cloud FR")),
+    ("OpenCode", "GLM 5.2", "Scaleway",
+     44.0, "44,0 %", "81,0 %ᵛ", "≈78 %", 1.80, "1,80 €", 5.50, "5,50 €",
+     ("good", "Souveraine (UE)", "cloud FR, hébergé UE"),
+     ("good", "Bonne", "RGPD · cloud FR")),
+    ("OpenCode", "DeepSeek V4 Flash preview", "Albert (DINUM) · checkpoint à confirmer",
+     7.3, "7,3 %ᵛ · ≈8 % indép.", "61,8 %ᵛ", "79,0 %", 0.0, "", 0.0, "gratuit (agents État)",
      ("good", "Souveraine", "SecNumCloud · État FR"),
      ("good", "Bonne", "cadre État (DINUM)")),
-    ("OpenCode", "GLM 5.2", "OpenRouter", 78.0, "≈78 %", 4.40, "4,40 $",
-     ("bad", "Non souveraine", "éditeur CN, routeur US"),
-     ("bad", "Insuffisante", "sans garanties UE")),
-    ("Vibe", "Mistral Medium 3.5", "Mistral", 77.6, "77,6 %", 7.50, "7,50 $",
-     ("good", "Souveraine (UE)", "SecNumCloud en option"),
-     ("good", "Bonne", "RGPD · éditeur FR")),
 ]
-BENCH_NOTE = ("Lecture : la conformité RGPD passe par Bedrock (région UE), Mistral ou Albert ; "
-              "la souveraineté (sens CNIL) par Albert ou Mistral · * score annoncé par l'éditeur")
+BENCH_NOTES = [
+    "Lecture : DeepSWE v1.1 = le modèle seul, harness fixé mini-swe-agent (leaderboard officiel Datacurve) · "
+    "SWE-bench Verified en baseline : saturé, chiffres surtout éditeurs, harness hétérogènes",
+    "ᵛ auto-rapporté par l'éditeur, sans reproduction indépendante · * mesure indépendante vals.ai, harness minimal bash-only",
+    "Conformité RGPD : Bedrock (UE), Scaleway, Albert · souveraineté CNIL : Albert, Scaleway",
+]
 
 # Usine logicielle cible : à chaque étape, deux rails (agentique génère, déterministe
 # vérifie). Cellules en lignes pré-coupées pour le rendu SVG.
@@ -207,10 +222,10 @@ W = 920  # largeur commune
 # Aides SVG
 # ============================================================================
 
-def svg_open(h, t):
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" '
-            f'viewBox="0 0 {W} {h}" font-family="{FONT}">'
-            f'<rect x="0.5" y="0.5" width="{W-1}" height="{h-1}" rx="12" '
+def svg_open(h, t, w=W):
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
+            f'viewBox="0 0 {w} {h}" font-family="{FONT}">'
+            f'<rect x="0.5" y="0.5" width="{w-1}" height="{h-1}" rx="12" '
             f'fill="{t["surface"]}" stroke="{t["border"]}"/>')
 
 
@@ -449,47 +464,70 @@ def chart_matrice(t):
 # ============================================================================
 
 def chart_bench(t):
-    """Quatre panneaux : perf et prix en barres à base zéro, souveraineté et conformité en statut."""
-    y0, rh = 122, 48
+    """Perf en trois colonnes (DeepSWE en barres, TB et SWE-V en valeurs),
+    prix en barres Ã  base zÃ©ro, souverainetÃ© et conformitÃ© en statut."""
+    y0, rh = 128, 48
     n = len(BENCH)
-    h = y0 + n * rh + 54
-    px0, px1 = 250, 420   # panneau performance (0 → 100 %)
-    qx0, qx1 = 466, 596   # panneau prix (0 → 50 $)
-    sx = 648              # colonne souveraineté
-    cx = 782              # colonne conformité
-    s = svg_open(h, t)
+    h = y0 + n * rh + 88
+    px0, px1 = 285, 425   # DeepSWE v1.1 en barres (0 -> 100 %)
+    tbx = 550             # centre colonne Terminal-Bench 2.1
+    svx = 672             # centre colonne SWE-bench Verified (baseline grisee)
+    qx0, qx1 = 735, 835   # panneau prix (0 -> 50 $ ou EUR)
+    sx = 880              # colonne souverainete
+    cx = 1008             # colonne conformite
+    s = svg_open(h, t, W_BENCH)
     s += title_block(t, "Coding agentique : les stacks au bench",
-                     "SWE-bench Verified, prix en sortie ($ / 1M tokens), souveraineté et conformité RGPD · vérifiés le 23/07/2026")
-    s += txt(px0, 98, "Performance (SWE-bench)", 12, t["sec"], "600")
-    s += txt(qx0, 98, "Prix sortie / 1M", 12, t["sec"], "600")
-    s += txt(sx, 98, "Souveraineté", 12, t["sec"], "600")
-    s += txt(cx, 98, "Conformité", 12, t["sec"], "600")
+                     "DeepSWE v1.1, Terminal-Bench 2.1, SWE-bench Verified (baseline), prix entrée / sortie "
+                     "($ ou € / 1M tokens), souveraineté, conformité RGPD · vérifiés le 02/09/2026")
+    s += txt(px0, 92, "DeepSWE v1.1", 12, t["sec"], "600")
+    s += txt(px0, 107, "modèle seul · Datacurve", 10, t["muted"])
+    s += txt(tbx, 92, "Terminal-Bench 2.1", 12, t["sec"], "600", anchor="middle")
+    s += txt(tbx, 107, "agentique", 10, t["muted"], anchor="middle")
+    s += txt(svx, 92, "SWE-bench Verified", 12, t["muted"], "600", anchor="middle")
+    s += txt(svx, 107, "baseline · saturé", 10, t["muted"], anchor="middle")
+    s += txt(qx0, 92, "Prix / 1M tokens", 12, t["sec"], "600")
+    s += txt(qx0, 107, "entrée · sortie", 10, t["muted"])
+    s += txt(sx, 92, "Souveraineté", 12, t["sec"], "600")
+    s += txt(cx, 92, "Conformité", 12, t["sec"], "600")
     for g, lab in ((0, "0"), (50, "50"), (100, "100 %")):
         gx = px0 + g / 100 * (px1 - px0)
         s += f'<line x1="{gx}" y1="{y0 - 8}" x2="{gx}" y2="{y0 + n * rh - 16}" stroke="{t["grid"]}" stroke-width="1"/>'
         s += txt(gx, y0 + n * rh + 2, lab, 11, t["muted"], anchor="middle")
-    for g, lab in ((0, "0"), (25, "25"), (50, "50 $")):
+    for g, lab in ((0, "0"), (25, "25"), (50, "50")):
         gx = qx0 + g / 50 * (qx1 - qx0)
         s += f'<line x1="{gx}" y1="{y0 - 8}" x2="{gx}" y2="{y0 + n * rh - 16}" stroke="{t["grid"]}" stroke-width="1"/>'
         s += txt(gx, y0 + n * rh + 2, lab, 11, t["muted"], anchor="middle")
-    for i, (harness, modele, provider, perf, perf_lab, prix, prix_lab, souv, conf) in enumerate(BENCH):
+    for i, (harness, modele, provider, dsw, dsw_lab, tb_lab, sv_lab,
+            prix_in, lab_in, prix_out, lab_out, souv, conf) in enumerate(BENCH):
         y = y0 + i * rh
         s += txt(32, y + 8, f"{harness} · {modele}", 12.5, t["ink"], "600")
         s += txt(32, y + 24, provider, 11, t["muted"])
-        pw = perf / 100 * (px1 - px0)
-        s += rbar(px0, y, pw, 16, t["accent"])
-        s += txt(px0 + pw + 8, y + 12.5, perf_lab, 11.5, t["ink"], "600")
-        if prix > 0:
-            qw = max(prix / 50 * (qx1 - qx0), 3)
-            s += rbar(qx0, y, qw, 16, t["accent"])
-            s += txt(qx0 + qw + 8, y + 12.5, prix_lab, 11.5, t["ink"], "600")
+        if dsw is None:
+            s += txt(px0 + 2, y + 12.5, dsw_lab, 11, t["muted"])
         else:
-            s += txt(qx0 + 2, y + 12.5, prix_lab, 11.5, t["good"], "600")
+            pw = max(dsw / 100 * (px1 - px0), 3)
+            s += rbar(px0, y, pw, 16, t["accent"])
+            s += txt(px0 + pw + 8, y + 12.5, dsw_lab, 11.5, t["ink"], "600")
+        s += txt(tbx, y + 12.5, tb_lab, 11.5,
+                 t["muted"] if tb_lab == NP else t["ink"],
+                 "normal" if tb_lab == NP else "600", anchor="middle")
+        s += txt(svx, y + 12.5, sv_lab, 11.5, t["muted"],
+                 "normal" if sv_lab == NP else "600", anchor="middle")
+        if prix_out > 0:
+            win = max(prix_in / 50 * (qx1 - qx0), 3)
+            s += rbar(qx0, y, win, 9, t["ramp5"][1])
+            s += txt(qx0 + win + 6, y + 8, lab_in, 10.5, t["sec"])
+            wout = max(prix_out / 50 * (qx1 - qx0), 3)
+            s += rbar(qx0, y + 13, wout, 9, t["accent"])
+            s += txt(qx0 + wout + 6, y + 21, lab_out, 11, t["ink"], "600")
+        else:
+            s += txt(qx0 + 2, y + 12.5, lab_out, 11.5, t["good"], "600")
         for x_col, (statut, lib, det) in ((sx, souv), (cx, conf)):
             s += f'<circle cx="{x_col + 4}" cy="{y + 6}" r="4.5" fill="{t["status"][statut]}"/>'
             s += txt(x_col + 14, y + 10, lib, 12, t["ink"], "600")
             s += txt(x_col, y + 26, det, 10.5, t["muted"])
-    s += txt(32, h - 22, BENCH_NOTE, 11, t["sec"])
+    for k, note in enumerate(BENCH_NOTES):
+        s += txt(32, h - 56 + 18 * k, note, 11, t["sec"])
     return s + "</svg>", h
 
 
