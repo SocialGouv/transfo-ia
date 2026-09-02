@@ -190,4 +190,21 @@ Réalisé:
 | Déclinaisons à cadrer | 11 | **10** *(SIRENA sort des tickets de spec)* |
 | Use cases SIRENA en découverte | 4 | **6** *(2 sortent de « à évaluer »)* |
 
-Ces chiffres sont déjà répercutés dans [`build/generate_charts.py`](build/generate_charts.py), les SVG régénérés, le [README](../README.md) et l'[état d'avancement détaillé](Etat-avancement-detaille.md).
+Ces chiffres sont déjà répercutés dans [`build/generate_charts.py`](build/generate_charts.py), les SVG régénérés, le [README](../README.md) et l'[état d'avancement détaillé](../Details.md).
+
+---
+
+## Passage de la matrice sur l'échelle 1 à 5 — reporté le 31 juillet 2026
+
+> ✅ **Reporté dans le classeur le 31 juillet 2026** (tableau *Niveau IA*, lignes 4 à 15, et légende K4:L8). Proposition en cours de challenge : si des niveaux bougent, ne retoucher que les cellules concernées.
+
+Règle de conversion depuis l'ancienne échelle 1-3 : **1 → 1 · 2 → 3 · 3 → 4 · « ? » → 1** (un use case non observé est noté 1 par convention) · NA inchangé. Nouvelle légende : 1 Découverte · 2 Expérimentation · 3 Pratique régulière · 4 Maîtrise · 5 Standard d'équipe.
+
+Exceptions à la règle, assumées :
+
+| Cellule | Ancien | Nouveau | Pourquoi pas la conversion mécanique |
+|---|:---:|:---:|---|
+| D11 (pré-audit accessibilité Egapro) | 1 → 2 | **1 → 2** | pas de porteur ni de mesure : pratique non fiabilisée, donc expérimentation |
+| E13 (system prompts DACCORD) | 1 → 2 | **1 → 2** | la mise en commun vient de démarrer (20/07) ; l'atelier du 6/08 la consolidera vers 3 |
+
+Cellules modifiées : D4 (`1 -> 3`), D6 (4), D7 (`1 -> 4`), D8 (3), D9 (4), D10 (4), D13 (4), E7 E8 E9 (1, 3, 3), F6:F9 (1), G4:G7 et G13 (1), légende K4:L8. L'échelle est répercutée dans `build/generate_charts.py` (MATRICE, NIVEAUX, ramp5), les SVG, le README et l'état détaillé (nouvelle section *Impact des actions*).

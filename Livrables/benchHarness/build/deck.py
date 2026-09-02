@@ -3,7 +3,7 @@
 Charte DSFR Ministeres Sociaux (meme systeme que les decks Point d'etape IA).
 3 slides : (1) matrice comparative 7x5, (2) couts externes vs internes,
 (3) cas d'usage + recommandation.
-Chiffres verifies sur sources primaires les 10/07 et 23/07/2026 (voir notes de chaque slide)."""
+Chiffres verifies sur sources primaires les 10/07, 23/07 et 02/09/2026 (voir notes de chaque slide)."""
 import os
 from pptx import Presentation
 from pptx.util import Inches, Pt
@@ -21,7 +21,7 @@ LAV="E3E3FD"; CARD="F5F5FE"; CARD2="ECECFE"; RED="E1000F"; GOLD="FFC800"
 WHITE="FFFFFF"; RULE="DDDDDD"
 GREEN="18753C"; AMBER="B85C00"; DOTOFF="D2D2E8"
 MAR = "Marianne"
-DATE = "23/07/2026"
+DATE = "02/09/2026"
 
 SW, SH = 13.333, 7.5
 ML = 0.85
@@ -128,7 +128,7 @@ def build(out):
     # =========================================================
     s = slide(prs); header(s); footer(s, 1)
     title_block(s, [R("Coding agentique : comparer 7 stacks", sz=30, b=True, c=INK)])
-    subtitle(s, "Prix, performance, souveraineté, conformité, faisabilité. Tarifs vérifiés sur sources primaires (23/07/2026).")
+    subtitle(s, "Prix, performance, souveraineté, conformité, faisabilité. Tarifs vérifiés sur sources primaires (02/09/2026).")
 
     # --- geometrie de la grille ---
     labx = ML                 # colonne libelles critere
@@ -144,12 +144,12 @@ def build(out):
 
     # --- entetes de colonnes : harness + modele en avant, provider grise ---
     cols = [
-        ("Claude Code", "Opus 4.8", "Anthropic", BLUE),
+        ("Claude Code", "Opus 5", "AWS Bedrock", BLUE),
         ("Claude Code", "Fable 5", "AWS Bedrock", BLUE),
-        ("Vibe", "Medium 3.5", "Mistral", PERI),
-        ("OpenCode", "DeepSeek V4 Flash", "Albert (DINUM)", PERI),
-        ("OpenCode", "DeepSeek V4 Pro", "OpenRouter", PERI),
-        ("OpenCode", "GLM 5.2", "OpenRouter", PERI),
+        ("Claude Code", "Sonnet 5", "AWS Bedrock", BLUE),
+        ("OpenCode", "DeepSeek V4 Flash preview", "Albert (DINUM)", PERI),
+        ("OpenCode", "DeepSeek V4 Flash 0731", "Scaleway", PERI),
+        ("OpenCode", "GLM 5.2", "Scaleway", PERI),
         ("OpenCode", "Kimi K3", "OpenRouter", PERI),
     ]
     for i,(a,m,pv,cc) in enumerate(cols):
@@ -161,49 +161,49 @@ def build(out):
 
     # --- lignes (criteres) : (icone, libelle, [ (score, val_lignes) x7 ]) ---
     rows = [
-        ("bank", "Prix", "/ 1M tokens", [
-            (2, ["5 $ / 25 $", "+ siège 20–125 $/m"]),
+        ("bank", "Prix", "/ 1M tokens (in / out)", [
+            (2, ["5 $ / 25 $", "+ siège ≈20 €/m"]),
             (1, ["10 $ / 50 $", "+ siège ≈20 €/m"]),
-            (4, ["1,50 $ / 7,50 $", "plans dès 14,99 $/m"]),
-            (5, ["Gratuit", "quotas, agents État"]),
-            (5, ["0,44 $ / 0,87 $", "tarif preview *"]),
-            (4, ["1,40 $ / 4,40 $", ""]),
-            (3, ["3 $ / 15 $", "cache −60/80 %"]),
+            (3, ["2 $ / 10 $", "+ siège ≈20 €/m"]),
+            (5, ["Gratuit", "quotas · État"]),
+            (5, ["0,40 € / 0,80 €", ""]),
+            (4, ["1,80 € / 5,50 €", ""]),
+            (3, ["2,55 $ / 12,75 $", "cache −60/80 %"]),
         ]),
-        ("code-s-slash", "Performance", "SWE-bench Verified", [
-            (5, ["88,6 %", ""]),
-            (5, ["95,0 %", "tête du bench"]),
-            (4, ["77,6 %", ""]),
-            (4, ["≈79 % *", "estimée"]),
-            (4, ["80,6 %", ""]),
-            (4, ["≈78 % *", "estimée"]),
-            (5, ["93,4 % *", "annoncé éditeur"]),
+        ("code-s-slash", "Performance", "DeepSWE v1.1 · modèle seul", [
+            (5, ["74,0 % (±4)", "TB 89,1* · SV 96ᵛ/97*"]),
+            (5, ["70,0 % (±4)", "TB 83,8 · SV 95,0ᵛ"]),
+            (4, ["54 % (±4)", "TB 80,4ᵛ/74,6 · SV 85,2"]),
+            (1, ["7,3 %ᵛ", "TB 61,8ᵛ · SV 73,7ᵛ"]),
+            (4, ["53 % · 54,4ᵛ", "TB 82,7ᵛ · SV n.p."]),
+            (3, ["44,0 %", "TB 81,0ᵛ · SV n.p."]),
+            (4, ["≈69 %", "TB 88,3ᵛ · SV 93,4*"]),
         ]),
         ("shield-check", "Souveraineté", "au sens CNIL", [
-            (1, ["Éditeur US", "CLOUD Act"]),
             (1, ["Cloud US", "CLOUD Act (CNIL)"]),
-            (4, ["Éditeur FR", "SecNumCloud en opt."]),
+            (1, ["Cloud US", "CLOUD Act (CNIL)"]),
+            (1, ["Cloud US", "CLOUD Act (CNIL)"]),
             (5, ["État FR", "SecNumCloud"]),
-            (1, ["Éditeur CN", "+ routeur US"]),
-            (1, ["Éditeur CN", "+ routeur US"]),
+            (4, ["Cloud FR", "hébergé UE"]),
+            (4, ["Cloud FR", "hébergé UE"]),
             (1, ["Éditeur CN", "+ routeur US"]),
         ]),
         ("shield-check", "Conformité", "RGPD / données", [
-            (3, ["Partielle", "transfert hors UE"]),
-            (4, ["Bonne", "région UE · DPA AWS"]),
-            (5, ["Bonne", "RGPD · éditeur FR"]),
-            (5, ["Bonne", "cadre État (DINUM)"]),
-            (1, ["Insuffisante", "sans garanties UE"]),
-            (1, ["Insuffisante", "sans garanties UE"]),
+            (4, ["Bonne", "UE · DPA AWS"]),
+            (4, ["Bonne", "UE · DPA AWS"]),
+            (4, ["Bonne", "UE · DPA AWS"]),
+            (5, ["Bonne", "cadre État"]),
+            (4, ["Bonne", "RGPD · cloud FR"]),
+            (4, ["Bonne", "RGPD · cloud FR"]),
             (1, ["Insuffisante", "sans garanties UE"]),
         ]),
         ("settings-3", "Faisabilité", "poste interne", [
-            (4, ["Multi-OS natif", "outil mûr, admin ent."]),
-            (3, ["Bedrock (IAM)", "data sharing requis"]),
-            (3, ["CLI + VS Code", "clé Mistral ou plan"]),
-            (3, ["OpenAI-compat.", "agents État · quotas"]),
-            (3, ["clé OpenRouter", "Mac/Linux/Win (WSL)"]),
-            (3, ["clé OpenRouter", "Mac/Linux/Win (WSL)"]),
+            (3, ["Bedrock (IAM)", "data sharing"]),
+            (3, ["Bedrock (IAM)", "data sharing"]),
+            (3, ["Bedrock (IAM)", "data sharing"]),
+            (3, ["OpenAI-compat.", "agents État"]),
+            (3, ["clé Scaleway", "OpenAI-compat."]),
+            (3, ["clé Scaleway", "OpenAI-compat."]),
             (3, ["clé OpenRouter", "capacité limitée"]),
         ]),
     ]
@@ -229,11 +229,55 @@ def build(out):
     para(tf, [R("● ● ● ● ● ", sz=10.5, c=GREEN), R("favorable    ", sz=10, c=MENTION),
               R("● ● ● ", sz=10.5, c=AMBER), R("moyen    ", sz=10, c=MENTION),
               R("● ", sz=10.5, c=RED), R("défavorable", sz=10, c=MENTION),
-              R("        * DeepSeek V4 : tarif preview ; GLM et Albert : perf estimée ; Kimi K3 : score annoncé par l'éditeur.",
+              R("        DeepSWE v1.1 = modèle seul · TB Terminal-Bench 2.1 · SV SWE-bench V. · sans marque : officiel · ᵛ éditeur · * mesure indép.",
                 sz=9.5, c=MENTION, i=True)], sa=0, first=True)
 
-    notes(s, "Matrice comparative des 7 stacks de coding agentique. Chiffres verifies (sources primaires, 10/07 et 23/07/2026). "
-             "AJOUTS DU 23/07/2026 : (a) Claude Code / Fable 5 via Bedrock : 95,0% SWE-bench Verified (llm-stats.com), "
+    notes(s, "Matrice comparative des 7 stacks de coding agentique. Chiffres verifies (sources primaires, 10/07, 23/07 et 02/09/2026). "
+             "MAJ DU 02/09/2026 : (a) SORTIS du perimetre : Claude Code / Opus 4.8 via Anthropic direct, OpenCode / DeepSeek V4 Pro "
+             "via OpenRouter, et Vibe / Mistral Medium 3.5 (retrait demande par Selim ; Mistral reste une voie souveraine dans la "
+             "doctrine fournisseurs, mais la stack sort du bench). (b) AJOUTS Bedrock : Opus 5 (5$/25$ par 1M - moitie du prix "
+             "de Fable 5 ; SWE-bench Verified : 96,0% annonce Anthropic, 97,0% mesure vals.ai du 01/09/2026, harness minimal "
+             "bash-only) et Sonnet 5 (2$/10$ par 1M). "
+             "(c) AJOUTS Scaleway (cloud FR, hebergement UE - souverain et conforme RGPD ; observabilite a valider) : "
+             "DeepSeek V4 Flash 0731 a 0,40 EUR / 0,80 EUR par 1M (tarif communique par le client). ATTENTION PERF 0731 : "
+             "DeepSeek ne publie PAS de SWE-bench Verified pour ce checkpoint (verifie le 02/09/2026 : model card HF et blogs "
+             "n'en donnent aucun ; le 79,0% recopie par les agregateurs benchlm/zenmux est celui du checkpoint d'avril, "
+             "a priori celui servi par Albert - checkpoint a confirmer aupres de la DINUM). "
+             "REFONTE PERFORMANCE (02/09/2026, regle fixee par Selim) : trois mesures au lieu d'une. "
+             "(1) DeepSWE v1.1 en PRINCIPAL - leaderboard officiel Datacurve, harness fixe mini-swe-agent, donc score du modele "
+             "seul, independant du harness. Valeurs Datacurve : Opus 5 74,0 (+/-4) ; Fable 5 70,0 (+/-4) ; Kimi K3 ~69 ; "
+             "Sonnet 5 54 (+/-4, entree claude-sonnet-5 max) ; DeepSeek 0731 : 53 sur Datacurve, 54,4 auto-rapporte ; "
+             "GLM 5.2 44,0 ; DeepSeek preview absent du leaderboard, 7,3 auto-rapporte (la mention ~8% independant, "
+             "sans source retrouvee, est retiree). "
+             "(2) Terminal-Bench 2.1 en agentique : Opus 5 89,1 = mesure Artificial Analysis (harnais Terminus 2, sandbox e2b, "
+             "max effort), PAS un score officiel - Opus 5 est absent du leaderboard verifie (meilleure entree Anthropic : "
+             "Opus 4.8 a 78,9) et Anthropic n'a pas publie de TB pour Opus 5. Kimi 88,3 auto-rapporte (vals.ai : 80,9). "
+             "Fable 5 83,8 +/-1,2 : entree officielle Fable 5 + Claude Code (xhigh) du leaderboard des mainteneurs (80,4 avec "
+             "Terminus 2). 0731 82,7 (auto-rapporte). GLM 81,0 (auto-rapporte). Sonnet 5 80,4 = annonce Anthropic (74,6 au "
+             "leaderboard officiel, Claude Code high ; le 85,2 affiche precedemment etait son score SWE-bench Verified glisse "
+             "dans la mauvaise colonne). Preview 61,8 (auto-rapporte). "
+             "(3) SWE-bench Verified conserve en simple BASELINE grisee : sature en haut de tableau, chiffres majoritairement "
+             "editeurs aux harness heterogenes. Corrections SWE-V du fact-check du 02/09/2026 (seconde session Claude, validee "
+             "par Selim) : Sonnet 5 85,2 = agregat llm-stats (le 82,1 provenait d'articles speculatifs de fevrier 2026 "
+             "annoncant un lancement qui a eu lieu le 30 juin : ecarte) ; Kimi 93,4 = mesure vals.ai, PAS un chiffre editeur "
+             "(Moonshot n'a publie aucun SWE-bench Verified pour K3) ; GLM : retire (aucune source pour ~78 ; Z.ai publie "
+             "SWE-bench Pro 62,1, pas Verified) ; preview 73,7 = rapport technique DeepSeek (le 79,0 est un agregat llm-stats, "
+             "aucun des deux n'est re-mesure) ; Fable 5 95,0 et Opus 5 96,0 = annonces editeur. Marquage refondu : sans marque "
+             "= officiel ; v = auto-rapporte editeur ; * = mesure independante (vals.ai, Artificial Analysis) ; "
+             "llm-stats = agregat. "
+             "REGLE ABSOLUE : aucun chiffre estime ou extrapole ; toute case sans donnee = 'non publie' "
+             "(l'estimation ~85% du 0731 publiee plus tot le 02/09 est retiree). Marqueur v = auto-rapporte par l'editeur, "
+             "sans reproduction independante. "
+             "Contre-verification OpenRouter (02/09/2026, donnees embarquees de la page deepseek-v4-flash-0731) : OpenRouter "
+             "n'evalue pas SWE-bench - ses propres runs donnent GPQA Diamond 87,1% (mediane, 36 runs) et tau-bench airline 74,7% "
+             "(34 runs) ; son onglet Benchmarks vient d'Artificial Analysis, dont l'index v4.1.1 (9 evals : Terminal-Bench v2.1, "
+             "SciCode, GPQA...) n'inclut pas non plus SWE-bench Verified. "
+             "GLM 5.2 bascule d'OpenRouter vers Scaleway a 1,80 EUR / 5,50 EUR par 1M "
+             "(tarif communique par le client), DeepSWE 44,0 (Datacurve). "
+             "(d) Kimi K3 sur OpenRouter : tarif courant 2,55$/12,75$ par 1M (openrouter.ai/moonshotai/kimi-k3, 02/09/2026) ; "
+             "le score 93,4% est desormais liste par vals.ai (mesure independante du 01/09/2026), il n'est plus seulement declaratif. "
+             "(e) Prix affiches en entree ET en sortie sur tous les supports. "
+             "HISTORIQUE 23/07/2026 : (a) Claude Code / Fable 5 via Bedrock : 95,0% SWE-bench Verified (llm-stats.com), "
              "10$/50$ par 1M (2x Opus 4.8), disponible sur Bedrock (profil global.anthropic.claude-fable-5, "
              "docs.aws.amazon.com) - contraintes : activation d'un parametre de data sharing + retention 30 jours obligatoire. "
              "(b) Vibe / Mistral Medium 3.5 : Vibe = agent de codage CLI + VS Code de Mistral (mai 2026) ; Medium 3.5 = 77,6% "
@@ -318,10 +362,11 @@ def build(out):
     fy = by+bh2+0.18
     tf = tb(s, ML, fy, MR-ML, 0.3)
     para(tf, [R("Repères / 1M tokens (entrée / sortie) : ", sz=10.5, b=True, c=MENTION),
-              R("Fable 5 : 10 $ / 50 $ · Opus 4.8 : 5 $ / 25 $ · Kimi K3 : 3 $ / 15 $ · Mistral Medium 3.5 : 1,50 $ / 7,50 $ · GLM 5.2 : 1,40 $ / 4,40 $ · DeepSeek V4 Pro : 0,44 $ / 0,87 $ · Albert : gratuit, quotas.",
+              R("Fable 5 : 10 $ / 50 $ · Opus 5 : 5 $ / 25 $ · Kimi K3 : 2,55 $ / 12,75 $ · Sonnet 5 : 2 $ / 10 $ · GLM 5.2 (Scaleway) : 1,80 € / 5,50 € · DeepSeek V4 Flash 0731 (Scaleway) : 0,40 € / 0,80 € · Albert : gratuit, quotas.",
                 sz=10.5, c=MENTION)], sa=0, first=True)
 
-    notes(s, "Souverainete (corrigee le 23/07/2026) : au sens de la CNIL, seules Albert (Etat FR, SecNumCloud) et Mistral "
+    notes(s, "Souverainete (corrigee le 23/07/2026, elargie le 02/09/2026) : au sens de la CNIL, Albert (Etat FR, SecNumCloud), "
+             "Scaleway (cloud FR, hebergement UE) et Mistral "
              "(editeur FR, SecNumCloud en option) sont souveraines. Bedrock N'EST PAS souverain : AWS est soumis au CLOUD Act "
              "quelle que soit la region d'hebergement. En revanche, sur l'axe CONFORMITE (RGPD), Bedrock en region UE (Paris) "
              "avec DPA AWS reste une voie conforme pour les modeles Anthropic ; Anthropic direct = transfert hors UE ; "
@@ -349,15 +394,15 @@ def build(out):
     icon(s, "terminal-box", ML+0.34, cy+0.28, 0.5)
     tfa = tb(s, ML+1.0, cy+0.28, cw-1.2, 0.5, MSO_ANCHOR.MIDDLE)
     para(tfa, [R("Code agentique sur poste", sz=17, b=True, c=BLUE)], sa=0, first=True)
-    tl = tb(s, ML+0.36, cy+0.90, cw-0.7, chh-0.98)
+    tl = tb(s, ML+0.36, cy+0.82, cw-0.7, chh-0.90)
     for i,(k,v) in enumerate([
         ("Claude Code", "siège 20–125 $/dev/mois"),
-        ("Vibe (Mistral)", "plan 14,99–24,99 $/m ou clé API"),
+        ("OpenCode + Scaleway", "clé, paiement au token (€)"),
         ("OpenCode + OpenRouter", "clé, paiement au token"),
         ("OpenCode + Albert", "clé agent État, gratuit"),
     ]):
-        para(tl, [R("▪  ", sz=12, c=PERI), R(k+" : ", sz=13, b=True, c=INK), R(v, sz=12.5, c=BODY)],
-             sa=4, ls=1.05, bullet=True, first=(i==0))
+        para(tl, [R("▪  ", sz=11, c=PERI), R(k+" : ", sz=12, b=True, c=INK), R(v, sz=11.5, c=BODY)],
+             sa=3, ls=1.02, bullet=True, first=(i==0))
     # -- Carte B : CI/CD --
     rx = ML+cw+0.5
     rect(s, rx, cy, cw, chh, fill=CARD2, rounded=True, radius=0.05)
@@ -367,7 +412,7 @@ def build(out):
     tr = tb(s, rx+0.36, cy+0.90, cw-0.7, chh-0.98)
     for i,(k,v) in enumerate([
         ("Au token pour tous", "pas de siège, clé API"),
-        ("Tarifs / 1M en sortie", "de 0,87 $ (DeepSeek) à 50 $ (Fable 5)"),
+        ("Tarifs / 1M en sortie", "de 0,80 € (DS · Scaleway) à 50 $ (Fable 5)"),
         ("Albert", "gratuit mais quotas 10–50 req/min"),
     ]):
         para(tr, [R("▪  ", sz=12, c=PERI), R(k+" : ", sz=13, b=True, c=INK), R(v, sz=12.5, c=BODY)],
@@ -379,16 +424,14 @@ def build(out):
     para(tf, [R("Recommandation selon la priorité", sz=15, b=True, c=INK)], sa=0, first=True)
     ry2 = ry+0.42; rbh=1.42
     recos = [
-        ("rocket", "Performance", "Claude Code · Fable 5",
-         "95,0 % SWE-bench, via Bedrock.", "Le plus cher, CLOUD Act.", BLUE),
+        ("rocket", "Performance", "Claude Code · Opus 5",
+         "DeepSWE 74 % · TB 89,1 % *.", "Non souverain (CLOUD Act).", BLUE),
         ("government", "Souveraineté & coût", "Albert · DeepSeek Flash",
          "Gratuit, SecNumCloud, ≈79 %.", "Réservé agents État.", GREEN),
-        ("shield-check", "Conformité UE", "Vibe · Mistral Medium 3.5",
-         "77,6 %, RGPD, éditeur FR.", "Perf en retrait.", PERI),
-        ("focus-3", "Rapport perf / prix", "DeepSeek V4 Pro · OR",
-         "80,6 % pour ~0,9 $ / 1M.", "Éditeur CN, routeur US.", AMBER),
+        ("focus-3", "Rapport perf / prix", "DS V4 Flash 0731 · Scaleway",
+         "DeepSWE 53 % pour 0,40 / 0,80 € · souverain.", "Observabilité à valider.", AMBER),
     ]
-    rcw = (MR-ML-3*0.3)/4
+    rcw = (MR-ML-2*0.3)/3
     for i,(ic,lab,sol,plus,minus,cc) in enumerate(recos):
         cx = ML+i*(rcw+0.3)
         rect(s, cx, ry2, rcw, rbh, fill=WHITE, line=cc, lw=1.4, rounded=True, radius=0.06)
@@ -404,23 +447,24 @@ def build(out):
     tf = tb(s, ML, fy, MR-ML, 0.5)
     para(tf, [R("À noter : ", sz=10, b=True, c=MENTION),
               R("OpenCode + Albert documenté par la DINUM (guides.ia.numerique.gouv.fr) · catalogue Albert à confirmer "
-                "via /v1/models · DeepSeek V4 = tarif preview · Kimi K3 = score annoncé éditeur, capacité OpenRouter limitée · "
-                "Fable 5 sur Bedrock = data sharing à activer + rétention 30 j · tarifs OpenRouter = catalogue "
+                "via /v1/models · Scaleway = observabilité à valider · Kimi K3 = capacité OpenRouter limitée · "
+                "modèles Anthropic sur Bedrock = data sharing à activer + rétention 30 j · tarifs OpenRouter = catalogue "
                 "(caching −60/80 %).", sz=10, c=MENTION, i=True)],
          sa=0, ls=1.08, first=True)
 
     notes(s, "Deux cas d'usage a distinguer. (1) CODE AGENTIQUE SUR POSTE : Claude Code se consomme via un SIEGE d'abonnement "
              "(Pro 17-20$, Team 20-25$, Premium 100-125$/dev/mois) ; les stacks OpenCode se consomment via une cle - OpenRouter "
              "(paiement au token) ou Albert (gratuit, cle reservee aux agents de l'Etat). (2) BOTS CI/CD : pas de siege, tout le "
-             "monde paie au token via une cle API programmatique. Claude API Opus 4.8 = 5$/25$ par 1M (headless via ANTHROPIC_API_KEY ; "
-             "un token OAuth d'abonnement CLAUDE_CODE_OAUTH_TOKEN est aussi possible mais Anthropic recommande la cle API pour "
-             "l'automation partagee). DeepSeek V4 Pro 0,44$/0,87$, GLM 5.2 ~1,40$/4,40$ via OpenRouter. Albert est gratuit mais "
+             "monde paie au token via une cle API programmatique. Claude via Bedrock : Opus 5 = 5$/25$ par 1M, Sonnet 5 = 2$/10$, "
+             "Fable 5 = 10$/50$ (headless via IAM). Scaleway : DeepSeek V4 Flash 0731 = 0,40/0,80 EUR par 1M, GLM 5.2 = 1,80/5,50 EUR "
+             "(API OpenAI-compatible, cle Scaleway). Albert est gratuit mais "
              "ses quotas (10-50 requetes/min en experimentation) peuvent brider un usage CI/CD intensif - a augmenter sur demande. "
-             "RECOMMANDATION selon priorite (MAJ 23/07/2026) : performance -> Claude Code/Fable 5 via Bedrock (95,0% SWE-bench, "
-             "10$/50$ par 1M, conforme RGPD en region UE mais non souverain - CLOUD Act) ; souverainete/cout -> Albert ; "
-             "conformite UE avec editeur prive -> Vibe/Mistral Medium 3.5 (77,6%, 1,50$/7,50$, plans Le Chat des 14,99$/mois) ; "
-             "rapport perf-prix brut -> DeepSeek V4 Pro via OpenRouter. Kimi K3 via OpenRouter (3$/15$) annonce 93,4% SWE-bench "
-             "Verified mais le score n'est pas verifie independamment et la capacite OpenRouter est limitee (429). "
+             "RECOMMANDATION selon priorite (MAJ 02/09/2026) : performance -> Claude Code/Opus 5 via Bedrock (DeepSWE 74,0 +/-4, "
+             "Terminal-Bench 89,1 mesure Artificial Analysis, conforme RGPD en region UE mais non souverain - CLOUD Act) ; souverainete/cout -> Albert ; "
+             "rapport perf-prix -> DeepSeek V4 Flash 0731 via Scaleway (DeepSWE 53 sur Datacurve / 54,4 auto-rapporte, TB 82,7 auto-rapporte, "
+             "pour 0,40/0,80 EUR par 1M, souverain, observabilite a "
+             "valider). Kimi K3 via OpenRouter (2,55$/12,75$) : DeepSWE ~69, TB 88,3 auto-rapporte (vals.ai 80,9), SWE-bench 93,4 mesure vals.ai, "
+             "mais la capacite OpenRouter est limitee (429). "
              "RESERVES : 'Open Claw' n'a pas ete confirme comme outil de coding (le seul "
              "depot de ce nom est un assistant de messagerie) - candidats reels : OpenCode, Crush (Charmbracelet), Claude Code "
              "Router. Le catalogue Albert observe sur les docs publiques ne liste pas DeepSeek V4 Flash ni Mistral Medium 3.5 "

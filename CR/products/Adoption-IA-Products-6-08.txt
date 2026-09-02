@@ -1,0 +1,41 @@
+
+. Centraliser la documentation fonctionnelle
+- dans un dossier docs:
+- des dossiers d'epic avec la doc dedans
+
+le sujet de la documentation est prio 
+
+action:
+- Selim: suggérer à Adrien et Gary de porter le sujet en commun avec le studio produit
+
+centre logiciel:
+peuvent tolérer des outils à une liste de personnes
+
+action:
+- olivier: introduire selim aux personnes du centre logiciel
+
+À quel point l'équipe de Pierre Etienne est embarquée, notamment pour se synchro sur la charte d'usage de l'IA - 
+
+suggéré par felix: regarder openwork
+
+population "product" qui va être outillée en IA, avec des besoins hétérogènes:
+- Coachs
+- PM/PO
+- RU
+-> sujet use cases
+
+RU: ont peur de se faire remplacer par l'IA + ont peur de voir la donnée arrivée n'importe où
+
+actions: 
+- Felix: formaliser et partager les use Cases RU + PM/PO
+- Selim: accompagner des PM sur le use case: générer des tickets intelligibles, grâce à l'IA et via MCP, avec pour impact de faire des tickets qui génèrent moins d'aller retour avec les devs
+-- Sirena
+-- DACCORD
+-- VAO (Halim)
+-- BIO2 (produit refonte côté santé; refonte début septembre -> Yuna)
+- Olivier: liste les équipes prios à accompagner sur l'IA
+
+
+Code IA : point des ministères sur l'IA
+
+

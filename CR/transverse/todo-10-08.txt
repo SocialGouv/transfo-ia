@@ -1,0 +1,56 @@
+todo:
+
+Matrices:
+- matrice : harness-modèles / souveraineté - compliance - perf - prix 
+- matrice : status - role (impact la sécu) / harness
+- à terme, réfléchir matrice 
+- demander la liste des modèles à Yahia
+- carto de sensibilité de la donnée + est-ce que les devs sont externes ou internes -> à relier avec la compliance
+- personae à définir
+
+Scaleway:
+Je dois trouver les réponses à ces questions:
+- qui a les comptes ? nicolas fournier ou jean-françois metzger
+- quel budget est utilisé?
+- usage sur de la doc envisageable ?
+
+Doc:
+- demander à Victor s'il peut essayer le workflow doc pour documenter egapro, mais avec une clé albert (je vais lui partager)
+
+Coaching:
+- être plus directif sur la finalité
+- discuter avec Kahina du forfait claude de Sebastien (5e par jour sur 20 jour)
+
+Août
+-> Finaliser le projet github qui vise à rendre visible nos réalisations
+--> retirer le non visuel et verbeux, avoir des visuels / tableaux / charts
+--> avoir des md intermediaires pour présenter le détail des réalisations
+
+-> définir les skills qu'on veut, et qu'on partage
+-- skill besoin po: besoin métier, us, tests d'acceptance
+-- skill plan tech, qui prend en compte les anciennes features impactées et les prochaines features impactées -> orienté ATDD
+-- skill dev: dev en ATDD (séparer testeur et codeur) 
+-- skill refacto : basé sur sonar
+
+-> Sebastien : orchestrer /dev-front
+
+-> aurélie, valerie, kahina, Halim : skill de modif du ticket Jira - ou - skill de création du ticket Jira
+-> Daisy Adeble-Menard et Fantine Monot
+leur partager la demande albert à la fin du point:
+https://ia.numerique.gouv.fr/contactez-nous/acces-albert-api/
+https://guides.ia.numerique.gouv.fr/albert-api/prise-en-main/quickstart
+
+-> approcher Henri Fagebaume pour p
+
+-> Archis: démarrer le skill fait moi mon DA en se basant sur les sources d'infos partagées par les archis
+
+-> Design: 
+- présenter la Solution de skills à Norman
+- valider les irritants à solutionner (notamment hallucinations DSFR)
+
+-- présenter à Joe la partie doc à faire, lui en parler lundi au point
+
+Mardi: mail social gouv 
+
+
+Design: réfléchir à comment susciter la collaboration
