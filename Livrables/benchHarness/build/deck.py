@@ -171,13 +171,13 @@ def build(out):
             (3, ["2,55 $ / 12,75 $", "cache −60/80 %"]),
         ]),
         ("code-s-slash", "Performance", "DeepSWE v1.1 · modèle seul", [
-            (5, ["74,0 % (±4)", "TB 89,1 · SV 97,0*"]),
-            (5, ["70,0 %", "TB n.p. · SV 95,0"]),
-            (4, ["non publié", "TB 85,2 · SV 82,1"]),
-            (1, ["7,3 %ᵛ", "TB 61,8ᵛ · SV 79,0"]),
-            (4, ["54,4 %ᵛ", "TB 82,7ᵛ · SV n.p."]),
-            (3, ["44,0 %", "TB 81,0ᵛ · SV ≈78"]),
-            (4, ["≈69 %", "TB 88,3ᵛ · SV 93,4ᵛ"]),
+            (5, ["74,0 % (±4)", "TB 89,1* · SV 96ᵛ/97*"]),
+            (5, ["70,0 % (±4)", "TB 83,8 · SV 95,0ᵛ"]),
+            (4, ["54 % (±4)", "TB 80,4ᵛ/74,6 · SV 85,2"]),
+            (1, ["7,3 %ᵛ", "TB 61,8ᵛ · SV 73,7ᵛ"]),
+            (4, ["53 % · 54,4ᵛ", "TB 82,7ᵛ · SV n.p."]),
+            (3, ["44,0 %", "TB 81,0ᵛ · SV n.p."]),
+            (4, ["≈69 %", "TB 88,3ᵛ · SV 93,4*"]),
         ]),
         ("shield-check", "Souveraineté", "au sens CNIL", [
             (1, ["Cloud US", "CLOUD Act (CNIL)"]),
@@ -229,16 +229,15 @@ def build(out):
     para(tf, [R("● ● ● ● ● ", sz=10.5, c=GREEN), R("favorable    ", sz=10, c=MENTION),
               R("● ● ● ", sz=10.5, c=AMBER), R("moyen    ", sz=10, c=MENTION),
               R("● ", sz=10.5, c=RED), R("défavorable", sz=10, c=MENTION),
-              R("        DeepSWE v1.1 = modèle seul, mini-swe-agent · TB Terminal-Bench 2.1 · SV SWE-bench V. (baseline) · ᵛ auto-rapporté · * vals.ai.",
+              R("        DeepSWE v1.1 = modèle seul · TB Terminal-Bench 2.1 · SV SWE-bench V. · sans marque : officiel · ᵛ éditeur · * mesure indép.",
                 sz=9.5, c=MENTION, i=True)], sa=0, first=True)
 
-    notes(s, "Matrice comparative des 8 stacks de coding agentique. Chiffres verifies (sources primaires, 10/07, 23/07 et 02/09/2026). "
+    notes(s, "Matrice comparative des 7 stacks de coding agentique. Chiffres verifies (sources primaires, 10/07, 23/07 et 02/09/2026). "
              "MAJ DU 02/09/2026 : (a) SORTIS du perimetre : Claude Code / Opus 4.8 via Anthropic direct, OpenCode / DeepSeek V4 Pro "
              "via OpenRouter, et Vibe / Mistral Medium 3.5 (retrait demande par Selim ; Mistral reste une voie souveraine dans la "
-             "doctrine fournisseurs, mais la stack sort du bench). (b) AJOUTS Bedrock : Opus 5 (5$/25$ par 1M - moitie du prix de Fable 5 ; 97,0% SWE-bench Verified mesure "
-             "par vals.ai le 01/09/2026, harness minimal bash-only - Anthropic ne publie pas de score SWE-bench pour Opus 5, qui ressort "
-             "ainsi DEVANT Fable 5 et son 95,0% officiel : scaffolds differents, a lire avec prudence) et Sonnet 5 (2$/10$ par 1M ; "
-             "82,1% SWE-bench Verified rapporte au lancement, 30/06/2026 - presse specialisee, non publie en clair par Anthropic). "
+             "doctrine fournisseurs, mais la stack sort du bench). (b) AJOUTS Bedrock : Opus 5 (5$/25$ par 1M - moitie du prix "
+             "de Fable 5 ; SWE-bench Verified : 96,0% annonce Anthropic, 97,0% mesure vals.ai du 01/09/2026, harness minimal "
+             "bash-only) et Sonnet 5 (2$/10$ par 1M). "
              "(c) AJOUTS Scaleway (cloud FR, hebergement UE - souverain et conforme RGPD ; observabilite a valider) : "
              "DeepSeek V4 Flash 0731 a 0,40 EUR / 0,80 EUR par 1M (tarif communique par le client). ATTENTION PERF 0731 : "
              "DeepSeek ne publie PAS de SWE-bench Verified pour ce checkpoint (verifie le 02/09/2026 : model card HF et blogs "
@@ -246,13 +245,26 @@ def build(out):
              "a priori celui servi par Albert - checkpoint a confirmer aupres de la DINUM). "
              "REFONTE PERFORMANCE (02/09/2026, regle fixee par Selim) : trois mesures au lieu d'une. "
              "(1) DeepSWE v1.1 en PRINCIPAL - leaderboard officiel Datacurve, harness fixe mini-swe-agent, donc score du modele "
-             "seul, independant du harness Claude Code / OpenCode / Vibe. Valeurs : Opus 5 74,0 (+/-4) ; Fable 5 70,0 ; "
-             "Kimi K3 ~69 ; DeepSeek 0731 54,4 (auto-rapporte) ; GLM 5.2 44,0 ; DeepSeek preview 7,3 auto-rapporte (~8 mesure "
-             "en independant) ; Sonnet 5 : non publie. "
-             "(2) Terminal-Bench 2.1 en agentique : Opus 5 89,1 ; Kimi 88,3 (auto-rapporte) ; Sonnet 5 85,2 ; 0731 82,7 "
-             "(auto-rapporte) ; GLM 81,0 (auto-rapporte) ; preview 61,8 (auto-rapporte) ; Fable 5 : non publie. "
+             "seul, independant du harness. Valeurs Datacurve : Opus 5 74,0 (+/-4) ; Fable 5 70,0 (+/-4) ; Kimi K3 ~69 ; "
+             "Sonnet 5 54 (+/-4, entree claude-sonnet-5 max) ; DeepSeek 0731 : 53 sur Datacurve, 54,4 auto-rapporte ; "
+             "GLM 5.2 44,0 ; DeepSeek preview absent du leaderboard, 7,3 auto-rapporte (la mention ~8% independant, "
+             "sans source retrouvee, est retiree). "
+             "(2) Terminal-Bench 2.1 en agentique : Opus 5 89,1 = mesure Artificial Analysis (harnais Terminus 2, sandbox e2b, "
+             "max effort), PAS un score officiel - Opus 5 est absent du leaderboard verifie (meilleure entree Anthropic : "
+             "Opus 4.8 a 78,9) et Anthropic n'a pas publie de TB pour Opus 5. Kimi 88,3 auto-rapporte (vals.ai : 80,9). "
+             "Fable 5 83,8 +/-1,2 : entree officielle Fable 5 + Claude Code (xhigh) du leaderboard des mainteneurs (80,4 avec "
+             "Terminus 2). 0731 82,7 (auto-rapporte). GLM 81,0 (auto-rapporte). Sonnet 5 80,4 = annonce Anthropic (74,6 au "
+             "leaderboard officiel, Claude Code high ; le 85,2 affiche precedemment etait son score SWE-bench Verified glisse "
+             "dans la mauvaise colonne). Preview 61,8 (auto-rapporte). "
              "(3) SWE-bench Verified conserve en simple BASELINE grisee : sature en haut de tableau, chiffres majoritairement "
-             "editeurs aux harness heterogenes. "
+             "editeurs aux harness heterogenes. Corrections SWE-V du fact-check du 02/09/2026 (seconde session Claude, validee "
+             "par Selim) : Sonnet 5 85,2 = agregat llm-stats (le 82,1 provenait d'articles speculatifs de fevrier 2026 "
+             "annoncant un lancement qui a eu lieu le 30 juin : ecarte) ; Kimi 93,4 = mesure vals.ai, PAS un chiffre editeur "
+             "(Moonshot n'a publie aucun SWE-bench Verified pour K3) ; GLM : retire (aucune source pour ~78 ; Z.ai publie "
+             "SWE-bench Pro 62,1, pas Verified) ; preview 73,7 = rapport technique DeepSeek (le 79,0 est un agregat llm-stats, "
+             "aucun des deux n'est re-mesure) ; Fable 5 95,0 et Opus 5 96,0 = annonces editeur. Marquage refondu : sans marque "
+             "= officiel ; v = auto-rapporte editeur ; * = mesure independante (vals.ai, Artificial Analysis) ; "
+             "llm-stats = agregat. "
              "REGLE ABSOLUE : aucun chiffre estime ou extrapole ; toute case sans donnee = 'non publie' "
              "(l'estimation ~85% du 0731 publiee plus tot le 02/09 est retiree). Marqueur v = auto-rapporte par l'editeur, "
              "sans reproduction independante. "
@@ -261,7 +273,7 @@ def build(out):
              "(34 runs) ; son onglet Benchmarks vient d'Artificial Analysis, dont l'index v4.1.1 (9 evals : Terminal-Bench v2.1, "
              "SciCode, GPQA...) n'inclut pas non plus SWE-bench Verified. "
              "GLM 5.2 bascule d'OpenRouter vers Scaleway a 1,80 EUR / 5,50 EUR par 1M "
-             "(tarif communique par le client), meme perf estimee ~78%. "
+             "(tarif communique par le client), DeepSWE 44,0 (Datacurve). "
              "(d) Kimi K3 sur OpenRouter : tarif courant 2,55$/12,75$ par 1M (openrouter.ai/moonshotai/kimi-k3, 02/09/2026) ; "
              "le score 93,4% est desormais liste par vals.ai (mesure independante du 01/09/2026), il n'est plus seulement declaratif. "
              "(e) Prix affiches en entree ET en sortie sur tous les supports. "
@@ -413,11 +425,11 @@ def build(out):
     ry2 = ry+0.42; rbh=1.42
     recos = [
         ("rocket", "Performance", "Claude Code · Opus 5",
-         "DeepSWE 74 % · TB 89,1 %.", "Non souverain (CLOUD Act).", BLUE),
+         "DeepSWE 74 % · TB 89,1 % *.", "Non souverain (CLOUD Act).", BLUE),
         ("government", "Souveraineté & coût", "Albert · DeepSeek Flash",
          "Gratuit, SecNumCloud, ≈79 %.", "Réservé agents État.", GREEN),
         ("focus-3", "Rapport perf / prix", "DS V4 Flash 0731 · Scaleway",
-         "DeepSWE 54,4ᵛ pour 0,40 / 0,80 € · souverain.", "Observabilité à valider.", AMBER),
+         "DeepSWE 53 % pour 0,40 / 0,80 € · souverain.", "Observabilité à valider.", AMBER),
     ]
     rcw = (MR-ML-2*0.3)/3
     for i,(ic,lab,sol,plus,minus,cc) in enumerate(recos):
@@ -448,10 +460,10 @@ def build(out):
              "(API OpenAI-compatible, cle Scaleway). Albert est gratuit mais "
              "ses quotas (10-50 requetes/min en experimentation) peuvent brider un usage CI/CD intensif - a augmenter sur demande. "
              "RECOMMANDATION selon priorite (MAJ 02/09/2026) : performance -> Claude Code/Opus 5 via Bedrock (DeepSWE 74,0 +/-4, "
-             "Terminal-Bench 89,1, conforme RGPD en region UE mais non souverain - CLOUD Act) ; souverainete/cout -> Albert ; "
-             "rapport perf-prix -> DeepSeek V4 Flash 0731 via Scaleway (DeepSWE 54,4 auto-rapporte, TB 82,7 auto-rapporte, "
+             "Terminal-Bench 89,1 mesure Artificial Analysis, conforme RGPD en region UE mais non souverain - CLOUD Act) ; souverainete/cout -> Albert ; "
+             "rapport perf-prix -> DeepSeek V4 Flash 0731 via Scaleway (DeepSWE 53 sur Datacurve / 54,4 auto-rapporte, TB 82,7 auto-rapporte, "
              "pour 0,40/0,80 EUR par 1M, souverain, observabilite a "
-             "valider). Kimi K3 via OpenRouter (2,55$/12,75$) : DeepSWE ~69, TB 88,3 auto-rapporte, SWE-bench 93,4 auto-rapporte, "
+             "valider). Kimi K3 via OpenRouter (2,55$/12,75$) : DeepSWE ~69, TB 88,3 auto-rapporte (vals.ai 80,9), SWE-bench 93,4 mesure vals.ai, "
              "mais la capacite OpenRouter est limitee (429). "
              "RESERVES : 'Open Claw' n'a pas ete confirme comme outil de coding (le seul "
              "depot de ce nom est un assistant de messagerie) - candidats reels : OpenCode, Crush (Charmbracelet), Claude Code "
