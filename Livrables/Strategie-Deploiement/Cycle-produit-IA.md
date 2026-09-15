@@ -11,7 +11,15 @@ Le même schéma vit dans l'onglet **Cible** du [tableau de bord](../../Suivi-St
 
 ## Skill par skill
 
+<<<<<<< HEAD
 Un skill est une commande (`/plan`, `/prototype`…) lancée dans le harness de l'équipe : OpenCode Desktop + Albert, ou Claude Code + Bedrock. Un MCP est le connecteur standard entre l'agent et un outil (Jira, Figma, DSFR, Playwright).
+=======
+<<<<<<< HEAD
+Un skill est une commande (`/plan`, `/prototype`…) lancée dans le harness de l'équipe : OpenCode Desktop + Albert, ou Claude Code + Bedrock. Un MCP est le connecteur standard entre l'agent et un outil (Jira, Figma, DSFR, Playwright).
+=======
+Un skill est une commande (`/plan`, `/prototype`…) lancée dans le harness de l'équipe : OpenCode Desktop + Albert, ou Claude Code + Bedrock. Un MCP est le connecteur standard entre l'agent et un outil (Jira, Figma, DSFR).
+>>>>>>> origin
+>>>>>>> origin
 
 ### Responsable produit · `/plan`, le refinement du ticket
 
@@ -42,7 +50,15 @@ Un skill est une commande (`/plan`, `/prototype`…) lancée dans le harness de 
 - **L'agent** lit le ticket et, au besoin, les maquettes dans Figma ; lit le code ; écrit le plan d'implémentation aux standards de l'équipe ; évalue l'impact prévu du ticket sur le code.
 - **L'humain** tranche les choix techniques quand l'agent le demande, valide le plan.
 - **Contexte** : standards de développement, lecture du code, standards de sécurité au besoin.
+<<<<<<< HEAD
 - **MCP** : Jira, Figma, DSFR.
+=======
+<<<<<<< HEAD
+- **MCP** : Jira, Figma, DSFR.
+=======
+- **MCP** : Jira, Figma.
+>>>>>>> origin
+>>>>>>> origin
 - **Sortie** : le document d'impact prévu sur le code et le plan d'implémentation.
 
 ### Développeur · `/implementation`, code et tests
@@ -50,7 +66,15 @@ Un skill est une commande (`/plan`, `/prototype`…) lancée dans le harness de 
 - **L'agent** reprend la revue d'impact et le plan, la maquette si nécessaire ; implémente phase par phase ; sépare les agents codeur et testeur ; pose le code et les tests unitaires, d'intégration, e2e ; s'arrête si un test casse sans l'avoir prévu dans la revue d'impact ; passe la quality gate avant commit : RGAA, standards de qualité, build sans erreur.
 - **L'humain** choisit l'approche (test first, test d'acceptance first ou code first), relit avant de commiter.
 - **Contexte** : le document d'impact prévu sur le code, le plan d'implémentation.
+<<<<<<< HEAD
 - **MCP** : Jira, Figma, DSFR, Playwright.
+=======
+<<<<<<< HEAD
+- **MCP** : Jira, Figma, DSFR, Playwright.
+=======
+- **MCP** : Jira, Figma.
+>>>>>>> origin
+>>>>>>> origin
 - **Sortie** : le code et les tests.
 
 ## Les soutiens à la production
