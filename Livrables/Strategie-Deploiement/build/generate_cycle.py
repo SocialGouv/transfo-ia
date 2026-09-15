@@ -74,7 +74,7 @@ SKILLS = [
         "ctx": ["Standards de développement",
                 "Lecture du code",
                 "Standards de sécurité (au besoin)"],
-        "mcp": ["Jira", "Figma"],
+        "mcp": ["Jira", "Figma", "DSFR"],
         "out": "Revue d'impact prévu sur le code + plan d'implémentation",
     },
     {
@@ -89,7 +89,7 @@ SKILLS = [
         "ctx": ["Revue d'impact prévu sur le code",
                 "Plan d'implémentation",
                 "Maquette au besoin"],
-        "mcp": ["Jira", "Figma"],
+        "mcp": ["Jira", "Figma", "DSFR", "Playwright"],
         "out": "Code et tests, prêts pour la CI",
     },
 ]
@@ -129,7 +129,7 @@ SUPPORTS = [
 
 NOTES = [
     "Skill : commande (/plan, /prototype…) lancée dans le harness de l'équipe, OpenCode Desktop + Albert ou Claude Code + Bedrock · "
-    "MCP : connecteur standard entre l'agent et un outil (Jira, Figma, DSFR)",
+    "MCP : connecteur standard entre l'agent et un outil (Jira, Figma, DSFR, Playwright)",
     "Le ticket Jira est le fil conducteur : produit par /plan, lu par /prototype, /plan-tech et /implementation",
     "Cible : des soutiens à la production aussi pour le produit (Definition of Ready outillée) et le design "
     "(audit DSFR / RGAA), paliers 2 et 3 de la checklist de déploiement",
@@ -239,6 +239,33 @@ def col_x(j):
     return X0 + j * (COL_W + GAP)
 
 
+PILL_H, PILL_GAP = 20, 6
+
+
+def pill_layout(names, inner_w):
+    """Place les pastilles de gauche à droite, passe à la ligne quand la largeur manque.
+    Retourne [(ligne, décalage x, largeur)] et le nombre de lignes."""
+    out, line, off = [], 0, 0
+    for name in names:
+        pw = len(name) * 7.2 + 18
+        if off and off + pw > inner_w:
+            line, off = line + 1, 0
+        out.append((line, off, pw))
+        off += pw + PILL_GAP
+    return out, line + 1
+
+
+def pills(t, x, y, names, inner_w):
+    """Dessine les pastilles à partir de (x, y) ; hauteur occupée = lignes × 26 - 6."""
+    layout, _ = pill_layout(names, inner_w)
+    s = ""
+    for name, (line, off, pw) in zip(names, layout):
+        px, py = x + off, y + line * (PILL_H + PILL_GAP)
+        s += rect(px, py, pw, PILL_H, t["surface"], rx=10, stroke=t["accent"])
+        s += txt(px + pw / 2, py + 14, name, 11.5, t["accent"], "600", anchor="middle")
+    return s
+
+
 # ============================================================================
 # Rendu
 # ============================================================================
@@ -301,17 +328,14 @@ def render(t):
                         s += f'<circle cx="{x + PAD_X + 3:.1f}" cy="{ty + k * LH - 4:.1f}" r="2" fill="{t["sec"]}"/>'
                     s += txt(x + PAD_X + 11, ty + k * LH, ln, FS, t["ink"])
         elif key == "mcp":
-            h = 44
+            inner = COL_W - 2 * PAD_X
+            nlines = max(pill_layout(sk["mcp"], inner)[1] for sk in SKILLS)
+            h = 24 + nlines * (PILL_H + PILL_GAP) - PILL_GAP
             s += label_box(t, y, h, lab, sub, style)
             for j, sk in enumerate(SKILLS):
                 x = col_x(j)
                 s += rect(x, y, COL_W, h, t["surface"], stroke=t["grid"])
-                px = x + PAD_X
-                for name in sk["mcp"]:
-                    pw = len(name) * 7.2 + 18
-                    s += rect(px, y + 12, pw, 20, t["surface"], rx=10, stroke=t["accent"])
-                    s += txt(px + pw / 2, y + 26, name, 11.5, t["accent"], "600", anchor="middle")
-                    px += pw + 6
+                s += pills(t, x + PAD_X, y + 12, sk["mcp"], inner)
         elif key == "out":
             cells = [wrap(sk["out"], MAXC - 3) for sk in SKILLS]
             nmax = max(len(c) for c in cells)
@@ -400,7 +424,10 @@ def render_steps(t):
     y_card = y_base + 44
     summaries = [wrap(st[0], 26) for st in STEPS]
     nmax = max(len(l) for l in summaries)
-    h_card = 58 + nmax * 14.5 + 8 + 22 + 12
+    inner = BW - 24
+    pl_max = max(pill_layout(sk["mcp"], inner)[1] for sk in SKILLS)
+    pills_h = pl_max * (PILL_H + PILL_GAP) - PILL_GAP
+    h_card = 58 + nmax * 14.5 + 10 + pills_h + 12
     for i, (sk, lines) in enumerate(zip(SKILLS, summaries)):
         x = xs[i]
         s += f'<circle cx="{x}" cy="{y_base}" r="15" fill="{blue}" stroke="{t["surface"]}" stroke-width="3"/>'
@@ -411,12 +438,7 @@ def render_steps(t):
         s += txt(x0 + 12, y_card + 39, sk["sub"], 11, t["sec"])
         for k, ln in enumerate(lines):
             s += txt(x0 + 12, y_card + 60 + k * 14.5, ln, 11.5, t["ink"])
-        px, py = x0 + 12, y_card + h_card - 32
-        for name in sk["mcp"]:
-            pw = len(name) * 7.2 + 18
-            s += rect(px, py, pw, 20, t["surface"], rx=10, stroke=t["accent"])
-            s += txt(px + pw / 2, py + 14, name, 11.5, t["accent"], "600", anchor="middle")
-            px += pw + 6
+        s += pills(t, x0 + 12, y_card + h_card - 12 - pills_h, sk["mcp"], inner)
 
     # branche verte sous /implementation : pendant, commit, après
     xc = xs[-1]
@@ -453,7 +475,7 @@ def render_steps(t):
     s += rect(xl + 6, yl + 40, 16, 16, t["cell_ver"], rx=4, stroke=green)
     s += txt(xl + 38, yl + 52, "soutiens à la production : sur le code seulement, pendant /implementation puis après le commit", 11.5, t["sec"])
     s += rect(xl + 2, yl + 65, 24, 14, t["surface"], rx=7, stroke=t["accent"])
-    s += txt(xl + 38, yl + 76, "MCP : l'outil branché sur le skill (Jira, DSFR, Figma)", 11.5, t["sec"])
+    s += txt(xl + 38, yl + 76, "MCP : l'outil branché sur le skill (Jira, DSFR, Figma, Playwright)", 11.5, t["sec"])
     for k, ln in enumerate(wrap(STEPS_CONTEXT, 118)):
         s += txt(xl, yl + 106 + k * 16, ln, 11.5, t["muted"])
 
