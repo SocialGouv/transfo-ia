@@ -1,0 +1,14 @@
+CR rédigé le 15-09-2026 · Adrien Chauve · formation à l'IA générative
+
+Demande :
+- Adrien souhaitait comprendre ce qu'apporte concrètement l'IA générative sur le cycle produit : du besoin exprimé à la livraison, pas seulement « générer du code ».
+
+Format :
+- Par l'apprentissage : faire plutôt qu'exposer, pour constater ce que l'on gagne à utiliser l'IA générative, étape par étape.
+
+Réussite :
+- Adrien est formé à l'IA générative et a vu par lui-même ce que l'on gagne à l'utiliser sur le cycle produit.
+
+Next steps :
+- Adrien est déjà identifié, avec Gary, comme porteur possible de la centralisation de la documentation fonctionnelle (point produit du 6-08). Cette formation lui donne de quoi juger ce que la documentation apporte aux agents.
+- À définir avec lui : le use case sur lequel il souhaite pratiquer en premier.

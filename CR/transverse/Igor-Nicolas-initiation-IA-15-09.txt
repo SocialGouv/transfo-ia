@@ -1,0 +1,15 @@
+CR rédigé le 15-09-2026 · Igor Ranquin et Nicolas Fournier · initiation à l'IA générative
+(demi-journée d'acculturation posée au 9 septembre dans la roadmap)
+
+Réussite :
+- Igor et Nicolas ont été initiés à l'IA générative.
+- Effet immédiat : ils ne veulent pas rester au stade de la découverte. Les deux souhaitent mettre les mains dans l'orchestration (plusieurs agents qui se relaient sur un flux complet, avec des vérifications entre chaque étape).
+
+Ce que ça débloque :
+- Igor porte les référentiels d'architecture (fiches, documents de contexte, cadre de cohérence). Une orchestration entre ses mains, c'est le référentiel qui devient exploitable directement dans l'IDE, au moment où l'on écrit le DA, plutôt qu'un document SharePoint retrouvé après coup.
+- Nicolas est un des interlocuteurs pressentis pour les comptes Scaleway (cf. todo du 10-08) : l'avoir en pratique de l'orchestration rapproche la question de la voie d'accès aux modèles de celle des usages réels.
+
+Next steps :
+- Selim : accompagner Igor et Nicolas à la réalisation d'une première orchestration, à son retour de congé. Point d'entrée naturel : le use case d'orchestration de DA déjà en place chez les architectes (cf. CR Archis-orchestration-DA-15-09).
+- Proposition d'ici là : s'exercer sur OpenCode Desktop avec un modèle Albert, comme les architectes.
+- Créneau de rapprochement inchangé : le jeudi 14h-15h, où Igor réunit les architectes.

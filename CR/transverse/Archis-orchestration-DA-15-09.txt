@@ -1,0 +1,18 @@
+CR rédigé le 15-09-2026 · Architectes · premier use case d'orchestration sur le DA
+
+Point de départ (atelier du 4-08) :
+- Les architectes avaient identifié cinq use cases. Parmi eux : « l'IA challenge la cohérence des choix techniques vis-à-vis du fonctionnel d'un projet ». Irritant associé : il est difficile de percevoir des incohérences dans un DA rempli à la main, section par section.
+
+Réussite :
+- Premier use case d'orchestration mis en place par Selim : l'IA vérifie que les fonctionnalités du SI applicatif sont décrites de façon cohérente sur l'ensemble du DA (les mêmes fonctionnalités, du contexte aux schémas et aux choix techniques, sans oubli ni contradiction d'une section à l'autre).
+- Stack retenue, légale sur poste ministère : OpenCode Desktop + DeepSeek V4 Flash servi par Albert (le provider IA de l'État). Aucun droit admin nécessaire.
+- Les architectes prennent en main l'orchestration : ils la font tourner eux-mêmes sur des DA réels pour se familiariser avec cet usage de l'IA (une orchestration = plusieurs agents qui se relaient, avec des vérifications entre chaque étape, plutôt qu'un chat).
+
+Ce que ça change :
+- Passage de « cinq use cases identifiés » à « un use case qui tourne ». La fonction Architectes reste au niveau 2 (découverte) sur l'échelle d'organisation ; le niveau 3 se validera quand l'orchestration sera utilisée en autonomie sur les DA du quotidien.
+- Le use case sert de terrain d'apprentissage pour Igor et Nicolas Fournier, qui veulent eux aussi orchestrer (cf. CR Igor-Nicolas-initiation-IA-15-09).
+
+Next steps :
+- Les architectes : utiliser l'orchestration sur leurs DA en cours, noter ce qui manque (faux positifs, sections mal couvertes, modèle de DA Atlas).
+- Selim, au retour de congé : recueillir ces retours, ajuster l'orchestration, puis enchaîner sur le use case suivant de la liste du 4-08 (cohérence des choix techniques entre eux, ou écarts entre DA et code réel).
+- Toujours en fond : le référentiel outillé (fiches, documents de contexte, skills standards) avec Igor, pour que la règle d'architecture soit exploitable dans l'IDE.
