@@ -59,15 +59,14 @@ SKILLS = [
         "agent": ["Pousse le prototype dans Figma",
                   "Génère les maquettes selon les standards UI, en composants DSFR officiels",
                   "Respect strict du design system"],
-        "human": ["Valide les maquettes",
-                  "Partage des captures aux développeurs"],
+        "human": ["Valide les maquettes"],
         "ctx": ["Consigne : récupérer les composants DSFR officiels dans les maquettes"],
         "mcp": ["Figma"],
         "out": "Maquettes Figma du prototype validé, conformes DSFR",
     },
     {
         "name": "/plan-tech", "sub": "plan et revue d'impact",
-        "agent": ["Lit le ticket et, au besoin, des captures des maquettes",
+        "agent": ["Lit le ticket et, au besoin, les maquettes dans Figma",
                   "Lit le code, écrit le plan d'implémentation aux standards de l'équipe",
                   "Évalue l'impact prévu sur le code"],
         "human": ["Tranche les choix techniques quand l'agent le demande",
@@ -75,7 +74,7 @@ SKILLS = [
         "ctx": ["Standards de développement",
                 "Lecture du code",
                 "Standards de sécurité (au besoin)"],
-        "mcp": ["Jira"],
+        "mcp": ["Jira", "Figma"],
         "out": "Revue d'impact prévu sur le code + plan d'implémentation",
     },
     {
@@ -95,6 +94,22 @@ SKILLS = [
     },
 ]
 
+# Vue « étapes » : résumé, action de l'humain, artefact transmis (textes courts)
+STEPS = [
+    ("Challenge le besoin, rédige le ticket au standard de l'équipe, propose les critères d'acceptation",
+     "répond, valide le ticket", "ticket Jira"),
+    ("Génère un prototype selon les standards UX et UI, en composants DSFR",
+     "le montre aux utilisateurs", "prototype validé"),
+    ("Pousse le prototype dans Figma, génère les maquettes en composants DSFR officiels",
+     "valide les maquettes", "maquettes Figma"),
+    ("Lit le ticket et le code, écrit le plan d'implémentation, évalue l'impact prévu sur le code",
+     "tranche, valide le plan", "plan + impact prévu"),
+    ("Phase par phase, codeur et testeur séparés, code et tests ; stop si un test casse sans l'avoir prévu",
+     "relit et commite", "code + tests"),
+]
+STEPS_CONTEXT = ("Contexte commun à tous les skills : les standards de l'équipe (ticket, UX / UI, développement, "
+                 "sécurité), versionnés dans le repo. Le détail skill par skill est dans la vue matrice.")
+
 # Lignes de la matrice : (clé, libellé, sous-libellé, style)
 ROWS = [
     ("agent", "L'agent", "propose", "agent"),
@@ -106,9 +121,10 @@ ROWS = [
 
 # Soutiens à la production, sous /implementation : (moment, éléments)
 SUPPORTS = [
-    ("Pendant /implementation", ["IDE : ESLint",
-                                 "Quality gate avant commit : RGAA, standards de qualité, build sans erreur"]),
-    ("Après le commit", ["CI/CD : Sonar, pré-audit RGAA poussé, revue de code supplémentaire au besoin"]),
+    # espaces insécables avant les deux-points : la coupure de ligne ne les sépare pas
+    ("Pendant /implementation", ["IDE\u00a0: ESLint",
+                                 "Quality gate avant commit\u00a0: RGAA, standards de qualité, build sans erreur"]),
+    ("Après le commit", ["CI/CD\u00a0: Sonar, pré-audit RGAA poussé, revue de code supplémentaire au besoin"]),
 ]
 
 NOTES = [
@@ -173,7 +189,9 @@ def esc(s):
 
 def wrap(s, maxc=MAXC):
     lines, cur = [], ""
-    for w in s.split():
+    for w in s.split(" "):  # espace simple seulement : l'insécable reste collée
+        if not w:
+            continue
         if cur and len(cur) + 1 + len(w) > maxc:
             lines.append(cur)
             cur = w
@@ -348,6 +366,108 @@ def render(t):
 
 
 # ============================================================================
+# Vue « étapes » : une ligne, cinq stations, l'humain et l'artefact entre elles
+# ============================================================================
+
+def render_steps(t):
+    S, X_FIRST, BW = 250, 150, 186           # espacement, 1re station, largeur des cartes
+    xs = [X_FIRST + i * S for i in range(N)]
+    y_band, y_base = 84, 172
+    blue, human = t["ramp5"][3], t["human"]
+    s = ""
+
+    # bandeaux métier
+    for role, cols in ROLES:
+        x0, x1 = xs[cols[0]] - BW / 2, xs[cols[-1]] + BW / 2
+        s += rect(x0, y_band, x1 - x0, 22, blue, rx=6)
+        s += txt((x0 + x1) / 2, y_band + 15.5, role.upper(), 11, "#ffffff", "600", anchor="middle", spacing="0.08em")
+
+    # ligne principale, flèches, humain et artefact entre les stations
+    s += f'<line x1="{xs[0]}" y1="{y_base}" x2="{xs[-1]}" y2="{y_base}" stroke="{blue}" stroke-width="3"/>'
+    for i in range(N - 1):
+        xa, xb = xs[i], xs[i + 1]
+        s += f'<path d="M{xb - 17},{y_base} l-11,-6 v12 z" fill="{blue}"/>'
+        _, hum, art = STEPS[i]
+        xd = xa + 52
+        s += f'<circle cx="{xd}" cy="{y_base}" r="8" fill="{human}" stroke="{t["surface"]}" stroke-width="2"/>'
+        s += txt(xd, y_base + 25, hum, 10.5, human, "600", anchor="middle")
+        tw = len(art) * 6.6 + 16
+        xt = xa + 150
+        s += rect(xt - tw / 2, y_base - 26, tw, 20, t["surface"], rx=10, stroke=t["baseline"])
+        s += txt(xt, y_base - 12, art, 11, t["ink"], "600", anchor="middle")
+
+    # stations et cartes
+    y_card = y_base + 44
+    summaries = [wrap(st[0], 26) for st in STEPS]
+    nmax = max(len(l) for l in summaries)
+    h_card = 58 + nmax * 14.5 + 8 + 22 + 12
+    for i, (sk, lines) in enumerate(zip(SKILLS, summaries)):
+        x = xs[i]
+        s += f'<circle cx="{x}" cy="{y_base}" r="15" fill="{blue}" stroke="{t["surface"]}" stroke-width="3"/>'
+        s += txt(x, y_base + 4.5, str(i + 1), 13, "#ffffff", "600", anchor="middle")
+        x0 = x - BW / 2
+        s += rect(x0, y_card, BW, h_card, t["cell_gen"], rx=10)
+        s += txt(x0 + 12, y_card + 24, sk["name"], 15, t["ink"], "600")
+        s += txt(x0 + 12, y_card + 39, sk["sub"], 11, t["sec"])
+        for k, ln in enumerate(lines):
+            s += txt(x0 + 12, y_card + 60 + k * 14.5, ln, 11.5, t["ink"])
+        px, py = x0 + 12, y_card + h_card - 32
+        for name in sk["mcp"]:
+            pw = len(name) * 7.2 + 18
+            s += rect(px, py, pw, 20, t["surface"], rx=10, stroke=t["accent"])
+            s += txt(px + pw / 2, py + 14, name, 11.5, t["accent"], "600", anchor="middle")
+            px += pw + 6
+
+    # branche verte sous /implementation : pendant, commit, après
+    xc = xs[-1]
+    x0 = xc - BW / 2
+    y = y_card + h_card
+    green = t["good"]
+    s += f'<line x1="{xc}" y1="{y}" x2="{xc}" y2="{y + 24}" stroke="{green}" stroke-width="2"/>'
+    s += txt(xc + 10, y + 16, STEPS[-1][2], 11, t["ink"], "600")
+    y += 24
+    blocks = [(title, [ln for it in items for ln in wrap(it, 26)]) for title, items in SUPPORTS]
+    for i, (title, lines) in enumerate(blocks):
+        bh = 12 + 16 + len(lines) * 14.5 + 8
+        s += rect(x0, y, BW, bh, t["cell_ver"], stroke=green)
+        s += txt(x0 + 12, y + 20, title.upper(), 10.5, green, "600", spacing="0.06em")
+        for k, ln in enumerate(lines):
+            s += txt(x0 + 12, y + 36 + k * 14.5 + 2, ln, 11.5, t["ink"])
+        y += bh
+        if i < len(blocks) - 1:
+            s += f'<line x1="{xc}" y1="{y}" x2="{xc}" y2="{y + 44}" stroke="{green}" stroke-width="2"/>'
+            s += f'<path d="M{xc},{y + 46} l-6,-10 h12 z" fill="{green}"/>'
+            s += f'<circle cx="{xc}" cy="{y + 20}" r="8" fill="{human}" stroke="{t["surface"]}" stroke-width="2"/>'
+            s += txt(xc + 14, y + 24, STEPS[-1][1], 10.5, human, "600")
+            y += 46
+    y_end = y
+
+    # légende et contexte, dans l'espace libre en bas à gauche
+    yl = y_card + h_card + 44
+    xl = xs[0] - BW / 2
+    s += f'<line x1="{xl}" y1="{yl}" x2="{xl + 28}" y2="{yl}" stroke="{blue}" stroke-width="3"/>'
+    s += f'<circle cx="{xl + 14}" cy="{yl}" r="6" fill="{blue}"/>'
+    s += txt(xl + 38, yl + 4, "le cycle : chaque station produit l'artefact que la suivante consomme", 11.5, t["sec"])
+    s += f'<circle cx="{xl + 14}" cy="{yl + 24}" r="7" fill="{human}"/>'
+    s += txt(xl + 38, yl + 28, "l'humain décide : il répond, montre, valide, tranche, relit", 11.5, t["sec"])
+    s += rect(xl + 6, yl + 40, 16, 16, t["cell_ver"], rx=4, stroke=green)
+    s += txt(xl + 38, yl + 52, "soutiens à la production : sur le code seulement, pendant /implementation puis après le commit", 11.5, t["sec"])
+    s += rect(xl + 2, yl + 65, 24, 14, t["surface"], rx=7, stroke=t["accent"])
+    s += txt(xl + 38, yl + 76, "MCP : l'outil branché sur le skill (Jira, DSFR, Figma)", 11.5, t["sec"])
+    for k, ln in enumerate(wrap(STEPS_CONTEXT, 118)):
+        s += txt(xl, yl + 106 + k * 16, ln, 11.5, t["muted"])
+
+    h = max(y_end, yl + 106 + 16 * 2) + 30
+    head = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" '
+            f'viewBox="0 0 {W} {h}" font-family="{FONT}">'
+            f'<rect x="0.5" y="0.5" width="{W-1}" height="{h-1}" rx="12" '
+            f'fill="{t["surface"]}" stroke="{t["border"]}"/>')
+    head += txt(32, 40, TITLE, 15.5, t["ink"], "600")
+    head += txt(32, 61, SUBTITLE, 12.5, t["sec"])
+    return head + s + "</svg>"
+
+
+# ============================================================================
 # Fragment HTML du tableau de bord (vrai tableau, en-têtes de lignes et colonnes)
 # ============================================================================
 
@@ -409,8 +529,9 @@ if __name__ == "__main__":
     out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets")
     os.makedirs(out_dir, exist_ok=True)
     for mode in ("light", "dark"):
-        path = os.path.join(out_dir, f"cycle-produit-ia-{mode}.svg")
-        with open(path, "w", encoding="utf-8") as f:
-            f.write(render(THEMES[mode]))
-        print(f"✓ {os.path.relpath(path, out_dir)}")
+        for name, fn in (("cycle-produit-ia", render), ("cycle-produit-ia-etapes", render_steps)):
+            path = os.path.join(out_dir, f"{name}-{mode}.svg")
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(fn(THEMES[mode]))
+            print(f"✓ {os.path.relpath(path, out_dir)}")
     patch_dashboard()

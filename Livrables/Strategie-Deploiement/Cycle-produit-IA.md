@@ -32,17 +32,17 @@ Un skill est une commande (`/plan`, `/prototype`…) lancée dans le harness de 
 ### Designer · `/maquette`, du prototype validé à Figma
 
 - **L'agent** pousse le prototype dans Figma et génère les maquettes selon les standards UI, en composants DSFR officiels ; respect strict du design system.
-- **L'humain** valide les maquettes et en partage des captures aux développeurs.
+- **L'humain** valide les maquettes.
 - **Contexte** : la consigne de récupération des composants DSFR officiels dans les maquettes.
 - **MCP** : Figma.
 - **Sortie** : des maquettes Figma qui exposent le prototype validé, conformes DSFR.
 
 ### Développeur · `/plan-tech`, plan et revue d'impact
 
-- **L'agent** lit le ticket et, au besoin, des captures des maquettes (pas les maquettes Figma) ; lit le code ; écrit le plan d'implémentation aux standards de l'équipe ; évalue l'impact prévu du ticket sur le code.
+- **L'agent** lit le ticket et, au besoin, les maquettes dans Figma ; lit le code ; écrit le plan d'implémentation aux standards de l'équipe ; évalue l'impact prévu du ticket sur le code.
 - **L'humain** tranche les choix techniques quand l'agent le demande, valide le plan.
 - **Contexte** : standards de développement, lecture du code, standards de sécurité au besoin.
-- **MCP** : Jira.
+- **MCP** : Jira, Figma.
 - **Sortie** : le document d'impact prévu sur le code et le plan d'implémentation.
 
 ### Développeur · `/implementation`, code et tests
