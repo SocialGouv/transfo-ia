@@ -14,7 +14,7 @@ import os
 # DONNÉES — à mettre à jour chaque semaine
 # ============================================================================
 
-MAJ = "10 août 2026"
+MAJ = "15 septembre 2026"
 
 # Matrice de maturité : niveau constaté par use case et périmètre.
 # Valeurs : 1 à 5, (avant, après) pour une progression, None = NA.
@@ -26,16 +26,17 @@ NIVEAUX = ["Découverte", "Expérimentation", "Pratique régulière", "Maîtrise
 MATRICE = [
     # (métier, use case, [Egapro, DACCORD, SIRENA, VAO, Transverse])
     ("Chefs de projet", "Piloter un projet développé avec l'IA",   [(1, 3), 1, 1, 1, None]),
-    ("Chefs de projet", "Générer des tickets de spec",             [1, 1, 1, 1, None]),
+    ("Chefs de projet", "Générer des tickets de spec",             [1, (1, 2), 1, 1, None]),
     ("Chefs de projet / Développeurs", "Organiser le board (sprints, epics)", [4, 1, 1, 1, None]),
     ("Designers",       "Générer des prototypes HTML/JS",          [(1, 4), 1, 1, 1, None]),
-    ("Développeurs",    "Générer du code de qualité",              [3, 3, 1, 1, None]),
+    ("Designers",       "Du prototype à la maquette Figma (DSFR)", [None, None, None, None, (1, 2)]),
+    ("Développeurs",    "Générer du code de qualité",              [3, 3, 1, (1, 2), None]),
     ("Développeurs",    "Générer des tests",                       [4, 3, 1, 1, None]),
-    ("Développeurs",    "Utiliser des orchestrations",             [4, 1, 1, 1, None]),
+    ("Développeurs",    "Utiliser des orchestrations",             [4, (1, 2), 1, 1, None]),
     ("Développeurs",    "Pré-auditer l'accessibilité",             [(1, 2), 1, 1, 1, None]),
     ("Développeurs",    "Pré-auditer la sécurité",                 [1, 1, 1, 1, None]),
     ("Développeurs",    "Outils &amp; system prompts communs",     [4, (1, 2), 1, 1, None]),
-    ("Architectes",     "Générer un dossier d'architecture (DA)",  [None, None, None, None, 1]),
+    ("Architectes",     "Générer et vérifier un DA",               [None, None, None, None, (1, 2)]),
     ("Architectes",     "Outiller les référentiels d'architecture", [None, None, None, None, 1]),
 ]
 
@@ -46,37 +47,38 @@ MATRICE = [
 # d'usage (dev, PM/PO), bonnes pratiques renseignées, vrai craft.
 MATURITE_ORG = [
     ("Egapro",      3, 4, "orchestrations en routine, orga maîtrisée"),
-    ("DACCORD",     1, 2, "skills partagés, accompagnement individuel"),
+    ("DACCORD",     1, 2, "orchestration en place, PM/PO formés"),
     ("SIRENA",      2, 2, ""),
-    ("VAO",         1, 1, ""),
-    ("Architectes", 1, 2, "premiers use cases IA identifiés (atelier DA)"),
+    ("VAO",         1, 2, "devs formés, OpenCode installé"),
+    ("Architectes", 1, 2, "1re orchestration DA en prise en main"),
+    ("Designers",   1, 2, "proto → maquette Figma DSFR validé"),
 ]
 NIVEAUX_ORG = ["Rien", "Découverte", "Skills · use cases", "Orchestrations", "Craft · volume"]
 
 # KPI (label, valeur, sous-texte, sous-texte vert facultatif)
 KPIS = [
-    ("Périmètres montés en maturité", "3", "· architectes", "▲ Egapro · DACCORD "),
-    ("Use cases montés de niveau", "4", "· 1 sur DACCORD", "▲ 3 sur Egapro "),
-    ("Actions à impact déterminant", "15", "chacune décrite dans le détaillé", None),
-    ("Prochain jalon", "25 août", "formation PM/PO DACCORD", None),
+    ("Périmètres montés en maturité", "5", "· VAO · architectes · designers", "▲ Egapro · DACCORD "),
+    ("Use cases montés de niveau", "9", "· 3 DACCORD · 1 VAO · 2 transverse", "▲ 3 sur Egapro "),
+    ("Actions à impact déterminant", "17", "chacune décrite dans le détaillé", None),
+    ("Prochain jalon", "Fin sept.", "cartographie des comptes Bedrock", None),
 ]
 
 # Jalons : (jour depuis le 13 juillet, lignes, statut done|next|futur, label au-dessus ?)
-ROADMAP_SPAN_DAYS = 80  # 13 juillet → fin septembre
+ROADMAP_SPAN_DAYS = 100  # 13 juillet → fin octobre
 JALONS = [
     # certains jours sont décalés de 1 à 3 jours pour desserrer les étiquettes
     (3,  ["16 juillet", "Coaching dev augmenté", "équipe DACCORD"], "done", True),
-    (14, ["28-30 juillet", "Référentiels archi", "CDP SIRENA · CEPS"], "done", False),
-    (22, ["4 août", "Atelier DA", "architectes"], "done", True),
-    (26, ["6 août", "Atelier skills", "+ pt produit IA"], "done", False),
-    (33, ["13 août", "Point design Louis", "DSFR → Figma"], "done", True),
-    (45, ["3 septembre", "Dev augmenté VAO · design &amp; IA", "du proto à la maquette Figma DSFR"], "next", False),
-    (56, ["Début sept.", "Use cases archi", "sélection + exploration"], "next", True),
-    (63, ["8 septembre", "Formation PM/PO", "DACCORD"], "next", False),
-    (68, ["9 septembre", "Acculturation IA", "avec Igor"], "next", True),
-    (78, ["Fin septembre", "Cartographie des comptes", "Bedrock (bénéficiaires)"], "futur", False),
+    (12, ["28-30 juillet", "Référentiels archi", "CDP SIRENA · CEPS"], "done", False),
+    (19, ["4 août", "Atelier DA", "architectes"], "done", True),
+    (28, ["6 août", "Atelier skills", "+ pt produit IA"], "done", False),
+    (32, ["13 août", "Point design Louis", "DSFR → Figma"], "done", True),
+    (50, ["3 septembre", "VAO · dev augmenté", "design · proto → Figma"], "done", True),
+    (58, ["8-9 septembre", "Formation PM/PO DACCORD", "acculturation Igor, Nicolas"], "done", False),
+    (67, ["15 septembre", "Orchestration DA", "en prise en main"], "done", True),
+    (80, ["Fin septembre", "Cartographie des comptes", "Bedrock (bénéficiaires)"], "next", False),
+    (96, ["Au retour de congé", "Orchestration", "avec Igor et Nicolas"], "futur", True),
 ]
-ROADMAP_NOTE = ("Courant septembre : formation PM/PO SIRENA · à dater : catalogue de skills · bench Bedrock · "
+ROADMAP_NOTE = ("À caler : formation PM/PO SIRENA · catalogue de skills · bench Bedrock · MCP DSFR 1.15 · "
                 "puis : référents IA, CI/CD augmentée, harness souverain")
 
 # Impact des actions engagées : (libellé, nb de losanges, sous-texte)
@@ -91,8 +93,7 @@ IMPACTS = [
     ("DACCORD",    4, 1, 0),
     ("SIRENA",     0, 1, 0),
     ("VAO",        1, 1, 0),
-    ("BIO2",       1, 0, 0),
-    ("Transverse", 5, 4, 11),
+    ("Transverse", 8, 5, 11),
 ]
 IMPACT_NOTE = ("Les actions à impact modéré sont toutes transverses : les chantiers de fond "
                "(bench, Bedrock, outillage des postes) qui conditionnent le passage à l'échelle.")
@@ -298,7 +299,7 @@ def chart_maturite_org(t):
     n = len(MATURITE_ORG)
     h = y0 + n * pitch + 30
     s = svg_open(h, t)
-    s += title_block(t, "Maturité par périmètre : Egapro passe de 3 à 4",
+    s += title_block(t, "Maturité par périmètre : cinq progressions sur six",
                      "niveau d'organisation atteint (échelle de 1 à 5) · flèche verte : la progression apportée par l'accompagnement · rond blanc : pas encore de changement")
     # en-têtes : pastille de niveau, libellé dessous
     hy1, hy2 = y0 - 52, y0 - 30

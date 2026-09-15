@@ -1,0 +1,23 @@
+- réussite: fidele au dsfr sur les maquettes
+
+- next step: 
+-- prio 1: avoir une solution facile pour faire du feedback loop
+-- prio 1: mettre à jour le mcp dsfr en version 1.15, (y'a une version 2) -> on veut les charts
+-- prio 1: venir à un point sur l'alpha 3 du DSFR 2.0
+-- prio 2: explorer penpot
+
+
+rejoindre l'alpha 3 du dsfr 2.0, pour enlever le besoin en portage , nouveau dsfr
+des briques qui nous permettent de s'affranchir un peu du DSFR 
+
+DSFR 2.0 encore plus IA compatible 
+
+Selim: Repo accessible pour mettre à jour le mcp dsfr 
+
+Sigess qui debarque 
+daccord moche 
+Pos à la rue
+
+embarquer des gens
+
+sur Agatha on veut la feedback loop IA, les maquettes arrivent dans figma, ça refait un nouveau proto
