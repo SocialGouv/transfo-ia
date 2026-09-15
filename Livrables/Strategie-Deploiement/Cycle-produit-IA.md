@@ -14,7 +14,11 @@ Le même schéma vit dans l'onglet **Cible** du [tableau de bord](../../Suivi-St
 <<<<<<< HEAD
 Un skill est une commande (`/plan`, `/prototype`…) lancée dans le harness de l'équipe : OpenCode Desktop + Albert, ou Claude Code + Bedrock. Un MCP est le connecteur standard entre l'agent et un outil (Jira, Figma, DSFR, Playwright).
 =======
+<<<<<<< HEAD
+Un skill est une commande (`/plan`, `/prototype`…) lancée dans le harness de l'équipe : OpenCode Desktop + Albert, ou Claude Code + Bedrock. Un MCP est le connecteur standard entre l'agent et un outil (Jira, Figma, DSFR, Playwright).
+=======
 Un skill est une commande (`/plan`, `/prototype`…) lancée dans le harness de l'équipe : OpenCode Desktop + Albert, ou Claude Code + Bedrock. Un MCP est le connecteur standard entre l'agent et un outil (Jira, Figma, DSFR).
+>>>>>>> origin
 >>>>>>> origin
 
 ### Responsable produit · `/plan`, le refinement du ticket
@@ -49,7 +53,11 @@ Un skill est une commande (`/plan`, `/prototype`…) lancée dans le harness de 
 <<<<<<< HEAD
 - **MCP** : Jira, Figma, DSFR.
 =======
+<<<<<<< HEAD
+- **MCP** : Jira, Figma, DSFR.
+=======
 - **MCP** : Jira, Figma.
+>>>>>>> origin
 >>>>>>> origin
 - **Sortie** : le document d'impact prévu sur le code et le plan d'implémentation.
 
@@ -61,7 +69,11 @@ Un skill est une commande (`/plan`, `/prototype`…) lancée dans le harness de 
 <<<<<<< HEAD
 - **MCP** : Jira, Figma, DSFR, Playwright.
 =======
+<<<<<<< HEAD
+- **MCP** : Jira, Figma, DSFR, Playwright.
+=======
 - **MCP** : Jira, Figma.
+>>>>>>> origin
 >>>>>>> origin
 - **Sortie** : le code et les tests.
 

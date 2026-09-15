@@ -11,7 +11,7 @@ Le point de départ constaté à l'arrivée de la mission, ce que chaque fonctio
 | **Architectes** | Aucun intérêt exprimé pour l'IA | **Une première orchestration tourne** : l'IA vérifie que les fonctionnalités du SI applicatif sont décrites de façon cohérente sur tout le DA. Les architectes la prennent en main (OpenCode Desktop, DeepSeek V4 Flash via Albert) | Autonomie sur ce use case, puis le suivant · bibliothèque de skills sur les référentiels d'Igor |
 | **Igor Ranquin · Nicolas Fournier** | Pas de pratique de l'IA générative | **Initiés à l'IA générative** ; ils veulent mettre les mains dans l'orchestration | Accompagnement à une première orchestration au retour de congé de Selim |
 | **Développeurs · Egapro** | Des usages IA bons, mais avec un cadre perfectible | Orchestration **sécurisée** : codeur et testeur séparés, le code n'est plus testé par l'agent qui l'a écrit | Amélioration des skills d'orchestration |
-| **Développeurs · DACCORD** | Usage et compréhension de l'IA peu matures | **Orchestration frontend et backend en place**, montée avec l'équipe | L'étendre à la documentation et au changelog · skills de tests |
+| **Développeurs · DACCORD** | Usage et compréhension de l'IA peu matures | **Orchestration frontend et backend en place**, montée avec l'équipe · les développeurs **éprouvent des orchestrations**, dont une approche **test first sur le frontend**, qui part des critères d'acceptation du ticket | L'étendre à la documentation et au changelog · skills de tests |
 | **Développeurs · VAO** | Pas de développement augmenté | **Formés le 3 septembre, OpenCode Desktop installé**, la pratique démarre | Un premier ticket livré en dev augmenté · tickets avec Halim |
 | **Chef de projet · Egapro** | Un suivi décalé de la vitesse réelle du dev augmenté, roadmap design invisible | **Pilotage adapté à l'IA** : estimations T-shirt, tickets design visibles | Chantier d'amélioration dédié |
 | **PM/PO · DACCORD** | Tickets rédigés à la main, allers-retours entre métier et équipes | **Formés le 8 septembre**, un skill en main qui challenge la précision du ticket et le formalise, critères d'acceptation compris (OpenCode Desktop + Albert) · formations d'Olivier Toumsy en parallèle | Prise en main au quotidien : le ticket IA devient la norme · SIRENA : formation d'Aurélie à caler |
@@ -63,7 +63,7 @@ Trois périmètres sont en prise en main (architectes, PM/PO DACCORD, développe
 
 | | |
 |---|---|
-| 🔄 **En cours** | Prise en main par les équipes : orchestration de DA (architectes), skill de tickets (PM/PO DACCORD), dev augmenté (VAO) · boucle de feedback des designers · accompagnement individuel et orchestrations DACCORD · pré-audit d'accessibilité Egapro · référentiel d'architecture outillé |
+| 🔄 **En cours** | Prise en main par les équipes : orchestration de DA (architectes), skill de tickets (PM/PO DACCORD), dev augmenté (VAO) · boucle de feedback des designers · orchestrations éprouvées par les développeurs DACCORD (dont test first depuis les critères d'acceptation, frontend) · pré-audit d'accessibilité Egapro · référentiel d'architecture outillé |
 | 📅 **Planifié** | Première orchestration avec Igor et Nicolas (au retour de congé) · formation PM/PO SIRENA (à caler) · bench élargi aux modèles Bedrock · catalogue de skills communs · centre logiciel · cartographie des comptes Bedrock (fin septembre) · MCP DSFR 1.15 et alpha 3 du DSFR 2.0 |
 | ⏳ **À lancer** | Tickets avec Halim (VAO) · acculturation des PO et de l'ensemble des designers · documentation fonctionnelle centralisée · CEPS |
 
