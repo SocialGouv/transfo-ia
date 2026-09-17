@@ -1,0 +1,62 @@
+je suis dans mon dossier de suivi de mission d'adoption et déploiement de l'IA Gen.
+
+j'ai besoin d'offrir une perspective claire à mes collaborateurs.
+
+Je veux shématiser ce qu'il se passe sur le cycle produit grâce à l'IA
+
+Cible:
+
+Responsables Produit:
+/plan 
+- Refinement: Challenge du niveau de précision du besoin, questions posées à l'humain
+- Formattage du ticket: le ticket est écrit par l'IA selon un standard décidé par l'équipe
+- Redaction des critères d'acceptation : l'IA propose les critères/complète d'acceptation, l'humain valide
+.Contexte: skill de challenge des imprécisions, standards des tickets, réalisation des critères d'acceptation
+.MCP: Jira
+.Output: un ticket Jira respectant les standards, précis, et avec des critères d'acceptation
+
+Designer:
+
+/prototype
+- Récupère le ticket et développe un prototype basé sur des standards d'UX et UI
+.Contexte: Standards d'UX et UI
+.MCP: DSFR
+.Output: un prototype designé avec le DSFR à montrer aux users
+
+/maquette
+- Envoie le prototype dans figma, générant les maquettes selon les standards UI
+- Respect strict du design system
+.Contexte: Décrire le besoin de récupération dans les maquettes de composants DSFR officiels
+.MCP: Figma
+.Output: des maquettes qui exposent le prototype validé, elles sont validées DSFR
+
+Développeur:
+/plan-tech
+- Récupère le ticket, et éventuellement des screens des maquettes (pas les maquettes figma)
+- Réalisation du plan d'implémentation en respectant les standards de l'équipe
+- Questions posées à l'utilisateur pour valider des choix techniques (si besoin)
+- Revue d'impact prévu de l'implémentation du ticket sur le code
+.Contexte: standards de développement, lecture du code, éventuellement des standards de sécurité
+.MCP: Jira
+.Output: Document d'impact prévu sur le code, plan d'implémentation 
+
+/implementation
+- Récupère la revue d'impact et le plan d'implémentation
+- récupère la maquette si nécessaire
+- implémente phase par phase
+- approche test first, test d'accepance first ou code first
+- pose le code, mais aussi les tests unitaires/integration/e2e
+- séparation des agents codeurs et testeurs
+- aucune implémentation ne va au bout si un test qui casse n'est pas prévu dans la revue d'impact
+- avant d'être comité, le code est vérifié par une quality gate: RGAA, standards de qualité, build sans problème
+.Contexte: document d'impact prévu sur le code, plan d'implémentation
+.MCP: Jira, Figma
+.Output: le code et les tests
+
+IDE:
+- Eslint
+
+CI/CD:
+- Sonar
+- Pre-audit RGAA poussé
+- Eventuellement, revue de code supplémentaire

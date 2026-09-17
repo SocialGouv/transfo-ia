@@ -149,14 +149,14 @@ USINE_COLS = ["Product", "Design", "Build", "Livraison"]
 USINE_GEN = [
     ["Challenge par l'IA de la", "clarté du besoin,", "formalisation, critères", "d'acceptation"],
     ["Prototypes basés sur", "le design system"],
-    ["Génération de code,", "tests, revue, recette", "assistée par agent"],
+    ["Génération de code et de", "tests, revue de code par", "un bot IA en CI, recette", "assistée par agent"],
     ["Notes de version et", "changelog générés,", "documentation", "automatisée"],
 ]
 USINE_VER = [
     ["Formatage des specs,", "Definition of Ready"],
     ["Respect du design", "system, audit", "d'accessibilité"],
-    ["Pipeline CI : formatage,", "tests, couverture Sonar,", "review humaine"],
-    ["Validation humaine"],
+    ["Pipeline CI : formatage,", "tests, couverture Sonar,", "validation humaine avant", "merge"],
+    ["Validation humaine ;", "pré-audit RGAA et", "sécurité chaque nuit"],
 ]
 USINE_NOTE = "Cible illustrative : le détail du pipeline se précise chantier par chantier, avec les équipes."
 
