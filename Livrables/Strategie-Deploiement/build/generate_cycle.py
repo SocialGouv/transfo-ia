@@ -11,7 +11,8 @@ Même contenu, une seule source : la section CONTENU ci-dessous.
 Matrice : cinq skills (colonnes, groupées par métier) × cinq lignes
 (l'agent propose · l'humain décide · contexte · MCP · sortie), puis les soutiens
 à la production, sous /implementation seulement : IDE et quality gate pendant,
-CI/CD après le commit.
+puis la CI/CD en deux temps — à chaque push, en boucle avec la phase ; chaque nuit,
+hors boucle, RGAA et sécurité, qui ouvrent des tickets.
 Palette : celle des visuels de l'état d'avancement (Etat-avancement/build/generate_charts.py).
 Aucune dépendance externe. Le texte est coupé à la largeur des cellules par
 un simple compte de caractères : relire le rendu après toute modification.
@@ -119,18 +120,27 @@ ROWS = [
     ("out", "Sortie", "l'artefact", "out"),
 ]
 
-# Soutiens à la production, sous /implementation : (moment, éléments)
+# Soutiens à la production, sous /implementation : (moment, éléments, passage au bloc suivant).
+# Deux temps de CI/CD : le premier boucle avec /implementation, le second tourne la nuit et ouvre des tickets.
 SUPPORTS = [
     # espaces insécables avant les deux-points : la coupure de ligne ne les sépare pas
     ("Pendant /implementation", ["IDE\u00a0: ESLint",
-                                 "Quality gate avant commit\u00a0: RGAA, standards de qualité, build sans erreur"]),
-    ("Après le commit", ["CI/CD\u00a0: Sonar, pré-audit RGAA poussé, revue de code supplémentaire au besoin"]),
+                                 "Quality gate avant commit\u00a0: RGAA, standards de qualité, build sans erreur"],
+     {"short": "commit, puis push", "long": "commite et pousse", "human": True}),
+    ("À chaque push, en boucle", ["CI/CD\u00a0: revue de code par un bot IA, puis Sonar",
+                                  "Rejet du bot ou issue Sonar\u00a0: la correction repart dans /implementation"],
+     {"short": "la nuit", "long": "chaque nuit", "human": False}),
+    ("Chaque nuit, hors boucle", ["Pré-audit RGAA poussé, analyse de sécurité",
+                                  "Chaque écart ouvre un ticket, corrigé dans un prochain /plan"],
+     None),
 ]
 
 NOTES = [
     "Skill : commande (/plan, /prototype…) lancée dans le harness de l'équipe, OpenCode Desktop + Albert ou Claude Code + Bedrock · "
     "MCP : connecteur standard entre l'agent et un outil (Jira, Figma, DSFR, Playwright)",
     "Le ticket Jira est le fil conducteur : produit par /plan, lu par /prototype, /plan-tech et /implementation",
+    "La CI/CD tourne en deux temps : à chaque push, la revue du bot IA et Sonar bouclent avec /implementation ; "
+    "chaque nuit, RGAA et sécurité tournent hors boucle et ouvrent des tickets",
     "Cible : des soutiens à la production aussi pour le produit (Definition of Ready outillée) et le design "
     "(audit DSFR / RGAA), paliers 2 et 3 de la checklist de déploiement",
 ]
@@ -354,13 +364,13 @@ def render(t):
     # --- soutiens à la production : sous /implementation seulement ----------
     y += 8
     x = col_x(N - 1)
-    blocks = [(title, [ln for it in items for ln in wrap(it, MAXC)]) for title, items in SUPPORTS]
-    heights = [PAD_Y + 16 + len(lines) * LH + PAD_Y - 6 for _, lines in blocks]
+    blocks = [(title, [ln for it in items for ln in wrap(it, MAXC)], link) for title, items, link in SUPPORTS]
+    heights = [PAD_Y + 16 + len(lines) * LH + PAD_Y - 6 for _, lines, _l in blocks]
     arrow_h = 26
     h = sum(heights) + arrow_h * (len(blocks) - 1)
     s += label_box(t, y, h, "Soutiens à la production", "vérifient le code", "rail")
     yy = y
-    for i, ((title, lines), bh) in enumerate(zip(blocks, heights)):
+    for i, ((title, lines, link), bh) in enumerate(zip(blocks, heights)):
         s += rect(x, yy, COL_W, bh, t["cell_ver"], stroke=t["good"])
         s += txt(x + PAD_X, yy + PAD_Y + 8, title.upper(), 10.5, t["good"], "600", spacing="0.06em")
         ty = yy + PAD_Y + 16 + FS
@@ -371,7 +381,7 @@ def render(t):
             cx = x + PAD_X + 6
             s += f'<line x1="{cx}" y1="{yy + 3}" x2="{cx}" y2="{yy + arrow_h - 9}" stroke="{t["good"]}" stroke-width="2"/>'
             s += f'<path d="M{cx},{yy + arrow_h - 2} l-5,-8 h10 z" fill="{t["good"]}"/>'
-            s += txt(cx + 12, yy + arrow_h / 2 + 4, "commit", 11, t["good"], "600")
+            s += txt(cx + 12, yy + arrow_h / 2 + 4, link["short"], 11, t["good"], "600")
             yy += arrow_h
     y += h + 26
 
@@ -448,8 +458,8 @@ def render_steps(t):
     s += f'<line x1="{xc}" y1="{y}" x2="{xc}" y2="{y + 24}" stroke="{green}" stroke-width="2"/>'
     s += txt(xc + 10, y + 16, STEPS[-1][2], 11, t["ink"], "600")
     y += 24
-    blocks = [(title, [ln for it in items for ln in wrap(it, 26)]) for title, items in SUPPORTS]
-    for i, (title, lines) in enumerate(blocks):
+    blocks = [(title, [ln for it in items for ln in wrap(it, 26)], link) for title, items, link in SUPPORTS]
+    for i, (title, lines, link) in enumerate(blocks):
         bh = 12 + 16 + len(lines) * 14.5 + 8
         s += rect(x0, y, BW, bh, t["cell_ver"], stroke=green)
         s += txt(x0 + 12, y + 20, title.upper(), 10.5, green, "600", spacing="0.06em")
@@ -459,8 +469,9 @@ def render_steps(t):
         if i < len(blocks) - 1:
             s += f'<line x1="{xc}" y1="{y}" x2="{xc}" y2="{y + 44}" stroke="{green}" stroke-width="2"/>'
             s += f'<path d="M{xc},{y + 46} l-6,-10 h12 z" fill="{green}"/>'
-            s += f'<circle cx="{xc}" cy="{y + 20}" r="8" fill="{human}" stroke="{t["surface"]}" stroke-width="2"/>'
-            s += txt(xc + 14, y + 24, STEPS[-1][1], 10.5, human, "600")
+            if link["human"]:
+                s += f'<circle cx="{xc}" cy="{y + 20}" r="8" fill="{human}" stroke="{t["surface"]}" stroke-width="2"/>'
+            s += txt(xc + 14, y + 24, link["long"], 10.5, human if link["human"] else green, "600")
             y += 46
     y_end = y
 
@@ -473,7 +484,7 @@ def render_steps(t):
     s += f'<circle cx="{xl + 14}" cy="{yl + 24}" r="7" fill="{human}"/>'
     s += txt(xl + 38, yl + 28, "l'humain décide : il répond, montre, valide, tranche, relit", 11.5, t["sec"])
     s += rect(xl + 6, yl + 40, 16, 16, t["cell_ver"], rx=4, stroke=green)
-    s += txt(xl + 38, yl + 52, "soutiens à la production : sur le code seulement, pendant /implementation puis après le commit", 11.5, t["sec"])
+    s += txt(xl + 38, yl + 52, "soutiens à la production : sur le code seulement, pendant /implementation, puis en CI/CD à chaque push et la nuit", 11.5, t["sec"])
     s += rect(xl + 2, yl + 65, 24, 14, t["surface"], rx=7, stroke=t["accent"])
     s += txt(xl + 38, yl + 76, "MCP : l'outil branché sur le skill (Jira, DSFR, Figma, Playwright)", 11.5, t["sec"])
     for k, ln in enumerate(wrap(STEPS_CONTEXT, 118)):
@@ -521,9 +532,10 @@ def html_fragment():
                 cells.append(f'<td class="chev{" first" if j == 0 else ""}">{e(sk["out"])}</td>')
         o.append(f'<tr><th scope="row" class="lab {style}">{e(lab)}<small>{e(sub)}</small></th>'
                  + "".join(cells) + "</tr>")
-    sup = '<span class="commit">↓ commit</span>'.join(
+    sup = "".join(
         f'<div class="sup"><b>{e(title)}</b>' + "".join(f"<div>{e(it)}</div>" for it in items) + "</div>"
-        for title, items in SUPPORTS)
+        + (f'<span class="commit">↓ {e(link["short"])}</span>' if link else "")
+        for title, items, link in SUPPORTS)
     o.append('<tr><th scope="row" class="lab railv">Soutiens à la production<small>vérifient le code</small></th>'
              + "<td></td>" * (N - 1) + f'<td class="support">{sup}</td></tr>')
     o.append("</tbody></table>")

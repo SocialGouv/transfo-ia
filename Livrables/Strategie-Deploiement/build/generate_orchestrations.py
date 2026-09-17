@@ -38,11 +38,12 @@ def N(id, col, lane, kind, title, body=None, ctx=None, mcp=None, tag=None, step=
                 tag=tag, step=step)
 
 
-def E(f, t, route, kind="", label="", dash=False, dx=0, badge="", ch=0, tdx=0):
+def E(f, t, route, kind="", label="", dash=False, dx=0, badge="", ch=0, tdx=0, gdx=0):
     """Arête : route v (verticale, même colonne, décalage dx ; dx négatif = étiquette à gauche),
-    fwd (vers la droite), top (retour par le haut, canal ch, entrée dans la cible décalée de tdx),
-    bot (retour par le bas) ; kind '' | ok | ko | amb."""
-    return dict(f=f, t=t, route=route, kind=kind, label=label, dash=dash, dx=dx, badge=badge, ch=ch, tdx=tdx)
+    fwd (vers la droite), top (retour par le haut, canal ch, entrée dans la cible décalée de tdx,
+    montée décalée de gdx dans l'interstice), bot (retour par le bas) ; kind '' | ok | ko | amb."""
+    return dict(f=f, t=t, route=route, kind=kind, label=label, dash=dash, dx=dx, badge=badge, ch=ch,
+                tdx=tdx, gdx=gdx)
 
 
 STOP = ["3 échecs : l'orchestration s'arrête, le travail en cours reste"]
@@ -72,7 +73,7 @@ ORCHS = [
               ctx=["le ticket, pas la conversation"], tag=VERIF_TAG, step=6),
             N("valide", 4, "H", "gate", "Valide le ticket ?",
               ["oui : il est publié", "non : sa remarque repart à l'agent"], step=7),
-            N("out", 5, "A", "out", "Ticket Jira publié", ["au standard, avec ses critères d'acceptation"],
+            N("out", 4, "A", "out", "Ticket Jira publié", ["au standard, avec ses critères d'acceptation"],
               mcp=["Jira"], step=8),
         ],
         "edges": [
@@ -180,7 +181,7 @@ ORCHS = [
               ctx=["le plan, le code"], tag="contexte vierge", step=5),
             N("valide", 4, "H", "gate", "Valide le plan et les casses annoncées ?",
               ["oui : la revue d'impact fait foi pour /implementation", "non : le plan est corrigé, à la main ou par l'agent"], step=6),
-            N("out", 5, "A", "out", "Plan + revue d'impact approuvés", ["prêts pour /implementation, back et front"], step=7),
+            N("out", 4, "A", "out", "Plan + revue d'impact approuvés", ["prêts pour /implementation, back et front"], step=7),
         ],
         "edges": [
             E("lance", "art", "v", "amb"),
@@ -200,12 +201,16 @@ ORCHS = [
         "key": "implementation", "skill": "/implementation", "role": "Développeur",
         "chips": ["Back", "Front"],
         "chips_note": "une orchestration par périmètre, même déroulé",
-        "intro": "Du plan approuvé au code prêt pour la CI, phase par phase : le testeur pose les tests, le codeur les fait "
-                 "passer, les gardes-fous et un vérificateur tranchent, le développeur relit chaque phase avant de la commiter.",
+        "intro": "Du plan approuvé au code mergé, phase par phase : le testeur pose les tests, le codeur les fait passer, "
+                 "les gardes-fous et un vérificateur tranchent, le développeur relit chaque phase avant de la commiter. "
+                 "Après le push, la CI/CD boucle avec la phase ; les contrôles de nuit, eux, ouvrent des tickets.",
+        # sept colonnes dans la largeur commune, sans défilement : le vérificateur et la relecture humaine
+        # partagent une colonne, et les colonnes denses (codeur, CI) sont plus larges que les autres
+        "colw": [1.12, 1.14, 1.26, 1.12, 0.94, 1.22, 1.08],
         "nodes": [
             N("art", 0, "A", "art", "Plan + revue d'impact", ["du périmètre (back ou front) · phase N"]),
-            N("lance", 0, "H", "human", "Lance /implementation",
-              ["approche : test first (ici), acceptance first ou code first"], step=1),
+            N("lance", 0, "H", "human", "Lance la phase",
+              ["/implementation, approche : test first (ici), acceptance first ou code first"], step=1),
             N("test", 1, "A", "agent", "Agent testeur",
               ["Écrit les tests de la phase : unitaires, intégration, bout en bout"],
               ctx=["plan", "critères d'acceptation", "standards de test"], mcp=["Playwright"], step=2),
@@ -222,11 +227,26 @@ ORCHS = [
             N("verif", 3, "A", "agent", "Agent vérificateur",
               ["La phase livre-t-elle tout ce que le plan annonçait ?"],
               ctx=["le plan de la phase, le code produit"], tag=VERIF_TAG, step=6),
-            N("relit", 4, "H", "gate", "Relit la phase, commite ?",
+            N("relit", 3, "H", "gate", "Relit la phase, commite ?",
               ["oui : commit · non : sa remarque repart au codeur", "après la dernière phase : pousse"], step=7),
-            N("save", 5, "R", "rule", "Point de sauvegarde",
+            N("save", 4, "R", "rule", "Point de sauvegarde",
               ["Le commit de la phase", "Si la suite casse, on revient ici"], step=8),
-            N("out", 5, "A", "out", "Code + tests", ["poussés, la CI/CD prend le relais"], step=9),
+            N("out", 4, "A", "out", "Code + tests poussés", ["la CI/CD prend le relais"], step=9),
+            N("bot", 5, "A", "agent", "Bot de revue IA",
+              ["Relit la diff : standards, lisibilité, régressions",
+               "Approuve ou demande des changements"],
+              ctx=["standards de développement", "le plan de la phase"], tag=VERIF_TAG, step=10),
+            N("ci", 5, "R", "rule", "La PR peut-elle passer ?",
+              ["Revue du bot IA approuvée", "Sonar vert : couverture, duplication, vulnérabilités",
+               "Lint, build et tests rejoués"], step=11),
+            N("merge", 5, "H", "human", "Valide et merge",
+              ["arbitre les remarques du bot, puis merge"], step=12),
+            N("livre", 6, "A", "out", "Code mergé", ["la fonctionnalité part en recette"], step=13),
+            N("nuit", 6, "R", "rule", "Chaque nuit, hors boucle",
+              ["Pré-audit RGAA poussé", "Analyse de sécurité : dépendances, code",
+               "Trop long pour tourner à chaque push"], step=14),
+            N("tickets", 6, "H", "human", "Les écarts ouvrent des tickets",
+              ["corrigés dans un prochain ticket, pas dans la phase en cours"], step=15),
         ],
         "edges": [
             E("lance", "art", "v", "amb"),
@@ -239,11 +259,20 @@ ORCHS = [
             E("garde", "stop", "v", "ko"),
             E("garde", "verif", "fwd", "ok", "tout est vert"),
             E("verif", "code", "top", "ko", "refusé : le motif repart au codeur · 3 essais au plus", dash=True),
-            E("verif", "relit", "fwd", "ok", "OK"),
+            E("verif", "relit", "v", "ok", "OK", dx=-16),
             E("relit", "code", "top", "amb", "non : sa remarque repart au codeur", dash=True, ch=1, tdx=18),
             E("relit", "save", "fwd", "amb", "oui"),
             E("save", "out", "v", "ok", "dernière phase", dx=-1),
             E("save", "test", "bot", "ok", "phase suivante : le testeur reprend avec la phase N+1"),
+            E("out", "bot", "fwd", ""),
+            E("bot", "ci", "v", "", dx=-16),
+            E("ci", "code", "top", "ko",
+              "revue rejetée ou issue Sonar : la correction rejoint le plan de la phase, le codeur reprend",
+              dash=True, ch=2, tdx=-18, gdx=12),
+            E("ci", "merge", "v", "ok", "tout est vert", dx=-16),
+            E("merge", "livre", "fwd", "amb"),
+            E("livre", "nuit", "v", "", dx=-16),
+            E("nuit", "tickets", "v", "ko", "écarts", dash=True, dx=0),
         ],
     },
 ]
@@ -263,7 +292,7 @@ COMMON_RULES = [
 # GÉOMÉTRIE
 # ============================================================================
 
-W = 1120
+W = 1120                    # largeur par défaut ; une orchestration dense peut demander la sienne (clé « W »)
 X_LABEL, LABEL_W = 24, 92
 X0 = X_LABEL + LABEL_W + 16
 XR = 24
@@ -482,7 +511,8 @@ def draw_edge(t, key, e, P, y_top, y_bot, bad):
         ym = (y0 + y1) / 2
         lab = (xa + 7, ym + 4, "start") if e["dx"] >= 0 else (xa - 7, ym + 4, "end")
     elif r == "fwd":
-        x0, y0 = a["x"] + a["w"], a["cy"]
+        # un chevron de sortie déborde de 10 px : la flèche part de sa pointe, pas de dessous
+        x0, y0 = a["x"] + a["w"] + (10 if a["kind"] == "out" else 0), a["cy"]
         x1, y1 = b["x"] - 2, b["cy"]
         if abs(y0 - y1) < 1:
             d = f"M{x0:.1f},{y0:.1f} L{x1:.1f},{y1:.1f}"
@@ -500,9 +530,9 @@ def draw_edge(t, key, e, P, y_top, y_bot, bad):
         else:
             # sortie latérale, du côté de la cible, décalée du centre du couloir vertical (où passe l'aller)
             if b["cx"] < a["cx"]:
-                x_out, gx = a["x"], a["x"] - (GAP + 2 * INSET) / 2 - 9
+                x_out, gx = a["x"], a["x"] - (GAP + 2 * INSET) / 2 - 9 + e["gdx"]
             else:
-                x_out, gx = a["x"] + a["w"], a["x"] + a["w"] + (GAP + 2 * INSET) / 2 + 9
+                x_out, gx = a["x"] + a["w"], a["x"] + a["w"] + (GAP + 2 * INSET) / 2 + 9 + e["gdx"]
             d = (f"M{x_out:.1f},{a['cy']:.1f} L{gx:.1f},{a['cy']:.1f} L{gx:.1f},{yc:.1f} "
                  f"L{bx:.1f},{yc:.1f} L{bx:.1f},{b['y'] - 2:.1f}")
             lab = ((gx + bx) / 2, yc - 5, "middle")
@@ -533,7 +563,7 @@ def draw_edge(t, key, e, P, y_top, y_bot, bad):
 # Légende
 # ============================================================================
 
-def legend(t, key, y, bad):
+def legend(t, key, y, bad, W=W):
     items = [
         ("num", "1, 2, 3… l'ordre des étapes quand tout se passe bien"),
         ("agent", "l'agent propose : contexte vierge, il ne reçoit que ce qui le concerne ; un second agent qui relit = boucle IA"),
@@ -582,18 +612,28 @@ def render(o, t, mode):
     bad = BAD[mode]
     key = o["key"]
     ncols = max(n["col"] for n in o["nodes"]) + 1
-    col_w = (W - XR - X0 - (ncols - 1) * GAP) / ncols
-    nw = col_w - 2 * INSET
+    # largeurs de colonnes pondérées : les colonnes denses respirent, les colonnes d'un seul
+    # nœud se resserrent. Sans « colw », toutes les colonnes ont la même largeur (cas par défaut).
+    weights = o.get("colw") or [1] * ncols
+    avail = W - XR - X0 - (ncols - 1) * GAP
+    col_ws = [avail * w / float(sum(weights)) for w in weights]
+    col_xs, acc = [], X0
+    for cw in col_ws:
+        col_xs.append(acc)
+        acc += cw + GAP
 
     def col_x(j):
-        return X0 + j * (col_w + GAP) + INSET
+        return col_xs[j] + INSET
+
+    def col_nw(j):
+        return col_ws[j] - 2 * INSET
 
     # en-tête
     sub_lines = wrap_px(o["intro"], W - 48, 12.5)
     y_head = 62 + (len(sub_lines) - 1) * 17
 
     # mesures (les alertes de débordement ne sont collectées qu'une fois, en clair)
-    meas = {n["id"]: measure(n, nw, o["skill"] if mode == "light" else None) for n in o["nodes"]}
+    meas = {n["id"]: measure(n, col_nw(n["col"]), o["skill"] if mode == "light" else None) for n in o["nodes"]}
     lane_h = {ln: max([meas[n["id"]][1] for n in o["nodes"] if n["lane"] == ln] + [44]) for ln in LANES}
     n_top = max([e["ch"] + 1 for e in o["edges"] if e["route"] == "top"] + [0])
     n_bot = max([e["ch"] + 1 for e in o["edges"] if e["route"] == "bot"] + [0])
@@ -611,9 +651,9 @@ def render(o, t, mode):
     P = {}
     for n in o["nodes"]:
         L, h = meas[n["id"]]
-        x = col_x(n["col"])
+        x, w = col_x(n["col"]), col_nw(n["col"])
         yy = lane_y[n["lane"]] + (lane_h[n["lane"]] - h) / 2
-        P[n["id"]] = dict(x=x, y=yy, w=nw, h=h, cx=x + nw / 2, cy=yy + h / 2, lane=n["lane"], L=L)
+        P[n["id"]] = dict(x=x, y=yy, w=w, h=h, cx=x + w / 2, cy=yy + h / 2, lane=n["lane"], kind=n["kind"], L=L)
 
     s = ""
     # étiquettes de couloir et fond léger
@@ -634,9 +674,9 @@ def render(o, t, mode):
     # nœuds
     for n in o["nodes"]:
         p = P[n["id"]]
-        s += draw_node(t, mode, n, p["x"], p["y"], nw, p["L"], p["h"], bad)
+        s += draw_node(t, mode, n, p["x"], p["y"], p["w"], p["L"], p["h"], bad)
     # légende et note « exemple »
-    leg, y_fin = legend(t, key, y_leg + 14, bad)
+    leg, y_fin = legend(t, key, y_leg + 14, bad, W)
     s += leg
     s += itxt(X_LABEL, y_fin + 12, EXAMPLE_NOTE, 11, t["sec"])
     H = y_fin + 30
