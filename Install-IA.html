@@ -154,7 +154,7 @@
     <div>
       <h3>Les providers aujourd'hui</h3>
       <ul>
-        <li><span>Scaleway</span><span class="chip ok">opérationnel</span></li>
+        <li><span>Scaleway</span><span class="chip wip">opérationnel, quota d'usage à relever</span></li>
         <li><span>Bedrock</span><span class="chip info">ouverture prochaine</span></li>
         <li><span>Albert, DeepSeek V4 Flash</span><span class="chip wip">expérimentation close le 31 octobre</span></li>
       </ul>
@@ -186,7 +186,7 @@
     </li>
     <li>
       <h3>Des accès pour tous les postes ciblés</h3>
-      <p>Clés Scaleway, comptes Bedrock dès leur ouverture, budget de tokens dimensionné.</p>
+      <p>Clés Scaleway au quota suffisant, comptes Bedrock dès leur ouverture, budget de tokens dimensionné.</p>
       <a href="#etape-2">Étape 2</a>
     </li>
     <li>
@@ -253,6 +253,7 @@
         <div class="hd"><h3>Équiper les deux studios</h3><span class="when">Dès les couples validés, par vagues</span></div>
         <ul>
           <li>Recenser les personnes à équiper dans les studios Tech et Produit, internes et externes.</li>
+          <li>Dès maintenant, relever le quota d'usage Scaleway : la limite actuelle bloque ceux qui l'installent.</li>
           <li>Préparer les accès avant d'installer : clés Scaleway, comptes Bedrock dès leur ouverture, budget de tokens. Un forfait trop juste pousse vers des solutions non conformes.</li>
           <li>Partager une doc d'installation pas à pas, testée sur un poste neuf.</li>
           <li>Installer en sessions collectives, par vagues :
@@ -318,7 +319,7 @@
         <div class="hd"><h3>Mesurer et maintenir</h3><span class="when">En continu</span></div>
         <ul>
           <li>Trois indicateurs : postes opérationnels sur postes à équiper ; personnes actives chaque semaine, mesurées par clé côté provider ; équipes qui franchissent un palier.</li>
-          <li>Un test de non-régression après chaque mise à jour du poste ou des harness.</li>
+          <li>Après chaque mise à jour du poste ou d'un harness, refaire l'installation sur un poste de référence : installer, lancer, obtenir une réponse de chaque provider.</li>
           <li>Un canal de support unique, les tech-leads en premier niveau.</li>
         </ul>
         <dl class="meta">
@@ -339,10 +340,10 @@
     <thead><tr><th scope="col">Risque</th><th scope="col">Parade</th></tr></thead>
     <tbody>
       <tr><th scope="row">Aucun harness ne passe et le déblocage tarde</th><td data-label="Parade">Une demande précise et un délai fixé avec la sécurité ; le packaging au centre logiciel en voie durable</td></tr>
-      <tr><th scope="row">DeepSeek V4 Flash quitte Albert le 31 octobre</th><td data-label="Parade">Scaleway déjà opérationnel ; les modèles de repli testés à l'étape 1</td></tr>
-      <tr><th scope="row">Un budget de tokens trop juste</th><td data-label="Parade">Budget dimensionné avant l'installation, suivi par clé</td></tr>
+      <tr><th scope="row">DeepSeek V4 Flash quitte Albert le 31 octobre</th><td data-label="Parade">Scaleway déjà opérationnel, quota relevé ; les modèles de repli testés à l'étape 1</td></tr>
+      <tr><th scope="row">Un quota ou un budget de tokens trop juste</th><td data-label="Parade">Quota Scaleway relevé ; budget dimensionné avant l'installation, suivi par clé</td></tr>
       <tr><th scope="row">Des tech-leads sans temps pour leurs équipes</th><td data-label="Parade">Un créneau réservé ; un kit prêt à l'emploi</td></tr>
-      <tr><th scope="row">Une mise à jour du poste recasse l'installation</th><td data-label="Parade">Test de non-régression à chaque mise à jour ; installation packagée</td></tr>
+      <tr><th scope="row">Une mise à jour du poste recasse l'installation</th><td data-label="Parade">Installation refaite sur un poste de référence à chaque mise à jour ; installation packagée</td></tr>
     </tbody>
   </table>
 </section>
