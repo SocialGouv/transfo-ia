@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Suivi IA par stream · Ministères sociaux</title>
+<style>
+  :root{
+    --bg:#f3f4f6; --card:#ffffff; --ink:#17181c; --sec:#4f5560; --muted:#646b75;
+    --line:#e3e6eb; --line-strong:#cfd4dc; --soft:#f7f8fa;
+    --navy:#0d366b; --blue:#2a78d6; --blue-soft:#eaf1fc; --blue-line:#c7dbf5;
+    --green:#0f6b0f; --green-soft:#e8f4e8; --amber:#9a5a00; --amber-soft:#fff3df;
+    --shadow:0 1px 2px rgba(23,24,28,.04), 0 6px 18px rgba(23,24,28,.05);
+    --r:14px;
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:light;background:var(--bg)}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"Segoe UI",system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:#1f63b5;text-decoration:none}
+  a:hover{text-decoration:underline}
+  b{font-weight:600}
+  :focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px 56px}
+  @media (max-width:600px){.wrap{padding:0 16px 40px}}
+
+  /* En-tête */
+  .top{border-top:5px solid var(--navy);background:var(--card);margin:0 -24px 24px;padding:26px 24px 22px;border-bottom:1px solid var(--line)}
+  @media (max-width:600px){.top{margin:0 -16px 20px;padding:20px 16px 18px}}
+  .top-in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+  .kicker{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 6px}
+  h1{margin:0;font-size:27px;letter-spacing:-.015em;line-height:1.2}
+  .date{margin:6px 0 0;color:var(--sec)}
+  .links{display:flex;flex-wrap:wrap;gap:8px}
+  .links a{display:inline-block;padding:6px 12px;border:1px solid var(--line-strong);border-radius:999px;background:var(--card);color:var(--navy);font-size:13px;font-weight:500}
+  .links a:hover{background:var(--blue-soft);text-decoration:none;border-color:var(--blue-line)}
+
+  h2{font-size:20px;margin:0 0 6px;letter-spacing:-.01em}
+  h3{font-size:16px;margin:0;color:var(--navy)}
+  .lead{color:var(--sec);margin:0 0 16px;max-width:900px}
+  .note{color:var(--muted);font-size:13px;margin:10px 0 0}
+
+  /* Onglets principaux */
+  .tabs{display:inline-flex;gap:4px;background:#e8eaee;padding:4px;border-radius:12px;margin:0 0 22px;flex-wrap:wrap}
+  .tabs button{appearance:none;border:0;background:transparent;padding:8px 16px;border-radius:9px;font:inherit;font-size:14px;font-weight:600;color:var(--sec);cursor:pointer}
+  .tabs button:hover{color:var(--ink)}
+  .tabs button[aria-selected="true"]{background:var(--card);color:var(--navy);box-shadow:0 1px 3px rgba(23,24,28,.12)}
+  .panel[hidden]{display:none}
+
+  /* Sélecteurs secondaires (stream, équipe) et filtre de statut */
+  .bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;margin:0 0 18px}
+  .pick{display:flex;flex-wrap:wrap;gap:6px}
+  .pick button{appearance:none;font:inherit;font-size:13.5px;font-weight:600;line-height:1.25;padding:7px 14px;border-radius:10px;border:1px solid var(--line-strong);background:var(--card);color:var(--sec);cursor:pointer}
+  .pick button:hover{color:var(--ink);background:var(--soft)}
+  .pick button[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+  .filter{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--sec)}
+  .filter button{appearance:none;font:inherit;font-size:13px;padding:5px 11px;border-radius:999px;border:1px solid var(--line-strong);background:var(--card);color:var(--sec);cursor:pointer}
+  .filter button[aria-pressed="true"]{background:var(--blue-soft);border-color:var(--blue-line);color:var(--navy);font-weight:600}
+
+  /* Ce qui compte maintenant */
+  .focus{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0 30px}
+  @media (max-width:980px){.focus{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.focus{grid-template-columns:1fr}}
+  .tile{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--navy);border-radius:var(--r);padding:14px 18px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px}
+  .tile .tag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--navy)}
+  .tile .tag .when{color:var(--amber)}
+  .tile h4{margin:0;font-size:15.5px;line-height:1.35}
+  .tile p{margin:0;color:var(--sec);font-size:13.5px}
+  .tile a{margin-top:auto;padding-top:6px;font-size:13px;font-weight:600}
+
+  /* Tableaux */
+  table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+  thead th{background:var(--soft);color:var(--sec);font-weight:600;font-size:12.5px;letter-spacing:.02em}
+  tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
+  .chip{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;border:1px solid transparent}
+  .chip.ok{background:var(--green-soft);color:var(--green)}
+  .chip.wip{background:var(--amber-soft);color:var(--amber)}
+  .chip.info{background:var(--blue-soft);color:var(--navy)}
+  .chip.todo{background:#eef0f3;color:var(--sec)}
+  .chip.idea{background:var(--card);color:var(--sec);border:1px dashed #9aa1ab}
+  .late{display:inline-block;margin-top:3px;font-size:12px;font-weight:600;color:var(--amber)}
+  .imp{color:var(--navy);font-size:11px;letter-spacing:1px;margin-left:6px;white-space:nowrap}
+  .lvl{display:inline-block;padding:1px 8px;border-radius:8px;background:var(--navy);color:#fff;font-weight:600;font-size:12.5px;white-space:nowrap}
+
+  /* Matrice équipes × streams */
+  table.mx{table-layout:fixed}
+  table.mx col.c0{width:170px}
+  table.mx thead th{vertical-align:bottom;padding:0}
+  table.mx thead th.corner{padding:10px 12px;font-weight:400;color:var(--muted)}
+  table.mx thead button{display:block;width:100%;appearance:none;border:0;background:transparent;font:inherit;text-align:left;padding:10px 12px;cursor:pointer;color:var(--navy);font-size:14px;font-weight:600}
+  table.mx thead button small{display:block;font-weight:400;font-size:12px;color:var(--sec);line-height:1.35;margin-top:2px}
+  table.mx thead button:hover{background:var(--blue-soft)}
+  table.mx tbody th{font-weight:600;padding:0;background:var(--card)}
+  table.mx tbody th button{display:block;width:100%;height:100%;appearance:none;border:0;background:transparent;font:inherit;font-weight:600;font-size:14.5px;text-align:left;padding:12px;cursor:pointer;color:var(--ink)}
+  table.mx tbody th button:hover{background:var(--soft)}
+  table.mx tbody th small{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:3px}
+  table.mx td{padding:0;border-left:1px solid var(--line)}
+  table.mx td button{display:flex;flex-direction:column;align-items:flex-start;gap:5px;width:100%;min-height:100%;appearance:none;border:0;background:transparent;font:inherit;text-align:left;padding:12px;cursor:pointer;color:var(--ink);font-size:13.5px;line-height:1.4}
+  table.mx td button:hover{background:var(--soft)}
+  table.mx td .q{font-size:12px;color:var(--muted)}
+  table.mx td .none{display:block;padding:12px;color:var(--muted)}
+  @media (max-width:760px){
+    table.mx,table.mx tbody,table.mx tr,table.mx th,table.mx td{display:block;width:auto}
+    table.mx thead,table.mx colgroup{display:none}
+    table.mx tbody tr{border-bottom:1px solid var(--line-strong)}
+    table.mx tbody tr:last-child{border-bottom:0}
+    table.mx td{border-left:0;border-top:1px solid var(--line)}
+    table.mx td::before{content:attr(data-label);display:block;padding:10px 12px 0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--navy)}
+    table.mx td button{padding-top:6px}
+    table.mx td .none{padding-top:6px}
+  }
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 0 0;font-size:12.5px;color:var(--sec);align-items:center}
+  .legend span{white-space:nowrap}
+
+  /* Listes d'actions */
+  .head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:0 0 4px}
+  .block{margin:0 0 26px}
+  .block .bh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0 0 10px}
+  .block .bh span{color:var(--sec);font-size:13.5px}
+  .block.flash table{animation:flash 1.6s ease-out}
+  @keyframes flash{0%{box-shadow:0 0 0 3px var(--blue)}100%{box-shadow:0 0 0 0 transparent}}
+  @media (prefers-reduced-motion:reduce){.block.flash table{animation:none;box-shadow:0 0 0 3px var(--blue)}}
+  table.acts col.st{width:118px} table.acts col.qd{width:170px}
+  table.acts td.t b{font-weight:600}
+  table.acts .why{margin:3px 0 0;color:var(--sec);font-size:13.5px}
+  table.acts .src{margin:4px 0 0;font-size:12.5px}
+  table.acts .src a{margin-right:12px}
+  table.acts tr.grp th{background:var(--soft);font-size:13px;color:var(--navy);font-weight:600;padding:8px 12px;border-bottom:1px solid var(--line)}
+  table.acts tr.grp th small{font-weight:400;color:var(--muted);margin-left:8px}
+  table.acts tr.done td.t b{font-weight:500}
+  table.uc col.c1{width:24%} table.uc col.c2{width:12%} table.uc col.c3{width:20%} table.uc col.c5{width:100px}
+  .empty{color:var(--muted);font-size:14px;margin:0;padding:12px 14px;background:var(--card);border:1px dashed var(--line-strong);border-radius:12px}
+  .method{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:10px;padding:12px 16px;margin:0 0 16px;font-size:14px;color:var(--sec)}
+  .method b{color:var(--ink)}
+  @media (max-width:700px){
+    table.acts,table.acts tbody,table.acts tr,table.acts td,table.acts th,table.uc,table.uc tbody,table.uc tr,table.uc td{display:block;width:auto}
+    table.acts thead,table.acts colgroup,table.uc thead,table.uc colgroup{display:none}
+    table.acts td,table.uc td{border-bottom:0;padding:4px 12px}
+    table.acts td.t,table.uc td:first-child{padding-top:12px}
+    table.acts tr,table.uc tr{border-bottom:1px solid var(--line)}
+    table.acts td[data-label]::before,table.uc td[data-label]::before{content:attr(data-label) " : ";color:var(--muted);font-size:12.5px}
+    table.acts tr td:last-child,table.uc tr td:last-child{padding-bottom:12px}
+  }
+
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:6px 18px}
+
+  @media print{
+    .tabs,.bar,.top .links{display:none}
+    .panel[hidden]{display:block}
+    #panel-equipe{display:none}
+    .panel{break-before:page}
+    .panel:first-of-type{break-before:auto}
+    .tile,table{box-shadow:none}
+    .block{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="top-in">
+    <div>
+      <p class="kicker">Ministères sociaux · Direction du numérique</p>
+      <h1>Transformation IA : le suivi par stream et par équipe</h1>
+      <p class="date">Actions des équipes au <b>15 septembre 2026</b> · évaluation et veille au <b>20 octobre 2026</b></p>
+    </div>
+    <nav class="links" aria-label="Liens">
+      <a href="README.md">Synthèse</a>
+      <a href="Details.md">Détail par chantier</a>
+      <a href="Suivi-Strategie-Adoption-IA.html">Tableau de bord (cible, checklist)</a>
+      <a href="https://github.com/orgs/SocialGouv/projects/198">Dashboard GitHub</a>
+      <a href="https://grist.numerique.gouv.fr/o/tranfo-ia/rFkVL6aLFbrE/Etat-davancement">Grist</a>
+    </nav>
+  </div>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Vues">
+  <button role="tab" id="tab-ensemble" aria-controls="panel-ensemble" aria-selected="true">Vue d'ensemble</button>
+  <button role="tab" id="tab-stream" aria-controls="panel-stream" aria-selected="false" tabindex="-1">Par stream</button>
+  <button role="tab" id="tab-equipe" aria-controls="panel-equipe" aria-selected="false" tabindex="-1">Par équipe</button>
+</div>
+
+<!-- ============================ VUE D'ENSEMBLE ============================ -->
+<section class="panel" id="panel-ensemble" role="tabpanel" aria-labelledby="tab-ensemble">
+  <h2>Ce qui compte maintenant</h2>
+  <p class="lead">Un sujet par stream, celui qui conditionne la suite.</p>
+  <div class="focus">
+    <article class="tile">
+      <span class="tag">Adoption · <span class="when">avant le 31 octobre</span></span>
+      <h4>Albert : l'expérimentation DeepSeek V4 Flash s'arrête le 31 octobre</h4>
+      <p>Les architectes et les PM/PO DACCORD l'utilisent. La DINUM décidera ensuite s'il devient le modèle code par défaut d'Albert, et sollicite des retours d'usage.</p>
+      <a href="#stream-adoption">Le stream Adoption</a>
+    </article>
+    <article class="tile">
+      <span class="tag">Maîtrise</span>
+      <h4>De la prise en main à l'usage quotidien</h4>
+      <p>Orchestration de DA chez les architectes, skill de tickets chez les PM/PO DACCORD, dev augmenté chez VAO : le niveau 3 se valide à l'usage autonome. Puis la première orchestration d'Igor et Nicolas.</p>
+      <a href="#stream-maitrise">Le stream Maîtrise</a>
+    </article>
+    <article class="tile">
+      <span class="tag">Évaluation des LLM</span>
+      <h4>Choisir les use cases sur lesquels challenger les modèles</h4>
+      <p>Cinq candidats à valider avec les équipes. En premier, ceux qui tournent sur Albert : la cohérence du DA et le ticket PM/PO.</p>
+      <a href="#stream-evaluation">Le stream Évaluation</a>
+    </article>
+    <article class="tile">
+      <span class="tag">Veille IA</span>
+      <h4>Tester Iterion, remettre le bench à jour</h4>
+      <p>Iterion (SocialGouv) orchestre des agents en fichiers .bot : candidat pour le bot de revue IA en CI. Le bench publié compte 7 stacks, le deck souveraineté 9.</p>
+      <a href="#stream-veille">Le stream Veille</a>
+    </article>
+  </div>
+
+  <h2>Équipes × streams</h2>
+  <p class="lead">Pour chaque équipe, l'action qui compte sur chaque stream : la plus avancée en cours, sinon la prochaine à venir, sinon la dernière réalisée. Une case ouvre le détail, un en-tête ouvre toute la ligne ou toute la colonne.</p>
+  <div id="matrix"></div>
+  <div class="legend" id="legend"></div>
+</section>
+
+<!-- ============================ PAR STREAM ============================ -->
+<section class="panel" id="panel-stream" role="tabpanel" aria-labelledby="tab-stream" hidden>
+  <div class="bar">
+    <div class="pick" role="tablist" aria-label="Stream" id="pick-stream"></div>
+    <div class="filter" role="group" aria-label="Filtrer par statut"><span>Afficher</span></div>
+  </div>
+  <div id="stream-body" role="tabpanel" aria-live="polite"></div>
+</section>
+
+<!-- ============================ PAR ÉQUIPE ============================ -->
+<section class="panel" id="panel-equipe" role="tabpanel" aria-labelledby="tab-equipe" hidden>
+  <div class="bar">
+    <div class="pick" role="tablist" aria-label="Équipe" id="pick-equipe"></div>
+    <div class="filter" role="group" aria-label="Filtrer par statut"><span>Afficher</span></div>
+  </div>
+  <div id="equipe-body" role="tabpanel" aria-live="polite"></div>
+</section>
+
+<noscript><p class="empty">Cette page a besoin de JavaScript pour afficher les actions. Le même contenu, en texte : <a href="Details.md">Details.md</a>.</p></noscript>
+
+<footer>
+  <span>Mission Ippon Technologies · Selim Boukhari</span>
+  <span>Le niveau mesure ce que l'accompagnement a apporté à une équipe, pas une note</span>
+  <span>Mise à jour : éditer la liste <code>ACTIONS</code> en bas de ce fichier</span>
+</footer>
+</div>
+
+<script>
+/* =====================================================================
+   DONNÉES : la seule partie à mettre à jour.
+   st : fait · cours · plan · lancer · cadrer (proposition à valider)
+   q  : quand, en clair · ech : échéance ISO, signale « échéance passée »
+   imp : 3 déterminant · 2 élevé · 1 modéré (taxonomie du README)
+   cle : l'action affichée dans la case de la vue d'ensemble
+   uc  : use case à challenger (stream Évaluation) : stack actuelle, question
+   ===================================================================== */
+var STREAMS = [
+  {id:'adoption',   nom:'Adoption',           def:"Installer, accéder, diffuser : postes compatibles, providers, harness, bibliothèque de skills"},
+  {id:'maitrise',   nom:'Maîtrise',           def:"Coaching et accompagnement, jusqu'aux orchestrations"},
+  {id:'evaluation', nom:'Évaluation des LLM', def:"Challenger les modèles use case par use case : qualité, coût, conformité"},
+  {id:'veille',     nom:'Veille IA',          def:"Nouveaux modèles, autres types d'IA, outils comme Iterion : veiller et tester"}
+];
+
+var EQUIPES = [
+  {id:'egapro',     nom:'Egapro',      niv:'3 → 4', desc:"Équipe pilote, la plus mature : dev, design et pilotage."},
+  {id:'daccord',    nom:'DACCORD',     niv:'1 → 2', desc:"Devs et PM/PO accompagnés en parallèle."},
+  {id:'sirena',     nom:'SIRENA',      niv:'2',     desc:"Usage IA réel mais individuel ; une demande de formation PM/PO."},
+  {id:'vao',        nom:'VAO',         niv:'1 → 2', desc:"Devs formés le 3 septembre ; côté produit, Halim à accompagner."},
+  {id:'archi',      nom:'Architectes', niv:'1 → 2', desc:"Les architectes, avec Igor Ranquin et Nicolas Fournier (référentiels d'architecture)."},
+  {id:'design',     nom:'Designers',   niv:'1 → 2', desc:"Les designers hors équipes, avec Louis et Norman."},
+  {id:'transverse', nom:'Transverse',  niv:'',      desc:"Ce qui sert à toutes les équipes : postes, providers, bench, skills communs."}
+];
+
+var CR = 'CR/', ALBERT = 'https://guides.ia.numerique.gouv.fr/albert-api/modeles/available-models';
+
+var ACTIONS = [
+  /* ------------------------------ ADOPTION ------------------------------ */
+  {s:'adoption', e:'transverse', st:'lancer', cle:true, imp:1, q:'avant le 31 oct.', ech:'2026-10-31',
+   t:"Préparer l'après-31 octobre : fin de l'expérimentation DeepSeek V4 Flash sur Albert",
+   c:"Albert : fin de l'expérimentation DeepSeek V4 Flash le 31 octobre",
+   why:"Les architectes et les PM/PO DACCORD en dépendent. Ensuite, la DINUM décidera s'il remplace le modèle code par défaut (openweight-code, aujourd'hui Qwen3 Coder 30B) ; elle sollicite des retours d'usage, les nôtres comptent.",
+   src:[['Modèles Albert (DINUM)', ALBERT]]},
+  {s:'adoption', e:'transverse', st:'lancer', imp:3,
+   t:"Créer une bibliothèque de skills communautaire, partagée entre équipes",
+   c:"Bibliothèque de skills communautaire",
+   why:"Conduite du changement : chaque équipe y puise et y contribue, au lieu de reconstruire les mêmes skills. Premières entrées, celles du catalogue prévu en septembre : besoin PO, plan technique et dev en ATDD, refacto adossé à Sonar. Reste à poser qui contribue, qui relit, où elle vit."},
+  {s:'adoption', e:'transverse', st:'plan', q:"dès l'introduction d'Olivier",
+   t:"Rencontrer le centre logiciel pour y packager les harness cibles",
+   why:"Deux voies passent déjà sans lui ; l'enjeu est la liberté du choix du harness pour les internes."},
+  {s:'adoption', e:'transverse', st:'plan', q:'fin sept.', ech:'2026-09-30',
+   t:"Cartographier les bénéficiaires des comptes Bedrock",
+   why:"Tous les internes, et les externes sur sujets sensibles."},
+  {s:'adoption', e:'transverse', st:'lancer',
+   t:"Explorer Scaleway : observabilité, modèles open-weight",
+   why:"Souveraineté française. À valider : le champ des possibles côté observabilité."},
+  {s:'adoption', e:'transverse', st:'lancer',
+   t:"Explorer Google Vertex AI : modèles frontier de plusieurs éditeurs",
+   why:"À vérifier : l'observabilité depuis n'importe quel harness. La cible : choisir librement le couple harness × modèle."},
+  {s:'adoption', e:'transverse', st:'lancer',
+   t:"Instruire le poste Linux interne",
+   why:"La sécurité oriente les devs vers des postes à système libre ; la compatibilité des harness y reste à vérifier."},
+  {s:'adoption', e:'transverse', st:'lancer',
+   t:"Vérifier les contraintes réseau : npx semble bloqué, HTTP passe"},
+  {s:'adoption', e:'transverse', st:'fait', imp:3,
+   t:"Deux voies légales sur poste ministère : OpenCode Desktop (sans droits admin) et Claude Code dans VS Code",
+   why:"L'IA générative devient possible sur PC ministère ; ces voies servent déjà aux architectes et aux PM/PO DACCORD."},
+  {s:'adoption', e:'transverse', st:'fait', imp:1,
+   t:"Matrice « qui peut utiliser quoi » : harness × population",
+   why:"Chaque population sait ce qu'elle peut installer, et ce qui n'est pas conforme.",
+   src:[['La matrice', 'README.md#qui-peut-utiliser-quoi']]},
+  {s:'adoption', e:'transverse', st:'fait', imp:1, q:'23 juil.',
+   t:"Voie Bedrock cadrée avec AWS : viable, mais le harness est imposé",
+   why:"Large catalogue de modèles avec observabilité, adossée à Claude Code.",
+   src:[['Compte rendu', CR+'transverse/AWS-Bedrock-23-07-2026.txt']]},
+  {s:'adoption', e:'transverse', st:'fait', imp:1, q:'23 juil.',
+   t:"Claude Enterprise : discussions avec Software One"},
+
+  {s:'adoption', e:'egapro', st:'cours',
+   t:"Centraliser la documentation fonctionnelle, dernier élément du socle",
+   why:"Le reste du socle de la checklist est acquis : l'IA est dans le quotidien du dev, du design et du pilotage."},
+  {s:'adoption', e:'daccord', st:'cours',
+   t:"Budget tokens : un forfait trop juste pousse vers des solutions non conformes",
+   c:"Budget tokens à dimensionner",
+   why:"Irritant remonté par les devs : sans budget dimensionné, l'usage glisse hors du cadre."},
+  {s:'adoption', e:'daccord', st:'fait', q:'8 sept.',
+   t:"PM/PO équipés : OpenCode Desktop et un modèle Albert"},
+  {s:'adoption', e:'sirena', st:'cadrer',
+   t:"Rendre visible l'usage IA des devs, réel mais individuel",
+   why:"Point d'entrée : Aurélie, CDP, qui n'a aujourd'hui aucune visibilité sur cet usage.",
+   src:[['Compte rendu', CR+'products/CDP-SIRENA-30-07.txt']]},
+  {s:'adoption', e:'vao', st:'fait', q:'3 sept.',
+   t:"OpenCode Desktop installé sur les postes des devs"},
+  {s:'adoption', e:'archi', st:'fait', q:'mi-sept.',
+   t:"Stack légale en place : OpenCode Desktop et DeepSeek V4 Flash via Albert, sans droits admin",
+   c:"OpenCode Desktop + Albert en place",
+   src:[['Compte rendu', CR+'transverse/Archis-orchestration-DA-15-09.txt']]},
+  {s:'adoption', e:'design', st:'fait', q:'3 sept.',
+   t:"Compte Figma full et MCP Figma : la condition posée par Louis est levée",
+   src:[['Compte rendu', CR+'design/DESIGN-3-Septembre.txt']]},
+
+  /* ------------------------------ MAÎTRISE ------------------------------ */
+  {s:'maitrise', e:'egapro', st:'cours', imp:3,
+   t:"Piloter le pré-audit d'accessibilité",
+   why:"L'audit du code passe de 31 à 16 erreurs. Reste à désigner qui porte l'outil hors des sprints, mesure intégrée : arbitrage de Gary attendu."},
+  {s:'maitrise', e:'egapro', st:'lancer',
+   t:"Améliorer les skills d'orchestration"},
+  {s:'maitrise', e:'egapro', st:'fait', imp:3,
+   t:"Orchestration codeur / testeur en routine",
+   why:"Le code arrive testé par une instance indépendante : la qualité ne repose plus sur la seule relecture humaine."},
+  {s:'maitrise', e:'egapro', st:'fait', imp:3,
+   t:"Pilotage adapté à l'IA : estimations T-shirt, tickets design",
+   why:"Le suivi colle à la vitesse réelle du dev augmenté ; la roadmap design devient visible et challengeable."},
+  {s:'maitrise', e:'egapro', st:'fait', imp:3,
+   t:"Designer outillé : skills UX, formation aux prototypes",
+   why:"Plusieurs prototypes HTML générés avant de maquetter : le designer se projette au lieu d'itérer à l'aveugle."},
+
+  {s:'maitrise', e:'daccord', st:'cours', cle:true, imp:3,
+   t:"Prise en main du skill de tickets par les PM/PO, jusqu'à l'usage quotidien",
+   c:"Le ticket IA dans le quotidien des PM/PO",
+   why:"Le ticket IA devenu la norme validera le niveau 3. Olivier Toumsy les forme en parallèle."},
+  {s:'maitrise', e:'daccord', st:'cours', imp:3,
+   t:"Étendre l'orchestration front et back à la documentation et au changelog",
+   why:"Orchestration en place, dont une approche test first sur le frontend qui part des critères d'acceptation du ticket."},
+  {s:'maitrise', e:'daccord', st:'cours', imp:3,
+   t:"Accompagnement individuel : skills et bases de l'orchestration (Sébastien, Florian, Sylvain)"},
+  {s:'maitrise', e:'daccord', st:'lancer',
+   t:"Ajouter des skills de tests back et front",
+   why:"Recommandation de l'atelier du 6 août ; l'équipe vise aussi les tests e2e."},
+  {s:'maitrise', e:'daccord', st:'fait', imp:3, q:'8 sept.',
+   t:"Formation des PM/PO et skill de tickets remis",
+   why:"Le ticket est challengé et formalisé par l'IA, critères d'acceptation compris : moins d'allers-retours avec les devs."},
+  {s:'maitrise', e:'daccord', st:'fait', imp:3, q:'6 août',
+   t:"Atelier d'amélioration des skills",
+   why:"Les skills couvrent cinq domaines et s'améliorent en commun.",
+   src:[['Compte rendu', CR+'transverse/daccord-ia-06-08.txt']]},
+  {s:'maitrise', e:'daccord', st:'fait', imp:2, q:'16 juil.',
+   t:"Coaching développement augmenté",
+   why:"Dès le lundi suivant, les devs mettaient leurs system prompts en commun, de leur propre initiative.",
+   src:[['Retours', CR+'developpeurs/Feedback_Coaching_Devs_DACCORD.docx']]},
+
+  {s:'maitrise', e:'sirena', st:'plan', imp:2, q:'à caler',
+   t:"Former Aurélie (PM/PO) à l'usage de l'IA, au-delà des tickets",
+   why:"Pistes posées avec elle : workflow de conception dans Jira, suivi de la dette technique, questions d'entretiens utilisateurs.",
+   src:[['Compte rendu', CR+'products/CDP-SIRENA-30-07.txt']]},
+  {s:'maitrise', e:'sirena', st:'cadrer',
+   t:"Former les devs au développement augmenté",
+   why:"Déclinaison de ce qui a marché chez DACCORD et VAO."},
+
+  {s:'maitrise', e:'vao', st:'cours',
+   t:"Un premier ticket livré en dev augmenté",
+   why:"Puis le palier 2 : skills et contexte partagés dans le repo."},
+  {s:'maitrise', e:'vao', st:'lancer', imp:3,
+   t:"Accompagner Halim sur des tickets intelligibles via MCP",
+   why:"Moins d'allers-retours entre le produit et les devs."},
+  {s:'maitrise', e:'vao', st:'fait', imp:2, q:'3 sept.',
+   t:"Atelier de développement augmenté",
+   why:"L'équipe est formée, la pratique démarre."},
+
+  {s:'maitrise', e:'archi', st:'cours', cle:true, imp:3,
+   t:"Prise en main de l'orchestration de DA, vers l'autonomie",
+   c:"Orchestration de DA : vers l'usage autonome",
+   why:"L'usage autonome sur les DA du quotidien validera le niveau 3.",
+   src:[['Compte rendu', CR+'transverse/Archis-orchestration-DA-15-09.txt']]},
+  {s:'maitrise', e:'archi', st:'plan', q:'au retour de congé',
+   t:"Recueillir les retours des architectes et ajuster l'orchestration",
+   why:"Faux positifs, sections mal couvertes, modèle de DA Atlas ; puis le use case suivant : cohérence des choix techniques, ou écarts entre DA et code."},
+  {s:'maitrise', e:'archi', st:'plan', imp:3, q:'au retour de congé',
+   t:"Première orchestration avec Igor et Nicolas, à partir du use case de DA",
+   why:"Le référentiel d'architecture exploité par ceux qui le portent ; deux relais internes de plus.",
+   src:[['Compte rendu', CR+'transverse/Igor-Nicolas-initiation-IA-15-09.txt']]},
+  {s:'maitrise', e:'archi', st:'cours', imp:3,
+   t:"Référentiel d'architecture outillé : fiches, documents de contexte, skills",
+   why:"La règle d'architecture exploitable dans l'IDE au moment d'écrire le DA.",
+   src:[['Compte rendu', CR+'transverse/Igor-28-07.txt']]},
+  {s:'maitrise', e:'archi', st:'fait', imp:3, q:'mi-sept.',
+   t:"Première orchestration de DA : cohérence des fonctionnalités sur tout le DA",
+   why:"Les incohérences d'un DA, difficiles à percevoir à la main, sont détectées par l'IA."},
+  {s:'maitrise', e:'archi', st:'fait', imp:2, q:'9 sept.',
+   t:"Initiation d'Igor Ranquin et Nicolas Fournier à l'IA générative",
+   why:"Les deux veulent passer à l'orchestration."},
+  {s:'maitrise', e:'archi', st:'fait', imp:3, q:'4 août',
+   t:"Atelier de génération de DA",
+   why:"Cinq use cases identifiés par les architectes eux-mêmes.",
+   src:[['Compte rendu', CR+'transverse/CR_Architectes-atelier-4-08-26.txt']]},
+
+  {s:'maitrise', e:'design', st:'cours', imp:3,
+   t:"Boucle de feedback des designers (priorité 1)",
+   why:"Une expérience agréable même pour un designer non technophile : la dernière condition posée par Norman pour ouvrir la démarche à tous les designers."},
+  {s:'maitrise', e:'design', st:'lancer', imp:2,
+   t:"Acculturer l'ensemble des designers"},
+  {s:'maitrise', e:'design', st:'fait', imp:3, q:'3 sept.',
+   t:"Du prototype IA à la maquette Figma DSFR : qualité validée",
+   why:"Le designer teste plusieurs prototypes puis obtient une maquette en composants DSFR officiels.",
+   src:[['Compte rendu', CR+'design/DESIGN-3-Septembre.txt']]},
+  {s:'maitrise', e:'design', st:'fait', imp:2, q:'13 août',
+   t:"Point avec Louis : prototypes DSFR fiabilisés, flux vers Figma",
+   why:"Louis valide le use case.",
+   src:[['Compte rendu', CR+'design/Louis-13-08.txt']]},
+
+  {s:'maitrise', e:'transverse', st:'lancer', imp:2,
+   t:"Acculturer les PO : fenêtre de contexte, prompt engineering",
+   why:"Intérêt à valider avec Olivier."},
+  {s:'maitrise', e:'transverse', st:'lancer',
+   t:"Centraliser la documentation fonctionnelle : un dossier docs, rangé par epic",
+   why:"Le contexte des orchestrations. À porter avec Adrien et Gary, en commun avec le studio produit."},
+  {s:'maitrise', e:'transverse', st:'cadrer',
+   t:"Usine logicielle : démarrer avec SIGeSS, équipe pilote",
+   why:"Les deux rails à chaque étape : l'agent propose, la règle prouve, l'humain valide.",
+   src:[['La cible', 'Suivi-Strategie-Adoption-IA.html#cible']]},
+  {s:'maitrise', e:'transverse', st:'fait', imp:1, q:'16 sept.',
+   t:"Cinq exemples d'orchestration, un par skill du cycle produit",
+   src:[['Les exemples', 'Suivi-Strategie-Adoption-IA.html#cible']]},
+  {s:'maitrise', e:'transverse', st:'fait', imp:1, q:'8 sept.',
+   t:"Checklist de déploiement en quatre paliers, validée",
+   src:[['La checklist', 'Livrables/Strategie-Deploiement/Checklist-IA-par-equipe.md']]},
+  {s:'maitrise', e:'transverse', st:'fait', imp:2,
+   t:"Formation d'Adrien Chauve à l'IA générative",
+   why:"L'apport de l'IA sur le cycle produit, constaté par la pratique.",
+   src:[['Compte rendu', CR+'developpeurs/Adrien-Chauve-formation-IA-Gen-15-09.txt']]},
+
+  /* ------------------------------ ÉVALUATION DES LLM ------------------------------ */
+  {s:'evaluation', e:'transverse', st:'cadrer', cle:true, imp:1,
+   t:"Bench en conditions réelles : choisir les use cases et la méthode",
+   c:"Choisir les use cases à challenger",
+   why:"La même tâche réelle passée sur deux ou trois stacks, jugée par l'équipe : qualité, coût par tâche, conformité."},
+  {s:'evaluation', e:'transverse', st:'lancer', imp:1,
+   t:"Remettre le bench et son graphique à 9 stacks, alignés sur le deck souveraineté",
+   why:"Le bench (PDF, graphique du README) est resté à 7 stacks et aux chiffres du 2 septembre. Le deck indique une fin d'expérimentation Albert au 1er octobre : elle est désormais au 31."},
+  {s:'evaluation', e:'transverse', st:'plan', imp:1, q:'dès la liste AWS', ech:'2026-09-30',
+   t:"Bench élargi aux modèles disponibles sur Bedrock"},
+  {s:'evaluation', e:'transverse', st:'fait', imp:1, q:'23 sept.',
+   t:"Deck souveraineté et performance refondu en DSFR : 9 stacks",
+   why:"Ajoute Opus 5.5, Fable 5.1, GPT-6 Sol et GPT-5.6 Terra, et la résidence UE sur Bedrock comme critère de conformité.",
+   src:[['Le deck (PDF)', 'Livrables/Souverainete-Performance/Souverainete-Performance-Modeles-Harness.pdf']]},
+  {s:'evaluation', e:'transverse', st:'fait', imp:1, q:'revu le 2 sept.',
+   t:"Bench des harness et modèles de coding agentique : 7 stacks",
+   why:"Performance (DeepSWE, Terminal-Bench), prix, souveraineté, conformité ; aucun score estimé.",
+   src:[['Le bench (PDF)', 'Livrables/benchHarness/Bench_Coding-Agentique.pdf']]},
+
+  {s:'evaluation', e:'archi', st:'cadrer', cle:true, q:'avant le 31 oct.', ech:'2026-10-31',
+   t:"Cohérence fonctionnelle d'un DA", c:"Use case : cohérence fonctionnelle d'un DA",
+   uc:{stack:"OpenCode + DeepSeek V4 Flash (Albert)", q:"Si DeepSeek n'est pas retenu, le modèle de repli d'Albert (Qwen3 Coder 30B) ou gpt-oss-120b tient-il la qualité ?"}},
+  {s:'evaluation', e:'daccord', st:'cadrer', q:'avant le 31 oct.', ech:'2026-10-31',
+   t:"Challenge et rédaction de ticket (PM/PO)", c:"Use case : challenge et rédaction de ticket",
+   uc:{stack:"OpenCode Desktop + DeepSeek V4 Flash (Albert)", q:"La DINUM recommande DeepSeek pour le code seulement : un modèle conversationnel d'Albert (Mistral Medium 3.5, gpt-oss-120b) fait-il aussi bien ?"}},
+  {s:'evaluation', e:'egapro', st:'cadrer',
+   t:"Orchestration codeur / testeur", c:"Use case : orchestration codeur / testeur",
+   uc:{stack:"à relever avec l'équipe", q:"Un modèle moins cher tient-il la routine ? Qualité et coût par ticket livré."}},
+  {s:'evaluation', e:'design', st:'cadrer',
+   t:"Du prototype DSFR à la maquette Figma", c:"Use case : du prototype à la maquette Figma",
+   uc:{stack:"Claude, MCP Figma", q:"La fidélité au DSFR tient-elle sur une voie conforme pour les internes (Bedrock en profil UE, Albert) ?"}},
+  {s:'evaluation', e:'transverse', st:'cadrer',
+   t:"Revue de code par un bot IA en CI", c:"Use case : bot de revue IA en CI",
+   uc:{stack:"cible du palier 4, à choisir", q:"Facturé à chaque push : quel modèle pour ce volume, à quel coût mensuel ?"}},
+
+  /* ------------------------------ VEILLE IA ------------------------------ */
+  {s:'veille', e:'transverse', st:'lancer', cle:true, imp:1,
+   t:"Tester Iterion (SocialGouv) : workflows d'agents décrits en fichiers .bot",
+   c:"Tester Iterion",
+   why:"Agents, juges, validations humaines et budgets dans un même graphe, branchable en CI : candidat pour porter les orchestrations et le bot de revue IA du palier 4. Projet MIT, annoncé très expérimental.",
+   src:[['Iterion sur GitHub', 'https://github.com/SocialGouv/iterion']]},
+  {s:'veille', e:'transverse', st:'cadrer', imp:1,
+   t:"Tester les autres IA d'Albert : transcription, OCR, recherche documentaire",
+   why:"Whisper, LightOn OCR, embeddings et reranking, gratuits et souverains : comptes rendus, entretiens utilisateurs, recherche dans les référentiels et la doc fonctionnelle.",
+   src:[['Modèles Albert (DINUM)', ALBERT]]},
+  {s:'veille', e:'transverse', st:'cadrer', imp:1,
+   t:"Tester LiteLLM comme passerelle : observabilité et budget indépendants du harness",
+   why:"La cible de la doctrine fournisseurs : choisir librement le couple harness × modèle sans perdre la mesure."},
+  {s:'veille', e:'transverse', st:'cadrer', imp:1,
+   t:"Terminal-Bench 2.1 est clos : passer la colonne agentique du bench à TB 4.0 ?",
+   why:"Plus de soumissions 2.1 depuis le 28 août. TB 4.0 mesure autre chose : ses scores ne se comparent pas au 2.1."},
+  {s:'veille', e:'transverse', st:'lancer',
+   t:"Regarder OpenWork, suggéré par Félix au point produit du 6 août"},
+  {s:'veille', e:'transverse', st:'fait', imp:1, q:'22-23 sept.',
+   t:"Nouveaux modèles vérifiés : Opus 5.5, Fable 5.1, GPT-6 Sol, GPT-5.6 Terra",
+   why:"Prix, scores et résidence UE sur Bedrock, versés au deck souveraineté. GPT-6 Astra écarté : cinq fois le prix de GPT-6 Sol pour quelques points."},
+  {s:'veille', e:'design', st:'plan', imp:1, q:'à dater',
+   t:"MCP DSFR en 1.15, point sur l'alpha 3 du DSFR 2.0",
+   why:"Les charts du DSFR ; un DSFR 2.0 plus compatible avec l'IA, qui réduit le besoin de portage."},
+  {s:'veille', e:'design', st:'lancer',
+   t:"Explorer Penpot (priorité 2)",
+   why:"Outil de design open source, alternative à Figma."}
+];
+
+/* =====================================================================
+   RENDU : rien à modifier en dessous pour une mise à jour de contenu
+   ===================================================================== */
+(function(){
+  var STATUTS = {
+    cours:  {lib:'en cours', cls:'wip',  rang:0},
+    plan:   {lib:'planifié', cls:'info', rang:1},
+    lancer: {lib:'à lancer', cls:'todo', rang:2},
+    cadrer: {lib:'à cadrer', cls:'idea', rang:3},
+    fait:   {lib:'réalisé',  cls:'ok',   rang:4}
+  };
+  var IMPACT = ['', 'modéré', 'élevé', 'déterminant'];
+  var TODAY = new Date(); TODAY.setHours(0,0,0,0);
+  var state = {vue:'ensemble', stream:STREAMS[0].id, equipe:EQUIPES[0].id, focus:null, filtre:'tout'};
+
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function byId(list, id){ for(var i=0;i<list.length;i++) if(list[i].id === id) return list[i]; return null; }
+  function late(a){ return a.ech && a.st !== 'fait' && new Date(a.ech + 'T00:00:00') < TODAY; }
+  function chip(st){ var s = STATUTS[st]; return '<span class="chip ' + s.cls + '">' + s.lib + '</span>'; }
+  function imp(a){
+    if(!a.imp) return '';
+    var lab = IMPACT[a.imp];
+    return '<span class="imp" title="Impact ' + lab + '"><span aria-hidden="true">' + new Array(a.imp + 1).join('◆') + '</span><span class="sr">, impact ' + lab + '</span></span>';
+  }
+  function quand(a){
+    var h = esc(a.q || '');
+    if(late(a)) h += (h ? '<br>' : '') + '<span class="late">échéance passée</span>';
+    return h || '<span aria-hidden="true">–</span><span class="sr">non daté</span>';
+  }
+  function sources(a){
+    if(!a.src) return '';
+    return '<p class="src">' + a.src.map(function(s){ return '<a href="' + esc(s[1]) + '">' + esc(s[0]) + '</a>'; }).join('') + '</p>';
+  }
+  function why(a){
+    if(a.uc) return 'Aujourd\'hui : ' + a.uc.stack + '. À savoir : ' + a.uc.q.charAt(0).toLowerCase() + a.uc.q.slice(1);
+    return a.why || '';
+  }
+  function sortActs(list){
+    return list.map(function(a, i){ return {a:a, i:i}; })
+      .sort(function(x, y){ return (STATUTS[x.a.st].rang - STATUTS[y.a.st].rang) || (x.i - y.i); })
+      .map(function(x){ return x.a; });
+  }
+  function filtre(list){
+    if(state.filtre === 'suivre') return list.filter(function(a){ return a.st !== 'fait'; });
+    if(state.filtre === 'fait') return list.filter(function(a){ return a.st === 'fait'; });
+    return list;
+  }
+  function acts(s, e){ return ACTIONS.filter(function(a){ return (!s || a.s === s) && (!e || a.e === e); }); }
+  function focusAction(s, e){
+    var list = acts(s, e);
+    if(!list.length) return null;
+    for(var i=0;i<list.length;i++) if(list[i].cle) return list[i];
+    return sortActs(list)[0];
+  }
+
+  /* ---- Vue d'ensemble : la matrice ---- */
+  function renderMatrix(){
+    var h = '<table class="mx"><caption class="sr">Pour chaque équipe et chaque stream, l\'action qui compte</caption>';
+    h += '<colgroup><col class="c0">' + STREAMS.map(function(){ return '<col>'; }).join('') + '</colgroup>';
+    h += '<thead><tr><th class="corner" scope="col">Équipe</th>' + STREAMS.map(function(s){
+      return '<th scope="col"><button type="button" data-go="stream-' + s.id + '">' + esc(s.nom) + '<small>' + esc(s.def) + '</small></button></th>';
+    }).join('') + '</tr></thead><tbody>';
+    EQUIPES.forEach(function(e){
+      h += '<tr><th scope="row"><button type="button" data-go="equipe-' + e.id + '">' + esc(e.nom) +
+           (e.niv ? '<small>niveau ' + esc(e.niv) + '</small>' : '<small>socle et mission</small>') + '</button></th>';
+      STREAMS.forEach(function(s){
+        var a = focusAction(s.id, e.id);
+        if(!a){ h += '<td data-label="' + esc(s.nom) + '"><span class="none"><span aria-hidden="true">–</span><span class="sr">rien d\'engagé</span></span></td>'; return; }
+        h += '<td data-label="' + esc(s.nom) + '"><button type="button" data-go="equipe-' + e.id + ':' + s.id + '">' +
+             chip(a.st) + '<span>' + esc(a.c || a.t) + '</span>' +
+             ((a.q || late(a)) ? '<span class="q">' + quand(a) + '</span>' : '') +
+             '<span class="sr">, voir le détail ' + esc(e.nom) + ' · ' + esc(s.nom) + '</span></button></td>';
+      });
+      h += '</tr>';
+    });
+    document.getElementById('matrix').innerHTML = h + '</tbody></table>';
+
+    var LEGENDE = [['fait',''], ['cours',''], ['plan','daté'], ['lancer','convenu, pas encore démarré'], ['cadrer','proposition, à valider avec l\'équipe']];
+    document.getElementById('legend').innerHTML = LEGENDE.map(function(l){
+      return '<span>' + chip(l[0]) + (l[1] ? ' ' + esc(l[1]) : '') + '</span>';
+    }).join('') + '<span>Impact : ◆◆◆ déterminant · ◆◆ élevé · ◆ modéré</span>';
+  }
+
+  /* ---- Lignes d'actions ---- */
+  function rows(list){
+    return list.map(function(a){
+      var w = why(a);
+      return '<tr' + (a.st === 'fait' ? ' class="done"' : '') + '><td class="t"><b>' + esc(a.t) + '</b>' + imp(a) +
+        (w ? '<p class="why">' + esc(w) + '</p>' : '') + sources(a) + '</td>' +
+        '<td data-label="Statut">' + chip(a.st) + '</td><td data-label="Quand">' + quand(a) + '</td></tr>';
+    }).join('');
+  }
+  function tableOpen(cap){
+    return '<table class="acts"><caption class="sr">' + esc(cap) + '</caption><colgroup><col><col class="st"><col class="qd"></colgroup>' +
+      '<thead><tr><th scope="col">Action et ce qu\'elle change</th><th scope="col">Statut</th><th scope="col">Quand</th></tr></thead>';
+  }
+  function emptyMsg(total){
+    return '<p class="empty">' + (total ? 'Aucune action avec ce filtre.' : 'Rien d\'engagé sur ce stream pour l\'instant.') + '</p>';
+  }
+
+  /* ---- Par stream ---- */
+  function streamHTML(sid){
+    var s = byId(STREAMS, sid), h = '<div class="block"><div class="head"><h2>' + esc(s.nom) + '</h2></div><p class="lead">' + esc(s.def) + '.</p>';
+    var all = acts(sid, null);
+    if(sid === 'evaluation'){
+      var ucs = filtre(all.filter(function(a){ return a.uc; }));
+      h += '<div class="method"><b>La méthode proposée</b> : la même tâche réelle, passée sur deux ou trois stacks et jugée par l\'équipe sur la qualité du résultat, le coût par tâche et la conformité. Les benchs publics présélectionnent les stacks, ils ne tranchent pas.</div>';
+      h += '<div class="bh"><h3>Les use cases à challenger</h3><span>candidats, à valider avec les équipes</span></div>';
+      if(ucs.length){
+        h += '<table class="uc"><caption class="sr">Use cases candidats</caption><colgroup><col class="c1"><col class="c2"><col class="c3"><col><col class="c5"></colgroup>' +
+             '<thead><tr><th scope="col">Use case</th><th scope="col">Équipe</th><th scope="col">Stack aujourd\'hui</th><th scope="col">Ce qu\'on veut savoir</th><th scope="col">Quand</th></tr></thead><tbody>' +
+             ucs.map(function(a){
+               return '<tr><td><b>' + esc(a.t) + '</b></td><td data-label="Équipe">' + esc(byId(EQUIPES, a.e).nom) + '</td><td data-label="Stack aujourd\'hui">' + esc(a.uc.stack) +
+                      '</td><td data-label="Ce qu\'on veut savoir">' + esc(a.uc.q) + '</td><td data-label="Quand">' + quand(a) + '</td></tr>';
+             }).join('') + '</tbody></table>';
+      } else h += emptyMsg(1);
+      h += '<div class="bh" style="margin-top:22px"><h3>Les actions</h3></div>';
+      all = all.filter(function(a){ return !a.uc; });
+    }
+    var shown = 0, body = '';
+    EQUIPES.forEach(function(e){
+      var list = sortActs(filtre(all.filter(function(a){ return a.e === e.id; })));
+      if(!list.length) return;
+      shown += list.length;
+      body += '<tbody><tr class="grp"><th colspan="3" scope="colgroup">' + esc(e.nom) + (e.niv ? '<small>niveau ' + esc(e.niv) + '</small>' : '') + '</th></tr>' + rows(list) + '</tbody>';
+    });
+    h += shown ? tableOpen(s.nom + ', par équipe') + body + '</table>' : emptyMsg(all.length);
+    var none = EQUIPES.filter(function(e){ return !acts(sid, e.id).length; }).map(function(e){ return e.nom; });
+    if(none.length) h += '<p class="note">Rien d\'engagé sur ce stream pour : ' + esc(none.join(', ')) + '.</p>';
+    return h + '</div>';
+  }
+  function renderStream(sid){
+    document.getElementById('stream-body').innerHTML = sid === '*' ? STREAMS.map(function(s){ return streamHTML(s.id); }).join('') : streamHTML(sid);
+  }
+
+  /* ---- Par équipe ---- */
+  function renderEquipe(eid){
+    var e = byId(EQUIPES, eid);
+    var h = '<div class="head"><h2>' + esc(e.nom) + '</h2>' + (e.niv ? '<span class="lvl">niveau ' + esc(e.niv) + '</span>' : '') + '</div><p class="lead">' + esc(e.desc) + '</p>';
+    STREAMS.forEach(function(s){
+      var all = acts(s.id, eid), list = sortActs(filtre(all));
+      h += '<section class="block" id="bloc-' + s.id + '" aria-labelledby="h-' + s.id + '"><div class="bh"><h3 id="h-' + s.id + '">' + esc(s.nom) + '</h3><span>' + esc(s.def) + '</span></div>';
+      h += list.length ? tableOpen(e.nom + ' · ' + s.nom) + '<tbody>' + rows(list) + '</tbody></table>' : emptyMsg(all.length);
+      h += '</section>';
+    });
+    document.getElementById('equipe-body').innerHTML = h;
+  }
+
+  /* ---- Onglets et sélecteurs (motif ARIA tablist : flèches, Début, Fin) ---- */
+  function tablist(container, onPick){
+    var tabs = Array.prototype.slice.call(container.querySelectorAll('[role=tab]'));
+    tabs.forEach(function(t, i){
+      t.addEventListener('click', function(){ onPick(t); });
+      t.addEventListener('keydown', function(ev){
+        var j = null;
+        if(ev.key === 'ArrowRight' || ev.key === 'ArrowDown') j = (i + 1) % tabs.length;
+        else if(ev.key === 'ArrowLeft' || ev.key === 'ArrowUp') j = (i - 1 + tabs.length) % tabs.length;
+        else if(ev.key === 'Home') j = 0;
+        else if(ev.key === 'End') j = tabs.length - 1;
+        if(j !== null){ ev.preventDefault(); onPick(tabs[j]); tabs[j].focus(); }
+      });
+    });
+  }
+  function select(container, attr, val){
+    Array.prototype.forEach.call(container.querySelectorAll('[role=tab]'), function(t){
+      var on = t.getAttribute(attr) === val;
+      t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
+    });
+  }
+  function buildPickers(){
+    var ps = document.getElementById('pick-stream'), pe = document.getElementById('pick-equipe');
+    ps.innerHTML = STREAMS.map(function(s){ return '<button role="tab" type="button" aria-controls="stream-body" data-id="' + s.id + '">' + esc(s.nom) + '</button>'; }).join('');
+    pe.innerHTML = EQUIPES.map(function(e){ return '<button role="tab" type="button" aria-controls="equipe-body" data-id="' + e.id + '">' + esc(e.nom) + '</button>'; }).join('');
+    tablist(ps, function(t){ go('stream-' + t.getAttribute('data-id')); });
+    tablist(pe, function(t){ go('equipe-' + t.getAttribute('data-id')); });
+    Array.prototype.forEach.call(document.querySelectorAll('.filter'), function(f){
+      f.insertAdjacentHTML('beforeend', [['tout','Tout'],['suivre','À suivre'],['fait','Réalisé']].map(function(o){
+        return '<button type="button" data-f="' + o[0] + '" aria-pressed="false">' + o[1] + '</button>';
+      }).join(''));
+    });
+    document.addEventListener('click', function(ev){
+      var f = ev.target.closest('[data-f]');
+      if(f){ state.filtre = f.getAttribute('data-f'); render(); return; }
+      var g = ev.target.closest('[data-go]');
+      if(g){ go(g.getAttribute('data-go')); }
+    });
+    tablist(document.querySelector('.tabs'), function(t){
+      var v = t.id.slice(4);
+      go(v === 'ensemble' ? 'ensemble' : v === 'stream' ? 'stream-' + state.stream : 'equipe-' + state.equipe);
+    });
+  }
+
+  /* ---- Routage par ancre : #ensemble · #stream-<id> · #equipe-<id>[:<stream>] ---- */
+  function parse(hash){
+    var m;
+    state.focus = null;
+    if((m = /^stream-([\w-]+)$/.exec(hash)) && byId(STREAMS, m[1])){ state.vue = 'stream'; state.stream = m[1]; }
+    else if((m = /^equipe-([\w-]+)(?::([\w-]+))?$/.exec(hash)) && byId(EQUIPES, m[1])){ state.vue = 'equipe'; state.equipe = m[1]; state.focus = m[2] || null; }
+    else state.vue = 'ensemble';
+  }
+  function go(hash){
+    if(location.hash.slice(1) === hash){ parse(hash); render(true); }
+    else location.hash = hash;
+  }
+  function render(scroll){
+    ['ensemble','stream','equipe'].forEach(function(v){ document.getElementById('panel-' + v).hidden = v !== state.vue; });
+    select(document.querySelector('.tabs'), 'id', 'tab-' + state.vue);
+    select(document.getElementById('pick-stream'), 'data-id', state.stream);
+    select(document.getElementById('pick-equipe'), 'data-id', state.equipe);
+    Array.prototype.forEach.call(document.querySelectorAll('[data-f]'), function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === state.filtre)); });
+    if(state.vue === 'stream') renderStream(state.stream);
+    if(state.vue === 'equipe'){
+      renderEquipe(state.equipe);
+      var b = state.focus && document.getElementById('bloc-' + state.focus);
+      if(b){ b.classList.add('flash'); if(scroll) b.scrollIntoView({block:'start', behavior:'smooth'}); }
+    } else if(scroll && state.vue !== 'ensemble'){
+      document.querySelector('.tabs').scrollIntoView({block:'start', behavior:'smooth'});
+    }
+  }
+  window.addEventListener('hashchange', function(){ parse(location.hash.slice(1)); render(true); });
+
+  /* ---- Impression : la vue d'ensemble puis les quatre streams ---- */
+  window.addEventListener('beforeprint', function(){ renderStream('*'); });
+  window.addEventListener('afterprint', function(){ render(false); });
+
+  buildPickers();
+  renderMatrix();
+  parse(location.hash.slice(1));
+  render(false);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Installer l'IA sur poste ministère · Plan d'action</title>
+<style>
+  :root{
+    --bg:#f3f4f6; --card:#ffffff; --ink:#17181c; --sec:#4f5560; --muted:#646b75;
+    --line:#e3e6eb; --line-strong:#cfd4dc; --soft:#f7f8fa;
+    --navy:#0d366b; --blue:#2a78d6; --blue-soft:#eaf1fc; --blue-line:#c7dbf5;
+    --green:#0f6b0f; --green-soft:#e8f4e8; --amber:#9a5a00; --amber-soft:#fff3df;
+    --shadow:0 1px 2px rgba(23,24,28,.04), 0 6px 18px rgba(23,24,28,.05);
+    --r:14px;
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:light;background:var(--bg)}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"Segoe UI",system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:#1f63b5;text-decoration:none}
+  a:hover{text-decoration:underline}
+  b{font-weight:600}
+  :focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px 56px}
+  @media (max-width:600px){.wrap{padding:0 16px 40px}}
+
+  /* En-tête */
+  .top{border-top:5px solid var(--navy);background:var(--card);margin:0 -24px 28px;padding:26px 24px 22px;border-bottom:1px solid var(--line)}
+  @media (max-width:600px){.top{margin:0 -16px 20px;padding:20px 16px 18px}}
+  .top-in{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+  .kicker{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 6px}
+  h1{margin:0;font-size:27px;letter-spacing:-.015em;line-height:1.2}
+  .date{margin:6px 0 0;color:var(--sec)}
+  .links{display:flex;flex-wrap:wrap;gap:8px}
+  .links a{display:inline-block;padding:6px 12px;border:1px solid var(--line-strong);border-radius:999px;background:var(--card);color:var(--navy);font-size:13px;font-weight:500}
+  .links a:hover{background:var(--blue-soft);text-decoration:none;border-color:var(--blue-line)}
+
+  section{margin:0 0 34px}
+  h2{font-size:20px;margin:0 0 6px;letter-spacing:-.01em}
+  .lead{color:var(--sec);margin:0 0 16px;max-width:860px}
+
+  .chip{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+  .chip.ok{background:var(--green-soft);color:var(--green)}
+  .chip.info{background:var(--blue-soft);color:var(--navy)}
+  .chip.wip{background:var(--amber-soft);color:var(--amber)}
+
+  /* L'enjeu */
+  .goal{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:12px;padding:16px 20px;box-shadow:var(--shadow);font-size:16px;margin:0 0 14px}
+  .state{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:760px){.state{grid-template-columns:1fr}}
+  .state div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+  .state h3{margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .state ul{list-style:none;margin:0;padding:0}
+  .state li{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 12px;padding:6px 0;border-top:1px solid var(--line);font-size:14px}
+  .state li:first-child{border-top:0;padding-top:0}
+  .state li span:first-child{font-weight:600}
+
+  /* Les appuis */
+  .asks{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:0;padding:0;list-style:none}
+  @media (max-width:980px){.asks{grid-template-columns:1fr 1fr 1fr}}
+  @media (max-width:700px){.asks{grid-template-columns:1fr 1fr}}
+  @media (max-width:460px){.asks{grid-template-columns:1fr}}
+  .asks li{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--navy);border-radius:var(--r);padding:14px 16px 14px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px}
+  .asks h3{margin:0;font-size:15px;line-height:1.3}
+  .asks p{margin:0;color:var(--sec);font-size:13.5px}
+  .asks a{margin-top:auto;padding-top:4px;font-size:12.5px;font-weight:600}
+
+  /* Le plan : fil des étapes */
+  .flow{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:0;list-style:none}
+  .flow a{display:flex;align-items:center;gap:8px;padding:7px 14px 7px 8px;border-radius:999px;background:var(--card);border:1px solid var(--line-strong);color:var(--navy);font-size:13.5px;font-weight:600}
+  .flow a:hover{background:var(--blue-soft);border-color:var(--blue-line);text-decoration:none}
+  .flow .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px}
+
+  .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+  .step{display:grid;grid-template-columns:44px 1fr;gap:0 14px}
+  .step > .num{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 20px 14px}
+  .card .hd{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px;margin:0 0 8px}
+  .card h3{margin:0;font-size:17px;color:var(--navy);line-height:1.3}
+  .when{font-size:12.5px;font-weight:600;color:var(--amber);white-space:nowrap}
+  .card ul{margin:0 0 12px;padding-left:20px}
+  .card li{margin:3px 0}
+  .card li ol{margin:4px 0 0;padding-left:20px}
+  .meta{display:grid;grid-template-columns:1fr 1.2fr 1.6fr;gap:10px 18px;margin:0;padding:12px 0 0;border-top:1px solid var(--line);font-size:13.5px}
+  @media (max-width:760px){.meta{grid-template-columns:1fr}}
+  .meta dt{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted);margin:0 0 2px}
+  .meta dd{margin:0;color:var(--ink)}
+  .ifblock{margin:12px 0 0;border:1px dashed #9aa1ab;border-left:4px solid var(--amber);border-radius:10px;padding:12px 16px;background:var(--soft)}
+  .ifblock h4{margin:0 0 6px;font-size:15px}
+  .ifblock h4 .tag{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);font-weight:600;margin:0 0 2px}
+  .ifblock ul{margin:0 0 10px}
+  .ifblock .meta{border-top-color:var(--line-strong)}
+  @media (max-width:560px){
+    .step{grid-template-columns:1fr}
+    .step > .num{width:34px;height:34px;font-size:15px;margin:0 0 8px}
+  }
+
+  /* Tableaux */
+  table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+  thead th{background:var(--soft);color:var(--sec);font-weight:600;font-size:12.5px;letter-spacing:.02em}
+  tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
+  tbody th{font-weight:600}
+  .card table{margin:0 0 12px;box-shadow:none}
+  table.risks col.c1{width:42%}
+  @media (max-width:700px){
+    table.stack,table.stack tbody,table.stack tr,table.stack th,table.stack td{display:block;width:auto}
+    table.stack thead,table.stack colgroup{display:none}
+    table.stack tr{border-bottom:1px solid var(--line);padding:6px 0}
+    table.stack tr:last-child{border-bottom:0}
+    table.stack th,table.stack td{border-bottom:0;padding:3px 12px}
+    table.stack td[data-label]::before{content:attr(data-label) " : ";color:var(--muted);font-size:12.5px}
+  }
+
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:6px 18px}
+
+  @media print{
+    @page{size:A4;margin:14mm}
+    html,body{background:#fff}
+    .top{margin:0 0 18px}
+    .links,.flow{display:none}
+    .goal,.asks li,.card,table{box-shadow:none}
+    .step,.asks li,tr{break-inside:avoid}
+    h2{break-after:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="top-in">
+    <div>
+      <p class="kicker">Ministères sociaux · Direction du numérique · Studios Tech et Produit</p>
+      <h1>Installer une IA qui fonctionne sur les postes ministère</h1>
+      <p class="date">Plan d'action au <b>20 octobre 2026</b></p>
+    </div>
+    <nav class="links" aria-label="Liens">
+      <a href="suivi_v2.html#stream-adoption">Suivi du stream Adoption</a>
+      <a href="Suivi-Strategie-Adoption-IA.html#cible">La cible</a>
+      <a href="README.md#qui-peut-utiliser-quoi">Qui peut utiliser quoi</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================ L'ENJEU ============================ -->
+<section aria-labelledby="h-enjeu">
+  <h2 id="h-enjeu">L'enjeu</h2>
+  <p class="goal">Équiper le plus de monde possible dans les <b>studios Tech et Produit</b> d'une IA qui fonctionne sur poste ministère, dans un cadre conforme, et qui <b>continue de fonctionner</b> après les mises à jour.</p>
+  <div class="state">
+    <div>
+      <h3>Les providers aujourd'hui</h3>
+      <ul>
+        <li><span>Scaleway</span><span class="chip ok">opérationnel</span></li>
+        <li><span>Bedrock</span><span class="chip info">ouverture prochaine</span></li>
+        <li><span>Albert, DeepSeek V4 Flash</span><span class="chip wip">expérimentation close le 31 octobre</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Les harness sur poste ministère</h3>
+      <ul>
+        <li><span>OpenCode Desktop</span><span class="chip wip">ne fonctionne peut-être plus</span></li>
+        <li><span>Claude Code dans VS Code</span><span class="chip wip">à revérifier</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ LES APPUIS ============================ -->
+<section aria-labelledby="h-appuis">
+  <h2 id="h-appuis">Les appuis nécessaires</h2>
+  <p class="lead">Ce que le plan ne peut pas obtenir seul.</p>
+  <ul class="asks">
+    <li>
+      <h3>Un relais sécurité réactif</h3>
+      <p>Louis Chevalier, avec un délai de réponse fixé, pour lever les blocages des postes.</p>
+      <a href="#etape-1">Étape 1bis</a>
+    </li>
+    <li>
+      <h3>L'accès au centre logiciel</h3>
+      <p>Y packager les harness : une installation qui tient aux mises à jour du poste.</p>
+      <a href="#etape-1">Étapes 1bis et 5</a>
+    </li>
+    <li>
+      <h3>Des accès pour tous les postes ciblés</h3>
+      <p>Clés Scaleway, comptes Bedrock dès leur ouverture, budget de tokens dimensionné.</p>
+      <a href="#etape-2">Étape 2</a>
+    </li>
+    <li>
+      <h3>Du temps pour les tech-leads</h3>
+      <p>Un créneau régulier pour accompagner leurs développeurs.</p>
+      <a href="#etape-4">Étape 4</a>
+    </li>
+    <li>
+      <h3>Le feu vert de Norman</h3>
+      <p>Pour ouvrir le kick-off et l'accompagnement aux designers.</p>
+      <a href="#etape-3">Étapes 3 et 4</a>
+    </li>
+  </ul>
+</section>
+
+<!-- ============================ LE PLAN ============================ -->
+<section aria-labelledby="h-plan">
+  <h2 id="h-plan">Le plan en cinq étapes</h2>
+  <p class="lead">Rétablir le service pour ceux qui l'utilisaient, puis l'étendre aux deux studios.</p>
+  <ol class="flow" aria-label="Les étapes">
+    <li><a href="#etape-1"><span class="n">1</span>Vérifier</a></li>
+    <li><a href="#etape-2"><span class="n">2</span>Équiper</a></li>
+    <li><a href="#etape-3"><span class="n">3</span>Lancer</a></li>
+    <li><a href="#etape-4"><span class="n">4</span>Accompagner</a></li>
+    <li><a href="#etape-5"><span class="n">5</span>Mesurer et maintenir</a></li>
+  </ol>
+
+  <ol class="steps">
+    <!-- 1 -->
+    <li class="step" id="etape-1">
+      <span class="num" aria-hidden="true">1</span>
+      <div class="card">
+        <div class="hd"><h3>Vérifier les couples harness × provider sur poste ministère</h3><span class="when">Tout de suite, avant le 31 octobre</span></div>
+        <ul>
+          <li>Trouver ce qui a cassé : version d'OpenCode, mise à jour du poste, proxy, accès au provider.</li>
+          <li>Tester chaque couple : OpenCode Desktop et Claude Code dans VS Code, avec Scaleway, Albert, puis Bedrock dès son ouverture ; sur poste Windows et poste Linux.</li>
+          <li>Préparer l'après-31 octobre : la fin de DeepSeek V4 Flash sur Albert touche les architectes et les PM/PO DACCORD.</li>
+        </ul>
+        <dl class="meta">
+          <div><dt>Porteur</dt><dd>Selim</dd></div>
+          <div><dt>Livrable</dt><dd>Les couples validés, versés dans la matrice <a href="README.md#qui-peut-utiliser-quoi">qui peut utiliser quoi</a></dd></div>
+          <div><dt>Réussi quand</dt><dd>Au moins un couple conforme s'installe sans droits admin, passe le réseau et répond.</dd></div>
+        </dl>
+
+        <div class="ifblock">
+          <h4><span class="tag">1bis · si un couple ne passe pas</span>Débloquer avec la sécurité</h4>
+          <ul>
+            <li>Une demande précise par blocage : exception, ouverture réseau, compte administrateur temporaire.</li>
+            <li>La voie durable : packager les harness au centre logiciel.</li>
+          </ul>
+          <dl class="meta">
+            <div><dt>Porteur</dt><dd>Selim, avec Louis Chevalier (sécurité)</dd></div>
+            <div><dt>Livrable</dt><dd>Une réponse écrite par blocage</dd></div>
+            <div><dt>Réussi quand</dt><dd>Chaque blocage est levé ou contourné dans le délai convenu.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </li>
+
+    <!-- 2 -->
+    <li class="step" id="etape-2">
+      <span class="num" aria-hidden="true">2</span>
+      <div class="card">
+        <div class="hd"><h3>Équiper les deux studios</h3><span class="when">Dès les couples validés, par vagues</span></div>
+        <ul>
+          <li>Recenser les personnes à équiper dans les studios Tech et Produit, internes et externes.</li>
+          <li>Préparer les accès avant d'installer : clés Scaleway, comptes Bedrock dès leur ouverture, budget de tokens. Un forfait trop juste pousse vers des solutions non conformes.</li>
+          <li>Partager une doc d'installation pas à pas, testée sur un poste neuf.</li>
+          <li>Installer en sessions collectives, par vagues :
+            <ol>
+              <li>ceux qui l'utilisaient déjà : architectes, PM/PO DACCORD, développeurs VAO ;</li>
+              <li>les tech-leads, avant qu'ils accompagnent leurs équipes ;</li>
+              <li>le reste des deux studios, au kick-off.</li>
+            </ol>
+          </li>
+        </ul>
+        <dl class="meta">
+          <div><dt>Porteur</dt><dd>Selim</dd></div>
+          <div><dt>Livrable</dt><dd>La doc d'installation, les accès distribués</dd></div>
+          <div><dt>Réussi quand</dt><dd>Chaque personne équipée obtient une réponse du modèle depuis son poste, sans aide.</dd></div>
+        </dl>
+      </div>
+    </li>
+
+    <!-- 3 -->
+    <li class="step" id="etape-3">
+      <span class="num" aria-hidden="true">3</span>
+      <div class="card">
+        <div class="hd"><h3>Kick-off : montrer la cible</h3><span class="when">Quand l'installation est fiable</span></div>
+        <ul>
+          <li>Pour les développeurs et les products des deux studios ; les designers après le feu vert de Norman.</li>
+          <li>La <a href="Suivi-Strategie-Adoption-IA.html#cible">cible</a> : le cycle produit augmenté par l'IA, illustré par ce que font déjà les équipes avancées.</li>
+          <li>Chacun repart équipé : la vague 3 s'installe pendant le kick-off ou dans la semaine.</li>
+        </ul>
+        <dl class="meta">
+          <div><dt>Porteur</dt><dd>Selim</dd></div>
+          <div><dt>Livrable</dt><dd>Le support du kick-off</dd></div>
+          <div><dt>Réussi quand</dt><dd>Chaque participant repart avec un poste qui fonctionne et sait qui l'accompagne.</dd></div>
+        </dl>
+      </div>
+    </li>
+
+    <!-- 4 -->
+    <li class="step" id="etape-4">
+      <span class="num" aria-hidden="true">4</span>
+      <div class="card">
+        <div class="hd"><h3>Accompagner, métier par métier</h3><span class="when">Après le kick-off</span></div>
+        <table class="stack">
+          <caption class="sr">Qui accompagne chaque métier</caption>
+          <thead><tr><th scope="col">Métier</th><th scope="col">Qui accompagne</th><th scope="col">Comment</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Développeurs</th><td data-label="Qui">Les tech-leads, formés par Selim</td><td data-label="Comment">Un kit pour les tech-leads : la checklist du palier 2, la bibliothèque de skills communautaire</td></tr>
+            <tr><th scope="row">Products</th><td data-label="Qui">Olivier Toumsy, avec Selim</td><td data-label="Comment">Un plan de formation établi ensemble</td></tr>
+            <tr><th scope="row">Designers</th><td data-label="Qui">Louis Ritchie, pressenti</td><td data-label="Comment">Un plan de formation dédié, après le feu vert de Norman</td></tr>
+          </tbody>
+        </table>
+        <dl class="meta">
+          <div><dt>Porteurs</dt><dd>Selim, les tech-leads, Olivier Toumsy, Louis Ritchie</dd></div>
+          <div><dt>Livrable</dt><dd>Le kit tech-leads, les plans de formation products et designers</dd></div>
+          <div><dt>Réussi quand</dt><dd>Chaque équipe franchit un palier de la checklist ; preuve du premier : un artefact produit par métier.</dd></div>
+        </dl>
+      </div>
+    </li>
+
+    <!-- 5 -->
+    <li class="step" id="etape-5">
+      <span class="num" aria-hidden="true">5</span>
+      <div class="card">
+        <div class="hd"><h3>Mesurer et maintenir</h3><span class="when">En continu</span></div>
+        <ul>
+          <li>Trois indicateurs : postes opérationnels sur postes à équiper ; personnes actives chaque semaine, mesurées par clé côté provider ; équipes qui franchissent un palier.</li>
+          <li>Un test de non-régression après chaque mise à jour du poste ou des harness.</li>
+          <li>Un canal de support unique, les tech-leads en premier niveau.</li>
+        </ul>
+        <dl class="meta">
+          <div><dt>Porteur</dt><dd>Selim</dd></div>
+          <div><dt>Livrable</dt><dd>Les indicateurs dans le <a href="suivi_v2.html#stream-adoption">suivi du stream Adoption</a></dd></div>
+          <div><dt>Réussi quand</dt><dd>Une panne est détectée avant que les équipes la remontent.</dd></div>
+        </dl>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- ============================ RISQUES ============================ -->
+<section aria-labelledby="h-risques">
+  <h2 id="h-risques">Risques et parades</h2>
+  <table class="risks stack">
+    <colgroup><col class="c1"><col></colgroup>
+    <thead><tr><th scope="col">Risque</th><th scope="col">Parade</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Aucun harness ne passe et le déblocage tarde</th><td data-label="Parade">Une demande précise et un délai fixé avec la sécurité ; le packaging au centre logiciel en voie durable</td></tr>
+      <tr><th scope="row">DeepSeek V4 Flash quitte Albert le 31 octobre</th><td data-label="Parade">Scaleway déjà opérationnel ; les modèles de repli testés à l'étape 1</td></tr>
+      <tr><th scope="row">Un budget de tokens trop juste</th><td data-label="Parade">Budget dimensionné avant l'installation, suivi par clé</td></tr>
+      <tr><th scope="row">Des tech-leads sans temps pour leurs équipes</th><td data-label="Parade">Un créneau réservé ; un kit prêt à l'emploi</td></tr>
+      <tr><th scope="row">Une mise à jour du poste recasse l'installation</th><td data-label="Parade">Test de non-régression à chaque mise à jour ; installation packagée</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer>
+  <span>Mission Ippon Technologies · Selim Boukhari</span>
+  <span>Dates à fixer étape par étape ; seule échéance connue : le 31 octobre pour Albert</span>
+</footer>
+</div>
+</body>
+</html>
