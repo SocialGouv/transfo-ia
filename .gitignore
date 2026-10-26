@@ -8,3 +8,6 @@ __pycache__/
 
 # Artefacts de debug des builds
 _dbg_*.png
+
+# Sorties du MCP Playwright (instantanés, journaux, exports)
+.playwright-mcp/
