@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <title>Stratégie IA · Ministères sociaux</title>
-<meta name="description" content="La stratégie de déploiement de l'IA aux ministères sociaux : outillage, adoption et maîtrise, change. Point au 27 octobre 2026.">
+<meta name="description" content="La stratégie de déploiement de l'IA aux ministères sociaux : outillage, adoption et maîtrise, change, évaluation des LLM. Point au 27 octobre 2026.">
 <style>
   :root{
     --bg:#f4f5f8; --card:#ffffff; --soft:#f7f8fb;
@@ -14,7 +14,7 @@
     --navy:#0d366b; --link:#1f5fb3; --focus:#2a78d6;
     --blue-soft:#eaf1fc; --blue-line:#c6d9f4; --on-navy:#d6e4fa;
     --green:#136b3c; --green-soft:#e6f4ec;
-    --amber:#8a5300; --amber-soft:#fff2dc;
+    --amber:#8a5300; --amber-soft:#fff2dc; --amber-mid:#c98a2b;
     --shadow:0 1px 2px rgba(21,26,43,.05), 0 8px 24px rgba(21,26,43,.06);
     --shadow-up:0 2px 4px rgba(21,26,43,.06), 0 14px 32px rgba(21,26,43,.10);
     --r:16px;
@@ -39,26 +39,25 @@
   .hero .in{padding-block:40px 34px}
   .kicker{margin:0 0 10px;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:650;color:var(--muted)}
   h1{margin:0;font-size:clamp(30px,4.2vw,44px);line-height:1.1;letter-spacing:-.02em}
-  .hero .lead{margin:14px 0 0;font-size:clamp(17px,1.9vw,19px);color:var(--sec);max-width:62ch}
+  .hero .lead{margin:14px 0 0;font-size:clamp(17px,1.9vw,19px);color:var(--sec);max-width:64ch}
   .meta{display:flex;flex-wrap:wrap;gap:4px 18px;margin:18px 0 0;font-size:14px;color:var(--muted)}
+  .meta .next{color:var(--amber)}
+  .meta .next b{color:var(--amber)}
 
   /* ---------- Navigation ---------- */
   .nav{position:sticky;top:env(safe-area-inset-top, 0px);z-index:10;background:rgba(244,245,248,.9);-webkit-backdrop-filter:saturate(1.4) blur(10px);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
   @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.nav{background:var(--bg)}}
-  .nav .in{display:flex;align-items:center;gap:12px;padding-block:10px}
-  .nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  .nav .in{padding-block:10px}
+  .nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none}
   .nav ul::-webkit-scrollbar{display:none}
   .nav a{display:flex;align-items:center;gap:8px;white-space:nowrap;padding:8px 14px;border-radius:999px;color:var(--sec);font-size:14.5px;font-weight:600;text-decoration:none;transition:background-color .15s,color .15s}
   .nav a:hover{background:var(--card);color:var(--ink)}
   .nav a[aria-current]{background:var(--navy);color:#fff}
   .n{display:inline-grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;background:var(--blue-soft);color:var(--navy);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:0}
   .nav a[aria-current] .n{background:rgba(255,255,255,.18);color:#fff}
-  .btn{appearance:none;font:inherit;font-size:13.5px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line-strong);background:var(--card);color:var(--navy);cursor:pointer;white-space:nowrap}
-  .btn:hover,.btn[aria-pressed="true"]{background:var(--blue-soft);border-color:var(--blue-line)}
-  @media (max-width:700px){.btn{display:none}}
 
   /* ---------- Structure ---------- */
-  main{padding-block:32px 8px}
+  main{padding-block:28px 8px}
   section{scroll-margin-top:72px}
   .vol{padding-top:60px}
   .vh{margin:0 0 22px;max-width:780px}
@@ -67,14 +66,22 @@
   .vh .lead{margin:10px 0 0;color:var(--sec);font-size:17px}
   .sub{margin:34px 0 14px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+  .lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
-  /* ---------- Statuts ---------- */
+  /* ---------- Statuts : quatre états, une couleur chacun ---------- */
   .chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:12.5px;font-weight:650;line-height:1.4;white-space:nowrap;border:1px solid transparent}
   .chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
   .chip.ok{background:var(--green-soft);color:var(--green)}
   .chip.info{background:var(--blue-soft);color:var(--navy)}
   .chip.date{background:var(--amber-soft);color:var(--amber)}
   .chip.idea{background:var(--card);color:var(--sec);border:1px dashed #98a0b3}
+  .chip.idea::before{background:transparent;border:1.5px solid currentColor;width:7px;height:7px}
+  .legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:0 0 14px;font-size:13px;color:var(--muted)}
+  .legend .lbl{margin-right:4px}
+  .legend .note{margin-left:4px}
+  .badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--navy);color:#fff;white-space:nowrap}
+  .badge.low{background:var(--card);color:var(--sec);border:1px solid var(--line-strong)}
+  .eyebrow .badge{margin-left:6px}
 
   /* ---------- Vue d'ensemble ---------- */
   .ov{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
@@ -89,41 +96,39 @@
   .ov-card.accent{background:var(--navy);border-color:var(--navy);color:#fff}
   .ov-card.accent .eyebrow,.ov-card.accent .more{color:#fff}
   .ov-card.accent .n{background:rgba(255,255,255,.16);color:#fff}
+  .ov-card.accent .badge{background:#fff;color:var(--navy)}
+  .ov-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
   .stat{margin:0;display:flex;flex-direction:column;gap:2px}
   .stat .pre{font-size:13px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--on-navy)}
   .stat .big{font-size:64px;font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
   .stat .cap{font-size:15.5px;color:var(--on-navy)}
-  .mini{margin:0;display:grid;gap:12px}
-  .mini dt{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-  .mini dd{margin:2px 0 0;font-size:15.5px}
   .mini-st{list-style:none;margin:0;padding:0;display:grid;gap:9px}
   .mini-st li{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:15.5px;font-weight:600;padding-bottom:9px;border-bottom:1px solid var(--line)}
   .mini-st li:last-child{border-bottom:0;padding-bottom:0}
-  .ov-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-  .badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--navy);color:#fff;white-space:nowrap}
-  .ov-card.accent .badge{background:#fff;color:var(--navy)}
-  .badge.low{background:var(--card);color:var(--sec);border:1px dashed #98a0b3}
-  .eyebrow .badge{margin-left:6px}
   .ov-low{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;padding:14px 22px;background:var(--soft);box-shadow:none;color:inherit;text-decoration:none;transition:border-color .18s ease,background-color .18s ease}
   .ov-low:hover{border-color:var(--blue-line);background:var(--card)}
   .ov-low .eyebrow{margin:0}
   .ov-low-t{font-weight:600;flex:1;min-width:220px}
-  .ov-low-m{display:flex;flex-wrap:wrap;gap:6px}
+  .ov-low-m{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
   @media (prefers-reduced-motion:reduce){.ov-card,.ov-low,.more::after{transition:none}.ov-card:hover{transform:none}}
 
   /* ---------- Outillage : la chaîne d'accès ---------- */
-  .chain{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.35fr);gap:44px;align-items:center}
+  .chain{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.4fr);gap:44px;align-items:center}
   .chain > li{position:relative;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
   .chain > li.hub{border:2px solid var(--navy)}
   .chain > li:not(:last-child)::after{content:"";position:absolute;top:50%;right:-37px;width:30px;height:2px;background:var(--navy)}
   .chain > li:not(:last-child)::before{content:"";position:absolute;top:calc(50% - 4.5px);right:-37px;width:9px;height:9px;border-top:2px solid var(--navy);border-right:2px solid var(--navy);transform:rotate(45deg)}
-  .lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
   .chain strong{font-size:18px;line-height:1.3}
   .chain p{margin:0;color:var(--sec);font-size:15px}
-  .chain > li > .chip{align-self:flex-start;margin-top:auto}
+  .st{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+  .st li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:14px;color:var(--sec)}
+  .st li.up{flex-direction:column;align-items:flex-start;gap:6px;padding:10px 12px;background:var(--soft);border:1px solid var(--line);border-radius:10px}
+  .grp{display:flex;align-items:center;gap:8px;margin:4px 0 0}
+  .grp + .prov{margin-top:2px}
+  .prov + .grp{margin-top:10px;padding-top:12px;border-top:1px solid var(--line-strong)}
   .prov{list-style:none;margin:0;padding:0}
-  .prov li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
-  .prov li:first-child{border-top:0;padding-top:2px}
+  .prov li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--line)}
+  .prov li:first-child{border-top:0}
   .prov strong{font-size:16px}
   .prov small{display:block;font-size:13.5px;color:var(--muted);line-height:1.4}
   @media (max-width:860px){
@@ -132,15 +137,18 @@
     .chain > li:not(:last-child)::before{top:auto;right:auto;bottom:-34px;left:calc(50% - 4.5px);transform:rotate(135deg)}
   }
 
-  .items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-  @media (max-width:900px){.items{grid-template-columns:minmax(0,1fr)}}
-  .item{padding:18px 20px;display:flex;flex-direction:column;gap:10px}
-  .item-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-  .item h4{margin:0;font-size:16.5px;line-height:1.3}
-  .item > p{margin:0;color:var(--sec);font-size:15px}
+  .watch{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px}
+  @media (max-width:860px){.watch{grid-template-columns:minmax(0,1fr)}}
+  .item{padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+  .item h4{margin:0;font-size:17px;line-height:1.3}
+  .item > p{margin:0;color:var(--sec);font-size:15.5px}
+  .thr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:4px 0 0}
+  @media (max-width:480px){.thr{grid-template-columns:minmax(0,1fr)}}
+  .thr div{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .thr strong{display:block;font-size:26px;line-height:1.1;letter-spacing:-.01em;color:var(--navy);font-variant-numeric:tabular-nums}
+  .thr span{display:block;margin-top:4px;font-size:13.5px;color:var(--sec)}
 
   /* ---------- Détails dépliables ---------- */
-  details{margin-top:2px}
   summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;padding:2px 0;font-size:14px;font-weight:600;color:var(--link);border-radius:6px}
   summary::-webkit-details-marker{display:none}
   summary::before{content:"";width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .15s ease}
@@ -148,46 +156,38 @@
   summary:hover{text-decoration:underline}
   .dt{margin-top:8px;padding:10px 14px;background:var(--soft);border:1px solid var(--line);border-radius:10px;color:var(--sec);font-size:14.5px}
   .dt p{margin:0}
-  .dt p + p{margin-top:6px}
 
   /* ---------- Adoption et maîtrise ---------- */
-  .hl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 30px;align-items:center;background:var(--navy);color:#fff;border-radius:var(--r);padding:24px 28px;margin:0 0 26px}
+  .hl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 30px;align-items:center;background:var(--navy);color:#fff;border-radius:var(--r);padding:24px 28px;margin:0 0 18px}
   .hl .pre{display:block;font-size:13px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--on-navy)}
   .hl .big{display:block;font-size:clamp(56px,7vw,80px);font-weight:800;line-height:.95;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
   .hl p{margin:0;font-size:17px;color:var(--on-navy);max-width:58ch}
   .hl p b{color:#fff}
   @media (max-width:640px){.hl{grid-template-columns:minmax(0,1fr);padding:20px}}
 
-  .seg{display:inline-flex;gap:4px;padding:4px;background:#e7eaf0;border-radius:12px;margin:0 0 16px;max-width:100%;overflow-x:auto}
-  .seg[hidden]{display:none}
-  .seg button{appearance:none;border:0;background:transparent;font:inherit;font-size:14.5px;font-weight:650;color:var(--sec);padding:8px 18px;border-radius:9px;cursor:pointer;white-space:nowrap}
-  .seg button:hover{color:var(--ink)}
-  .seg button[aria-selected="true"]{background:var(--card);color:var(--navy);box-shadow:0 1px 3px rgba(21,26,43,.14)}
-  .panel + .panel{margin-top:18px}
-  .ph{margin:0 0 10px;font-size:15px;color:var(--navy)}
-  .js .ph{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
-  .js .panel + .panel{margin-top:0}
-
-  .teams{list-style:none;margin:0;padding:0;overflow:hidden}
-  .team{display:grid;grid-template-columns:190px minmax(0,1fr) auto;gap:6px 24px;padding:18px 22px;border-top:1px solid var(--line);align-items:start}
-  .team:first-child{border-top:0}
-  .team .who strong{display:block;font-size:16px}
-  .team .who span{display:block;font-size:13px;color:var(--muted)}
-  .team .body > p{margin:0;font-size:15.5px}
-  .team .next{margin:4px 0 0;color:var(--sec);font-size:14.5px}
-  .team .next b{color:var(--ink)}
-  @media (max-width:720px){
-    .team{grid-template-columns:minmax(0,1fr) auto;padding:16px 18px}
-    .team .body{grid-column:1 / -1;grid-row:2}
-  }
+  .metiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+  .metiers.eq{align-items:stretch}
+  @media (max-width:900px){.metiers{grid-template-columns:minmax(0,1fr)}}
+  .metier{padding:18px 20px 20px;display:flex;flex-direction:column;gap:12px}
+  .metier-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:12px;border-bottom:2px solid var(--navy)}
+  .metier-h h3{margin:0;font-size:19px}
+  .metier-h .lbl{letter-spacing:.04em;text-transform:none;font-weight:600;font-size:13px}
+  .teams{list-style:none;margin:0;padding:0}
+  .team{display:flex;flex-direction:column;gap:5px;padding:12px 0;border-top:1px solid var(--line)}
+  .team:first-child{border-top:0;padding-top:0}
+  .t-h{display:flex;align-items:center;gap:8px}
+  .t-h strong{font-size:16px}
+  .t-h .role{font-size:13px;color:var(--muted)}
+  .t-h .chip{margin-left:auto}
+  .team p{margin:0;font-size:15px;color:var(--sec)}
+  .then{padding:12px 14px;background:var(--soft);border:1px solid var(--line);border-radius:12px}
+  .then .lbl{display:block;margin-bottom:6px;color:var(--amber)}
+  .then ul{margin:0;padding:0 0 0 18px;font-size:14.5px;color:var(--sec)}
+  .then li + li{margin-top:4px}
+  .then b{color:var(--ink)}
 
   /* ---------- Change ---------- */
-  .cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-  @media (max-width:900px){.cards3{grid-template-columns:minmax(0,1fr)}}
-  .ch{padding:20px 22px;display:flex;flex-direction:column;gap:12px}
-  .ch-h{display:flex;justify-content:space-between;align-items:center;gap:12px}
-  .ch h3{margin:0;font-size:18px}
-  .ch p{margin:0;color:var(--sec);font-size:15.5px}
+  .metier > p{margin:0;color:var(--sec);font-size:15.5px}
 
   /* ---------- Évaluation des LLM ---------- */
   .eval{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;padding:22px}
@@ -201,25 +201,49 @@
   .crit strong{font-size:16px;color:var(--navy)}
   .crit span{font-size:14px;color:var(--sec)}
 
-  /* ---------- À venir ---------- */
-  .tl{list-style:none;margin:0;padding:0;position:relative}
-  .tl::before{content:"";position:absolute;left:150px;top:14px;bottom:14px;width:2px;background:var(--line-strong)}
-  .tl li{position:relative;display:grid;grid-template-columns:128px minmax(0,1fr);gap:44px;padding:8px 0}
-  .tl li::before{content:"";position:absolute;left:145px;top:24px;width:12px;height:12px;border-radius:50%;background:var(--card);border:3px solid var(--navy)}
-  .tl .when{text-align:right;padding-top:12px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.3}
-  .tl .when small{display:block;margin-top:2px;font-size:13px;font-weight:500;color:var(--muted)}
-  .tl .what{padding:12px 16px;display:flex;flex-direction:column;gap:2px}
-  .tag{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
-  .tl .what span:last-child{font-size:15.5px}
-  @media (max-width:600px){
-    .tl::before{left:6px}
-    .tl li{grid-template-columns:minmax(0,1fr);gap:6px;padding-left:30px}
-    .tl li::before{left:1px;top:14px}
-    .tl .when{text-align:left;padding-top:8px}
-    .tl .when small{display:inline;margin-left:8px}
+  /* ---------- À venir : calendrier de novembre ---------- */
+  .gantt{padding:16px 22px 14px}
+  .g-in{position:relative;--lw:300px;--gap:24px;--span:36}
+  .g-axis,.g-row{display:grid;grid-template-columns:var(--lw) minmax(0,1fr);gap:var(--gap);align-items:center}
+  .g-axis{padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .g-axis > span:first-child{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .g-ticks{position:relative;height:20px;font-size:12.5px;font-weight:600;color:var(--muted)}
+  .g-ticks span{position:absolute;top:0;left:calc(var(--d) / var(--span) * 100%);padding-left:6px;white-space:nowrap}
+  .g-grid{position:absolute;top:0;bottom:0;left:calc(var(--lw) + var(--gap));right:0;background:repeating-linear-gradient(to right,var(--line-strong) 0 1px,transparent 1px calc(100% * 7 / 36));pointer-events:none}
+  .g-rows{list-style:none;margin:0;padding:0}
+  .g-row{padding:12px 0;border-bottom:1px solid var(--line)}
+  .g-row:last-child{border-bottom:0}
+  .g-l{display:flex;flex-direction:column;gap:1px;min-width:0}
+  .g-what{font-size:15.5px;font-weight:600;line-height:1.35}
+  .g-when{font-size:13.5px;color:var(--amber);font-weight:600}
+  .g-row.low .g-when{color:var(--sec)}
+  .g-t{position:relative;height:28px}
+  .g-pt{position:absolute;top:50%;left:calc(var(--d) / var(--span) * 100%);width:14px;height:14px;margin:-7px 0 0 -7px;background:var(--amber-mid);border:2px solid var(--card);box-shadow:0 0 0 1px var(--amber);border-radius:3px;transform:rotate(45deg)}
+  .g-bar{position:absolute;top:50%;height:12px;margin-top:-6px;left:calc(var(--s) / var(--span) * 100%);width:calc((var(--e) - var(--s)) / var(--span) * 100%);background:var(--amber-mid);border-radius:6px;-webkit-mask-image:linear-gradient(to right,transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(to right,transparent,#000 22%,#000 78%,transparent)}
+  .g-row.low .g-bar{background:repeating-linear-gradient(135deg,var(--amber-soft) 0 5px,#e6c48f 5px 8px)}
+  .g-now{display:none;position:absolute;top:0;bottom:0;left:calc(var(--lw) + var(--gap) + (100% - var(--lw) - var(--gap)) * var(--t, 0));width:2px;margin-left:-1px;background:var(--navy);pointer-events:none}
+  .g-now span{position:absolute;top:-1px;left:5px;padding:0 6px;border-radius:6px;background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;line-height:20px;white-space:nowrap}
+  .has-now .g-now{display:block}
+  .g-key{display:flex;flex-wrap:wrap;gap:4px 18px;margin:10px 0 0;font-size:13px;color:var(--muted)}
+  .g-key span{display:inline-flex;align-items:center;gap:7px}
+  .g-key i{display:inline-block;flex:none}
+  .k-pt{width:10px;height:10px;background:var(--amber-mid);border-radius:2px;transform:rotate(45deg)}
+  .k-bar{width:26px;height:8px;border-radius:4px;background:var(--amber-mid);-webkit-mask-image:linear-gradient(to right,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(to right,transparent,#000 30%,#000 70%,transparent)}
+  .k-now{width:2px;height:14px;background:var(--navy)}
+  @media (max-width:700px){
+    .g-in{--lw:0px;--gap:0px}
+    .g-axis,.g-row{grid-template-columns:minmax(0,1fr);gap:6px}
+    .g-axis > span:first-child,.g-grid{display:none}
+    .g-ticks span{border-left:1px solid var(--line-strong)}
+    .g-t{background:repeating-linear-gradient(to right,var(--line-strong) 0 1px,transparent 1px calc(100% * 7 / 36))}
+    .has-now .g-now,.k-now,.g-key span:last-child{display:none}
   }
-  .undated{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
-  .undated li{padding:12px 16px;display:flex;flex-direction:column;gap:2px;font-size:15px}
+
+  .undated{list-style:none;margin:0;padding:6px 22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}
+  @media (max-width:760px){.undated{grid-template-columns:minmax(0,1fr)}}
+  .undated li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+  .undated li > span:first-child{display:flex;flex-direction:column;gap:1px}
+  .tag{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
 
   /* ---------- Pied de page ---------- */
   footer{margin-top:64px;border-top:1px solid var(--line);background:var(--card)}
@@ -228,12 +252,9 @@
 
   @media print{
     .nav,.skip{display:none}
-    .seg{display:none}
-    .panel[hidden]{display:block}
-    .js .ph{position:static;width:auto;height:auto;overflow:visible;clip:auto;clip-path:none;white-space:normal}
     .card,.ov-card{box-shadow:none}
     .vol{break-before:page;padding-top:0}
-    .item,.team,.ch,.tl li{break-inside:avoid}
+    .item,.team,.metier,.g-row,.undated li{break-inside:avoid}
   }
 </style>
 </head>
@@ -244,8 +265,8 @@
   <div class="in">
     <p class="kicker">Ministères sociaux · Transformation IA</p>
     <h1>La stratégie de déploiement de l'IA</h1>
-    <p class="lead">Trois volets menés de front : outiller les postes ministère, faire monter les équipes en maîtrise, ancrer les usages dans chaque métier. Priorité à l'adoption ; l'évaluation des LLM suit, courant novembre.</p>
-    <p class="meta"><span>Point au <b>27 octobre 2026</b></span><span>Selim Boukhari</span></p>
+    <p class="lead">Quatre volets : outiller les postes ministère, faire adopter et maîtriser l'IA par les équipes, ancrer les usages dans chaque métier, puis évaluer les modèles. Priorité à l'adoption.</p>
+    <p class="meta"><span>Point au <b>27 octobre 2026</b></span><span>Selim Boukhari</span><span class="next">Prochaine échéance : <b>3 novembre</b>, démarrage avec Honorabilité</span></p>
   </div>
 </header>
 
@@ -259,7 +280,6 @@
       <li><a href="#evaluation"><span class="n" aria-hidden="true">4</span>Évaluation des LLM</a></li>
       <li><a href="#a-venir">À venir</a></li>
     </ul>
-    <button type="button" class="btn" id="toggle-details" aria-pressed="false">Tout déplier</button>
   </div>
 </nav>
 
@@ -268,14 +288,15 @@
   <!-- ======================= VUE D'ENSEMBLE ======================= -->
   <section id="ensemble" aria-labelledby="h-ensemble">
     <h2 id="h-ensemble" class="sr">Vue d'ensemble</h2>
+    <p class="legend"><span class="lbl">Statuts</span><span class="chip ok">En place</span><span class="chip info">En cours</span><span class="chip date">Prévu</span><span class="chip idea">À construire</span><span class="note">La date remplace « Prévu » quand elle est fixée.</span></p>
     <div class="ov">
       <a class="ov-card card" href="#outillage">
         <span class="eyebrow"><span class="n" aria-hidden="true">1</span>Outillage</span>
         <h3>L'IA est accessible sur PC ministère</h3>
-        <dl class="mini">
-          <div><dt>En place</dt><dd>LiteLLM, OpenCode Desktop, Albert, Scaleway</dd></div>
-          <div><dt>En cours</dt><dd>Mistral, centre logiciel, Bedrock</dd></div>
-        </dl>
+        <ul class="mini-st">
+          <li><span>OpenCode, LiteLLM, Albert, Scaleway</span><span class="chip ok">En place</span></li>
+          <li><span>Contrats Mistral et Bedrock, centre logiciel</span><span class="chip info">En cours</span></li>
+        </ul>
         <span class="more">Voir l'outillage</span>
       </a>
       <a class="ov-card card accent" href="#adoption">
@@ -288,16 +309,16 @@
         <span class="eyebrow"><span class="n" aria-hidden="true">3</span>Change</span>
         <h3>Ancrer les usages dans chaque métier</h3>
         <ul class="mini-st">
-          <li><span>Tech</span><span class="chip info">Prévu</span></li>
+          <li><span>Tech</span><span class="chip date">Prévu</span></li>
           <li><span>Produit</span><span class="chip idea">À construire</span></li>
-          <li><span>Design</span><span class="chip idea">À mettre en place</span></li>
+          <li><span>Design</span><span class="chip idea">À construire</span></li>
         </ul>
         <span class="more">Voir le change</span>
       </a>
       <a class="ov-low card" href="#evaluation">
         <span class="eyebrow"><span class="n" aria-hidden="true">4</span>Évaluation des LLM</span>
         <span class="ov-low-t">Choisir le bon modèle pour chaque usage</span>
-        <span class="ov-low-m"><span class="chip date">Courant novembre</span><span class="chip idea">Priorité basse</span></span>
+        <span class="ov-low-m"><span class="chip date">Courant novembre</span><span class="badge low">Priorité basse</span></span>
       </a>
     </div>
   </section>
@@ -315,51 +336,45 @@
         <span class="lbl">Sur le poste</span>
         <strong>OpenCode et OpenCode Desktop</strong>
         <p>Compatibles PC ministère, documentés par la DINUM.</p>
-        <span class="chip ok">En place</span>
+        <ul class="st">
+          <li><span class="chip ok">En place</span></li>
+          <li class="up"><span class="chip info">En cours</span>Intégration au centre logiciel du ministère</li>
+        </ul>
       </li>
       <li class="card hub">
         <span class="lbl">Passerelle</span>
         <strong>LiteLLM</strong>
         <p>Un point d'accès unique aux modèles et aux outils (MCP), même depuis un PC ministère.</p>
-        <span class="chip ok">En place</span>
+        <ul class="st"><li><span class="chip ok">En place</span></li></ul>
       </li>
       <li class="card">
         <span class="lbl">Modèles</span>
+        <p class="grp"><span class="lbl">Fournisseurs français</span></p>
         <ul class="prov">
           <li><div><strong>Albert</strong><small>DINUM, souverain</small></div><span class="chip ok">En place</span></li>
           <li><div><strong>Scaleway</strong><small>Souverain, modèles de pointe</small></div><span class="chip ok">En place</span></li>
-          <li><div><strong>Mistral</strong><small>GLM 5.3, Mistral Large 4</small></div><span class="chip idea">À l'étude</span></li>
-          <li><div><strong>Bedrock (AWS)</strong><small>Modèles américains, non souverain</small></div><span class="chip info">Contrat en cours</span></li>
+          <li><div><strong>Mistral</strong><small>GLM 5.3, Mistral Large 4 · contrat à l'étude</small></div><span class="chip info">En cours</span></li>
+        </ul>
+        <p class="grp"><span class="lbl">Fournisseur américain</span></p>
+        <ul class="prov">
+          <li><div><strong>Bedrock (AWS)</strong><small>Non souverain · contrat en cours</small></div><span class="chip info">En cours</span></li>
         </ul>
       </li>
     </ol>
 
-    <h3 class="sub">Les chantiers en cours</h3>
-    <div class="items">
+    <h3 class="sub">Deux points d'attention</h3>
+    <div class="watch">
       <article class="item card">
-        <div class="item-h"><h4>Des modèles de pointe à la hauteur</h4><span class="chip info">En cours</span></div>
-        <p>Chez Scaleway, GLM 5.3 et DeepSeek V4.1 Flash lisent et écrivent trop peu d'un coup. On challenge Scaleway et on étudie un contrat avec Mistral.</p>
-        <details>
-          <summary>Les conditions</summary>
-          <div class="dt">
-            <p>Accès visé chez Mistral : GLM 5.3 et Mistral Large 4.</p>
-            <p>À condition que Mistral garantisse une fenêtre de contexte de 1 million de tokens (ce que le modèle lit d'un coup) et 128 000 tokens en sortie (ce qu'il écrit d'un coup).</p>
-          </div>
-        </details>
+        <h4>Des modèles de pointe à la hauteur</h4>
+        <p>Chez Scaleway, GLM 5.3 et DeepSeek V4.1 Flash lisent et écrivent trop peu d'un coup. On challenge Scaleway. Le contrat Mistral (GLM 5.3, Mistral Large 4) se fera seulement si Mistral garantit :</p>
+        <div class="thr">
+          <div><strong>1 million</strong><span>de tokens de contexte : ce que le modèle lit d'un coup</span></div>
+          <div><strong>128 000</strong><span>tokens en sortie : ce qu'il écrit d'un coup</span></div>
+        </div>
       </article>
       <article class="item card">
-        <div class="item-h"><h4>OpenCode Desktop au centre logiciel</h4><span class="chip info">En cours</span></div>
-        <p>Intégrer OpenCode Desktop au centre logiciel du ministère.</p>
-      </article>
-      <article class="item card">
-        <div class="item-h"><h4>Bedrock pour les modèles américains</h4><span class="chip info">Contrat en cours</span></div>
-        <p>Pour celles et ceux qui veulent des modèles américains.</p>
-        <details>
-          <summary>Conformité</summary>
-          <div class="dt">
-            <p>Serveurs conformes au RGPD, mais non souverains au sens de la CNIL : le Cloud Act s'y applique.</p>
-          </div>
-        </details>
+        <h4>Bedrock : conforme au RGPD, pas souverain</h4>
+        <p>Pour celles et ceux qui veulent des modèles américains. Les serveurs sont conformes au RGPD, mais pas souverains au sens de la CNIL : le Cloud Act s'y applique.</p>
       </article>
     </div>
   </section>
@@ -377,85 +392,61 @@
       <p>du code de <b>DACCORD</b> est généré par IA, via des agents que les devs orchestrent. Point de départ : un usage très léger de l'IA.</p>
     </div>
 
-    <div class="seg" role="tablist" aria-label="Métier" hidden>
-      <button type="button" role="tab" id="tab-tech" aria-controls="panel-tech" aria-selected="true">Tech</button>
-      <button type="button" role="tab" id="tab-produit" aria-controls="panel-produit" aria-selected="false" tabindex="-1">Produit</button>
-      <button type="button" role="tab" id="tab-design" aria-controls="panel-design" aria-selected="false" tabindex="-1">Design</button>
-    </div>
-
-    <div class="panel" id="panel-tech" role="tabpanel" aria-labelledby="tab-tech" tabindex="0">
-      <h3 class="ph">Tech</h3>
-      <ul class="teams card">
-        <li class="team">
-          <div class="who"><strong>DACCORD</strong><span>Devs</span></div>
-          <div class="body">
-            <p>Les devs orchestrent les agents : plus de 95&nbsp;% du code est généré par IA.</p>
+    <div class="metiers">
+      <article class="metier card" aria-labelledby="h-a-tech">
+        <div class="metier-h"><h3 id="h-a-tech">Tech</h3><span class="lbl">Devs</span></div>
+        <ul class="teams">
+          <li class="team">
+            <div class="t-h"><strong>DACCORD</strong><span class="chip ok">En place</span></div>
+            <p>Les devs orchestrent leurs agents.</p>
             <details>
               <summary>Comment</summary>
               <div class="dt"><p>Développement piloté par les tests d'acceptation, écrits d'abord (ATDD) : sur tout le front, et en partie sur le back.</p></div>
             </details>
-          </div>
-          <span class="chip ok">Orchestration</span>
-        </li>
-        <li class="team">
-          <div class="who"><strong>VAO</strong><span>Devs</span></div>
-          <div class="body">
-            <p>Partie de zéro, l'équipe met en place ses skills.</p>
-            <p class="next"><b>Ensuite :</b> l'orchestration, début à mi-novembre.</p>
-          </div>
-          <span class="chip info">Skills</span>
-        </li>
-        <li class="team">
-          <div class="who"><strong>Honorabilité</strong><span>Devs</span></div>
-          <div class="body"><p>Démarrage de l'accompagnement le 3&nbsp;novembre.</p></div>
-          <span class="chip date" data-date="2026-11-03">3 nov.</span>
-        </li>
-        <li class="team">
-          <div class="who"><strong>Tech leads</strong><span>Toutes les équipes</span></div>
-          <div class="body"><p>Les accompagner pour en faire les référents IA de leur équipe.</p></div>
-          <span class="chip idea">Bientôt</span>
-        </li>
-      </ul>
-    </div>
+          </li>
+          <li class="team">
+            <div class="t-h"><strong>VAO</strong><span class="chip info">En cours</span></div>
+            <p>Partie de zéro, l'équipe met en place ses skills. Orchestration début à mi-novembre.</p>
+          </li>
+          <li class="team">
+            <div class="t-h"><strong>Honorabilité</strong><span class="chip date" data-date="2026-11-03"><span class="sr">Prévu le </span>3 nov.</span></div>
+            <p>Démarrage de l'accompagnement.</p>
+          </li>
+        </ul>
+        <div class="then"><span class="lbl">Ensuite</span>
+          <ul><li>Les <b>tech leads</b> de toutes les équipes, pour en faire des référents IA.</li></ul>
+        </div>
+      </article>
 
-    <div class="panel" id="panel-produit" role="tabpanel" aria-labelledby="tab-produit" tabindex="0">
-      <h3 class="ph">Produit</h3>
-      <ul class="teams card">
-        <li class="team">
-          <div class="who"><strong>DACCORD</strong><span>PM/PO</span></div>
-          <div class="body"><p>Génèrent des tickets affinés et automatisés, avec leurs critères d'acceptation.</p></div>
-          <span class="chip info">En adoption</span>
-        </li>
-        <li class="team">
-          <div class="who"><strong>SIRENA</strong><span>PM/PO</span></div>
-          <div class="body"><p>Même use case, la génération de tickets, à partir du 5&nbsp;novembre.</p></div>
-          <span class="chip date" data-date="2026-11-05">5 nov.</span>
-        </li>
-        <li class="team">
-          <div class="who"><strong>MCP Jira</strong><span>PM/PO</span></div>
-          <div class="body"><p>Travailler directement dans Jira, sans passer par des documents.</p></div>
-          <span class="chip idea">Bientôt</span>
-        </li>
-        <li class="team">
-          <div class="who"><strong>Studio produit</strong><span>Use cases</span></div>
-          <div class="body"><p>Le studio remonte ses use cases, qui sont ensuite mis en orchestration.</p></div>
-          <span class="chip idea">Bientôt</span>
-        </li>
-      </ul>
-    </div>
+      <article class="metier card" aria-labelledby="h-a-produit">
+        <div class="metier-h"><h3 id="h-a-produit">Produit</h3><span class="lbl">PM/PO</span></div>
+        <ul class="teams">
+          <li class="team">
+            <div class="t-h"><strong>DACCORD</strong><span class="chip info">En cours</span></div>
+            <p>Tickets affinés générés par IA, critères d'acceptation compris. En cours d'adoption.</p>
+          </li>
+          <li class="team">
+            <div class="t-h"><strong>SIRENA</strong><span class="chip date" data-date="2026-11-05"><span class="sr">Prévu le </span>5 nov.</span></div>
+            <p>Même use case : la génération de tickets.</p>
+          </li>
+        </ul>
+        <div class="then"><span class="lbl">Ensuite</span>
+          <ul>
+            <li>Le <b>MCP Jira</b> : travailler directement dans Jira, sans passer par des documents.</li>
+            <li>Le <b>studio produit</b> remonte ses use cases, mis ensuite en orchestration.</li>
+          </ul>
+        </div>
+      </article>
 
-    <div class="panel" id="panel-design" role="tabpanel" aria-labelledby="tab-design" tabindex="0">
-      <h3 class="ph">Design</h3>
-      <ul class="teams card">
-        <li class="team">
-          <div class="who"><strong>Louis</strong><span>Designer</span></div>
-          <div class="body">
-            <p>Référent IA de fait : il partage ses pratiques avec ses collègues designers.</p>
-            <p class="next">Accompagné ponctuellement sur de nouveaux use cases.</p>
-          </div>
-          <span class="chip ok">Référent de fait</span>
-        </li>
-      </ul>
+      <article class="metier card" aria-labelledby="h-a-design">
+        <div class="metier-h"><h3 id="h-a-design">Design</h3><span class="lbl">Designers</span></div>
+        <ul class="teams">
+          <li class="team">
+            <div class="t-h"><strong>Louis</strong><span class="chip ok">En place</span></div>
+            <p>Référent IA de fait : il partage ses pratiques avec ses collègues designers. Accompagné ponctuellement sur de nouveaux use cases.</p>
+          </li>
+        </ul>
+      </article>
     </div>
   </section>
 
@@ -466,17 +457,17 @@
       <h2 id="h-change">Ancrer les usages dans chaque métier</h2>
       <p class="lead">Pour que la montée en compétence tienne dans la durée, chaque métier a sa façon d'avancer.</p>
     </header>
-    <div class="cards3">
-      <article class="ch card">
-        <div class="ch-h"><h3>Tech</h3><span class="chip info">Prévu</span></div>
+    <div class="metiers eq">
+      <article class="metier card">
+        <div class="metier-h"><h3>Tech</h3><span class="chip date">Prévu</span></div>
         <p>Les tech leads deviennent référents IA : responsables de la montée en compétence de leur équipe, avec une instance de veille IA.</p>
       </article>
-      <article class="ch card">
-        <div class="ch-h"><h3>Produit</h3><span class="chip idea">À construire</span></div>
+      <article class="metier card">
+        <div class="metier-h"><h3>Produit</h3><span class="chip idea">À construire</span></div>
         <p>Une stratégie de change à poser ensemble.</p>
       </article>
-      <article class="ch card">
-        <div class="ch-h"><h3>Design</h3><span class="chip idea">À mettre en place</span></div>
+      <article class="metier card">
+        <div class="metier-h"><h3>Design</h3><span class="chip idea">À construire</span></div>
         <p>Condition posée par Norman : un usage facile et accessible, même pour des non-technophiles.</p>
       </article>
     </div>
@@ -507,34 +498,48 @@
   <section id="a-venir" class="vol" aria-labelledby="h-venir">
     <header class="vh">
       <p class="eyebrow">À venir</p>
-      <h2 id="h-venir">Les prochaines étapes</h2>
+      <h2 id="h-venir">Novembre, semaine par semaine</h2>
     </header>
-    <ol class="tl">
-      <li data-date="2026-11-03">
-        <div class="when">3 nov.<small class="rel"></small></div>
-        <div class="what card"><span class="tag">Tech</span><span>Démarrage avec l'équipe Honorabilité</span></div>
-      </li>
-      <li data-date="2026-11-05">
-        <div class="when">5 nov.<small class="rel"></small></div>
-        <div class="what card"><span class="tag">Produit</span><span>SIRENA démarre la génération de tickets</span></div>
-      </li>
-      <li>
-        <div class="when">Début à mi-nov.</div>
-        <div class="what card"><span class="tag">Tech</span><span>VAO passe à l'orchestration</span></div>
-      </li>
-      <li>
-        <div class="when">Courant nov.</div>
-        <div class="what card"><span class="tag">Évaluation des LLM</span><span>Démarrage de l'évaluation, en priorité basse</span></div>
-      </li>
-    </ol>
 
-    <h3 class="sub">Sans date arrêtée</h3>
-    <ul class="undated">
-      <li class="card"><span class="tag">Outillage</span><span>Contrat Mistral, si les seuils sont garantis</span></li>
-      <li class="card"><span class="tag">Outillage</span><span>OpenCode Desktop au centre logiciel</span></li>
-      <li class="card"><span class="tag">Outillage</span><span>Contrat Bedrock</span></li>
-      <li class="card"><span class="tag">Produit</span><span>MCP Jira pour les PM/PO</span></li>
-      <li class="card"><span class="tag">Tech</span><span>Tech leads référents IA</span></li>
+    <!-- Axe : jour 0 = lundi 26 octobre, 36 jours jusqu'au 30 novembre inclus. -->
+    <div class="gantt card">
+      <div class="g-in" id="gantt" data-start="2026-10-26">
+        <div class="g-grid" aria-hidden="true"></div>
+        <div class="g-axis" aria-hidden="true">
+          <span>Semaine du</span>
+          <div class="g-ticks"><span style="--d:7">2 nov.</span><span style="--d:14">9 nov.</span><span style="--d:21">16 nov.</span><span style="--d:28">23 nov.</span></div>
+        </div>
+        <ol class="g-rows">
+          <li class="g-row">
+            <div class="g-l"><span class="tag">Tech</span><span class="g-what">Honorabilité : démarrage</span><span class="g-when">3 nov.<span class="rel" data-date="2026-11-03"></span></span></div>
+            <div class="g-t" aria-hidden="true"><span class="g-pt" style="--d:8.5"></span></div>
+          </li>
+          <li class="g-row">
+            <div class="g-l"><span class="tag">Produit</span><span class="g-what">SIRENA : génération de tickets</span><span class="g-when">5 nov.<span class="rel" data-date="2026-11-05"></span></span></div>
+            <div class="g-t" aria-hidden="true"><span class="g-pt" style="--d:10.5"></span></div>
+          </li>
+          <li class="g-row">
+            <div class="g-l"><span class="tag">Tech</span><span class="g-what">VAO : passage à l'orchestration</span><span class="g-when">Début à mi-novembre</span></div>
+            <div class="g-t" aria-hidden="true"><span class="g-bar" style="--s:6;--e:21"></span></div>
+          </li>
+          <li class="g-row low">
+            <div class="g-l"><span class="tag">Évaluation des LLM</span><span class="g-what">Démarrage, en priorité basse</span><span class="g-when">Courant novembre</span></div>
+            <div class="g-t" aria-hidden="true"><span class="g-bar" style="--s:6;--e:36"></span></div>
+          </li>
+        </ol>
+        <div class="g-now" aria-hidden="true"><span>Aujourd'hui</span></div>
+      </div>
+      <p class="g-key" aria-hidden="true"><span><i class="k-pt"></i>Date fixée</span><span><i class="k-bar"></i>Période approximative</span><span><i class="k-now"></i>Aujourd'hui</span></p>
+    </div>
+
+    <h3 class="sub">Ensuite, sans date arrêtée</h3>
+    <ul class="undated card">
+      <li><span><span class="tag">Outillage</span>Contrat Mistral, si les seuils sont garantis</span><span class="chip info">En cours</span></li>
+      <li><span><span class="tag">Outillage</span>OpenCode Desktop au centre logiciel</span><span class="chip info">En cours</span></li>
+      <li><span><span class="tag">Outillage</span>Contrat Bedrock</span><span class="chip info">En cours</span></li>
+      <li><span><span class="tag">Produit</span>MCP Jira pour les PM/PO</span><span class="chip date">Prévu</span></li>
+      <li><span><span class="tag">Tech</span>Tech leads référents IA</span><span class="chip date">Prévu</span></li>
+      <li><span><span class="tag">Produit</span>Use cases du studio en orchestration</span><span class="chip date">Prévu</span></li>
     </ul>
   </section>
 </main>
@@ -551,34 +556,10 @@
 
 <script>
 (function(){
-  document.documentElement.classList.add('js');
   var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-
-  /* Onglets Tech · Produit · Design (motif ARIA : flèches, Début, Fin) */
-  var tablist = document.querySelector('.seg');
-  var tabs = $$('[role=tab]', tablist);
-  function select(tab, focus){
-    tabs.forEach(function(t){
-      var on = t === tab;
-      t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
-      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
-    });
-    if(focus) tab.focus();
-  }
-  tabs.forEach(function(t, i){
-    t.addEventListener('click', function(){ select(t); });
-    t.addEventListener('keydown', function(e){
-      var n = tabs.length, j = null;
-      if(e.key === 'ArrowRight') j = (i + 1) % n;
-      else if(e.key === 'ArrowLeft') j = (i - 1 + n) % n;
-      else if(e.key === 'Home') j = 0;
-      else if(e.key === 'End') j = n - 1;
-      if(j !== null){ e.preventDefault(); select(tabs[j], true); }
-    });
-  });
-  tablist.hidden = false;
-  select(tabs[0]);
+  var DAY = 864e5;
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  function days(iso){ return Math.round((new Date(iso + 'T00:00:00') - today) / DAY); }
 
   /* Navigation : section courante */
   var links = $$('.nav a');
@@ -608,34 +589,21 @@
   window.addEventListener('resize', spy);
   spy();
 
-  /* Tout déplier / tout replier */
-  var btn = document.getElementById('toggle-details');
-  var dets = $$('details');
-  btn.addEventListener('click', function(){
-    var open = btn.getAttribute('aria-pressed') !== 'true';
-    dets.forEach(function(d){ d.open = open; });
-    btn.setAttribute('aria-pressed', String(open));
-    btn.textContent = open ? 'Tout replier' : 'Tout déplier';
-  });
-
   /* Échéances relatives à aujourd'hui */
-  var today = new Date(); today.setHours(0, 0, 0, 0);
   function rel(iso){
-    var n = Math.round((new Date(iso + 'T00:00:00') - today) / 864e5);
+    var n = days(iso);
     return n > 1 ? 'dans ' + n + ' jours' : n === 1 ? 'demain' : n === 0 ? "aujourd'hui" : 'passé';
   }
-  $$('.tl li[data-date]').forEach(function(li){ li.querySelector('.rel').textContent = rel(li.getAttribute('data-date')); });
+  $$('.rel[data-date]').forEach(function(s){ s.textContent = ' · ' + rel(s.getAttribute('data-date')); });
   $$('.chip[data-date]').forEach(function(c){ c.title = rel(c.getAttribute('data-date')); });
 
-  /* Impression : tout afficher */
-  var wasOpen = [];
-  window.addEventListener('beforeprint', function(){
-    wasOpen = dets.map(function(d){ return d.open; });
-    dets.forEach(function(d){ d.open = true; });
-  });
-  window.addEventListener('afterprint', function(){
-    dets.forEach(function(d, i){ d.open = wasOpen[i]; });
-  });
+  /* Calendrier : repère « aujourd'hui », affiché seulement dans la période */
+  var g = document.getElementById('gantt');
+  var span = 36, d = -days(g.getAttribute('data-start')) + 0.5;
+  if(d > 0 && d < span){
+    g.style.setProperty('--t', String(d / span));
+    g.classList.add('has-now');
+  }
 })();
 </script>
 </body>
