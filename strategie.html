@@ -121,8 +121,9 @@
   .chain strong{font-size:18px;line-height:1.3}
   .chain p{margin:0;color:var(--sec);font-size:15px}
   .st{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
-  .st li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:14px;color:var(--sec)}
-  .st li.up{flex-direction:column;align-items:flex-start;gap:6px;padding:10px 12px;background:var(--soft);border:1px solid var(--line);border-radius:10px}
+  .st > li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:14px;color:var(--sec)}
+  .st > li.up{flex-direction:column;align-items:flex-start;gap:6px;padding:10px 12px;background:var(--soft);border:1px solid var(--line);border-radius:10px}
+  .up-l{list-style:disc;margin:0;padding:0 0 0 18px;display:grid;gap:4px}
   .grp{display:flex;align-items:center;gap:8px;margin:4px 0 0}
   .grp + .prov{margin-top:2px}
   .prov + .grp{margin-top:10px;padding-top:12px;border-top:1px solid var(--line-strong)}
@@ -345,7 +346,16 @@
         <span class="lbl">Passerelle</span>
         <strong>LiteLLM</strong>
         <p>Un point d'accès unique aux modèles et aux outils (MCP), même depuis un PC ministère.</p>
-        <ul class="st"><li><span class="chip ok">En place</span></li></ul>
+        <ul class="st">
+          <li><span class="chip ok">En place</span></li>
+          <li class="up"><span class="chip info">En cours</span>
+            <ul class="up-l">
+              <li>Identifier les MCP utiles et les intégrer</li>
+              <li>Identifier les guardrails : les garde-fous sur ce qui entre et sort des modèles</li>
+              <li>Identifier des skills standards à partager à toutes les équipes</li>
+            </ul>
+          </li>
+        </ul>
       </li>
       <li class="card">
         <span class="lbl">Modèles</span>
