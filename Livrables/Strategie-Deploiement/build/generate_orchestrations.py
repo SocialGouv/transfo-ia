@@ -6,7 +6,8 @@ Usage : python3 generate_orchestrations.py
 Sorties :
   - ../assets/orchestration-{plan,prototype,maquette,plan-tech,implementation}-{light,dark}.svg ;
   - le fragment HTML du tableau de bord Suivi-Strategie-Adoption-IA.html (onglet « Cible »,
-    sous le tableau du cycle), réécrit entre <!-- orchestrations:start --> et <!-- orchestrations:end -->.
+    sous le tableau du cycle) et de la page cible.html, réécrit entre <!-- orchestrations:start -->
+    et <!-- orchestrations:end -->.
 
 Grammaire, pensée pour un public non technique : trois couloirs horizontaux, lus de gauche à droite,
 les étapes du chemin nominal numérotées.
@@ -745,7 +746,9 @@ def description(o):
     return pre + "<ol>" + "".join(items) + "</ol>" + post
 
 
-DASHBOARD = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "Suivi-Strategie-Adoption-IA.html")
+# Pages qui portent le fragment : le tableau de bord (onglet Cible) et la page autonome cible.html
+PAGES = [os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", page)
+         for page in ("Suivi-Strategie-Adoption-IA.html", "cible.html")]
 ASSETS_REL = "Livrables/Strategie-Deploiement/assets"
 MARK_START, MARK_END = "<!-- orchestrations:start", "<!-- orchestrations:end -->"
 
@@ -772,19 +775,24 @@ def html_fragment():
 
 
 def patch_dashboard():
-    if not os.path.exists(DASHBOARD):
-        print(f"! tableau de bord introuvable : {DASHBOARD}")
+    for path in PAGES:
+        patch_page(path)
+
+
+def patch_page(path):
+    if not os.path.exists(path):
+        print(f"! page introuvable : {path}")
         return
-    html = open(DASHBOARD, encoding="utf-8").read()
+    html = open(path, encoding="utf-8").read()
     a, b = html.find(MARK_START), html.find(MARK_END)
     if a < 0 or b < 0 or b < a:
-        print("! marqueurs orchestrations:start / orchestrations:end absents du tableau de bord, fragment non écrit")
+        print(f"! marqueurs orchestrations:start / orchestrations:end absents de {os.path.basename(path)}, fragment non écrit")
         return
     end_of_start = html.find("-->", a) + 3
     new = html[:end_of_start] + "\n" + html_fragment() + "\n" + html[b:]
     if new != html:
-        open(DASHBOARD, "w", encoding="utf-8").write(new)
-    print(f"✓ {os.path.basename(DASHBOARD)} (fragment orchestrations, onglet Cible)")
+        open(path, "w", encoding="utf-8").write(new)
+    print(f"✓ {os.path.basename(path)} (fragment orchestrations, onglet Cible)")
 
 
 if __name__ == "__main__":

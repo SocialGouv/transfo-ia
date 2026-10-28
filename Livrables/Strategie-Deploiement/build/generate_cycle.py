@@ -5,7 +5,8 @@ Usage : python3 generate_cycle.py
 Sorties :
   - ../assets/cycle-produit-ia-{light,dark}.svg (README, page Markdown, slides) ;
   - le fragment HTML du tableau de bord Suivi-Strategie-Adoption-IA.html (onglet
-    « Cible »), réécrit entre les marqueurs <!-- cycle:start --> et <!-- cycle:end -->.
+    « Cible ») et de la page cible.html, réécrit entre les marqueurs <!-- cycle:start -->
+    et <!-- cycle:end -->.
 Même contenu, une seule source : la section CONTENU ci-dessous.
 
 Matrice : cinq skills (colonnes, groupées par métier) × cinq lignes
@@ -504,8 +505,9 @@ def render_steps(t):
 # Fragment HTML du tableau de bord (vrai tableau, en-têtes de lignes et colonnes)
 # ============================================================================
 
-DASHBOARD = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                         "..", "..", "..", "Suivi-Strategie-Adoption-IA.html")
+# Pages qui portent le fragment : le tableau de bord (onglet Cible) et la page autonome cible.html
+PAGES = [os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", page)
+         for page in ("Suivi-Strategie-Adoption-IA.html", "cible.html")]
 MARK_START, MARK_END = "<!-- cycle:start", "<!-- cycle:end -->"
 
 
@@ -544,19 +546,24 @@ def html_fragment():
 
 
 def patch_dashboard():
-    if not os.path.exists(DASHBOARD):
-        print(f"! tableau de bord introuvable : {DASHBOARD}")
+    for path in PAGES:
+        patch_page(path)
+
+
+def patch_page(path):
+    if not os.path.exists(path):
+        print(f"! page introuvable : {path}")
         return
-    html = open(DASHBOARD, encoding="utf-8").read()
+    html = open(path, encoding="utf-8").read()
     a, b = html.find(MARK_START), html.find(MARK_END)
     if a < 0 or b < 0 or b < a:
-        print("! marqueurs cycle:start / cycle:end absents du tableau de bord, fragment non écrit")
+        print(f"! marqueurs cycle:start / cycle:end absents de {os.path.basename(path)}, fragment non écrit")
         return
     end_of_start = html.find("-->", a) + 3
     new = html[:end_of_start] + "\n" + html_fragment() + "\n" + html[b:]
     if new != html:
-        open(DASHBOARD, "w", encoding="utf-8").write(new)
-    print(f"✓ {os.path.basename(DASHBOARD)} (fragment onglet Cible)")
+        open(path, "w", encoding="utf-8").write(new)
+    print(f"✓ {os.path.basename(path)} (fragment onglet Cible)")
 
 
 if __name__ == "__main__":
