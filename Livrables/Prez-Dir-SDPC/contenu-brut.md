@@ -49,4 +49,3 @@ Designer:
 ----> studio tech: sous ma responsabilité d'expert IA et compétent en Tech
 ----> studio produit: moi en tant qu'expert IA avec l'aide de Mathilda experte CDP
 
-Consignes générales de la personne : slides HTML au gabarit DSFR, signées Selim Boukhari, aucune référence à Ippon, une page maximum par partie, jolie et prête à être présentée en comité de direction.
