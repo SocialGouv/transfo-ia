@@ -126,7 +126,7 @@ def header(s, title, sub, chip):
 def footer(s, page):
     rect(s, ML, 6.84, CW_FULL, 0.028, fill=BF)             # fr-footer : bordure haute bleu France
     tf = tb(s, ML, 6.95, 11.0, 0.3)
-    para(tf, [R("Ippon Technologies pour la DNUM", sz=8.5, b=True, c=G200),
+    para(tf, [R("Selim Boukhari pour la DNUM", sz=8.5, b=True, c=G200),
               R(f"  ·  Souveraineté et performance des modèles et des harness  ·  document de travail, {DATE}  ·  "
                 f"chiffres vérifiés le {VERIF}, sources en notes", sz=8.5, c=G425)], first=True, ls=1.0)
     tf2 = tb(s, MR - 0.8, 6.95, 0.8, 0.3)
@@ -251,12 +251,12 @@ def build(out):
         para(tf, [R(sub, sz=9.5, c=G425)], sb=3, ls=1.08)
     rect(s, ML, 6.84, CW_FULL, 0.028, fill=BF)
     tf = tb(s, ML, 6.95, 11.5, 0.3)
-    para(tf, [R("Ippon Technologies", sz=9, b=True, c=G200),
+    para(tf, [R("Selim Boukhari", sz=9, b=True, c=G200),
               R("  ·  document de travail préparé pour la Direction du numérique des ministères sociaux  ·  "
                 "mission d'accompagnement à la transformation IA", sz=9, c=G425)], first=True, ls=1.0)
     notes(s, "Deck en Système de design de l'État (DSFR 1.15.3 : police Marianne, bleu France #000091, rouge Marianne #E1000F, "
              "gris #161616/#666666/#DDDDDD, badges succès/erreur/avertissement, bloc-marque et pictogrammes officiels). "
-             "Refonte du 23/09/2026 du deck Ippon du 03/09/2026 : modèles mis à jour (Opus 5.5 sorti le 22/09/2026, Fable 5.1), "
+             "Refonte du 23/09/2026 du deck du 03/09/2026 : modèles mis à jour (Opus 5.5 sorti le 22/09/2026, Fable 5.1), "
              "ajout des stacks OpenAI via Bedrock (GPT-6 Sol, GPT-5.6 Terra ; GPT-6 Astra exclu à la demande du client), prix revérifiés. "
              "Sources détaillées dans les notes des slides 2 à 5.")
 

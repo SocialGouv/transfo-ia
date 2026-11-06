@@ -317,4 +317,4 @@ Troisième enjeu de la mission : faire connaître le savoir-faire IA du studio T
 
 ---
 
-<sub>Sources : <code>Etat-avancement.xlsx</code> et <a href="https://grist.numerique.gouv.fr/o/tranfo-ia/rFkVL6aLFbrE/Etat-davancement">Grist</a> · graphiques générés par <code>Etat-avancement/build/generate_charts.py</code> (éditer la section DONNÉES puis relancer) · Selim Boukhari, Ippon Technologies</sub>
+<sub>Sources : <code>Etat-avancement.xlsx</code> et <a href="https://grist.numerique.gouv.fr/o/tranfo-ia/rFkVL6aLFbrE/Etat-davancement">Grist</a> · graphiques générés par <code>Etat-avancement/build/generate_charts.py</code> (éditer la section DONNÉES puis relancer) · Selim Boukhari</sub>

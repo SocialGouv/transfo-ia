@@ -151,8 +151,7 @@ def build_one_pager():
     text(s, 0.6, 0.58, 10.6, 0.55, "**De l'usage individuel à l'adoption par les équipes**",
          size=26, color=G425, bold_color=BF)
     text(s, 10.6, 0.42, 2.15, 0.8,
-         ["Une acculturation réelle aux rôles et aux métiers — pas des démos.",
-          "Impact · Ippon Technologies"],
+         ["Une acculturation réelle aux rôles et aux métiers — pas des démos."],
          size=8.5, color=G425, align=PP_ALIGN.RIGHT, space_after=2)
     rect(s, 0.6, 1.28, 12.15, 0.02, BF)
 

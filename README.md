@@ -187,4 +187,4 @@ Tout le reste bute sur le poste interne (Claude Desktop et Codex, impossibles su
 
 ---
 
-<sub>Mission Ippon Technologies · Selim Boukhari (sboukhari@ippon.fr) · graphiques régénérés chaque semaine via <code>Etat-avancement/build/generate_charts.py</code></sub>
+<sub>Selim Boukhari · graphiques régénérés chaque semaine via <code>Etat-avancement/build/generate_charts.py</code></sub>
