@@ -22,6 +22,7 @@
   --ok:#18753c; --ok-bg:#b8fec9;
   --todo:#0063cb; --todo-bg:#e8edff;
   --warn:#b34000; --warn-bg:#ffe9e6;
+  --orange-975:#fef4f2; --orange-850:#fcc0b0; --orange-645:#e4794a;   /* orange terre battue (DSFR, illustratif) */
   --pad:120px;
   --arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m16.172 11-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2h12.172Z'/%3E%3C/svg%3E");
 }
@@ -94,114 +95,142 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 
 /* ---------- 2 · L’essentiel ---------- */
 .sum{flex:1;display:flex;flex-direction:column;justify-content:center}
-.sum__row{display:grid;grid-template-columns:88px minmax(0,1fr) 400px;column-gap:40px;align-items:center;padding:22px 0;border-top:1px solid var(--line)}
+.sum__row{display:grid;grid-template-columns:88px minmax(0,1fr) 480px;column-gap:40px;align-items:center;padding:22px 0;border-top:1px solid var(--line)}
 .sum__row:last-child{border-bottom:1px solid var(--line)}
 .sum__num{font-size:52px;line-height:1;font-weight:700;color:var(--bf);font-variant-numeric:tabular-nums}
 .sum__msg{margin-top:6px;font-size:37px;line-height:1.2;font-weight:700;color:var(--ink);letter-spacing:-.01em}
-.sum__sub{margin-top:6px;font-size:30px;line-height:1.25;color:var(--bf-850)}
-.sum__aside{font-size:30px;line-height:1.3;color:var(--ink-2)}
-.sum__row--hero{position:relative;z-index:1;background:var(--bf);border-color:var(--bf);margin:0 -36px;padding:24px 36px}
-.sum__row--hero + .sum__row{border-top-color:var(--bf)}
-.sum__row--hero .sum__num,.sum__row--hero .sum__msg{color:#fff}
-.sum__row--hero .label{color:var(--bf-850)}
-.sum__big{display:flex;align-items:baseline;gap:18px;white-space:nowrap;color:#fff}
-.sum__big .pre{font-size:30px;color:var(--bf-850)}
-.sum__big .fig{font-size:120px;line-height:.85;font-weight:700;letter-spacing:-.03em}
 
 /* ---------- 3 · Outillage ---------- */
-/* Les deux voies partagent les mêmes lignes (subgrid) : titres, « Pour qui » et cartes alignés */
-.o-grid{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 470px 380px;grid-template-rows:auto auto auto minmax(0,1fr) auto auto;column-gap:28px}
-.o-route{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;padding:30px 34px 32px}
+/* Deux modèles de paiement face à face, rubriques alignées d’une colonne à l’autre (subgrid) */
+.o-grid{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 330px;grid-template-rows:auto auto auto auto minmax(0,1fr) auto auto;column-gap:28px}
+.o-route{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;padding:20px 34px 24px;border-top:8px solid}
 .o-route > *{min-width:0}
-.o-route--main{background:var(--bf);color:#fff}
-.o-route--alt{background:var(--alt)}
-.o-route .label{color:var(--bf-850)}
-.o-route--alt .label{color:var(--ink-3)}
-.o-route__name{grid-row:2;align-self:center;display:flex;align-items:center;gap:18px;margin-top:8px;font-size:54px;line-height:1.1;letter-spacing:-.015em;color:#fff}
-.o-route__name .ico{font-size:.88em}
-.o-route--alt .o-route__name{font-size:36px;line-height:1.15;color:var(--ink)}
-.o-route__desc{grid-row:3;margin-top:10px;font-size:30px;line-height:1.3;color:var(--bf-925)}
-.o-route--alt .o-route__desc{font-size:28px;color:var(--ink-2)}
-.o-route__for{grid-row:5;padding-top:18px}
-.o-route__bottom{grid-row:6;margin-top:10px;display:flex;flex-direction:column;gap:14px}
-.o-who{display:flex;flex-direction:column;gap:14px}
-.o-who li{display:flex;align-items:flex-start;gap:16px;padding:18px 22px;background:#fff;color:var(--ink);font-size:31px;line-height:1.25}
-.o-who .ico{font-size:36px;color:var(--bf)}
-.o-route--alt .o-who .ico{color:var(--ink-2)}
-.o-who small{display:block;margin-top:4px;font-size:26px;line-height:1.3;color:var(--ink-3)}
-.o-warn{display:flex;flex-direction:column;align-items:flex-start;gap:8px;font-size:28px;line-height:1.3;color:var(--ink)}
-.o-pc{grid-row:1 / -1;grid-column:3;display:flex;flex-direction:column;gap:26px;padding:30px 32px 32px;border:2px solid var(--bf-850)}
+.o-route--main{background:var(--bf);border-top-color:var(--bf);color:#fff}
+.o-route--sub{background:var(--orange-975);border-top-color:var(--orange-645);color:var(--ink)}
+.o-pay{grid-row:1;display:flex;align-items:center;gap:18px;font-size:52px;line-height:1.05;letter-spacing:-.02em}
+.o-pay .ico{font-size:.82em}
+.o-route--main .o-pay{color:#fff}
+.o-route--sub .o-pay{color:var(--warn)}
+.o-how{grid-row:2;margin-top:10px;font-size:29px;line-height:1.28}
+.o-route--main .o-how{color:var(--bf-925)}
+.o-what{grid-row:4;margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.35)}
+.o-route--sub .o-what{border-top-color:var(--orange-850)}
+.o-what__name{display:flex;align-items:center;gap:14px;font-size:38px;line-height:1.15;font-weight:700}
+.o-route--main .o-what__name{color:#fff}
+.o-route--sub .o-what__name .ico{color:var(--warn)}
+.o-what__desc{margin-top:6px;font-size:27px;line-height:1.3}
+.o-route--main .o-what__desc{color:var(--bf-925)}
+.o-route--sub .o-what__desc{color:var(--ink-2)}
+.o-for{grid-row:6;padding-top:8px}
+.o-route--main .o-for{color:var(--bf-850)}
+.o-who{grid-row:7;margin-top:8px;display:flex;flex-direction:column;gap:12px}
+.o-who li{display:flex;align-items:flex-start;gap:16px;padding:11px 20px;background:#fff;color:var(--ink);font-size:28px;line-height:1.25}
+.o-who .ico{font-size:32px;color:var(--bf)}
+.o-route--sub .o-who .ico{color:var(--warn)}
+.o-who small{font-size:24px;line-height:1.3;color:var(--ink-3)}
+.o-term{grid-row:3;margin-top:14px;font-size:27px;line-height:1.4}
+.o-term .badge{margin:-4px 12px 0 0}
+.o-route--main .o-term{color:#fff}
+.o-route--sub .badge--warn{background:var(--warn);color:#fff}
+.o-pc{grid-row:1 / -1;grid-column:3;display:flex;flex-direction:column;gap:26px;padding:30px 30px 32px;border:2px solid var(--bf-850)}
 .o-pc__title{display:flex;align-items:flex-start;gap:14px;font-size:34px;line-height:1.15}
 .o-pc__title .ico{font-size:42px;color:var(--bf);margin-top:-2px}
 .o-steps{flex:1;display:flex;flex-direction:column;justify-content:center;gap:44px;padding-left:40px}
-.o-step{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;font-size:30px;line-height:1.28;color:var(--ink)}
+.o-step{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;font-size:29px;line-height:1.28;color:var(--ink);text-wrap:balance}
 .o-step::before{content:"";position:absolute;left:-40px;top:7px;width:22px;height:22px;background:var(--bf);border:4px solid var(--bf)}
 .o-step--todo::before{background:#fff}
 .o-step:not(:last-child)::after{content:"";position:absolute;left:-31px;top:29px;bottom:-51px;width:4px;background:var(--bf-850)}
 
 /* ---------- 4 · Formation ---------- */
-.f-grid{flex:1;min-height:0;display:grid;grid-template-columns:540px minmax(0,1fr);column-gap:56px}
-.f-risk{display:flex;flex-direction:column;gap:14px}
-.f-chain{flex:1;display:flex;flex-direction:column}
-.f-chain li{flex:1 1 0;display:flex;align-items:center;gap:16px;padding:16px 26px;background:var(--alt);font-size:30px;line-height:1.28;color:var(--ink-2)}
-.f-chain li.f-chain__arrow{flex:none;align-self:center;width:44px;height:44px;margin:10px 0;padding:0;background:var(--ink-3);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat;transform:rotate(90deg)}
-.f-chain__quote{font-style:italic;color:var(--ink)!important}
-.f-chain__end{background:var(--ink)!important;color:#fff!important}
+/* En haut le risque (chaîne de cause à effet), en bas la réponse en quatre étapes alignées (subgrid) */
+.f-wrap{flex:1;min-height:0;display:flex;flex-direction:column;gap:22px}
+.f-risk{flex:none;display:grid;grid-template-columns:170px minmax(0,1fr);column-gap:30px;align-items:center}
+.f-risk__label{font-size:24px;line-height:1.3;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--warn)}
+.f-chain{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr) minmax(0,1.5fr);column-gap:60px}
+.f-chain li{position:relative;display:flex;align-items:center;gap:16px;padding:12px 24px;background:var(--alt);font-size:26px;line-height:1.25;color:var(--ink-2)}
+.f-chain li:not(:last-child)::after{content:"";position:absolute;right:-48px;top:50%;width:36px;height:36px;margin-top:-18px;background:var(--ink-3);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat}
+.f-chain li.f-chain__quote{font-style:italic;color:var(--ink)}
+.f-chain li.f-chain__end{background:var(--warn);color:#fff}
 .f-chain__end strong{color:#fff}
 .f-chain__end .ico{font-size:40px}
-.f-ans{display:flex;flex-direction:column;min-height:0}
-.f-ans > .label{color:var(--bf)}
-.f-ans__goal{margin-top:6px;padding-bottom:16px;border-bottom:4px solid var(--bf);font-size:34px;line-height:1.25;font-weight:700;color:var(--bf);text-wrap:balance}
-.f-steps{flex:1;display:flex;flex-direction:column}
-.f-step{flex:1;display:grid;grid-template-columns:52px minmax(0,1fr);column-gap:22px;align-items:center;border-bottom:1px solid var(--line);padding:12px 0}
-.f-step:last-child{border-bottom:0}
-.f-num{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--bf);color:#fff;font-size:28px;font-weight:700}
+.f-ans{flex:1;min-height:0;display:flex;flex-direction:column}
+.f-ans__head{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 28px;padding-bottom:10px;border-bottom:4px solid var(--bf)}
+.f-ans__head .label{color:var(--bf)}
+.f-ans__goal{font-size:34px;line-height:1.2;font-weight:700;color:var(--bf)}
+.f-steps{flex:1;min-height:0;margin-top:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto auto minmax(0,1fr) auto;column-gap:24px}
+.f-step{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;padding:18px 26px 20px;background:var(--bf-975);border-top:6px solid var(--bf)}
+.f-step > *{min-width:0}
+.f-step__head{display:flex;align-items:center;gap:16px}
+.f-num{display:inline-grid;place-items:center;flex:none;width:48px;height:48px;border-radius:50%;background:var(--bf);color:#fff;font-size:26px;font-weight:700}
+.f-verb{font-size:37px;line-height:1.1;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.f-step__what{margin-top:12px;font-size:27px;line-height:1.28;color:var(--ink-2)}
+.f-shift{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.f-shift .ico{font-size:28px;color:var(--bf);transform:rotate(90deg)}
+.f-shift .to{font-weight:700;color:var(--bf)}
+.f-step__who{grid-row:4;margin-top:10px;padding-top:10px;border-top:1px solid var(--bf-850);display:flex;flex-direction:column;align-items:flex-start;gap:2px;font-size:25px;line-height:1.25;color:var(--ink)}
+.f-step__who .label{font-size:19px;color:var(--bf)}
+.f-step__who strong{color:var(--bf)}
+.f-step.is-todo{background:#fff;border:2px dashed var(--bf-525);border-top:6px solid var(--bf-850)}
 .f-step.is-todo .f-num{background:#fff;color:var(--bf);border:3px dashed var(--bf)}
-.f-step__body{display:flex;flex-direction:column;gap:8px}
-.f-step h4{display:flex;align-items:center;flex-wrap:wrap;gap:16px;font-size:33px;line-height:1.2}
-.f-step p{font-size:29px;line-height:1.3;color:var(--ink-2)}
-.f-chips{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
-.f-chips span{padding:3px 14px;border-radius:999px;background:var(--bf-925);color:var(--bf);font-size:24px;line-height:1.4;font-weight:500}
-.f-chips .ico{font-size:30px;color:var(--bf)}
-.f-chips .from{border-radius:0;background:var(--bf-975);color:var(--ink-2);border:1px solid var(--bf-850);font-size:27px}
-.f-chips .to{border-radius:0;background:var(--bf);color:#fff;font-weight:700;font-size:27px}
-.f-chips .ref{border-radius:0;background:var(--bf-975);border:1px solid var(--bf-925);color:var(--ink-2);font-size:27px}
-.f-chips .ref strong{color:var(--bf)}
 
-/* ---------- 5 · Impact ---------- */
-.i-main{flex:1;min-height:0;display:grid;grid-template-columns:500px minmax(0,1fr);column-gap:44px}
-.i-velo{display:flex;flex-direction:column;padding:26px 34px 28px;background:var(--bf);color:#fff}
-.i-velo .label{color:var(--bf-850)}
-.i-velo__team{margin-top:12px;font-size:30px;font-weight:700;color:#fff}
-.i-velo__fig{display:flex;align-items:baseline;gap:16px;white-space:nowrap}
-.i-velo__pre{font-size:30px;color:var(--bf-850)}
-.i-velo__num{font-size:128px;line-height:.95;font-weight:700;letter-spacing:-.03em}
-.i-velo__cap{margin-top:4px;font-size:28px;line-height:1.3;color:#fff}
-.i-velo__goal{margin-top:8px;font-size:30px;line-height:1.2;color:var(--bf-850)}
-.i-velo__goal strong{color:#fff;font-size:40px;letter-spacing:-.01em}
-.i-teams{margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,.35);display:flex;flex-direction:column;gap:8px}
-.i-teams li{font-size:26px;line-height:1.3;color:var(--bf-925);text-wrap:balance}
-.i-teams strong{color:#fff}
-.i-skills{display:flex;flex-direction:column;min-height:0}
-.i-skills__head{padding-bottom:10px;border-bottom:3px solid var(--bf);font-size:34px;line-height:1.2}
-.i-rows{flex:1;display:flex;flex-direction:column}
-.i-rows li{flex:1;display:grid;grid-template-columns:252px minmax(0,1fr);column-gap:24px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
-.i-rows li:last-child{border-bottom:0}
-.i-who{display:grid;grid-template-columns:42px minmax(0,1fr);column-gap:10px;align-items:center;line-height:1.2}
-.i-who .ico{font-size:32px;color:var(--bf)}
-.i-who strong{font-size:30px}
-.i-who small{grid-column:2;font-size:24px;color:var(--ink-3)}
-.i-what{font-size:29px;line-height:1.3;color:var(--ink-2)}
-.i-what .badge{margin:0 8px 0 4px}
-.i-vig{flex:none;display:flex;align-items:center;gap:22px;margin-top:22px;padding:16px 26px;background:var(--warn-bg);border-left:6px solid var(--warn);font-size:28px;line-height:1.3;color:var(--ink)}
-.i-vig .badge{background:#fff}
+/* ---------- 5 · Adoption (référents IA) ---------- */
+.a-grid{flex:1;min-height:0;display:grid;grid-template-columns:520px minmax(0,1fr);column-gap:48px}
+.a-how{display:flex;flex-direction:column;padding:28px 34px 30px;background:var(--bf);color:#fff}
+.a-how > .label{color:var(--bf-850)}
+.a-steps{flex:1;display:flex;flex-direction:column}
+.a-step{position:relative;flex:1;display:grid;grid-template-columns:76px minmax(0,1fr);column-gap:22px;align-items:center}
+.a-step:not(:last-child)::after{content:"";position:absolute;left:22px;bottom:-16px;width:32px;height:32px;background:var(--bf-850);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat;transform:rotate(90deg)}
+.a-step__ico{display:grid;place-items:center;width:76px;height:76px;background:#fff}
+.a-step__ico .ico{font-size:44px;color:var(--bf)}
+.a-step h4{font-size:31px;line-height:1.18;color:#fff;text-wrap:balance}
+.a-step p{margin-top:6px;font-size:26px;line-height:1.3;color:var(--bf-925)}
+.a-step .badge{margin-left:6px}
+.a-refs{display:flex;flex-direction:column;min-height:0}
+.a-refs__head,.a-refs li{display:grid;grid-template-columns:290px minmax(0,1fr) 160px;column-gap:30px;align-items:center}
+.a-refs__head{padding-bottom:10px;border-bottom:3px solid var(--bf)}
+.a-refs__head .label{color:var(--bf)}
+.a-refs ul{flex:1;display:flex;flex-direction:column}
+.a-refs li{flex:1;border-bottom:1px solid var(--line)}
+.a-refs li:last-child{border-bottom:0}
+.a-who{display:grid;grid-template-columns:50px minmax(0,1fr);column-gap:14px;align-items:center;line-height:1.15}
+.a-who .ico{grid-row:span 2;font-size:40px;color:var(--bf)}
+.a-who strong{font-size:36px;color:var(--bf)}
+.a-who small{font-size:24px;color:var(--ink-3)}
+.a-what{font-size:28px;line-height:1.3;color:var(--ink);text-wrap:balance}
 
-/* ---------- 6 · Complémentarité ---------- */
+/* ---------- 6 · Impact ---------- */
+/* Métier par métier : d’où l’on part -> aujourd’hui -> la suite ; la flèche verte marque l’apport de l’accompagnement */
+.nw{white-space:nowrap}
+.p-chart{flex:1;min-height:0;display:flex;flex-direction:column}
+.p-head,.p-row{display:grid;grid-template-columns:270px minmax(0,.8fr) 40px minmax(0,1.5fr) 40px minmax(0,.95fr);column-gap:12px}
+.p-head{align-items:end;padding-bottom:10px;border-bottom:3px solid var(--bf)}
+.p-head .label{font-size:21px}
+.p-head .p-h-now{color:var(--ok)}
+.p-head .p-h-next{color:var(--todo)}
+.p-rows{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;padding-top:12px}
+.p-row{flex:1 1 auto}
+.p-who{display:flex;align-items:center;gap:14px;line-height:1.15}
+.p-who .ico{font-size:34px;color:var(--bf)}
+.p-who strong{display:block;font-size:29px}
+.p-who small{display:block;margin-top:2px;font-size:23px;color:var(--ink-3);white-space:nowrap}
+.p-from,.p-now,.p-next{display:flex;align-items:center;padding:8px 20px;font-size:25px;line-height:1.25;text-wrap:balance}
+.p-from{background:var(--alt);color:var(--ink-3)}
+.p-now{background:#dffee6;border-left:6px solid var(--ok);color:var(--ink);font-size:26px;font-weight:500}
+.p-now strong{color:var(--ok)}
+.p-next{background:#fff;border:2px dashed var(--todo);color:var(--ink-2)}
+.p-arrow{align-self:center;justify-self:center;width:32px;height:32px;background:var(--ok);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat}
+.p-arrow--next{background:var(--todo)}
+.m-vig{flex:none;display:flex;align-items:center;gap:22px;margin-top:18px;padding:16px 26px;background:var(--warn-bg);border-left:6px solid var(--warn);font-size:28px;line-height:1.3;color:var(--ink)}
+.m-vig .badge{background:#fff}
+
+/* ---------- 7 · Complémentarité ---------- */
 .c-stack{flex:1;min-height:0;display:flex;flex-direction:column-reverse}
 .c-layer{display:grid;grid-template-columns:360px minmax(0,1fr);column-gap:44px;align-items:center;padding:20px 40px}
 .c-id{display:flex;flex-direction:column;gap:6px}
 .c-id__row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .c-name{font-size:46px;line-height:1.1;letter-spacing:-.01em}
+.c-who{font-size:28px;line-height:1.25;color:var(--bf-925)}
+.c-who strong{color:#fff}
 .c-layer--socle{background:var(--bf);color:#fff}
 .c-layer--socle .c-name{color:#fff}
 .c-layer--socle .label{color:var(--bf-850)}
@@ -223,7 +252,7 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .c-link{flex:none;height:40px;position:relative}
 .c-link::before{content:"";position:absolute;left:58px;top:4px;bottom:4px;width:32px;background:var(--bf);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat;transform:rotate(-90deg)}
 
-/* ---------- 7 · Prochaines étapes ---------- */
+/* ---------- 8 · Prochaines étapes ---------- */
 .n-grid{flex:1;min-height:0;display:grid;grid-template-columns:500px minmax(0,1fr);column-gap:56px}
 .n-date{display:flex;flex-direction:column;justify-content:center;gap:14px;padding:40px 40px 44px;background:var(--bf);color:#fff}
 .n-date .label{display:flex;align-items:center;gap:12px;color:var(--bf-850)}
@@ -279,7 +308,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
 <body>
 <svg class="sprite" aria-hidden="true" focusable="false"><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M15.596 2.999a7 7 0 0 1 3.396 6.34A6 6 0 0 1 17 21H7A6 6 0 0 1 5.008 9.339a7 7 0 0 1 10.588-6.34ZM9.36 4.752a5 5 0 0 0-2.354 4.491l.07 1.488-1.404.494A4.002 4.002 0 0 0 7 19h10a4 4 0 1 0-3.796-5.265l-1.898-.633A6.003 6.003 0 0 1 17 9a5 5 0 0 0-7.64-4.248Z"/></symbol><symbol id="i-team" viewBox="0 0 24 24"><path d="M12 11a5 5 0 0 1 5 5v6h-2v-6a3 3 0 0 0-2.824-2.995L12 13a3 3 0 0 0-2.995 2.824L9 16v6H7v-6a5 5 0 0 1 5-5Zm-6.5 3c.279 0 .55.033.81.094a5.947 5.947 0 0 0-.301 1.575L6 16v.086a1.492 1.492 0 0 0-.356-.08L5.5 16a1.5 1.5 0 0 0-1.493 1.356L4 17.5V22H2v-4.5A3.5 3.5 0 0 1 5.5 14Zm13 0a3.5 3.5 0 0 1 3.5 3.5V22h-2v-4.5a1.5 1.5 0 0 0-1.356-1.493L18.5 16c-.175 0-.343.03-.5.085V16c0-.666-.108-1.306-.309-1.904A3.42 3.42 0 0 1 18.5 14Zm-13-6a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm-13 2a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Zm13 0a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1ZM12 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M12 14a8 8 0 0 1 8 8h-2a6 6 0 1 0-12 0H4a8 8 0 0 1 8-8Zm0-13c3.315 0 6 2.685 6 6s-2.685 6-6 6-6-2.685-6-6 2.685-6 6-6Zm0 2C9.79 3 8 4.79 8 7s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4Z"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><path d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0v1ZM5 12v8h14v-8H5Zm6 2h2v4h-2v-4Zm6-4V9A5 5 0 1 0 7 9v1h10Z"/></symbol><symbol id="i-code" viewBox="0 0 24 24"><path d="m24 12-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12ZM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12Zm6.96 9H7.66l6.552-18h2.128L9.788 21Z"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 1a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4V2a1 1 0 0 1 1-1h8Zm4 15H4v3h16v-3Zm0-9H4v7h16V7Zm-7 4v2h-2v-2h2Zm2-8H9v2h6V3Z"/></symbol><symbol id="i-computer" viewBox="0 0 24 24"><path d="M21.008 3c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13v2h4v2H7v-2h4v-2H2.992A.998.998 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016ZM20 5H4v11h16V5Z"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="m10 15.172 9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414 4.95 4.95Z"/></symbol><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="m16.172 11-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2h12.172Z"/></symbol><symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828Z"/></symbol><symbol id="i-server" viewBox="0 0 24 24"><path d="M20 3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h16Zm-1 10H5v6h14v-6Zm-9 2v2H7v-2h3Zm9-10H5v6h14V5Zm-9 2v2H7V7h3Z"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 1 8.217 1.826a1 1 0 0 1 .783.976v9.987a6 6 0 0 1-2.672 4.992L12 23l-6.328-4.219A6 6 0 0 1 3 13.79V3.802a1 1 0 0 1 .783-.976L12 1Zm0 2.05L5 4.604v9.185a4 4 0 0 0 1.781 3.328L12 20.597l5.219-3.48A4 4 0 0 0 19 13.79V4.604L12 3.05Z"/></symbol><symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M9.973 18H11v-5h2v5h1.027c.132-1.202.745-2.194 1.74-3.277.113-.122.832-.867.917-.973a6 6 0 1 0-9.37-.002c.086.107.807.853.918.974.996 1.084 1.609 2.076 1.741 3.278ZM10 20v1h4v-1h-4Zm-4.246-5a8 8 0 1 1 12.49.002C17.624 15.774 16 17 16 18.5V21a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.5C8 17 6.375 15.774 5.754 15Z"/></symbol><symbol id="i-compasses" viewBox="0 0 24 24">
 <path d="M16.3303 13.4969C17.9562 12.215 19 10.2277 19 7.99658H21C21 10.9686 19.5595 13.6042 17.3385 15.2431L19.8661 19.621C20.4183 20.5775 20.0906 21.8007 19.134 22.353L15.6073 16.2446C14.5029 16.7282 13.2828 16.9966 12 16.9966C10.7172 16.9966 9.49712 16.7282 8.39278 16.2446L4.86606 22.353C3.90947 21.8007 3.58172 20.5775 4.13401 19.621L9.19751 10.8507C8.45844 10.1249 8.00003 9.11427 8.00003 7.99658C8.00003 6.13274 9.2748 4.56664 11 4.1226V1.99658H13V4.1226C14.7253 4.56664 16 6.13274 16 7.99658C16 9.11427 15.5416 10.1249 14.8025 10.8507L16.3303 13.4969ZM14.599 14.4982L13.071 11.8516C12.7302 11.9461 12.371 11.9966 12 11.9966C11.6291 11.9966 11.2699 11.9461 10.929 11.8516L9.40101 14.4982C10.2046 14.8197 11.0817 14.9966 12 14.9966C12.9184 14.9966 13.7955 14.8197 14.599 14.4982ZM12 9.99658C13.1046 9.99658 14 9.10115 14 7.99658C14 6.89201 13.1046 5.99658 12 5.99658C10.8955 5.99658 10 6.89201 10 7.99658C10 9.10115 10.8955 9.99658 12 9.99658Z"/>
-</symbol><symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 2c5.522 0 10 3.978 10 8.889a5.558 5.558 0 0 1-5.556 5.555h-1.966c-.922 0-1.667.745-1.667 1.667 0 .422.167.811.422 1.1.267.3.434.689.434 1.122C13.667 21.256 12.9 22 12 22 6.478 22 2 17.522 2 12S6.478 2 12 2Zm0 2a8 8 0 0 0-.676 15.972 3.648 3.648 0 0 1-.513-1.86v-.001a3.664 3.664 0 0 1 3.667-3.667h1.966A3.558 3.558 0 0 0 20 10.89C20 7.139 16.468 4 12 4ZM7.5 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm9 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/></symbol><symbol id="i-roadmap" viewBox="0 0 24 24"><path d="M21.775 4.341A.5.5 0 0 1 22 4.76V19l-7 3-6-3-6.303 2.701a.5.5 0 0 1-.697-.46V7l2-.857v12.824l5.065-2.17 6 3L20 17.68V4.857l1.303-.558a.5.5 0 0 1 .472.042Zm-5.532-1.583a6 6 0 0 1 0 8.485L12 15.485l-4.243-4.242a6 6 0 0 1 8.486-8.485ZM12 2.999a4 4 0 0 0-2.828 6.829L12 12.657l2.828-2.829A4 4 0 0 0 12 2.999Z"/></symbol><symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2Zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm1 11v2h-2v-2h2Zm0-8v6h-2V7h2Z"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M9 1v2h6V1h2v2h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4V1h2Zm11 10H4v8h16v-8Zm-9 2v4H6v-4h5ZM7 5H4v4h16V5h-3v2h-2V5H9v2H7V5Z"/></symbol></svg>
+</symbol><symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 2c5.522 0 10 3.978 10 8.889a5.558 5.558 0 0 1-5.556 5.555h-1.966c-.922 0-1.667.745-1.667 1.667 0 .422.167.811.422 1.1.267.3.434.689.434 1.122C13.667 21.256 12.9 22 12 22 6.478 22 2 17.522 2 12S6.478 2 12 2Zm0 2a8 8 0 0 0-.676 15.972 3.648 3.648 0 0 1-.513-1.86v-.001a3.664 3.664 0 0 1 3.667-3.667h1.966A3.558 3.558 0 0 0 20 10.89C20 7.139 16.468 4 12 4ZM7.5 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm9 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/></symbol><symbol id="i-roadmap" viewBox="0 0 24 24"><path d="M21.775 4.341A.5.5 0 0 1 22 4.76V19l-7 3-6-3-6.303 2.701a.5.5 0 0 1-.697-.46V7l2-.857v12.824l5.065-2.17 6 3L20 17.68V4.857l1.303-.558a.5.5 0 0 1 .472.042Zm-5.532-1.583a6 6 0 0 1 0 8.485L12 15.485l-4.243-4.242a6 6 0 0 1 8.486-8.485ZM12 2.999a4 4 0 0 0-2.828 6.829L12 12.657l2.828-2.829A4 4 0 0 0 12 2.999Z"/></symbol><symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2Zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm1 11v2h-2v-2h2Zm0-8v6h-2V7h2Z"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M9 1v2h6V1h2v2h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4V1h2Zm11 10H4v8h16v-8Zm-9 2v4H6v-4h5ZM7 5H4v4h16V5h-3v2h-2V5H9v2H7V5Z"/></symbol><symbol id="i-euro" viewBox="0 0 24 24"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2Zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm3.815 4.457L14.114 9.59A2.5 2.5 0 0 0 10.05 11H15v2h-4.95a2.5 2.5 0 0 0 4.064 1.41l1.7 1.133A4.5 4.5 0 0 1 8.028 13H7v-2h1.027a4.5 4.5 0 0 1 7.788-2.543Z"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M5.46 4.43a10 10 0 0 1 14.73 13.3L17 12.01h3A8 8 0 0 0 6.46 6.23l-1-1.8zm13.08 15.14A10 10 0 0 1 3.8 6.27L7 11.99H4a8 8 0 0 0 13.54 5.77l1 1.8z"/></symbol><symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M9 17C9 17 16 18 19 21H20C20.5523 21 21 20.5523 21 20V13.937C21.8626 13.715 22.5 12.9319 22.5 12C22.5 11.0681 21.8626 10.285 21 10.063V4C21 3.44772 20.5523 3 20 3H19C16 6 9 7 9 7H5C3.89543 7 3 7.89543 3 9V15C3 16.1046 3.89543 17 5 17H6L7 22H9V17ZM11 8.6612C11.6833 8.5146 12.5275 8.31193 13.4393 8.04373C15.1175 7.55014 17.25 6.77262 19 5.57458V18.4254C17.25 17.2274 15.1175 16.4499 13.4393 15.9563C12.5275 15.6881 11.6833 15.4854 11 15.3388V8.6612ZM5 9H9V15H5V9Z"/></symbol><symbol id="i-user-star" viewBox="0 0 24 24"><path d="m18 14 1.47 2.977 3.285.478-2.377 2.318.56 3.272L18 21.5l-2.939 1.545.561-3.272-2.377-2.318 3.286-.478L18 14Zm-6 0v2a6 6 0 0 0-6 6H4a8 8 0 0 1 8-8Zm0-13c3.315 0 6 2.685 6 6s-2.685 6-6 6-6-2.685-6-6 2.685-6 6-6Zm0 2C9.79 3 8 4.79 8 7s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4Z"/></symbol><symbol id="i-group" viewBox="0 0 24 24"><path d="M10 14a8 8 0 0 1 8 8h-2a6 6 0 1 0-12 0H2a8 8 0 0 1 8-8Zm8.284.703A8.002 8.002 0 0 1 23 22h-2a6.001 6.001 0 0 0-3.537-5.473l.82-1.824h.001Zm-.688-11.29A5.5 5.5 0 0 1 21 8.5a5.499 5.499 0 0 1-5 5.478v-2.013a3.5 3.5 0 0 0 1.041-6.609l.555-1.943ZM10 1c3.315 0 6 2.685 6 6s-2.685 6-6 6-6-2.685-6-6 2.685-6 6-6Zm0 2C7.79 3 6 4.79 6 7s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4Z"/></symbol><symbol id="i-presentation" viewBox="0 0 24 24"><path d="M8 4C8 5.10457 7.10457 6 6 6C4.89543 6 4 5.10457 4 4C4 2.89543 4.89543 2 6 2C7.10457 2 8 2.89543 8 4ZM5 16V22H3V10C3 8.34315 4.34315 7 6 7C6.82059 7 7.56423 7.32946 8.10585 7.86333L10.4803 10.1057L12.7931 7.79289L14.2073 9.20711L10.5201 12.8943L9 11.4587V22H7V16H5ZM6 9C5.44772 9 5 9.44772 5 10V14H7V10C7 9.44772 6.55228 9 6 9ZM19 5H10V3H20C20.5523 3 21 3.44772 21 4V15C21 15.5523 20.5523 16 20 16H16.5758L19.3993 22H17.1889L14.3654 16H10V14H19V5Z"/></symbol></svg>
 <main class="deck" aria-roledescription="diaporama" aria-label="Stratégie IA : point d’étape">
 <div class="stage">
 
@@ -331,10 +360,10 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         <div><p class="label">Formation</p><p class="sum__msg">Des agents formés pour réussir avec des outils souverains</p></div>
         <p class="sum__aside">Trois référents IA&nbsp;: architectes, designers, CDP</p>
       </li>
-      <li class="sum__row sum__row--hero">
+      <li class="sum__row">
         <span class="sum__num" aria-hidden="true">03</span>
-        <div><p class="label">Impact</p><p class="sum__msg">Vélocité perçue des développeurs de DACCORD, en un mois</p><p class="sum__sub">Objectif&nbsp;: ×&nbsp;10</p></div>
-        <p class="sum__aside sum__big"><span class="pre">plus de</span><span class="fig"><span class="x">×</span>3</span></p>
+        <div><p class="label">Impact</p><p class="sum__msg">Les développeurs passent de la découverte à l’orchestration</p></div>
+        <p class="sum__aside">Vélocité mesurée avant le 27&nbsp;novembre</p>
       </li>
       <li class="sum__row">
         <span class="sum__num" aria-hidden="true">04</span>
@@ -347,7 +376,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <aside class="notes">
     <ul>
       <li>Une ligne par volet&#8239;; chacune est détaillée dans la slide du volet.</li>
-      <li>Le chiffre de DACCORD est une vélocité perçue par les développeurs, en un mois d’accompagnement. Les mesures de VAO et d’Honorabilité arrivent avant le 27 novembre.</li>
+      <li>Impact&nbsp;: DACCORD optimise ses orchestrations, VAO et Honorabilité les démarrent. Les mesures de vélocité de VAO et d’Honorabilité arrivent avant le 27 novembre.</li>
     </ul>
   </aside>
 </section>
@@ -362,26 +391,31 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <div class="s-body">
     <div class="o-grid">
       <section class="o-route o-route--main" aria-labelledby="o-a">
-        <p class="label">Payé au token · souverain, conforme RGPD</p>
-        <h3 class="o-route__name" id="o-a"><svg class="ico" aria-hidden="true"><use href="#i-cloud"/></svg>Modèles Scaleway</h3>
-        <p class="o-route__desc">Pertinence vérifiée par nos benchmarks</p>
-        <p class="label o-route__for">Pour qui</p>
-        <ul class="o-who o-route__bottom">
+        <h3 class="o-pay" id="o-a"><svg class="ico" aria-hidden="true"><use href="#i-euro"/></svg>Payé au token</h3>
+        <p class="o-how">On paie ce qu’on consomme</p>
+        <p class="o-term"><span class="badge badge--ok">Long terme</span>Souverain, conforme RGPD, donc pérenne</p>
+        <div class="o-what">
+          <p class="o-what__name"><svg class="ico" aria-hidden="true"><use href="#i-cloud"/></svg>Modèles Scaleway</p>
+          <p class="o-what__desc">Pertinence vérifiée par nos benchmarks</p>
+        </div>
+        <p class="label o-for">Pour qui</p>
+        <ul class="o-who">
           <li><svg class="ico" aria-hidden="true"><use href="#i-team"/></svg><span>Les internes</span></li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg><span>Les externes sur des sujets sensibles<small>à tenir loin des puissances étrangères</small></span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg><span>Les externes sur des sujets sensibles, <small>à tenir loin des puissances étrangères</small></span></li>
         </ul>
       </section>
-      <section class="o-route o-route--alt" aria-labelledby="o-b">
-        <p class="label">Abonnement</p>
-        <h3 class="o-route__name" id="o-b">Leurs propres outils IA, à leurs frais</h3>
-        <p class="o-route__desc">Aujourd’hui, plus d’IA consommée que payée</p>
-        <p class="label o-route__for">Pour qui</p>
-        <div class="o-route__bottom">
-          <ul class="o-who">
-            <li><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><span>Les externes sur des sujets open source</span></li>
-          </ul>
-          <p class="o-warn"><span class="badge badge--warn">Court terme</span>Non pérenne si ces abonnements disparaissent</p>
+      <section class="o-route o-route--sub" aria-labelledby="o-b">
+        <h3 class="o-pay" id="o-b"><svg class="ico" aria-hidden="true"><use href="#i-warning"/></svg>Abonnement</h3>
+        <p class="o-how">Un forfait&nbsp;: aujourd’hui, on consomme plus d’IA qu’on n’en paie</p>
+        <p class="o-term"><span class="badge badge--warn">Court terme</span>Non pérenne si ces abonnements disparaissent</p>
+        <div class="o-what">
+          <p class="o-what__name"><svg class="ico" aria-hidden="true"><use href="#i-briefcase"/></svg>Leurs propres outils IA</p>
+          <p class="o-what__desc">À leurs frais</p>
         </div>
+        <p class="label o-for">Pour qui</p>
+        <ul class="o-who">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><span>Les externes sur des sujets open source</span></li>
+        </ul>
       </section>
       <section class="o-pc" aria-labelledby="o-pc">
         <h3 class="o-pc__title" id="o-pc"><svg class="ico" aria-hidden="true"><use href="#i-computer"/></svg>PC Windows du ministère</h3>
@@ -411,48 +445,40 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <p class="lead"><b>Le défi&nbsp;:</b> des agents performants avec l’IA, sans shadow IA ni outils américains clés en main.</p>
   </div>
   <div class="s-body">
-    <div class="f-grid">
+    <div class="f-wrap">
       <section class="f-risk" aria-labelledby="f-risk">
-        <h3 class="label" id="f-risk">Sans formation</h3>
+        <h3 class="f-risk__label" id="f-risk">Sans formation</h3>
         <ol class="f-chain">
           <li>On se contente des outils américains clés en main</li>
-          <li class="f-chain__arrow" aria-hidden="true"></li>
           <li class="f-chain__quote">«&nbsp;Ça ne marche que sur Claude&nbsp;»</li>
-          <li class="f-chain__arrow" aria-hidden="true"></li>
           <li class="f-chain__end"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg><span><strong>Dépendance (<span style="white-space:nowrap">vendor lock-in</span>)&nbsp;:</strong> si une puissance étrangère l’impose, on repart de zéro</span></li>
         </ol>
       </section>
       <section class="f-ans" aria-labelledby="f-ans">
-        <h3 class="label" id="f-ans">Avec la formation</h3>
-        <p class="f-ans__goal">Des agents performants avec des outils souverains, donc pérennes</p>
+        <div class="f-ans__head">
+          <h3 class="label" id="f-ans">Avec la formation</h3>
+          <p class="f-ans__goal">Des agents performants avec des outils souverains, donc pérennes</p>
+        </div>
         <ol class="f-steps">
           <li class="f-step">
-            <span class="f-num">1</span>
-            <div class="f-step__body">
-              <h4>Acculturer</h4>
-              <p>Comprendre comment fonctionne l’IA, sans effet boîte noire</p>
-              <p class="f-chips"><span>CDP</span><span>Architectes</span><span>Développeurs</span><span>Un designer</span></p>
-            </div>
+            <p class="f-step__head"><span class="f-num">1</span><span class="f-verb">Acculturer</span></p>
+            <p class="f-step__what">Comprendre comment fonctionne l’IA, sans effet boîte noire</p>
+            <p class="f-step__who"><span class="label">Pour qui</span>CDP, architectes, développeurs, un designer</p>
           </li>
           <li class="f-step">
-            <span class="f-num">2</span>
-            <div class="f-step__body">
-              <h4>Accompagner les équipes de développement</h4>
-              <p class="f-chips"><span class="from">Usage léger, voire débutant</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg><span class="to">Maîtrise de l’état de l’art</span></p>
-            </div>
+            <p class="f-step__head"><span class="f-num">2</span><span class="f-verb">Accompagner</span></p>
+            <p class="f-step__what f-shift"><span>Usage léger, voire débutant</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg><span class="to">Maîtrise de l’état de l’art</span></p>
+            <p class="f-step__who"><span class="label">Pour qui</span>Les équipes de développement</p>
           </li>
           <li class="f-step">
-            <span class="f-num">3</span>
-            <div class="f-step__body">
-              <h4>Diffuser via des référents IA que nous accompagnons</h4>
-              <p class="f-chips"><span class="ref"><strong>Wissem</strong> architectes</span><span class="ref"><strong>Louis</strong> designers</span><span class="ref"><strong>Mathilda</strong> CDP</span></p>
-            </div>
+            <p class="f-step__head"><span class="f-num">3</span><span class="f-verb">Diffuser</span></p>
+            <p class="f-step__what">Par des référents IA que nous accompagnons, un par métier</p>
+            <p class="f-step__who"><span class="label">Référents</span><span><strong>Wissem</strong> · architectes</span><span><strong>Louis</strong> · designers</span><span><strong>Mathilda</strong> · CDP</span></p>
           </li>
           <li class="f-step is-todo">
-            <span class="f-num">4</span>
-            <div class="f-step__body">
-              <h4>Animer des webinaires sur l’IA <span class="badge badge--todo">À venir</span></h4>
-            </div>
+            <p class="f-step__head"><span class="f-num">4</span><span class="f-verb">Animer</span></p>
+            <p class="f-step__what">Des webinaires sur l’IA</p>
+            <p class="f-step__who"><span class="badge badge--todo">À venir</span></p>
           </li>
         </ol>
       </section>
@@ -469,51 +495,84 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   </aside>
 </section>
 
-<!-- ======================= 5 · IMPACT ======================= -->
-<section class="slide" data-title="Impact" aria-labelledby="t5">
-  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">03</span>Impact</p></header>
+<!-- ======================= 5 · ADOPTION (RÉFÉRENTS IA) ======================= -->
+<section class="slide" data-title="Adoption" aria-labelledby="t-adopt">
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">02</span>Formation · adoption</p></header>
   <div class="s-head">
-    <h2 class="title" id="t5">DACCORD&nbsp;: une vélocité perçue plus que triplée en un mois</h2>
-    <p class="lead"><b>Le défi&nbsp;:</b> passer du jouet à l’investissement rentable.</p>
+    <h2 class="title" id="t-adopt">Un référent IA par métier, pour que les usages se diffusent et durent</h2>
+    <p class="lead"><b>Le défi&nbsp;:</b> que la montée en compétence tienne dans la durée, dans chaque métier.</p>
   </div>
   <div class="s-body">
-    <div class="i-main">
-      <section class="i-velo" aria-labelledby="i-velo">
-        <h3 class="label" id="i-velo">Vélocité des équipes</h3>
-        <p class="i-velo__team">DACCORD · développeurs</p>
-        <p class="i-velo__fig"><span class="i-velo__pre">plus de</span><span class="i-velo__num"><span class="x">×</span>3</span></p>
-        <p class="i-velo__cap">de vélocité perçue, en un mois</p>
-        <p class="i-velo__goal">Objectif&nbsp;: <strong>×&nbsp;10</strong></p>
-        <ul class="i-teams">
-          <li><strong>VAO, Honorabilité&nbsp;:</strong> mesure avant le 27&nbsp;novembre</li>
-          <li><strong>Egapro&nbsp;:</strong> déjà augmentée</li>
-          <li><strong>SIRENA&nbsp;:</strong> équipe externe, non approchée</li>
-        </ul>
+    <div class="a-grid">
+      <section class="a-how" aria-labelledby="a-how">
+        <h3 class="label" id="a-how">La méthode</h3>
+        <ol class="a-steps">
+          <li class="a-step"><span class="a-step__ico"><svg class="ico" aria-hidden="true"><use href="#i-user-star"/></svg></span><div><h4>Accompagner un référent par métier</h4><p>Sur des cas d’usage concrets de son quotidien</p></div></li>
+          <li class="a-step"><span class="a-step__ico"><svg class="ico" aria-hidden="true"><use href="#i-group"/></svg></span><div><h4>Il diffuse auprès de ses pairs</h4><p>Il montre sa méthode, forme ses collègues</p></div></li>
+          <li class="a-step"><span class="a-step__ico"><svg class="ico" aria-hidden="true"><use href="#i-megaphone"/></svg></span><div><h4>Évangéliser <span class="nw">au-delà</span> des équipes</h4><p>Webinaires sur l’IA, instance de veille IA<span class="badge badge--todo">À venir</span></p></div></li>
+        </ol>
       </section>
-      <section class="i-skills" aria-labelledby="i-skills">
-        <h3 class="i-skills__head" id="i-skills">Maturité IA, métier par métier</h3>
-        <ul class="i-rows">
-          <li><p class="i-who"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><strong>Développement</strong><small>DACCORD, VAO, Honorabilité</small></p><p class="i-what">De la découverte de l’IA vers l’usage à l’état de l’art</p></li>
-          <li><p class="i-who"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg><strong>Architectes</strong><small>Wissem</small></p><p class="i-what">Développe un outil qui accélère l’analyse de cohérence des DA et peut en générer&#8239;; présente la méthode aux architectes</p></li>
-          <li><p class="i-who"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg><strong>Designers</strong><small>Louis</small></p><p class="i-what">Prototype désormais en quelques prompts, génère des maquettes Figma conformes au DSFR&#8239;; forme d’autres designers</p></li>
-          <li><p class="i-who"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg><strong>CDP</strong><small>Mathilda</small></p><p class="i-what">Comprend les mécaniques de l’IA. <span class="badge badge--todo">À venir</span>orchestrer des cas d’usage à forte valeur ajoutée et suivre leur adoption</p></li>
+      <section class="a-refs" aria-labelledby="a-refs">
+        <div class="a-refs__head"><h3 class="label" id="a-refs">Les référents</h3><span class="label">Ce qu’ils diffusent</span><span class="label">État</span></div>
+        <ul>
+          <li><p class="a-who"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg><strong>Louis</strong><small>designers</small></p><p class="a-what">Référent de fait&nbsp;: il partage ses pratiques et forme d’autres designers</p><p><span class="badge badge--ok">En place</span></p></li>
+          <li><p class="a-who"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg><strong>Wissem</strong><small>architectes</small></p><p class="a-what">Présente aux architectes sa méthode, outillée, d’analyse de cohérence des DA</p><p><span class="badge badge--todo">En cours</span></p></li>
+          <li><p class="a-who"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg><strong>Mathilda</strong><small>CDP</small></p><p class="a-what">Fait avancer l’adoption chez les CDP&nbsp;: cas d’usage à forte valeur ajoutée, suivi de l’adoption</p><p><span class="badge badge--todo">En cours</span></p></li>
+          <li><p class="a-who"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><strong>Tech leads</strong><small>développeurs</small></p><p class="a-what">Responsables de la montée en compétence de leur équipe, avec une instance de veille IA</p><p><span class="badge badge--todo">Prévu</span></p></li>
         </ul>
       </section>
     </div>
-    <p class="i-vig"><span class="badge badge--warn">Vigilance</span><span>Si seuls les développeurs maîtrisent l’IA, les problèmes d’organisation s’aggravent&nbsp;: ils ne disent plus non, le produit fait deux pas en avant, un pas en arrière. D’où l’IA chez les CDP.</span></p>
   </div>
   <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>D’où l’on part, où l’on arrive, sur deux axes&nbsp;: la maturité IA de chaque métier, et la productivité des équipes.</li>
-      <li>DACCORD, développeurs&nbsp;: gain de vélocité tech perçu de plus de × 3 en un mois&#8239;; nous visons × 10. Sans IA chez la CDP, c’est elle qui devient le goulot d’étranglement. CDP&nbsp;: acculturée&#8239;; Mathilda est nécessaire pour faire avancer l’adoption.</li>
-      <li>VAO et Honorabilité&nbsp;: données de vélocité avant le 27 novembre&#8239;; CDP à venir. Egapro&nbsp;: équipe déjà augmentée, l’accompagnement a seulement aidé à optimiser les orchestrations&#8239;; CDP à venir.</li>
+      <li>Pour que la montée en compétence tienne dans la durée, chaque métier a son référent IA&nbsp;: accompagné sur des cas concrets, il diffuse ensuite auprès de ses pairs.</li>
+      <li>Louis est déjà référent de fait chez les designers. Wissem présente sa méthode d’analyse des DA aux architectes. Mathilda est nécessaire pour faire avancer l’adoption chez les CDP. Les tech leads de toutes les équipes deviendront référents IA, avec une instance de veille IA.</li>
+      <li>Au-delà des équipes accompagnées&nbsp;: des webinaires sur l’IA, à venir.</li>
+      <li>C’est aussi ce qui rend le dispositif indépendant d’une seule personne.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ======================= 6 · IMPACT ======================= -->
+<section class="slide" data-title="Impact" aria-labelledby="t5">
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">03</span>Impact</p></header>
+  <div class="s-head">
+    <h2 class="title" id="t5">De la découverte à l’orchestration, métier par métier</h2>
+    <p class="lead"><b>Le défi&nbsp;:</b> passer du jouet à l’investissement rentable.</p>
+  </div>
+  <div class="s-body">
+    <div class="p-chart">
+      <div class="p-head" aria-hidden="true">
+        <span class="label">Métier</span>
+        <span class="label">D’où l’on part</span><span></span>
+        <span class="label p-h-now">Aujourd’hui</span><span></span>
+        <span class="label p-h-next">La suite</span>
+      </div>
+      <h3 class="sr">Maturité IA, métier par métier&nbsp;: d’où l’on part, aujourd’hui, la suite</h3>
+      <ol class="p-rows">
+          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><span><strong>Développeurs</strong><small>DACCORD</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>Découverte de l’IA</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><span><strong>Orchestrations éprouvées</strong> sur plusieurs semaines, optimisées par benchmark</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Étendre l’IA à la CDP</p></li>
+          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><span><strong>Développeurs</strong><small>VAO · Honorabilité</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>Découverte de l’IA</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><span><strong>Démarrent l’orchestration</strong></span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Vélocité mesurée avant le 27&nbsp;novembre</p></li>
+          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg><span><strong>Architectes</strong><small>Wissem</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>Aucun intérêt exprimé pour l’IA</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><span><strong>Un outil</strong> accélère l’analyse de cohérence des DA et peut en générer</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Présenter la méthode aux architectes</p></li>
+          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg><span><strong>Designers</strong><small>Louis</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>«&nbsp;L’IA a peu de valeur pour nous&nbsp;»</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><span><strong>Prototype en quelques prompts</strong>, génère des maquettes Figma conformes au DSFR</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Former d’autres designers</p></li>
+          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg><span><strong>CDP</strong><small>Mathilda</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>L’IA, une boîte noire</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><span><strong>Comprend les mécaniques</strong> de l’IA</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Orchestrer des cas d’usage à forte valeur ajoutée</p></li>
+      </ol>
+    </div>
+    <p class="m-vig"><span class="badge badge--warn">Vigilance</span><span>Si seuls les développeurs maîtrisent l’IA, les problèmes d’organisation s’aggravent&nbsp;: ils ne disent plus non, le produit fait deux pas en avant, un pas en arrière. D’où l’IA chez les CDP.</span></p>
+  </div>
+  <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
+  <aside class="notes">
+    <ul>
+      <li>D’où l’on part, où l’on arrive, métier par métier. La flèche verte, c’est l’apport de l’accompagnement.</li>
+      <li>Développeurs&nbsp;: DACCORD a éprouvé l’orchestration plusieurs semaines et en est à l’optimiser, avec des benchmarks d’orchestration. VAO et Honorabilité démarrent l’orchestration. Sans IA chez la CDP, c’est elle qui devient le goulot d’étranglement&nbsp;: Mathilda est nécessaire pour faire avancer l’adoption.</li>
+      <li>Egapro&nbsp;: équipe déjà augmentée, l’accompagnement a seulement aidé à optimiser les orchestrations.</li>
+      <li>Vélocité&nbsp;: chiffres retirés des slides en attendant les mesures de VAO et d’Honorabilité, avant le 27 novembre. Si la question vient&nbsp;: chez DACCORD, les développeurs perçoivent une vélocité plus que triplée en un mois.</li>
       <li>SIRENA&nbsp;: l’équipe de développement est entièrement externe, elle n’a pas été approchée.</li>
     </ul>
   </aside>
 </section>
 
-<!-- ======================= 6 · COMPLÉMENTARITÉ ======================= -->
+<!-- ======================= 7 · COMPLÉMENTARITÉ ======================= -->
 <section class="slide" data-title="Complémentarité" aria-labelledby="t6">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">04</span>Complémentarité</p></header>
   <div class="s-head">
@@ -525,6 +584,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         <div class="c-id">
           <p class="label">Le socle</p>
           <div class="c-id__row"><h3 class="c-name" id="c-sdcid">SDCID</h3><span class="badge badge--ok">En place</span></div>
+          <p class="c-who">avec <strong>Victor</strong> et <strong>Adrien</strong></p>
         </div>
         <div class="c-socle">
           <p class="c-chip"><svg class="ico" aria-hidden="true"><use href="#i-server"/></svg><span>LiteLLM<small>le point d’accès unique aux modèles d’IA</small></span></p>
@@ -558,14 +618,14 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>SDCID fournit la base de LiteLLM et la sécurité.</li>
+      <li>SDCID, avec Victor et Adrien, fournit la base de LiteLLM et la sécurité.</li>
       <li>À venir&nbsp;: SDPC fournit les workflows standards des CDP et des développeurs, pour harmoniser les pratiques de nos utilisateurs.</li>
       <li>Studio tech&nbsp;: sous la responsabilité de Selim, expert IA et compétent en tech. Studio produit&nbsp;: Selim, expert IA, avec l’aide de Mathilda, experte CDP.</li>
     </ul>
   </aside>
 </section>
 
-<!-- ======================= 7 · PROCHAINES ÉTAPES ======================= -->
+<!-- ======================= 8 · PROCHAINES ÉTAPES ======================= -->
 <section class="slide" data-title="Prochaines étapes" aria-labelledby="t7">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">La suite</p></header>
   <div class="s-head">
