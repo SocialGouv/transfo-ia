@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scénarios souverains Mistral</title>
+<meta name="description" content="Six façons d’utiliser les modèles Mistral, avec nos échanges avec les fournisseurs et le chemin de nos données : quatre souveraines, deux exposées au CLOUD Act. Point au 12 novembre 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Mise en page : une colonne de fiches scénario ; dans chaque schéma, à gauche le périmètre des données, à droite les fournisseurs avec qui nous signons */
+:root {
+  --bg: #f5f6fa;
+  --surface: #ffffff;
+  --fg: #161a2e;
+  --muted: #5a6075;
+  --line: #d3d7e3;
+  --line-strong: #9aa1b6;
+  --blue: #000091;
+  --on-blue: #ffffff;
+  --green: #18753c;
+  --green-soft: #e6f4ea;
+  --red: #c9191e;
+  --red-soft: #fdeceb;
+  --font-head: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11131b; --surface: #1a1d29; --fg: #eceef5; --muted: #a3a9bc;
+    --line: #353b4f; --line-strong: #6b7290;
+    --blue: #8b8bff; --on-blue: #11131b;
+    --green: #4cc27a; --green-soft: #15301f;
+    --red: #ff6b66; --red-soft: #3a1918;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11131b; --surface: #1a1d29; --fg: #eceef5; --muted: #a3a9bc;
+  --line: #353b4f; --line-strong: #6b7290;
+  --blue: #8b8bff; --on-blue: #11131b;
+  --green: #4cc27a; --green-soft: #15301f;
+  --red: #ff6b66; --red-soft: #3a1918;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+}
+.wrap {
+  max-width: 980px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 56px;
+  display: grid; gap: 36px;
+}
+h1, h2, h3 { font-family: var(--font-head); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4vw, 34px); line-height: 1.15; letter-spacing: -0.01em; }
+h2 { font-size: 21px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+h2 .count { font-family: var(--font-body); font-size: 13px; font-weight: 500; color: var(--muted); }
+h3 { font-size: 17px; line-height: 1.3; }
+p { margin: 0; max-width: 68ch; }
+.intro { display: grid; gap: 12px; }
+.lede { font-size: 16.5px; }
+.lede strong { font-weight: 600; }
+.meta { color: var(--muted); font-size: 13.5px; }
+
+/* Légende */
+.legend {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+  padding: 16px 18px; display: grid; gap: 12px;
+}
+.legend h2 { font-size: 15px; }
+.legend ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px 24px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+.legend li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; min-width: 0; }
+.legend svg { flex: none; width: 54px; height: 22px; }
+.reading { font-size: 13.5px; color: var(--muted); }
+
+/* Sections */
+.group { display: grid; gap: 18px; }
+.group-intro { color: var(--muted); font-size: 14px; }
+
+/* Fiche scénario */
+.scn {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  padding: 18px 18px 16px; display: grid; gap: 14px;
+}
+.scn-h { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.scn-h h3 { flex: 1 1 260px; min-width: 0; }
+.letter {
+  font-family: var(--font-head); font-weight: 700; font-size: 15px;
+  width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
+  flex: none;
+}
+.scn-ok .letter { background: var(--green-soft); color: var(--green); }
+.scn-ko .letter { background: var(--red-soft); color: var(--red); }
+.chip {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
+  padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+}
+.chip-ok { background: var(--green-soft); color: var(--green); }
+.chip-ko { background: var(--red-soft); color: var(--red); }
+figure { margin: 0; display: grid; gap: 8px; min-width: 0; }
+.fig-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.fig-scroll svg { display: block; width: 100%; min-width: 660px; height: auto; }
+figcaption { font-size: 13.5px; color: var(--muted); max-width: 80ch; }
+.facts { margin: 0; display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 12px; }
+.facts div { display: grid; grid-template-columns: 190px 1fr; gap: 12px; font-size: 14px; }
+.facts dt { font-weight: 600; color: var(--muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
+.facts dd { margin: 0; min-width: 0; }
+@media (max-width: 560px) {
+  .facts div { grid-template-columns: 1fr; gap: 0; }
+}
+
+/* SVG */
+svg text { font-family: var(--font-body); }
+.hb { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.2; }
+.hb-ok { fill: var(--green-soft); stroke: var(--green); }
+.hb-ko { fill: var(--red-soft); stroke: var(--red); stroke-width: 1.6; }
+.hb-us { stroke: var(--red); stroke-width: 1.6; }
+.hb-empty { fill: none; stroke: var(--line); stroke-dasharray: 4 4; }
+.ht { font-family: var(--font-head); font-size: 13.5px; font-weight: 600; fill: var(--fg); }
+.hs { font-size: 11px; fill: var(--muted); }
+.ht-muted { font-size: 11.5px; font-style: italic; fill: var(--muted); }
+.pill-us { fill: var(--red); }
+.pill-t { font-size: 10.5px; font-weight: 700; fill: var(--surface); letter-spacing: 0.03em; }
+.life { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 4; }
+.per { fill: none; stroke-width: 1.4; stroke-dasharray: 6 5; }
+.per-ok { stroke: var(--green); }
+.per-ko { stroke: var(--red); }
+.per-t { font-size: 11.5px; font-weight: 600; }
+.per-t-ok { fill: var(--green); }
+.per-t-ko { fill: var(--red); }
+.a-us line { stroke: var(--blue); stroke-width: 2; }
+.a-us polygon { fill: var(--blue); }
+.a-prov line { stroke: var(--muted); stroke-width: 1.4; stroke-dasharray: 5 4; }
+.a-prov polygon { fill: var(--muted); }
+.a-data-ok line { stroke: var(--green); stroke-width: 3.5; }
+.a-data-ok polygon { fill: var(--green); }
+.a-data-ko line { stroke: var(--red); stroke-width: 3.5; }
+.a-data-ko polygon { fill: var(--red); }
+.num { fill: var(--blue); }
+.numt { font-size: 10.5px; font-weight: 700; fill: var(--on-blue); }
+.al { font-size: 12px; paint-order: stroke; stroke: var(--surface); stroke-width: 5px; stroke-linejoin: round; }
+.al-us { fill: var(--blue); font-weight: 600; }
+.al-prov { fill: var(--muted); }
+.al-data-ok { fill: var(--green); font-weight: 600; }
+.al-data-ko { fill: var(--red); font-weight: 600; }
+
+/* Récapitulatif */
+.recap { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 12px; }
+.table-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 560px; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 600; }
+td.l { font-family: var(--font-head); font-weight: 700; width: 32px; }
+.yes { color: var(--green); font-weight: 600; white-space: nowrap; }
+.no { color: var(--red); font-weight: 600; white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+
+/* Sources */
+.sources { display: grid; gap: 10px; font-size: 13.5px; }
+.sources h2 { font-size: 16px; }
+.sources ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.sources a { color: var(--blue); text-underline-offset: 2px; }
+.sources a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.todo { color: var(--muted); }
+</style>
+
+</head>
+<body>
+<main class="wrap">
+  <section class="intro">
+    <h1>Scénarios souverains Mistral</h1>
+    <p class="lede"><strong>Souverain ici</strong> : aucune société de droit américain ne touche nos données, donc pas d’exposition au CLOUD Act. Quatre montages le permettent avec des modèles Mistral, deux ne le permettent pas.</p>
+    <p class="meta">Analyse des contrats publics de Mistral (CGV, DPA, conditions partenaires, liste des sous-traitants) lus le 12/11/2026.</p>
+  </section>
+
+  <section class="legend" aria-label="Légende">
+    <h2>Comment lire les schémas</h2>
+    <p class="reading">À gauche, dans le cadre pointillé : là où passent nos données. À droite : les fournisseurs avec qui nous avons affaire.</p>
+    <ul>
+      <li><svg viewBox="0 0 54 22" aria-hidden="true"><circle cx="8" cy="11" r="7" fill="var(--blue)"/><text x="8" y="14.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--on-blue)">1</text><line x1="18" y1="11" x2="44" y2="11" stroke="var(--blue)" stroke-width="2"/><polygon points="52,11 43,6.5 43,15.5" fill="var(--blue)"/></svg>Nos échanges avec un fournisseur, numérotés dans l’ordre</li>
+      <li><svg viewBox="0 0 54 22" aria-hidden="true"><line x1="2" y1="11" x2="43" y2="11" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="5 4"/><polygon points="52,11 43,6.5 43,15.5" fill="var(--muted)"/></svg>Entre fournisseurs, ou livraison sans démarche de notre part</li>
+      <li><svg viewBox="0 0 54 22" aria-hidden="true"><line x1="10" y1="11" x2="42" y2="11" stroke="var(--green)" stroke-width="3.5"/><polygon points="2,11 12,5 12,17" fill="var(--green)"/><polygon points="52,11 42,5 42,17" fill="var(--green)"/></svg>Nos données (prompts, réponses), sans acteur américain</li>
+      <li><svg viewBox="0 0 54 22" aria-hidden="true"><line x1="10" y1="11" x2="42" y2="11" stroke="var(--red)" stroke-width="3.5"/><polygon points="2,11 12,5 12,17" fill="var(--red)"/><polygon points="52,11 42,5 42,17" fill="var(--red)"/></svg>Nos données, traitées par une société américaine</li>
+      <li><svg viewBox="0 0 54 22" aria-hidden="true"><rect x="2" y="3" width="50" height="16" rx="8" fill="var(--red)"/><text x="27" y="14.5" text-anchor="middle" font-size="9" font-weight="700" fill="var(--surface)">CLOUD Act</text></svg>Société soumise au droit américain</li>
+    </ul>
+  </section>
+
+  <section class="group" aria-labelledby="g-ok">
+    <h2 id="g-ok">Montages souverains <span class="count">4 scénarios</span></h2>
+<article class="scn scn-ok" id="scenario-a">
+  <header class="scn-h">
+    <span class="letter">A</span>
+    <h3>Notre infra, contrat direct avec Mistral</h3>
+    <span class="chip chip-ok">Souverain</span>
+  </header>
+  <figure>
+    <div class="fig-scroll">
+<svg viewBox="0 0 760 294" role="img" aria-label="Scénario A : nous signons un bon de commande avec Mistral, qui nous livre les poids ; nos données ne quittent pas notre infrastructure.">
+<rect class="per per-ok" x="4" y="4" width="378.0" height="286" rx="10"/>
+<line class="life" x1="100" y1="76" x2="100" y2="260"/>
+<line class="life" x1="300" y1="76" x2="300" y2="260"/>
+<line class="life" x1="666" y1="76" x2="666" y2="260"/>
+<text class="per-t per-t-ok" x="16" y="280">Nos données restent ici : aucun acteur américain</text>
+<rect class="hb hb-ok" x="12.0" y="14" width="176" height="62" rx="6"/>
+<text class="ht" x="100" y="36" text-anchor="middle">Notre infra</text>
+<text class="hs" x="100" y="52" text-anchor="middle">datacenter ou cloud privé</text>
+<text class="hs" x="100" y="65" text-anchor="middle">non américain</text>
+<rect class="hb" x="232.0" y="14" width="136" height="62" rx="6"/>
+<text class="ht" x="300" y="36" text-anchor="middle">Nous</text>
+<text class="hs" x="300" y="52" text-anchor="middle">l’administration</text>
+<rect class="hb hb-empty" x="404.0" y="14" width="152" height="62" rx="6"/>
+<text class="ht-muted" x="480" y="49.0" text-anchor="middle">aucun intermédiaire</text>
+<rect class="hb" x="592.0" y="14" width="148" height="62" rx="6"/>
+<text class="ht" x="666" y="36" text-anchor="middle">Mistral AI</text>
+<text class="hs" x="666" y="52" text-anchor="middle">SAS, Paris</text>
+<g class="a-us">
+<line x1="303" y1="122" x2="654" y2="122"/>
+<polygon points="663,122 654,117.5 654,126.5"/>
+</g>
+<circle class="num" cx="317" cy="109" r="8.5"/>
+<text class="numt" x="317" y="112.8" text-anchor="middle">1</text>
+<text class="al al-us" x="331" y="113">bon de commande (licence)</text>
+<g class="a-prov">
+<line x1="663" y1="160" x2="312" y2="160"/>
+<polygon points="303,160 312,155.5 312,164.5"/>
+</g>
+<text class="al al-prov" x="483.0" y="152" text-anchor="middle">livraison des poids du modèle</text>
+<g class="a-data-ok">
+<line x1="287" y1="198" x2="113" y2="198"/>
+<polygon points="103,198 113,192 113,204"/>
+<polygon points="297,198 287,192 287,204"/>
+</g>
+<text class="al al-data-ok" x="200.0" y="188" text-anchor="middle">prompts et réponses</text>
+<g class="a-us">
+<line x1="303" y1="236" x2="654" y2="236"/>
+<polygon points="663,236 654,231.5 654,240.5"/>
+</g>
+<circle class="num" cx="317" cy="223" r="8.5"/>
+<text class="numt" x="317" y="226.8" text-anchor="middle">2</text>
+<text class="al al-us" x="331" y="227">support : tickets sans données</text>
+</svg>
+    </div>
+    <figcaption>Nous signons un bon de commande avec Mistral, qui nous livre les poids ; nos données ne quittent pas notre infrastructure.</figcaption>
+  </figure>
+  <dl class="facts">
+    <div><dt>Contrats à signer</dt><dd>Mistral : bon de commande « infrastructure client » (CGV §1.1).</dd></div>
+    <div><dt>Interlocuteur au quotidien</dt><dd>Mistral (support).</dd></div>
+    <div><dt>Vigilance</dt><dd>Écrire dans le bon de commande que Mistral n’accède pas aux données. Couper la recherche web et les connecteurs : la recherche web passe par Brave Software, Inc. (États-Unis).</dd></div>
+  </dl>
+</article>
+<article class="scn scn-ok" id="scenario-b">
+  <header class="scn-h">
+    <span class="letter">B</span>
+    <h3>Notre infra, via un revendeur</h3>
+    <span class="chip chip-ok">Souverain</span>
+  </header>
+  <figure>
+    <div class="fig-scroll">
+<svg viewBox="0 0 760 408" role="img" aria-label="Scénario B : nous contractons avec un revendeur non américain qui installe les poids chez nous ; nous acceptons les conditions de Mistral ; nos données restent sur notre infrastructure.">
+<rect class="per per-ok" x="4" y="4" width="378.0" height="400" rx="10"/>
+<line class="life" x1="100" y1="76" x2="100" y2="374"/>
+<line class="life" x1="300" y1="76" x2="300" y2="374"/>
+<line class="life" x1="480" y1="76" x2="480" y2="374"/>
+<line class="life" x1="666" y1="76" x2="666" y2="374"/>
+<text class="per-t per-t-ok" x="16" y="394">Nos données restent ici : aucun acteur américain</text>
+<rect class="hb hb-ok" x="12.0" y="14" width="176" height="62" rx="6"/>
+<text class="ht" x="100" y="36" text-anchor="middle">Notre infra</text>
+<text class="hs" x="100" y="52" text-anchor="middle">datacenter ou cloud privé</text>
+<text class="hs" x="100" y="65" text-anchor="middle">non américain</text>
+<rect class="hb" x="232.0" y="14" width="136" height="62" rx="6"/>
+<text class="ht" x="300" y="36" text-anchor="middle">Nous</text>
+<text class="hs" x="300" y="52" text-anchor="middle">l’administration</text>
+<rect class="hb" x="404.0" y="14" width="152" height="62" rx="6"/>
+<text class="ht" x="480" y="36" text-anchor="middle">Revendeur</text>
+<text class="hs" x="480" y="52" text-anchor="middle">intégrateur</text>
+<text class="hs" x="480" y="65" text-anchor="middle">non américain</text>
+<rect class="hb" x="592.0" y="14" width="148" height="62" rx="6"/>
+<text class="ht" x="666" y="36" text-anchor="middle">Mistral AI</text>
+<text class="hs" x="666" y="52" text-anchor="middle">SAS, Paris</text>
+<g class="a-us">
+<line x1="303" y1="122" x2="468" y2="122"/>
+<polygon points="477,122 468,117.5 468,126.5"/>
+</g>
+<circle class="num" cx="317" cy="109" r="8.5"/>
+<text class="numt" x="317" y="112.8" text-anchor="middle">1</text>
+<text class="al al-us" x="331" y="113">contrat, facturation</text>
+<g class="a-us">
+<line x1="303" y1="160" x2="654" y2="160"/>
+<polygon points="663,160 654,155.5 654,164.5"/>
+</g>
+<circle class="num" cx="317" cy="147" r="8.5"/>
+<text class="numt" x="317" y="150.8" text-anchor="middle">2</text>
+<text class="al al-us" x="331" y="151">acceptation des conditions Mistral</text>
+<g class="a-prov">
+<line x1="492" y1="198" x2="654" y2="198"/>
+<polygon points="663,198 654,193.5 654,202.5"/>
+<polygon points="483,198 492,193.5 492,202.5"/>
+</g>
+<text class="al al-prov" x="573.0" y="190" text-anchor="middle">accord de revente</text>
+<g class="a-prov">
+<line x1="477" y1="236" x2="312" y2="236"/>
+<polygon points="303,236 312,231.5 312,240.5"/>
+</g>
+<text class="al al-prov" x="390.0" y="228" text-anchor="middle">installe les poids</text>
+<g class="a-data-ok">
+<line x1="287" y1="274" x2="113" y2="274"/>
+<polygon points="103,274 113,268 113,280"/>
+<polygon points="297,274 287,268 287,280"/>
+</g>
+<text class="al al-data-ok" x="200.0" y="264" text-anchor="middle">prompts et réponses</text>
+<g class="a-us">
+<line x1="303" y1="312" x2="468" y2="312"/>
+<polygon points="477,312 468,307.5 468,316.5"/>
+</g>
+<circle class="num" cx="317" cy="299" r="8.5"/>
+<text class="numt" x="317" y="302.8" text-anchor="middle">3</text>
+<text class="al al-us" x="331" y="303">support</text>
+<g class="a-us">
+<line x1="663" y1="350" x2="312" y2="350"/>
+<polygon points="303,350 312,345.5 312,354.5"/>
+</g>
+<circle class="num" cx="317" cy="337" r="8.5"/>
+<text class="numt" x="317" y="340.8" text-anchor="middle">4</text>
+<text class="al al-us" x="331" y="341">audit de licence (1 par an au plus)</text>
+</svg>
+    </div>
+    <figcaption>Nous contractons avec un revendeur non américain qui installe les poids chez nous ; nous acceptons les conditions de Mistral ; nos données restent sur notre infrastructure.</figcaption>
+  </figure>
+  <dl class="facts">
+    <div><dt>Contrats à signer</dt><dd>Le revendeur, plus les conditions « partner-served » de Mistral (acceptées à l’usage).</dd></div>
+    <div><dt>Interlocuteur au quotidien</dt><dd>Le revendeur.</dd></div>
+    <div><dt>Vigilance</dt><dd>Le revendeur doit être non américain. Mistral peut auditer notre usage de la licence (§10).</dd></div>
+  </dl>
+</article>
+<article class="scn scn-ok" id="scenario-c">
+  <header class="scn-h">
+    <span class="letter">C</span>
+    <h3>Cloud Outscale qualifié SecNumCloud</h3>
+    <span class="chip chip-ok">Souverain, sous réserve</span>
+  </header>
+  <figure>
+    <div class="fig-scroll">
+<svg viewBox="0 0 760 332" role="img" aria-label="Scénario C : nous contractons avec Outscale, qui fait tourner le modèle Mistral sur son cloud SecNumCloud ; nous acceptons les conditions de Mistral ; Outscale est notre seul interlocuteur.">
+<rect class="per per-ok" x="4" y="4" width="378.0" height="324" rx="10"/>
+<line class="life" x1="100" y1="76" x2="100" y2="298"/>
+<line class="life" x1="300" y1="76" x2="300" y2="298"/>
+<line class="life" x1="480" y1="76" x2="480" y2="298"/>
+<line class="life" x1="666" y1="76" x2="666" y2="298"/>
+<text class="per-t per-t-ok" x="16" y="318">Nos données restent ici : aucun acteur américain</text>
+<rect class="hb hb-ok" x="12.0" y="14" width="176" height="62" rx="6"/>
+<text class="ht" x="100" y="36" text-anchor="middle">Cloud Outscale</text>
+<text class="hs" x="100" y="52" text-anchor="middle">SecNumCloud 3.2</text>
+<text class="hs" x="100" y="65" text-anchor="middle">France</text>
+<rect class="hb" x="232.0" y="14" width="136" height="62" rx="6"/>
+<text class="ht" x="300" y="36" text-anchor="middle">Nous</text>
+<text class="hs" x="300" y="52" text-anchor="middle">l’administration</text>
+<rect class="hb" x="404.0" y="14" width="152" height="62" rx="6"/>
+<text class="ht" x="480" y="36" text-anchor="middle">Outscale</text>
+<text class="hs" x="480" y="52" text-anchor="middle">3DS Outscale</text>
+<text class="hs" x="480" y="65" text-anchor="middle">(Dassault Systèmes)</text>
+<rect class="hb" x="592.0" y="14" width="148" height="62" rx="6"/>
+<text class="ht" x="666" y="36" text-anchor="middle">Mistral AI</text>
+<text class="hs" x="666" y="52" text-anchor="middle">SAS, Paris</text>
+<g class="a-us">
+<line x1="303" y1="122" x2="468" y2="122"/>
+<polygon points="477,122 468,117.5 468,126.5"/>
+</g>
+<circle class="num" cx="317" cy="109" r="8.5"/>
+<text class="numt" x="317" y="112.8" text-anchor="middle">1</text>
+<text class="al al-us" x="331" y="113">contrat via la marketplace</text>
+<g class="a-us">
+<line x1="303" y1="160" x2="654" y2="160"/>
+<polygon points="663,160 654,155.5 654,164.5"/>
+</g>
+<circle class="num" cx="317" cy="147" r="8.5"/>
+<text class="numt" x="317" y="150.8" text-anchor="middle">2</text>
+<text class="al al-us" x="331" y="151">acceptation des conditions Mistral</text>
+<g class="a-prov">
+<line x1="492" y1="198" x2="654" y2="198"/>
+<polygon points="663,198 654,193.5 654,202.5"/>
+<polygon points="483,198 492,193.5 492,202.5"/>
+</g>
+<text class="al al-prov" x="573.0" y="190" text-anchor="middle">accord partenaire, poids</text>
+<g class="a-data-ok">
+<line x1="287" y1="236" x2="113" y2="236"/>
+<polygon points="103,236 113,230 113,242"/>
+<polygon points="297,236 287,230 287,242"/>
+</g>
+<text class="al al-data-ok" x="200.0" y="226" text-anchor="middle">prompts et réponses</text>
+<g class="a-us">
+<line x1="303" y1="274" x2="468" y2="274"/>
+<polygon points="477,274 468,269.5 468,278.5"/>
+</g>
+<circle class="num" cx="317" cy="261" r="8.5"/>
+<text class="numt" x="317" y="264.8" text-anchor="middle">3</text>
+<text class="al al-us" x="331" y="265">support (seul contact)</text>
+</svg>
+    </div>
+    <figcaption>Nous contractons avec Outscale, qui fait tourner le modèle Mistral sur son cloud SecNumCloud ; nous acceptons les conditions de Mistral ; Outscale est notre seul interlocuteur.</figcaption>
+  </figure>
+  <dl class="facts">
+    <div><dt>Contrats à signer</dt><dd>Outscale, plus les conditions « partner-served » de Mistral.</dd></div>
+    <div><dt>Interlocuteur au quotidien</dt><dd>Outscale uniquement (« sole point of contact »).</dd></div>
+    <div><dt>Vigilance</dt><dd>Vérifier la date de validité de la qualification sur la liste ANSSI et la liste des modèles Mistral disponibles chez Outscale.</dd></div>
+  </dl>
+</article>
+<article class="scn scn-ok" id="scenario-d">
+  <header class="scn-h">
+    <span class="letter">D</span>
+    <h3>Modèle open-weight, sans contrat Mistral</h3>
+    <span class="chip chip-ok">Souverain</span>
+  </header>
+  <figure>
+    <div class="fig-scroll">
+<svg viewBox="0 0 760 294" role="img" aria-label="Scénario D : nous téléchargeons un modèle Mistral publié sous licence libre et le faisons tourner chez un hébergeur non américain ; aucun contrat avec Mistral.">
+<rect class="per per-ok" x="4" y="4" width="378.0" height="286" rx="10"/>
+<line class="life" x1="100" y1="76" x2="100" y2="260"/>
+<line class="life" x1="300" y1="76" x2="300" y2="260"/>
+<line class="life" x1="480" y1="76" x2="480" y2="260"/>
+<line class="life" x1="666" y1="76" x2="666" y2="260"/>
+<text class="per-t per-t-ok" x="16" y="280">Nos données restent ici : aucun acteur américain</text>
+<rect class="hb hb-ok" x="12.0" y="14" width="176" height="62" rx="6"/>
+<text class="ht" x="100" y="36" text-anchor="middle">Serveurs de l’hébergeur</text>
+<text class="hs" x="100" y="52" text-anchor="middle">non américain,</text>
+<text class="hs" x="100" y="65" text-anchor="middle">ou notre infra</text>
+<rect class="hb" x="232.0" y="14" width="136" height="62" rx="6"/>
+<text class="ht" x="300" y="36" text-anchor="middle">Nous</text>
+<text class="hs" x="300" y="52" text-anchor="middle">l’administration</text>
+<rect class="hb" x="404.0" y="14" width="152" height="62" rx="6"/>
+<text class="ht" x="480" y="36" text-anchor="middle">Hébergeur</text>
+<text class="hs" x="480" y="52" text-anchor="middle">non américain</text>
+<rect class="hb" x="592.0" y="14" width="148" height="62" rx="6"/>
+<text class="ht" x="666" y="36" text-anchor="middle">Mistral AI</text>
+<text class="hs" x="666" y="52" text-anchor="middle">aucun contrat</text>
+<g class="a-prov">
+<line x1="663" y1="122" x2="312" y2="122"/>
+<polygon points="303,122 312,117.5 312,126.5"/>
+</g>
+<text class="al al-prov" x="483.0" y="114" text-anchor="middle">poids publiés en licence libre</text>
+<g class="a-us">
+<line x1="303" y1="160" x2="468" y2="160"/>
+<polygon points="477,160 468,155.5 468,164.5"/>
+</g>
+<circle class="num" cx="317" cy="147" r="8.5"/>
+<text class="numt" x="317" y="150.8" text-anchor="middle">1</text>
+<text class="al al-us" x="331" y="151">contrat d’hébergement</text>
+<g class="a-data-ok">
+<line x1="287" y1="198" x2="113" y2="198"/>
+<polygon points="103,198 113,192 113,204"/>
+<polygon points="297,198 287,192 287,204"/>
+</g>
+<text class="al al-data-ok" x="200.0" y="188" text-anchor="middle">prompts et réponses</text>
+<g class="a-us">
+<line x1="303" y1="236" x2="468" y2="236"/>
+<polygon points="477,236 468,231.5 468,240.5"/>
+</g>
+<circle class="num" cx="317" cy="223" r="8.5"/>
+<text class="numt" x="317" y="226.8" text-anchor="middle">2</text>
+<text class="al al-us" x="331" y="227">support</text>
+</svg>
+    </div>
+    <figcaption>Nous téléchargeons un modèle Mistral publié sous licence libre et le faisons tourner chez un hébergeur non américain ; aucun contrat avec Mistral.</figcaption>
+  </figure>
+  <dl class="facts">
+    <div><dt>Contrats à signer</dt><dd>L’hébergeur seulement (rien si c’est notre infra).</dd></div>
+    <div><dt>Interlocuteur au quotidien</dt><dd>L’hébergeur. Pas de support Mistral.</dd></div>
+    <div><dt>Vigilance</dt><dd>Seulement les modèles publiés en open-weight : vérifier la licence modèle par modèle.</dd></div>
+  </dl>
+</article>
+  </section>
+
+  <section class="group" aria-labelledby="g-ko">
+    <h2 id="g-ko">Montages non souverains <span class="count">2 scénarios, exposés au CLOUD Act</span></h2>
+<article class="scn scn-ko" id="scenario-e">
+  <header class="scn-h">
+    <span class="letter">E</span>
+    <h3>Mistral en SaaS (API, Studio, Vibe, Le Chat)</h3>
+    <span class="chip chip-ko">Non souverain : CLOUD Act</span>
+  </header>
+  <figure>
+    <div class="fig-scroll">
+<svg viewBox="0 0 760 256" role="img" aria-label="Scénario E : nous utilisons le service en ligne de Mistral ; même avec l’endpoint européen, nos données passent par des sous-traitants américains.">
+<rect class="per per-ko" x="4" y="4" width="378.0" height="248" rx="10"/>
+<line class="life" x1="100" y1="102" x2="100" y2="222"/>
+<line class="life" x1="300" y1="76" x2="300" y2="222"/>
+<line class="life" x1="666" y1="102" x2="666" y2="222"/>
+<text class="per-t per-t-ko" x="16" y="242">Nos données passent par des sociétés américaines</text>
+<rect class="hb hb-ko" x="12.0" y="14" width="176" height="62" rx="6"/>
+<text class="ht" x="100" y="36" text-anchor="middle">Infra du SaaS Mistral</text>
+<text class="hs" x="100" y="52" text-anchor="middle">Microsoft, CoreWeave, Google,</text>
+<text class="hs" x="100" y="65" text-anchor="middle">Mistral Compute, Cloudflare</text>
+<rect class="pill-us" x="63.2" y="82" width="73.6" height="17" rx="8.5"/>
+<text class="pill-t" x="100" y="94" text-anchor="middle">CLOUD Act</text>
+<rect class="hb" x="232.0" y="14" width="136" height="62" rx="6"/>
+<text class="ht" x="300" y="36" text-anchor="middle">Nous</text>
+<text class="hs" x="300" y="52" text-anchor="middle">l’administration</text>
+<rect class="hb hb-empty" x="404.0" y="14" width="152" height="62" rx="6"/>
+<text class="ht-muted" x="480" y="49.0" text-anchor="middle">aucun intermédiaire</text>
+<rect class="hb hb-us" x="592.0" y="14" width="148" height="62" rx="6"/>
+<text class="ht" x="666" y="36" text-anchor="middle">Mistral AI</text>
+<text class="hs" x="666" y="52" text-anchor="middle">SAS, Paris + filiale</text>
+<text class="hs" x="666" y="65" text-anchor="middle">Mistral AI Inc. (USA)</text>
+<rect class="pill-us" x="629.2" y="82" width="73.6" height="17" rx="8.5"/>
+<text class="pill-t" x="666" y="94" text-anchor="middle">CLOUD Act</text>
+<g class="a-us">
+<line x1="303" y1="122" x2="654" y2="122"/>
+<polygon points="663,122 654,117.5 654,126.5"/>
+</g>
+<circle class="num" cx="317" cy="109" r="8.5"/>
+<text class="numt" x="317" y="112.8" text-anchor="middle">1</text>
+<text class="al al-us" x="331" y="113">CGV + DPA, facturation</text>
+<g class="a-data-ko">
+<line x1="287" y1="160" x2="113" y2="160"/>
+<polygon points="103,160 113,154 113,166"/>
+<polygon points="297,160 287,154 287,166"/>
+</g>
+<text class="al al-data-ko" x="200.0" y="150" text-anchor="middle">prompts et réponses</text>
+<g class="a-us">
+<line x1="303" y1="198" x2="654" y2="198"/>
+<polygon points="663,198 654,193.5 654,202.5"/>
+</g>
+<circle class="num" cx="317" cy="185" r="8.5"/>
+<text class="numt" x="317" y="188.8" text-anchor="middle">2</text>
+<text class="al al-us" x="331" y="189">support</text>
+</svg>
+    </div>
+    <figcaption>Nous utilisons le service en ligne de Mistral ; même avec l’endpoint européen, nos données passent par des sous-traitants américains.</figcaption>
+  </figure>
+  <dl class="facts">
+    <div><dt>Contrats à signer</dt><dd>Mistral : CGV et DPA.</dd></div>
+    <div><dt>Interlocuteur au quotidien</dt><dd>Mistral.</dd></div>
+    <div><dt>Pourquoi</dt><dd>L’endpoint api.eu.mistral.ai fixe le lieu de calcul, pas la nationalité de l’opérateur, et le plan de contrôle (clés, facturation, métadonnées) peut sortir de la zone.</dd></div>
+  </dl>
+</article>
+<article class="scn scn-ko" id="scenario-f">
+  <header class="scn-h">
+    <span class="letter">F</span>
+    <h3>Mistral via un cloud américain</h3>
+    <span class="chip chip-ko">Non souverain : CLOUD Act</span>
+  </header>
+  <figure>
+    <div class="fig-scroll">
+<svg viewBox="0 0 760 332" role="img" aria-label="Scénario F : nous passons par Azure, Bedrock, Vertex, Snowflake ou watsonx ; l’hébergeur est américain, donc soumis au CLOUD Act quelle que soit la région.">
+<rect class="per per-ko" x="4" y="4" width="378.0" height="324" rx="10"/>
+<line class="life" x1="100" y1="102" x2="100" y2="298"/>
+<line class="life" x1="300" y1="76" x2="300" y2="298"/>
+<line class="life" x1="480" y1="102" x2="480" y2="298"/>
+<line class="life" x1="666" y1="76" x2="666" y2="298"/>
+<text class="per-t per-t-ko" x="16" y="318">Nos données passent par des sociétés américaines</text>
+<rect class="hb hb-ko" x="12.0" y="14" width="176" height="62" rx="6"/>
+<text class="ht" x="100" y="36" text-anchor="middle">Cloud américain</text>
+<text class="hs" x="100" y="52" text-anchor="middle">Azure, Bedrock, Vertex,</text>
+<text class="hs" x="100" y="65" text-anchor="middle">Snowflake, watsonx</text>
+<rect class="pill-us" x="63.2" y="82" width="73.6" height="17" rx="8.5"/>
+<text class="pill-t" x="100" y="94" text-anchor="middle">CLOUD Act</text>
+<rect class="hb" x="232.0" y="14" width="136" height="62" rx="6"/>
+<text class="ht" x="300" y="36" text-anchor="middle">Nous</text>
+<text class="hs" x="300" y="52" text-anchor="middle">l’administration</text>
+<rect class="hb hb-us" x="404.0" y="14" width="152" height="62" rx="6"/>
+<text class="ht" x="480" y="36" text-anchor="middle">Cloud américain</text>
+<text class="hs" x="480" y="52" text-anchor="middle">Microsoft, AWS, Google,</text>
+<text class="hs" x="480" y="65" text-anchor="middle">Snowflake, IBM</text>
+<rect class="pill-us" x="443.2" y="82" width="73.6" height="17" rx="8.5"/>
+<text class="pill-t" x="480" y="94" text-anchor="middle">CLOUD Act</text>
+<rect class="hb" x="592.0" y="14" width="148" height="62" rx="6"/>
+<text class="ht" x="666" y="36" text-anchor="middle">Mistral AI</text>
+<text class="hs" x="666" y="52" text-anchor="middle">SAS, Paris</text>
+<g class="a-us">
+<line x1="303" y1="122" x2="468" y2="122"/>
+<polygon points="477,122 468,117.5 468,126.5"/>
+</g>
+<circle class="num" cx="317" cy="109" r="8.5"/>
+<text class="numt" x="317" y="112.8" text-anchor="middle">1</text>
+<text class="al al-us" x="331" y="113">contrat, facturation</text>
+<g class="a-us">
+<line x1="303" y1="160" x2="654" y2="160"/>
+<polygon points="663,160 654,155.5 654,164.5"/>
+</g>
+<circle class="num" cx="317" cy="147" r="8.5"/>
+<text class="numt" x="317" y="150.8" text-anchor="middle">2</text>
+<text class="al al-us" x="331" y="151">acceptation des conditions Mistral</text>
+<g class="a-prov">
+<line x1="492" y1="198" x2="654" y2="198"/>
+<polygon points="663,198 654,193.5 654,202.5"/>
+<polygon points="483,198 492,193.5 492,202.5"/>
+</g>
+<text class="al al-prov" x="573.0" y="190" text-anchor="middle">accord partenaire</text>
+<g class="a-data-ko">
+<line x1="287" y1="236" x2="113" y2="236"/>
+<polygon points="103,236 113,230 113,242"/>
+<polygon points="297,236 287,230 287,242"/>
+</g>
+<text class="al al-data-ko" x="200.0" y="226" text-anchor="middle">prompts et réponses</text>
+<g class="a-us">
+<line x1="303" y1="274" x2="468" y2="274"/>
+<polygon points="477,274 468,269.5 468,278.5"/>
+</g>
+<circle class="num" cx="317" cy="261" r="8.5"/>
+<text class="numt" x="317" y="264.8" text-anchor="middle">3</text>
+<text class="al al-us" x="331" y="265">support</text>
+</svg>
+    </div>
+    <figcaption>Nous passons par Azure, Bedrock, Vertex, Snowflake ou watsonx ; l’hébergeur est américain, donc soumis au CLOUD Act quelle que soit la région.</figcaption>
+  </figure>
+  <dl class="facts">
+    <div><dt>Contrats à signer</dt><dd>Le cloud américain, plus les conditions « partner-served » de Mistral.</dd></div>
+    <div><dt>Interlocuteur au quotidien</dt><dd>Le cloud américain.</dd></div>
+    <div><dt>Pourquoi</dt><dd>Région européenne ou non, l’hébergeur reste soumis au CLOUD Act (même cas que Claude sur Bedrock).</dd></div>
+  </dl>
+</article>
+  </section>
+
+  <section class="recap" aria-labelledby="g-recap">
+    <h2 id="g-recap">En bref</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>Modalité</th><th>Souverain</th><th>Pourquoi</th></tr></thead>
+        <tbody>
+          <tr><td class="l">A</td><td>Notre infra, contrat direct avec Mistral</td><td class="yes">Oui</td><td>Mistral livre les poids et ne voit pas les données.</td></tr>
+          <tr><td class="l">B</td><td>Notre infra, via un revendeur non américain</td><td class="yes">Oui</td><td>Même chose, le revendeur installe.</td></tr>
+          <tr><td class="l">C</td><td>Cloud Outscale SecNumCloud</td><td class="yes">Oui, sous réserve</td><td>Hébergeur français qualifié, Mistral sans accès aux données. Qualification et catalogue à revérifier.</td></tr>
+          <tr><td class="l">D</td><td>Modèle open-weight chez un hébergeur non américain</td><td class="yes">Oui</td><td>Aucun contrat avec Mistral.</td></tr>
+          <tr><td class="l">E</td><td>Mistral en SaaS, même avec l’endpoint européen</td><td class="no">Non</td><td>Sous-traitants américains (Microsoft, CoreWeave, Google, Cloudflare) et filiale Mistral AI Inc.</td></tr>
+          <tr><td class="l">F</td><td>Mistral via Azure, Bedrock, Vertex, Snowflake ou watsonx</td><td class="no">Non</td><td>Hébergeur américain, quelle que soit la région.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sources" aria-labelledby="g-src">
+    <h2 id="g-src">Sources (lues le 12/11/2026)</h2>
+    <ul>
+      <li><a href="https://legal.mistral.ai/terms/partner-served-deployment-terms">Conditions « partner-served »</a> (28/05/2026) : « We do not have access to the Infrastructure or Your Data » (scénarios B, C, F).</li>
+      <li><a href="https://legal.mistral.ai/terms/commercial-terms-of-service">CGV commerciales</a> (25/09/2026), §1.1 : usage sur l’infrastructure du client autorisé par bon de commande (scénario A).</li>
+      <li><a href="https://legal.mistral.ai/terms/additional-terms">Conditions additionnelles</a> : recherche web et connecteurs maintenus sur l’infrastructure du client (scénario A).</li>
+      <li><a href="https://trust.mistral.ai/subprocessors">Liste des sous-traitants</a> et <a href="https://legal.mistral.ai/terms/mistral-ai-affiliates">liste des filiales</a> (scénario E).</li>
+      <li><a href="https://legal.mistral.ai/terms/data-processing-addendum">DPA</a> (27/07/2026), §7 : autorisation générale des sous-traitants (scénario E).</li>
+      <li><a href="https://docs.mistral.ai/inference/regional-inference">Doc « Regional inference »</a> : le plan de contrôle peut sortir de la zone (scénario E).</li>
+      <li><a href="https://docs.mistral.ai/inference/deployment/cloud-deployments">Doc « Cloud »</a> : Azure, Bedrock, Vertex, Snowflake, watsonx, Outscale (scénarios C, F).</li>
+    </ul>
+    <p class="todo">À vérifier avant diffusion : la qualification SecNumCloud d’Outscale sur la liste officielle de l’ANSSI (périmètre et date de validité), les modèles Mistral réellement proposés chez Outscale, la licence de chaque modèle open-weight envisagé.</p>
+  </section>
+</main>
+</body>
+</html>
