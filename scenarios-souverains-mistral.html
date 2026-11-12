@@ -196,12 +196,84 @@ tr:last-child td { border-bottom: none; }
 <article class="scn scn-ok" id="scenario-a">
   <header class="scn-h">
     <span class="letter">A</span>
+    <h3>Cloud Outscale qualifié SecNumCloud</h3>
+    <span class="chip chip-ok">Souverain, sous réserve</span>
+  </header>
+  <figure>
+    <div class="fig-scroll">
+<svg viewBox="0 0 760 332" role="img" aria-label="Scénario A : nous contractons avec Outscale, qui fait tourner le modèle Mistral sur son cloud SecNumCloud ; nous acceptons les conditions de Mistral ; Outscale est notre seul interlocuteur.">
+<rect class="per per-ok" x="4" y="4" width="378.0" height="324" rx="10"/>
+<line class="life" x1="100" y1="76" x2="100" y2="298"/>
+<line class="life" x1="300" y1="76" x2="300" y2="298"/>
+<line class="life" x1="480" y1="76" x2="480" y2="298"/>
+<line class="life" x1="666" y1="76" x2="666" y2="298"/>
+<text class="per-t per-t-ok" x="16" y="318">Nos données restent ici : aucun acteur américain</text>
+<rect class="hb hb-ok" x="12.0" y="14" width="176" height="62" rx="6"/>
+<text class="ht" x="100" y="36" text-anchor="middle">Cloud Outscale</text>
+<text class="hs" x="100" y="52" text-anchor="middle">SecNumCloud 3.2</text>
+<text class="hs" x="100" y="65" text-anchor="middle">France</text>
+<rect class="hb" x="232.0" y="14" width="136" height="62" rx="6"/>
+<text class="ht" x="300" y="36" text-anchor="middle">Nous</text>
+<text class="hs" x="300" y="52" text-anchor="middle">l’administration</text>
+<rect class="hb" x="404.0" y="14" width="152" height="62" rx="6"/>
+<text class="ht" x="480" y="36" text-anchor="middle">Outscale</text>
+<text class="hs" x="480" y="52" text-anchor="middle">3DS Outscale</text>
+<text class="hs" x="480" y="65" text-anchor="middle">(Dassault Systèmes)</text>
+<rect class="hb" x="592.0" y="14" width="148" height="62" rx="6"/>
+<text class="ht" x="666" y="36" text-anchor="middle">Mistral AI</text>
+<text class="hs" x="666" y="52" text-anchor="middle">SAS, Paris</text>
+<g class="a-us">
+<line x1="303" y1="122" x2="468" y2="122"/>
+<polygon points="477,122 468,117.5 468,126.5"/>
+</g>
+<circle class="num" cx="317" cy="109" r="8.5"/>
+<text class="numt" x="317" y="112.8" text-anchor="middle">1</text>
+<text class="al al-us" x="331" y="113">contrat via la marketplace</text>
+<g class="a-us">
+<line x1="303" y1="160" x2="654" y2="160"/>
+<polygon points="663,160 654,155.5 654,164.5"/>
+</g>
+<circle class="num" cx="317" cy="147" r="8.5"/>
+<text class="numt" x="317" y="150.8" text-anchor="middle">2</text>
+<text class="al al-us" x="331" y="151">acceptation des conditions Mistral</text>
+<g class="a-prov">
+<line x1="492" y1="198" x2="654" y2="198"/>
+<polygon points="663,198 654,193.5 654,202.5"/>
+<polygon points="483,198 492,193.5 492,202.5"/>
+</g>
+<text class="al al-prov" x="573.0" y="190" text-anchor="middle">accord partenaire, poids</text>
+<g class="a-data-ok">
+<line x1="287" y1="236" x2="113" y2="236"/>
+<polygon points="103,236 113,230 113,242"/>
+<polygon points="297,236 287,230 287,242"/>
+</g>
+<text class="al al-data-ok" x="200.0" y="226" text-anchor="middle">prompts et réponses</text>
+<g class="a-us">
+<line x1="303" y1="274" x2="468" y2="274"/>
+<polygon points="477,274 468,269.5 468,278.5"/>
+</g>
+<circle class="num" cx="317" cy="261" r="8.5"/>
+<text class="numt" x="317" y="264.8" text-anchor="middle">3</text>
+<text class="al al-us" x="331" y="265">support (seul contact)</text>
+</svg>
+    </div>
+    <figcaption>Nous contractons avec Outscale, qui fait tourner le modèle Mistral sur son cloud SecNumCloud ; nous acceptons les conditions de Mistral ; Outscale est notre seul interlocuteur.</figcaption>
+  </figure>
+  <dl class="facts">
+    <div><dt>Contrats à signer</dt><dd>Outscale : CGV et « Convention de service SecNumCloud ». Mistral : « Partner-served deployment terms », acceptées à l’usage.</dd></div>
+    <div><dt>Interlocuteur au quotidien</dt><dd>Outscale uniquement (« sole point of contact »).</dd></div>
+    <div><dt>Vigilance</dt><dd>La qualification couvre l’IaaS de la région « Secteur Public » : faire confirmer qu’Outscale y fait tourner le service Mistral, vérifier la date de validité sur la liste ANSSI et les modèles disponibles.</dd></div>
+  </dl>
+</article>
+<article class="scn scn-ok" id="scenario-b">
+  <header class="scn-h">
+    <span class="letter">B</span>
     <h3>Notre infra, contrat direct avec Mistral</h3>
     <span class="chip chip-ok">Souverain</span>
   </header>
   <figure>
     <div class="fig-scroll">
-<svg viewBox="0 0 760 294" role="img" aria-label="Scénario A : nous signons un bon de commande avec Mistral, qui nous livre les poids ; nos données ne quittent pas notre infrastructure.">
+<svg viewBox="0 0 760 294" role="img" aria-label="Scénario B : nous signons un bon de commande avec Mistral, qui nous livre les poids ; nos données ne quittent pas notre infrastructure.">
 <rect class="per per-ok" x="4" y="4" width="378.0" height="286" rx="10"/>
 <line class="life" x1="100" y1="76" x2="100" y2="260"/>
 <line class="life" x1="300" y1="76" x2="300" y2="260"/>
@@ -254,15 +326,15 @@ tr:last-child td { border-bottom: none; }
     <div><dt>Vigilance</dt><dd>Écrire dans le bon de commande que Mistral n’accède pas aux données. Couper la recherche web et les connecteurs : la recherche web passe par Brave Software, Inc. (États-Unis).</dd></div>
   </dl>
 </article>
-<article class="scn scn-ok" id="scenario-b">
+<article class="scn scn-ok" id="scenario-c">
   <header class="scn-h">
-    <span class="letter">B</span>
+    <span class="letter">C</span>
     <h3>Notre infra, via un revendeur</h3>
     <span class="chip chip-ok">Souverain</span>
   </header>
   <figure>
     <div class="fig-scroll">
-<svg viewBox="0 0 760 408" role="img" aria-label="Scénario B : nous contractons avec un revendeur non américain qui installe les poids chez nous ; nous acceptons les conditions de Mistral ; nos données restent sur notre infrastructure.">
+<svg viewBox="0 0 760 408" role="img" aria-label="Scénario C : nous contractons avec un revendeur non américain qui installe les poids chez nous ; nous acceptons les conditions de Mistral ; nos données restent sur notre infrastructure.">
 <rect class="per per-ok" x="4" y="4" width="378.0" height="400" rx="10"/>
 <line class="life" x1="100" y1="76" x2="100" y2="374"/>
 <line class="life" x1="300" y1="76" x2="300" y2="374"/>
@@ -336,78 +408,6 @@ tr:last-child td { border-bottom: none; }
     <div><dt>Contrats à signer</dt><dd>Le revendeur, plus les conditions « partner-served » de Mistral (acceptées à l’usage).</dd></div>
     <div><dt>Interlocuteur au quotidien</dt><dd>Le revendeur.</dd></div>
     <div><dt>Vigilance</dt><dd>Le revendeur doit être non américain. Mistral peut auditer notre usage de la licence (§10).</dd></div>
-  </dl>
-</article>
-<article class="scn scn-ok" id="scenario-c">
-  <header class="scn-h">
-    <span class="letter">C</span>
-    <h3>Cloud Outscale qualifié SecNumCloud</h3>
-    <span class="chip chip-ok">Souverain, sous réserve</span>
-  </header>
-  <figure>
-    <div class="fig-scroll">
-<svg viewBox="0 0 760 332" role="img" aria-label="Scénario C : nous contractons avec Outscale, qui fait tourner le modèle Mistral sur son cloud SecNumCloud ; nous acceptons les conditions de Mistral ; Outscale est notre seul interlocuteur.">
-<rect class="per per-ok" x="4" y="4" width="378.0" height="324" rx="10"/>
-<line class="life" x1="100" y1="76" x2="100" y2="298"/>
-<line class="life" x1="300" y1="76" x2="300" y2="298"/>
-<line class="life" x1="480" y1="76" x2="480" y2="298"/>
-<line class="life" x1="666" y1="76" x2="666" y2="298"/>
-<text class="per-t per-t-ok" x="16" y="318">Nos données restent ici : aucun acteur américain</text>
-<rect class="hb hb-ok" x="12.0" y="14" width="176" height="62" rx="6"/>
-<text class="ht" x="100" y="36" text-anchor="middle">Cloud Outscale</text>
-<text class="hs" x="100" y="52" text-anchor="middle">SecNumCloud 3.2</text>
-<text class="hs" x="100" y="65" text-anchor="middle">France</text>
-<rect class="hb" x="232.0" y="14" width="136" height="62" rx="6"/>
-<text class="ht" x="300" y="36" text-anchor="middle">Nous</text>
-<text class="hs" x="300" y="52" text-anchor="middle">l’administration</text>
-<rect class="hb" x="404.0" y="14" width="152" height="62" rx="6"/>
-<text class="ht" x="480" y="36" text-anchor="middle">Outscale</text>
-<text class="hs" x="480" y="52" text-anchor="middle">3DS Outscale</text>
-<text class="hs" x="480" y="65" text-anchor="middle">(Dassault Systèmes)</text>
-<rect class="hb" x="592.0" y="14" width="148" height="62" rx="6"/>
-<text class="ht" x="666" y="36" text-anchor="middle">Mistral AI</text>
-<text class="hs" x="666" y="52" text-anchor="middle">SAS, Paris</text>
-<g class="a-us">
-<line x1="303" y1="122" x2="468" y2="122"/>
-<polygon points="477,122 468,117.5 468,126.5"/>
-</g>
-<circle class="num" cx="317" cy="109" r="8.5"/>
-<text class="numt" x="317" y="112.8" text-anchor="middle">1</text>
-<text class="al al-us" x="331" y="113">contrat via la marketplace</text>
-<g class="a-us">
-<line x1="303" y1="160" x2="654" y2="160"/>
-<polygon points="663,160 654,155.5 654,164.5"/>
-</g>
-<circle class="num" cx="317" cy="147" r="8.5"/>
-<text class="numt" x="317" y="150.8" text-anchor="middle">2</text>
-<text class="al al-us" x="331" y="151">acceptation des conditions Mistral</text>
-<g class="a-prov">
-<line x1="492" y1="198" x2="654" y2="198"/>
-<polygon points="663,198 654,193.5 654,202.5"/>
-<polygon points="483,198 492,193.5 492,202.5"/>
-</g>
-<text class="al al-prov" x="573.0" y="190" text-anchor="middle">accord partenaire, poids</text>
-<g class="a-data-ok">
-<line x1="287" y1="236" x2="113" y2="236"/>
-<polygon points="103,236 113,230 113,242"/>
-<polygon points="297,236 287,230 287,242"/>
-</g>
-<text class="al al-data-ok" x="200.0" y="226" text-anchor="middle">prompts et réponses</text>
-<g class="a-us">
-<line x1="303" y1="274" x2="468" y2="274"/>
-<polygon points="477,274 468,269.5 468,278.5"/>
-</g>
-<circle class="num" cx="317" cy="261" r="8.5"/>
-<text class="numt" x="317" y="264.8" text-anchor="middle">3</text>
-<text class="al al-us" x="331" y="265">support (seul contact)</text>
-</svg>
-    </div>
-    <figcaption>Nous contractons avec Outscale, qui fait tourner le modèle Mistral sur son cloud SecNumCloud ; nous acceptons les conditions de Mistral ; Outscale est notre seul interlocuteur.</figcaption>
-  </figure>
-  <dl class="facts">
-    <div><dt>Contrats à signer</dt><dd>Outscale, plus les conditions « partner-served » de Mistral.</dd></div>
-    <div><dt>Interlocuteur au quotidien</dt><dd>Outscale uniquement (« sole point of contact »).</dd></div>
-    <div><dt>Vigilance</dt><dd>Vérifier la date de validité de la qualification sur la liste ANSSI et la liste des modèles Mistral disponibles chez Outscale.</dd></div>
   </dl>
 </article>
 <article class="scn scn-ok" id="scenario-d">
@@ -622,9 +622,9 @@ tr:last-child td { border-bottom: none; }
       <table>
         <thead><tr><th></th><th>Modalité</th><th>Souverain</th><th>Pourquoi</th></tr></thead>
         <tbody>
-          <tr><td class="l">A</td><td>Notre infra, contrat direct avec Mistral</td><td class="yes">Oui</td><td>Mistral livre les poids et ne voit pas les données.</td></tr>
-          <tr><td class="l">B</td><td>Notre infra, via un revendeur non américain</td><td class="yes">Oui</td><td>Même chose, le revendeur installe.</td></tr>
-          <tr><td class="l">C</td><td>Cloud Outscale SecNumCloud</td><td class="yes">Oui, sous réserve</td><td>Hébergeur français qualifié, Mistral sans accès aux données. Qualification et catalogue à revérifier.</td></tr>
+          <tr><td class="l">A</td><td>Cloud Outscale SecNumCloud</td><td class="yes">Oui, sous réserve</td><td>Hébergeur français qualifié, Mistral sans accès aux données. Périmètre de la qualification et catalogue à revérifier.</td></tr>
+          <tr><td class="l">B</td><td>Notre infra, contrat direct avec Mistral</td><td class="yes">Oui</td><td>Mistral livre les poids et ne voit pas les données.</td></tr>
+          <tr><td class="l">C</td><td>Notre infra, via un revendeur non américain</td><td class="yes">Oui</td><td>Même chose, le revendeur installe.</td></tr>
           <tr><td class="l">D</td><td>Modèle open-weight chez un hébergeur non américain</td><td class="yes">Oui</td><td>Aucun contrat avec Mistral.</td></tr>
           <tr><td class="l">E</td><td>Mistral en SaaS, même avec l’endpoint européen</td><td class="no">Non</td><td>Sous-traitants américains (Microsoft, CoreWeave, Google, Cloudflare) et filiale Mistral AI Inc.</td></tr>
           <tr><td class="l">F</td><td>Mistral via Azure, Bedrock, Vertex, Snowflake ou watsonx</td><td class="no">Non</td><td>Hébergeur américain, quelle que soit la région.</td></tr>
@@ -636,13 +636,14 @@ tr:last-child td { border-bottom: none; }
   <section class="sources" aria-labelledby="g-src">
     <h2 id="g-src">Sources (lues le 12/11/2026)</h2>
     <ul>
-      <li><a href="https://legal.mistral.ai/terms/partner-served-deployment-terms">Conditions « partner-served »</a> (28/05/2026) : « We do not have access to the Infrastructure or Your Data » (scénarios B, C, F).</li>
-      <li><a href="https://legal.mistral.ai/terms/commercial-terms-of-service">CGV commerciales</a> (25/09/2026), §1.1 : usage sur l’infrastructure du client autorisé par bon de commande (scénario A).</li>
-      <li><a href="https://legal.mistral.ai/terms/additional-terms">Conditions additionnelles</a> : recherche web et connecteurs maintenus sur l’infrastructure du client (scénario A).</li>
+      <li><a href="https://legal.mistral.ai/terms/partner-served-deployment-terms">Conditions « partner-served »</a> (28/05/2026) : « We do not have access to the Infrastructure or Your Data » (scénarios A, C, F).</li>
+      <li><a href="https://legal.mistral.ai/terms/commercial-terms-of-service">CGV commerciales</a> (25/09/2026), §1.1 : usage sur l’infrastructure du client autorisé par bon de commande (scénario B).</li>
+      <li><a href="https://legal.mistral.ai/terms/additional-terms">Conditions additionnelles</a> : recherche web et connecteurs maintenus sur l’infrastructure du client (scénario B).</li>
       <li><a href="https://trust.mistral.ai/subprocessors">Liste des sous-traitants</a> et <a href="https://legal.mistral.ai/terms/mistral-ai-affiliates">liste des filiales</a> (scénario E).</li>
       <li><a href="https://legal.mistral.ai/terms/data-processing-addendum">DPA</a> (27/07/2026), §7 : autorisation générale des sous-traitants (scénario E).</li>
       <li><a href="https://docs.mistral.ai/inference/regional-inference">Doc « Regional inference »</a> : le plan de contrôle peut sortir de la zone (scénario E).</li>
-      <li><a href="https://docs.mistral.ai/inference/deployment/cloud-deployments">Doc « Cloud »</a> : Azure, Bedrock, Vertex, Snowflake, watsonx, Outscale (scénarios C, F).</li>
+      <li><a href="https://docs.mistral.ai/inference/deployment/cloud-deployments">Doc « Cloud »</a> : Azure, Bedrock, Vertex, Snowflake, watsonx, Outscale (scénarios A, F).</li>
+      <li><a href="https://fr.outscale.com/wp-content/uploads/2024/06/SNC-Convention-SNC-ref-3.2-2024-05-13-prise-en-application-des-CGV-formulaire.docx">Convention de service SecNumCloud d’Outscale</a> (version du 13/05/2024) : qualification pour l’IaaS « Cloud On Demand », engagement d’informer de tout changement touchant la « protection vis-à-vis du droit extra-européen » (scénario A).</li>
     </ul>
     <p class="todo">À vérifier avant diffusion : la qualification SecNumCloud d’Outscale sur la liste officielle de l’ANSSI (périmètre et date de validité), les modèles Mistral réellement proposés chez Outscale, la licence de chaque modèle open-weight envisagé.</p>
   </section>
