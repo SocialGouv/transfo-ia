@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Budget usage IA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap">
+<style>
+/* Layout : une colonne centrée. Synthèse chiffrée en tête, puis paramètre global et tableau des métiers (saisie et résultat sur la même ligne). */
+:root{
+  --bg:#F2F5F7;
+  --surface:#FFFFFF;
+  --ink:#13202A;
+  --ink-2:#465763;
+  --muted:#5F6E7A;
+  --line:#DCE3E8;
+  --line-strong:#AEBBC5;
+  --accent:#0A6A80;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#DCECF0;
+  --field:#FFFFFF;
+  --danger:#B42318;
+  --font-display:"Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body:"Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1419; --surface:#141E25; --ink:#E4EBF0; --ink-2:#A6B4BF; --muted:#8696A2;
+    --line:#24323C; --line-strong:#3B4C58; --accent:#52B8CE; --accent-ink:#04212A;
+    --accent-soft:#16343D; --field:#0F181E; --danger:#F97066;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1419; --surface:#141E25; --ink:#E4EBF0; --ink-2:#A6B4BF; --muted:#8696A2;
+  --line:#24323C; --line-strong:#3B4C58; --accent:#52B8CE; --accent-ink:#04212A;
+  --accent-soft:#16343D; --field:#0F181E; --danger:#F97066;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.page{
+  max-width:1100px;
+  margin:0 auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:40px 56px;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+/* En-tête */
+.head{display:flex;flex-direction:column;gap:10px}
+.eyebrow{margin:0;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(28px,4.2vw,40px);line-height:1.1;letter-spacing:-.015em;text-wrap:balance}
+h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:20px;line-height:1.2;text-wrap:balance}
+.formula{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 0;padding:0;list-style:none;font-size:13px;color:var(--ink-2)}
+.formula .term{padding:3px 10px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface)}
+.formula .op{color:var(--muted);font-weight:500}
+.formula .result{padding:3px 10px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-weight:500}
+
+/* Synthèse */
+.summary{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);
+  gap:24px 32px;
+  align-items:end;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:24px;
+}
+.hero{display:flex;flex-direction:column;gap:6px;min-width:0}
+.k{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.big{font-family:var(--font-display);font-weight:600;font-size:clamp(36px,6vw,54px);line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--ink);overflow-wrap:anywhere}
+.sub{color:var(--ink-2);font-variant-numeric:tabular-nums}
+.facts{margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.facts div{display:flex;flex-direction:column;gap:4px;padding-left:16px;border-left:1px solid var(--line);min-width:0}
+.facts dt{font-size:13px;color:var(--muted)}
+.facts dd{margin:0;font-family:var(--font-display);font-weight:500;font-size:22px;line-height:1.2;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+
+/* Calcul */
+.calc{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  min-width:0;
+}
+.calc-head{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-end;justify-content:space-between}
+.global{display:flex;flex-direction:column;gap:6px}
+.global label{font-weight:500}
+.global-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.hint{font-size:13px;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+
+.field{
+  display:inline-flex;
+  align-items:center;
+  background:var(--field);
+  border:1px solid var(--line-strong);
+  border-radius:6px;
+  height:38px;
+  padding-right:10px;
+}
+.field:focus-within{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.field:has(input[aria-invalid="true"]){border-color:var(--danger)}
+.field input{
+  -moz-appearance:textfield;
+  appearance:textfield;
+  border:0;
+  background:transparent;
+  color:var(--ink);
+  font:inherit;
+  font-variant-numeric:tabular-nums;
+  text-align:right;
+  width:6.5ch;
+  height:100%;
+  padding:0 6px 0 10px;
+  outline:none;
+}
+.field input::-webkit-outer-spin-button,
+.field input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.unit{color:var(--muted);font-size:13px;white-space:nowrap}
+
+.btn{
+  font:inherit;font-size:14px;font-weight:500;
+  height:38px;padding:0 14px;border-radius:6px;
+  border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);
+  cursor:pointer;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.btn-ghost:hover{background:var(--accent-soft);filter:none}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.table-wrap{min-width:0;overflow-x:auto}
+table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.grid thead th{
+  font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--muted);text-align:left;vertical-align:bottom;
+  padding:0 12px 10px;border-bottom:1px solid var(--line-strong);
+}
+.grid thead th.num{text-align:right}
+.thsub{display:block;font-weight:400;letter-spacing:0;text-transform:none}
+.grid tbody th,.grid tbody td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.grid tbody th{font-weight:500;text-align:left;white-space:nowrap}
+.grid th:first-child,.grid td:first-child{padding-left:0}
+.grid th:last-child,.grid td:last-child{padding-right:0}
+.grid td.num{text-align:right;white-space:nowrap}
+.grid td.total{font-weight:600}
+.formula-row{display:block;font-size:12px;font-weight:400;color:var(--muted)}
+.grid tfoot th,.grid tfoot td{padding:14px 12px 0;font-weight:600;text-align:left}
+.grid tfoot td.num{text-align:right}
+.grid tfoot .pct-total{color:var(--ink-2);font-weight:500;padding-left:12px}
+
+.share-cell{display:flex;align-items:center;gap:10px;min-width:150px}
+.bar{flex:1;height:8px;border-radius:4px;background:var(--accent-soft);overflow:hidden}
+.fill{display:block;height:100%;width:0;background:var(--accent);border-radius:4px;transition:width .25s ease}
+.pct{min-width:6ch;text-align:right;color:var(--ink-2);font-size:13px}
+
+.status{margin:0;min-height:1.5em;font-size:13px;color:var(--ink-2)}
+.copy-fallback{display:flex;flex-direction:column;gap:8px}
+.copy-fallback textarea{
+  width:100%;min-height:170px;resize:vertical;
+  font:13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background:var(--field);color:var(--ink);
+  border:1px solid var(--line-strong);border-radius:6px;padding:10px;
+}
+
+.note{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted);max-width:75ch}
+.note p{margin:0}
+
+@media (prefers-reduced-motion: reduce){.fill{transition:none}}
+
+@media (max-width:760px){
+  .page{padding-block:28px 40px}
+  .summary{grid-template-columns:1fr;padding:20px}
+  .facts{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+  .facts div{padding-left:12px}
+  .facts dd{font-size:19px}
+  .calc{padding:20px}
+
+  .grid thead{display:none}
+  .grid,.grid tbody,.grid tfoot{display:block}
+  .grid tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .grid tbody th,.grid tbody td,.grid tfoot th,.grid tfoot td{padding:0;border:0}
+  .grid th[scope="row"]{grid-column:1/-1;font-family:var(--font-display);font-size:17px;font-weight:600}
+  .grid td{display:flex;flex-direction:column;gap:4px;min-width:0}
+  .grid td.num,.grid tfoot td.num{text-align:left;white-space:normal}
+  .grid td::before{content:attr(data-label);font-size:12px;font-weight:500;color:var(--muted)}
+  .grid td.share{grid-column:1/-1}
+  .grid tfoot tr{border-bottom:0}
+  .grid tfoot .pct-total{padding-left:0}
+  .share-cell{min-width:0}
+}
+</style>
+
+<div class="page">
+  <header class="head">
+    <p class="eyebrow">Estimation annuelle</p>
+    <h1>Budget usage IA</h1>
+    <ul class="formula" aria-label="Formule de calcul par métier">
+      <li class="term">Jours travaillés</li>
+      <li class="op" aria-hidden="true">×</li>
+      <li class="term">Coût d'usage moyen par jour</li>
+      <li class="op" aria-hidden="true">×</li>
+      <li class="term">Personnes</li>
+      <li class="op" aria-hidden="true">=</li>
+      <li class="result">Budget du métier</li>
+    </ul>
+  </header>
+
+  <section class="summary" aria-labelledby="sum-title">
+    <h2 id="sum-title" hidden>Synthèse</h2>
+    <div class="hero">
+      <span class="k">Budget annuel</span>
+      <output id="total" class="big" for="days">30 000 €</output>
+      <span class="sub" id="monthly">soit 2 500 € par mois, sur 200 jours travaillés</span>
+    </div>
+    <dl class="facts">
+      <div><dt>Personnes</dt><dd id="headcount">5</dd></div>
+      <div><dt>Par personne et par an</dt><dd id="perPerson">6 000 €</dd></div>
+      <div><dt>Coût moyen pondéré</dt><dd id="avgDay">30 € / jour</dd></div>
+    </dl>
+  </section>
+
+  <section class="calc" aria-labelledby="calc-title">
+    <h2 id="calc-title">Hypothèses par métier</h2>
+
+    <div class="calc-head">
+      <div class="global">
+        <label for="days">Jours travaillés par an</label>
+        <div class="global-row">
+          <span class="field"><input id="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="200"><span class="unit">jours</span></span>
+          <span class="hint">Commun à tous les métiers</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" id="copy" class="btn">Copier le tableau</button>
+        <button type="button" id="reset" class="btn btn-ghost">Valeurs par défaut</button>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="grid">
+        <thead>
+          <tr>
+            <th scope="col">Métier</th>
+            <th scope="col">Personnes</th>
+            <th scope="col">Coût d'usage moyen<span class="thsub">€ / jour / personne</span></th>
+            <th scope="col" class="num">Par personne<span class="thsub">par an</span></th>
+            <th scope="col" class="num">Total annuel</th>
+            <th scope="col">Part du budget</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Total</th>
+            <td data-label="Personnes" id="f-people"></td>
+            <td data-label="Coût moyen pondéré" id="f-avg"></td>
+            <td data-label="Par personne et par an" class="num" id="f-per"></td>
+            <td data-label="Total annuel" class="num" id="f-total"></td>
+            <td data-label="Part du budget" class="pct-total" id="f-pct"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <p id="status" class="status" role="status"></p>
+    <div id="copy-fallback" class="copy-fallback" hidden>
+      <label for="copy-text" class="hint">Tableau au format tableur (colonnes séparées par des tabulations)</label>
+      <textarea id="copy-text" readonly></textarea>
+    </div>
+  </section>
+
+  <footer class="note">
+    <p>Pour chaque métier : jours travaillés × coût d'usage moyen par jour et par personne × nombre de personnes. Le budget mensuel est le budget annuel divisé par 12. Les montants suivent la convention de vos hypothèses (HT ou TTC).</p>
+    <p>Vos saisies restent dans ce navigateur.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  document.documentElement.lang = 'fr';
+
+  var ROLES = [
+    { id: 'cdp', name: 'Chefs de projet' },
+    { id: 'design', name: 'Designers' },
+    { id: 'archi', name: 'Architectes' },
+    { id: 'devops', name: 'Devops' },
+    { id: 'dev', name: 'Développeurs' }
+  ];
+  var DEFAULTS = { days: 200, cost: 30, people: 1 };
+  var STORE_KEY = 'budget-usage-ia:v1';
+
+  var eur0 = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  var eur2 = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  var num = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 2 });
+  var pct = new Intl.NumberFormat('fr-FR', { style: 'percent', minimumFractionDigits: 0, maximumFractionDigits: 1 });
+
+  function $(id) { return document.getElementById(id); }
+
+  var daysEl = $('days');
+  var tbody = $('rows');
+  var statusEl = $('status');
+  var fallback = $('copy-fallback');
+  var fallbackText = $('copy-text');
+
+  ROLES.forEach(function (role) {
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<th scope="row">' + role.name + '</th>' +
+      '<td data-label="Personnes"><span class="field"><input id="n-' + role.id + '" type="number" inputmode="decimal" min="0" step="1" aria-label="Nombre de personnes, ' + role.name + '"><span class="unit">pers.</span></span></td>' +
+      '<td data-label="Coût moyen (€ / jour / personne)"><span class="field"><input id="c-' + role.id + '" type="number" inputmode="decimal" min="0" step="0.5" aria-label="Coût d\'usage moyen par jour et par personne, ' + role.name + '"><span class="unit">€ / j</span></span></td>' +
+      '<td data-label="Par personne et par an" class="num" data-out="per"></td>' +
+      '<td data-label="Total annuel" class="num total"><span data-out="total"></span><span class="formula-row" data-out="formula"></span></td>' +
+      '<td data-label="Part du budget" class="share"><div class="share-cell"><span class="bar" aria-hidden="true"><span class="fill" data-out="fill"></span></span><span class="pct" data-out="pct"></span></div></td>';
+    tbody.appendChild(tr);
+    role.nEl = tr.querySelector('#n-' + role.id);
+    role.cEl = tr.querySelector('#c-' + role.id);
+    role.out = {};
+    tr.querySelectorAll('[data-out]').forEach(function (el) { role.out[el.dataset.out] = el; });
+  });
+
+  function read(el) {
+    var v = el.valueAsNumber;
+    var bad = el.validity.badInput || (Number.isFinite(v) && v < 0);
+    if (bad) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid');
+    return Number.isFinite(v) && v > 0 ? v : 0;
+  }
+
+  function applyDefaults() {
+    daysEl.value = DEFAULTS.days;
+    ROLES.forEach(function (r) { r.nEl.value = DEFAULTS.people; r.cEl.value = DEFAULTS.cost; });
+  }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(STORE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function save() {
+    try {
+      var s = { days: daysEl.value, roles: {} };
+      ROLES.forEach(function (r) { s.roles[r.id] = { n: r.nEl.value, c: r.cEl.value }; });
+      localStorage.setItem(STORE_KEY, JSON.stringify(s));
+    } catch (e) { /* stockage indisponible : la page fonctionne sans */ }
+  }
+
+  function applyState(s) {
+    applyDefaults();
+    if (!s || typeof s !== 'object') return;
+    if (typeof s.days === 'string') daysEl.value = s.days;
+    if (s.roles && typeof s.roles === 'object') {
+      ROLES.forEach(function (r) {
+        var v = s.roles[r.id];
+        if (!v) return;
+        if (typeof v.n === 'string') r.nEl.value = v.n;
+        if (typeof v.c === 'string') r.cEl.value = v.c;
+      });
+    }
+  }
+
+  var last = null;
+
+  function compute() {
+    var days = read(daysEl);
+    var total = 0, people = 0;
+    var rows = ROLES.map(function (r) {
+      var n = read(r.nEl), c = read(r.cEl);
+      var per = days * c;
+      var t = per * n;
+      total += t;
+      people += n;
+      return { r: r, n: n, c: c, per: per, t: t };
+    });
+    var perPerson = people > 0 ? total / people : 0;
+    var avgDay = people > 0 && days > 0 ? total / (people * days) : 0;
+
+    rows.forEach(function (row) {
+      var o = row.r.out;
+      var share = total > 0 ? row.t / total : 0;
+      o.per.textContent = eur0.format(row.per);
+      o.total.textContent = eur0.format(row.t);
+      o.formula.textContent = num.format(days) + ' j × ' + eur2.format(row.c) + ' × ' + num.format(row.n) + ' pers.';
+      o.fill.style.width = (share * 100).toFixed(2) + '%';
+      o.pct.textContent = total > 0 ? pct.format(share) : '–';
+    });
+
+    $('total').textContent = eur0.format(total);
+    $('monthly').textContent = 'soit ' + eur0.format(total / 12) + ' par mois, sur ' + num.format(days) + ' jours travaillés';
+    $('headcount').textContent = num.format(people);
+    $('perPerson').textContent = eur0.format(perPerson);
+    $('avgDay').textContent = eur2.format(avgDay) + ' / jour';
+
+    $('f-people').textContent = num.format(people) + ' pers.';
+    $('f-avg').textContent = eur2.format(avgDay) + ' / j (moyenne)';
+    $('f-per').textContent = eur0.format(perPerson);
+    $('f-total').textContent = eur0.format(total);
+    $('f-pct').textContent = total > 0 ? '100 %' : '–';
+
+    last = { days: days, total: total, people: people, perPerson: perPerson, avgDay: avgDay, rows: rows };
+  }
+
+  function plain(v) {
+    return String(Math.round(v * 100) / 100).replace('.', ',');
+  }
+
+  function toTsv() {
+    var d = last;
+    var lines = [];
+    lines.push(['Métier', 'Personnes', 'Coût moyen (€ / jour / personne)', 'Coût par personne et par an (€)', 'Total annuel (€)', 'Part du budget (%)'].join('\t'));
+    d.rows.forEach(function (row) {
+      lines.push([row.r.name, plain(row.n), plain(row.c), plain(row.per), plain(row.t), plain(d.total > 0 ? row.t / d.total * 100 : 0)].join('\t'));
+    });
+    lines.push(['Total', plain(d.people), plain(d.avgDay), plain(d.perPerson), plain(d.total), d.total > 0 ? '100' : '0'].join('\t'));
+    lines.push('');
+    lines.push(['Jours travaillés par an', plain(d.days)].join('\t'));
+    lines.push(['Budget mensuel moyen (€)', plain(d.total / 12)].join('\t'));
+    return lines.join('\n');
+  }
+
+  var statusTimer = null;
+  function say(msg, keep) {
+    statusEl.textContent = msg;
+    clearTimeout(statusTimer);
+    if (!keep) statusTimer = setTimeout(function () { statusEl.textContent = ''; }, 5000);
+  }
+
+  $('copy').addEventListener('click', function () {
+    var text = toTsv();
+    fallback.hidden = true;
+    function ok() { say('Tableau copié. Collez-le dans un tableur ou un e-mail.'); }
+    function ko() {
+      fallbackText.value = text;
+      fallback.hidden = false;
+      fallbackText.focus();
+      fallbackText.select();
+      say('Copie automatique indisponible : le tableau est sélectionné ci-dessous, copiez-le avec Ctrl+C (Cmd+C sur Mac).', true);
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, ko);
+      else ko();
+    } catch (e) { ko(); }
+  });
+
+  $('reset').addEventListener('click', function () {
+    applyDefaults();
+    compute();
+    save();
+    fallback.hidden = true;
+    say('Valeurs par défaut rétablies : ' + DEFAULTS.days + ' jours, ' + DEFAULTS.cost + ' € par jour, ' + DEFAULTS.people + ' personne par métier.');
+  });
+
+  document.querySelector('.calc').addEventListener('input', function (e) {
+    if (e.target.matches('input[type="number"]')) {
+      compute();
+      save();
+    }
+  });
+
+  applyState(load());
+  compute();
+})();
+</script>
+
+</html>
