@@ -60,6 +60,8 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .title{font-size:60px;line-height:1.1;letter-spacing:-.018em;text-wrap:balance}
 .lead{margin-top:14px;font-size:34px;line-height:1.35;color:var(--ink-2)}
 .lead b{color:var(--bf)}
+.def{margin-top:8px;font-size:26px;line-height:1.35;color:var(--ink-3)}
+.def b{color:var(--ink-2)}
 .s-body{flex:1 1 auto;min-height:0;margin:36px 0 26px;display:flex;flex-direction:column}
 .s-foot{flex:none;height:60px;margin:0 calc(-1 * var(--pad));padding:0 var(--pad);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:24px;color:var(--ink-3)}
 .s-foot strong{color:var(--ink)}
@@ -141,7 +143,31 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .o-step--todo::before{background:#fff}
 .o-step:not(:last-child)::after{content:"";position:absolute;left:-31px;top:29px;bottom:-51px;width:4px;background:var(--bf-850)}
 
-/* ---------- 4 · Formation ---------- */
+/* ---------- 4 · Assistant IA maison (recommandation) ---------- */
+/* En haut les outils officiels actuels et leurs limites, en bas la recommandation et ses trois apports (subgrid) */
+.h-wrap{flex:1;min-height:0;display:flex;flex-direction:column;gap:16px}
+.h-now{flex:none;display:grid;grid-template-columns:200px minmax(0,1fr);column-gap:28px;align-items:center}
+.h-now__tools{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr);column-gap:24px}
+.h-tool{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:10px 24px 12px;background:var(--orange-975);border-left:6px solid var(--orange-645)}
+.h-tool__name{display:flex;align-items:center;gap:12px;font-size:30px;line-height:1.2;font-weight:700;color:var(--ink)}
+.h-tool__name .ico{font-size:30px;color:var(--warn)}
+.h-tool__desc{font-size:26px;line-height:1.28;color:var(--ink-2)}
+.h-tool__desc strong{display:block;color:var(--warn)}
+.h-ans{flex:1;min-height:0;display:flex;flex-direction:column}
+.h-cards{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.25fr);grid-template-rows:auto auto minmax(0,1fr);column-gap:24px;margin-top:12px}
+.h-card{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;padding:18px 28px 18px;background:var(--bf-975);border-top:6px solid var(--bf)}
+.h-card > *{min-width:0}
+.h-card__head{display:flex;align-items:center;gap:18px;font-size:34px;line-height:1.15;letter-spacing:-.01em;text-wrap:balance}
+.h-card__ico{display:grid;place-items:center;flex:none;width:68px;height:68px;background:var(--bf)}
+.h-card__ico .ico{font-size:40px;color:#fff}
+.h-card__what{margin-top:10px;font-size:27px;line-height:1.32;color:var(--ink-2)}
+.h-eq{align-self:start;margin-top:12px;display:flex;flex-direction:column;gap:2px;padding:10px 22px 10px;background:#fff;border:1px solid var(--bf-925)}
+.h-eq li{display:grid;grid-template-columns:28px 34px minmax(0,1fr);column-gap:12px;align-items:center;font-size:26px;line-height:1.25;color:var(--ink)}
+.h-eq__op{font-size:32px;line-height:1;font-weight:700;color:var(--bf);text-align:center}
+.h-eq .ico{font-size:32px;color:var(--bf)}
+.h-eq li.h-eq__res{margin-top:4px;padding-top:6px;border-top:2px solid var(--bf);font-weight:700;color:var(--bf)}
+
+/* ---------- 5 · Formation ---------- */
 /* En haut le risque (chaîne de cause à effet), en bas la réponse en quatre étapes alignées (subgrid) */
 .f-wrap{flex:1;min-height:0;display:flex;flex-direction:column;gap:22px}
 .f-risk{flex:none;display:grid;grid-template-columns:170px minmax(0,1fr);column-gap:30px;align-items:center}
@@ -173,7 +199,7 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .f-step.is-todo{background:#fff;border:2px dashed var(--bf-525);border-top:6px solid var(--bf-850)}
 .f-step.is-todo .f-num{background:#fff;color:var(--bf);border:3px dashed var(--bf)}
 
-/* ---------- 5 · Adoption (référents IA) ---------- */
+/* ---------- 6 · Adoption (référents IA) ---------- */
 .a-grid{flex:1;min-height:0;display:grid;grid-template-columns:520px minmax(0,1fr);column-gap:48px}
 .a-how{display:flex;flex-direction:column;padding:28px 34px 30px;background:var(--bf);color:#fff}
 .a-how > .label{color:var(--bf-850)}
@@ -198,32 +224,33 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .a-who small{font-size:24px;color:var(--ink-3)}
 .a-what{font-size:28px;line-height:1.3;color:var(--ink);text-wrap:balance}
 
-/* ---------- 6 · Impact ---------- */
+/* ---------- 7 · Impact ---------- */
 /* Métier par métier : d’où l’on part -> aujourd’hui -> la suite ; la flèche verte marque l’apport de l’accompagnement */
 .nw{white-space:nowrap}
 .p-chart{flex:1;min-height:0;display:flex;flex-direction:column}
-.p-head,.p-row{display:grid;grid-template-columns:270px minmax(0,.8fr) 40px minmax(0,1.5fr) 40px minmax(0,.95fr);column-gap:12px}
+.p-head,.p-row{display:grid;grid-template-columns:244px minmax(0,.53fr) 32px minmax(0,1.5fr) 32px minmax(0,1.15fr);column-gap:10px}
 .p-head{align-items:end;padding-bottom:10px;border-bottom:3px solid var(--bf)}
 .p-head .label{font-size:21px}
 .p-head .p-h-now{color:var(--ok)}
 .p-head .p-h-next{color:var(--todo)}
-.p-rows{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;padding-top:12px}
+.p-rows{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px;padding-top:12px}
 .p-row{flex:1 1 auto}
 .p-who{display:flex;align-items:center;gap:14px;line-height:1.15}
 .p-who .ico{font-size:34px;color:var(--bf)}
 .p-who strong{display:block;font-size:29px}
 .p-who small{display:block;margin-top:2px;font-size:23px;color:var(--ink-3);white-space:nowrap}
-.p-from,.p-now,.p-next{display:flex;align-items:center;padding:8px 20px;font-size:25px;line-height:1.25;text-wrap:balance}
+.p-from,.p-now,.p-next{display:flex;align-items:center;padding:6px 18px;font-size:24px;line-height:1.25;text-wrap:balance}
 .p-from{background:var(--alt);color:var(--ink-3)}
-.p-now{background:#dffee6;border-left:6px solid var(--ok);color:var(--ink);font-size:26px;font-weight:500}
+.p-now{background:#dffee6;border-left:6px solid var(--ok);color:var(--ink);font-size:25px;font-weight:500}
 .p-now strong{color:var(--ok)}
 .p-next{background:#fff;border:2px dashed var(--todo);color:var(--ink-2)}
 .p-arrow{align-self:center;justify-self:center;width:32px;height:32px;background:var(--ok);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat}
 .p-arrow--next{background:var(--todo)}
+.p-list{display:flex;flex-direction:column;gap:6px}
 .m-vig{flex:none;display:flex;align-items:center;gap:22px;margin-top:18px;padding:16px 26px;background:var(--warn-bg);border-left:6px solid var(--warn);font-size:28px;line-height:1.3;color:var(--ink)}
 .m-vig .badge{background:#fff}
 
-/* ---------- 7 · Complémentarité ---------- */
+/* ---------- 8 · Complémentarité ---------- */
 .c-stack{flex:1;min-height:0;display:flex;flex-direction:column-reverse}
 .c-layer{display:grid;grid-template-columns:360px minmax(0,1fr);column-gap:44px;align-items:center;padding:20px 40px}
 .c-id{display:flex;flex-direction:column;gap:6px}
@@ -252,7 +279,7 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .c-link{flex:none;height:40px;position:relative}
 .c-link::before{content:"";position:absolute;left:58px;top:4px;bottom:4px;width:32px;background:var(--bf);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat;transform:rotate(-90deg)}
 
-/* ---------- 8 · Prochaines étapes ---------- */
+/* ---------- 9 · Prochaines étapes ---------- */
 .n-grid{flex:1;min-height:0;display:grid;grid-template-columns:500px minmax(0,1fr);column-gap:56px}
 .n-date{display:flex;flex-direction:column;justify-content:center;gap:14px;padding:40px 40px 44px;background:var(--bf);color:#fff}
 .n-date .label{display:flex;align-items:center;gap:12px;color:var(--bf-850)}
@@ -306,7 +333,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
 </style>
 </head>
 <body>
-<svg class="sprite" aria-hidden="true" focusable="false"><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M15.596 2.999a7 7 0 0 1 3.396 6.34A6 6 0 0 1 17 21H7A6 6 0 0 1 5.008 9.339a7 7 0 0 1 10.588-6.34ZM9.36 4.752a5 5 0 0 0-2.354 4.491l.07 1.488-1.404.494A4.002 4.002 0 0 0 7 19h10a4 4 0 1 0-3.796-5.265l-1.898-.633A6.003 6.003 0 0 1 17 9a5 5 0 0 0-7.64-4.248Z"/></symbol><symbol id="i-team" viewBox="0 0 24 24"><path d="M12 11a5 5 0 0 1 5 5v6h-2v-6a3 3 0 0 0-2.824-2.995L12 13a3 3 0 0 0-2.995 2.824L9 16v6H7v-6a5 5 0 0 1 5-5Zm-6.5 3c.279 0 .55.033.81.094a5.947 5.947 0 0 0-.301 1.575L6 16v.086a1.492 1.492 0 0 0-.356-.08L5.5 16a1.5 1.5 0 0 0-1.493 1.356L4 17.5V22H2v-4.5A3.5 3.5 0 0 1 5.5 14Zm13 0a3.5 3.5 0 0 1 3.5 3.5V22h-2v-4.5a1.5 1.5 0 0 0-1.356-1.493L18.5 16c-.175 0-.343.03-.5.085V16c0-.666-.108-1.306-.309-1.904A3.42 3.42 0 0 1 18.5 14Zm-13-6a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm-13 2a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Zm13 0a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1ZM12 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M12 14a8 8 0 0 1 8 8h-2a6 6 0 1 0-12 0H4a8 8 0 0 1 8-8Zm0-13c3.315 0 6 2.685 6 6s-2.685 6-6 6-6-2.685-6-6 2.685-6 6-6Zm0 2C9.79 3 8 4.79 8 7s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4Z"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><path d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0v1ZM5 12v8h14v-8H5Zm6 2h2v4h-2v-4Zm6-4V9A5 5 0 1 0 7 9v1h10Z"/></symbol><symbol id="i-code" viewBox="0 0 24 24"><path d="m24 12-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12ZM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12Zm6.96 9H7.66l6.552-18h2.128L9.788 21Z"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 1a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4V2a1 1 0 0 1 1-1h8Zm4 15H4v3h16v-3Zm0-9H4v7h16V7Zm-7 4v2h-2v-2h2Zm2-8H9v2h6V3Z"/></symbol><symbol id="i-computer" viewBox="0 0 24 24"><path d="M21.008 3c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13v2h4v2H7v-2h4v-2H2.992A.998.998 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016ZM20 5H4v11h16V5Z"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="m10 15.172 9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414 4.95 4.95Z"/></symbol><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="m16.172 11-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2h12.172Z"/></symbol><symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828Z"/></symbol><symbol id="i-server" viewBox="0 0 24 24"><path d="M20 3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h16Zm-1 10H5v6h14v-6Zm-9 2v2H7v-2h3Zm9-10H5v6h14V5Zm-9 2v2H7V7h3Z"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 1 8.217 1.826a1 1 0 0 1 .783.976v9.987a6 6 0 0 1-2.672 4.992L12 23l-6.328-4.219A6 6 0 0 1 3 13.79V3.802a1 1 0 0 1 .783-.976L12 1Zm0 2.05L5 4.604v9.185a4 4 0 0 0 1.781 3.328L12 20.597l5.219-3.48A4 4 0 0 0 19 13.79V4.604L12 3.05Z"/></symbol><symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M9.973 18H11v-5h2v5h1.027c.132-1.202.745-2.194 1.74-3.277.113-.122.832-.867.917-.973a6 6 0 1 0-9.37-.002c.086.107.807.853.918.974.996 1.084 1.609 2.076 1.741 3.278ZM10 20v1h4v-1h-4Zm-4.246-5a8 8 0 1 1 12.49.002C17.624 15.774 16 17 16 18.5V21a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.5C8 17 6.375 15.774 5.754 15Z"/></symbol><symbol id="i-compasses" viewBox="0 0 24 24">
+<svg class="sprite" aria-hidden="true" focusable="false"><symbol id="i-user-heart" viewBox="0 0 24 24"><path d="m17.841 15.659.176.177.178-.177a2.25 2.25 0 1 1 3.182 3.182l-3.36 3.359-3.358-3.359a2.25 2.25 0 0 1 3.182-3.182ZM12 14v2a6 6 0 0 0-6 6H4a8 8 0 0 1 7.75-7.996L12 14Zm0-13c3.315 0 6 2.685 6 6a5.998 5.998 0 0 1-5.775 5.996L12 13c-3.315 0-6-2.685-6-6a5.998 5.998 0 0 1 5.775-5.996L12 1Zm0 2C9.79 3 8 4.79 8 7s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4Z"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.956 9.956 0 0 1-4.709-1.176L2 22l1.176-5.291A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2Zm0 2a8 8 0 0 0-8 8c0 1.334.325 2.618.94 3.766l.349.653-.655 2.947 2.947-.655.653.35A7.955 7.955 0 0 0 12 20a8 8 0 0 0 0-16Z"/></symbol><symbol id="i-sparkling" viewBox="0 0 24 24"><path d="m17 1.208 1.32 2.473L20.792 5 18.32 6.319l-1.318 2.473-1.32-2.473-2.472-1.32 2.473-1.318L17 1.208Zm-6.333 8.125 5 2.667-5 2.667-2.666 5-2.667-5-5-2.667 5-2.667 2.667-5 2.666 5Zm.75 2.667L9.19 10.812 8.001 8.582l-1.189 2.229L4.584 12l2.228 1.188 1.189 2.229 1.188-2.229L11.417 12Zm8.25 4.333-1.666-3.125-1.667 3.125L13.209 18l3.125 1.667 1.667 3.125 1.666-3.125L22.792 18l-3.125-1.667Z"/></symbol><symbol id="i-magic" viewBox="0 0 24 24"><path d="M15.1986 9.94435C14.7649 9.53358 14.4859 8.98601 14.4085 8.39372L14.0056 5.31126L11.275 6.79712C10.7503 7.08262 10.1433 7.17876 9.55608 7.06936L6.49998 6.50003L7.06931 9.55613C7.17871 10.1434 7.08257 10.7504 6.79707 11.275L5.31121 14.0056L8.39367 14.4085C8.98596 14.486 9.53353 14.765 9.94431 15.1986L12.0821 17.4556L13.4178 14.6485C13.6745 14.1091 14.109 13.6746 14.6484 13.4179L17.4555 12.0822L15.1986 9.94435ZM15.2238 15.5078L13.0111 20.158C12.8687 20.4572 12.5107 20.5843 12.2115 20.4419C12.1448 20.4102 12.0845 20.3664 12.0337 20.3128L8.49229 16.574C8.39749 16.4739 8.27113 16.4095 8.13445 16.3917L3.02816 15.7242C2.69958 15.6813 2.46804 15.3801 2.51099 15.0515C2.52056 14.9783 2.54359 14.9074 2.5789 14.8425L5.04031 10.3191C5.1062 10.198 5.12839 10.0579 5.10314 9.92241L4.16 4.85979C4.09931 4.53402 4.3142 4.22074 4.63997 4.16005C4.7126 4.14652 4.78711 4.14652 4.85974 4.16005L9.92237 5.10319C10.0579 5.12843 10.198 5.10625 10.319 5.04036L14.8424 2.57895C15.1335 2.42056 15.4979 2.52813 15.6562 2.81919C15.6916 2.88409 15.7146 2.95495 15.7241 3.02821L16.3916 8.1345C16.4095 8.27118 16.4739 8.39754 16.5739 8.49233L20.3127 12.0337C20.5533 12.2616 20.5636 12.6414 20.3357 12.882C20.2849 12.9356 20.2246 12.9794 20.1579 13.0111L15.5078 15.2239C15.3833 15.2831 15.283 15.3834 15.2238 15.5078ZM16.0206 17.4349L17.4348 16.0207L21.6775 20.2633L20.2633 21.6775L16.0206 17.4349Z"/></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M15.596 2.999a7 7 0 0 1 3.396 6.34A6 6 0 0 1 17 21H7A6 6 0 0 1 5.008 9.339a7 7 0 0 1 10.588-6.34ZM9.36 4.752a5 5 0 0 0-2.354 4.491l.07 1.488-1.404.494A4.002 4.002 0 0 0 7 19h10a4 4 0 1 0-3.796-5.265l-1.898-.633A6.003 6.003 0 0 1 17 9a5 5 0 0 0-7.64-4.248Z"/></symbol><symbol id="i-team" viewBox="0 0 24 24"><path d="M12 11a5 5 0 0 1 5 5v6h-2v-6a3 3 0 0 0-2.824-2.995L12 13a3 3 0 0 0-2.995 2.824L9 16v6H7v-6a5 5 0 0 1 5-5Zm-6.5 3c.279 0 .55.033.81.094a5.947 5.947 0 0 0-.301 1.575L6 16v.086a1.492 1.492 0 0 0-.356-.08L5.5 16a1.5 1.5 0 0 0-1.493 1.356L4 17.5V22H2v-4.5A3.5 3.5 0 0 1 5.5 14Zm13 0a3.5 3.5 0 0 1 3.5 3.5V22h-2v-4.5a1.5 1.5 0 0 0-1.356-1.493L18.5 16c-.175 0-.343.03-.5.085V16c0-.666-.108-1.306-.309-1.904A3.42 3.42 0 0 1 18.5 14Zm-13-6a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm-13 2a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Zm13 0a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1ZM12 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M12 14a8 8 0 0 1 8 8h-2a6 6 0 1 0-12 0H4a8 8 0 0 1 8-8Zm0-13c3.315 0 6 2.685 6 6s-2.685 6-6 6-6-2.685-6-6 2.685-6 6-6Zm0 2C9.79 3 8 4.79 8 7s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4Z"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><path d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0v1ZM5 12v8h14v-8H5Zm6 2h2v4h-2v-4Zm6-4V9A5 5 0 1 0 7 9v1h10Z"/></symbol><symbol id="i-code" viewBox="0 0 24 24"><path d="m24 12-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12ZM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12Zm6.96 9H7.66l6.552-18h2.128L9.788 21Z"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 1a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4V2a1 1 0 0 1 1-1h8Zm4 15H4v3h16v-3Zm0-9H4v7h16V7Zm-7 4v2h-2v-2h2Zm2-8H9v2h6V3Z"/></symbol><symbol id="i-computer" viewBox="0 0 24 24"><path d="M21.008 3c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13v2h4v2H7v-2h4v-2H2.992A.998.998 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016ZM20 5H4v11h16V5Z"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="m10 15.172 9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414 4.95 4.95Z"/></symbol><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="m16.172 11-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2h12.172Z"/></symbol><symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828Z"/></symbol><symbol id="i-server" viewBox="0 0 24 24"><path d="M20 3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h16Zm-1 10H5v6h14v-6Zm-9 2v2H7v-2h3Zm9-10H5v6h14V5Zm-9 2v2H7V7h3Z"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 1 8.217 1.826a1 1 0 0 1 .783.976v9.987a6 6 0 0 1-2.672 4.992L12 23l-6.328-4.219A6 6 0 0 1 3 13.79V3.802a1 1 0 0 1 .783-.976L12 1Zm0 2.05L5 4.604v9.185a4 4 0 0 0 1.781 3.328L12 20.597l5.219-3.48A4 4 0 0 0 19 13.79V4.604L12 3.05Z"/></symbol><symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M9.973 18H11v-5h2v5h1.027c.132-1.202.745-2.194 1.74-3.277.113-.122.832-.867.917-.973a6 6 0 1 0-9.37-.002c.086.107.807.853.918.974.996 1.084 1.609 2.076 1.741 3.278ZM10 20v1h4v-1h-4Zm-4.246-5a8 8 0 1 1 12.49.002C17.624 15.774 16 17 16 18.5V21a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.5C8 17 6.375 15.774 5.754 15Z"/></symbol><symbol id="i-compasses" viewBox="0 0 24 24">
 <path d="M16.3303 13.4969C17.9562 12.215 19 10.2277 19 7.99658H21C21 10.9686 19.5595 13.6042 17.3385 15.2431L19.8661 19.621C20.4183 20.5775 20.0906 21.8007 19.134 22.353L15.6073 16.2446C14.5029 16.7282 13.2828 16.9966 12 16.9966C10.7172 16.9966 9.49712 16.7282 8.39278 16.2446L4.86606 22.353C3.90947 21.8007 3.58172 20.5775 4.13401 19.621L9.19751 10.8507C8.45844 10.1249 8.00003 9.11427 8.00003 7.99658C8.00003 6.13274 9.2748 4.56664 11 4.1226V1.99658H13V4.1226C14.7253 4.56664 16 6.13274 16 7.99658C16 9.11427 15.5416 10.1249 14.8025 10.8507L16.3303 13.4969ZM14.599 14.4982L13.071 11.8516C12.7302 11.9461 12.371 11.9966 12 11.9966C11.6291 11.9966 11.2699 11.9461 10.929 11.8516L9.40101 14.4982C10.2046 14.8197 11.0817 14.9966 12 14.9966C12.9184 14.9966 13.7955 14.8197 14.599 14.4982ZM12 9.99658C13.1046 9.99658 14 9.10115 14 7.99658C14 6.89201 13.1046 5.99658 12 5.99658C10.8955 5.99658 10 6.89201 10 7.99658C10 9.10115 10.8955 9.99658 12 9.99658Z"/>
 </symbol><symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 2c5.522 0 10 3.978 10 8.889a5.558 5.558 0 0 1-5.556 5.555h-1.966c-.922 0-1.667.745-1.667 1.667 0 .422.167.811.422 1.1.267.3.434.689.434 1.122C13.667 21.256 12.9 22 12 22 6.478 22 2 17.522 2 12S6.478 2 12 2Zm0 2a8 8 0 0 0-.676 15.972 3.648 3.648 0 0 1-.513-1.86v-.001a3.664 3.664 0 0 1 3.667-3.667h1.966A3.558 3.558 0 0 0 20 10.89C20 7.139 16.468 4 12 4ZM7.5 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm9 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/></symbol><symbol id="i-roadmap" viewBox="0 0 24 24"><path d="M21.775 4.341A.5.5 0 0 1 22 4.76V19l-7 3-6-3-6.303 2.701a.5.5 0 0 1-.697-.46V7l2-.857v12.824l5.065-2.17 6 3L20 17.68V4.857l1.303-.558a.5.5 0 0 1 .472.042Zm-5.532-1.583a6 6 0 0 1 0 8.485L12 15.485l-4.243-4.242a6 6 0 0 1 8.486-8.485ZM12 2.999a4 4 0 0 0-2.828 6.829L12 12.657l2.828-2.829A4 4 0 0 0 12 2.999Z"/></symbol><symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2Zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm1 11v2h-2v-2h2Zm0-8v6h-2V7h2Z"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M9 1v2h6V1h2v2h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4V1h2Zm11 10H4v8h16v-8Zm-9 2v4H6v-4h5ZM7 5H4v4h16V5h-3v2h-2V5H9v2H7V5Z"/></symbol><symbol id="i-euro" viewBox="0 0 24 24"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2Zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm3.815 4.457L14.114 9.59A2.5 2.5 0 0 0 10.05 11H15v2h-4.95a2.5 2.5 0 0 0 4.064 1.41l1.7 1.133A4.5 4.5 0 0 1 8.028 13H7v-2h1.027a4.5 4.5 0 0 1 7.788-2.543Z"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M5.46 4.43a10 10 0 0 1 14.73 13.3L17 12.01h3A8 8 0 0 0 6.46 6.23l-1-1.8zm13.08 15.14A10 10 0 0 1 3.8 6.27L7 11.99H4a8 8 0 0 0 13.54 5.77l1 1.8z"/></symbol><symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M9 17C9 17 16 18 19 21H20C20.5523 21 21 20.5523 21 20V13.937C21.8626 13.715 22.5 12.9319 22.5 12C22.5 11.0681 21.8626 10.285 21 10.063V4C21 3.44772 20.5523 3 20 3H19C16 6 9 7 9 7H5C3.89543 7 3 7.89543 3 9V15C3 16.1046 3.89543 17 5 17H6L7 22H9V17ZM11 8.6612C11.6833 8.5146 12.5275 8.31193 13.4393 8.04373C15.1175 7.55014 17.25 6.77262 19 5.57458V18.4254C17.25 17.2274 15.1175 16.4499 13.4393 15.9563C12.5275 15.6881 11.6833 15.4854 11 15.3388V8.6612ZM5 9H9V15H5V9Z"/></symbol><symbol id="i-user-star" viewBox="0 0 24 24"><path d="m18 14 1.47 2.977 3.285.478-2.377 2.318.56 3.272L18 21.5l-2.939 1.545.561-3.272-2.377-2.318 3.286-.478L18 14Zm-6 0v2a6 6 0 0 0-6 6H4a8 8 0 0 1 8-8Zm0-13c3.315 0 6 2.685 6 6s-2.685 6-6 6-6-2.685-6-6 2.685-6 6-6Zm0 2C9.79 3 8 4.79 8 7s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4Z"/></symbol><symbol id="i-group" viewBox="0 0 24 24"><path d="M10 14a8 8 0 0 1 8 8h-2a6 6 0 1 0-12 0H2a8 8 0 0 1 8-8Zm8.284.703A8.002 8.002 0 0 1 23 22h-2a6.001 6.001 0 0 0-3.537-5.473l.82-1.824h.001Zm-.688-11.29A5.5 5.5 0 0 1 21 8.5a5.499 5.499 0 0 1-5 5.478v-2.013a3.5 3.5 0 0 0 1.041-6.609l.555-1.943ZM10 1c3.315 0 6 2.685 6 6s-2.685 6-6 6-6-2.685-6-6 2.685-6 6-6Zm0 2C7.79 3 6 4.79 6 7s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4Z"/></symbol><symbol id="i-presentation" viewBox="0 0 24 24"><path d="M8 4C8 5.10457 7.10457 6 6 6C4.89543 6 4 5.10457 4 4C4 2.89543 4.89543 2 6 2C7.10457 2 8 2.89543 8 4ZM5 16V22H3V10C3 8.34315 4.34315 7 6 7C6.82059 7 7.56423 7.32946 8.10585 7.86333L10.4803 10.1057L12.7931 7.79289L14.2073 9.20711L10.5201 12.8943L9 11.4587V22H7V16H5ZM6 9C5.44772 9 5 9.44772 5 10V14H7V10C7 9.44772 6.55228 9 6 9ZM19 5H10V3H20C20.5523 3 21 3.44772 21 4V15C21 15.5523 20.5523 16 20 16H16.5758L19.3993 22H17.1889L14.3654 16H10V14H19V5Z"/></symbol></svg>
 <main class="deck" aria-roledescription="diaporama" aria-label="Stratégie IA : point d’étape">
@@ -376,7 +403,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <aside class="notes">
     <ul>
       <li>Une ligne par volet&#8239;; chacune est détaillée dans la slide du volet.</li>
-      <li>Impact&nbsp;: DACCORD optimise ses orchestrations, VAO et Honorabilité les démarrent. Les mesures de vélocité de VAO et d’Honorabilité arrivent avant le 27 novembre.</li>
+      <li>Impact&nbsp;: DACCORD optimise ses orchestrations, VAO et Honorabilité les démarrent. Les mesures de vélocité de DACCORD, VAO et Honorabilité arrivent avant le 27 novembre.</li>
     </ul>
   </aside>
 </section>
@@ -437,7 +464,62 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   </aside>
 </section>
 
-<!-- ======================= 4 · FORMATION ======================= -->
+<!-- ======================= 4 · ASSISTANT IA MAISON (RECOMMANDATION) ======================= -->
+<section class="slide" data-title="Assistant IA maison" aria-labelledby="t-asst">
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">01</span>Outillage · recommandation</p></header>
+  <div class="s-head">
+    <h2 class="title" id="t-asst">Nous recommandons un assistant&nbsp;IA&nbsp;maison, que les agents auront envie d’utiliser</h2>
+    <p class="lead"><b>Le défi&nbsp;:</b> éviter le shadow IA, ces IA grand public utilisées hors du cadre faute d’outil officiel attrayant.</p>
+  </div>
+  <div class="s-body">
+    <div class="h-wrap">
+      <section class="h-now" aria-labelledby="h-now">
+        <h3 class="label" id="h-now">Aujourd’hui</h3>
+        <ul class="h-now__tools">
+          <li class="h-tool"><p class="h-tool__name"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg>PLIAGE</p><p class="h-tool__desc">Fermé à la flexibilité des outils IA</p></li>
+          <li class="h-tool"><p class="h-tool__name"><svg class="ico" aria-hidden="true"><use href="#i-computer"/></svg>OpenCode Desktop</p><p class="h-tool__desc">Une interface qui rebute, en décalage avec les autres solutions. <strong>Un frein possible à l’adoption</strong></p></li>
+        </ul>
+      </section>
+      <section class="h-ans" aria-labelledby="h-ans">
+        <div class="f-ans__head">
+          <h3 class="label" id="h-ans">Notre recommandation</h3>
+          <p class="f-ans__goal">Reprendre un assistant open source existant et l’adapter aux ministères sociaux</p>
+        </div>
+        <ul class="h-cards">
+          <li class="h-card">
+            <h4 class="h-card__head"><span class="h-card__ico"><svg class="ico" aria-hidden="true"><use href="#i-user-heart"/></svg></span>Pensé pour tous les profils</h4>
+            <p class="h-card__what">On recueille les besoins des profils non technophiles et on adapte l’outil en conséquence</p>
+          </li>
+          <li class="h-card">
+            <h4 class="h-card__head"><span class="h-card__ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span>Une sécurité réglée par population</h4>
+            <p class="h-card__what">On choisit les fonctions ouvertes à chacun et on renforce la sécurité là où il le faut</p>
+          </li>
+          <li class="h-card">
+            <h4 class="h-card__head"><span class="h-card__ico"><svg class="ico" aria-hidden="true"><use href="#i-magic"/></svg></span>Chaque demande renforcée par l’approche produit</h4>
+            <p class="h-card__what">Nos bonnes pratiques s’ajoutent automatiquement, sans effort pour l’agent</p>
+            <ol class="h-eq">
+              <li><span class="h-eq__op"></span><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg><span>Votre demande</span></li>
+              <li><span class="h-eq__op">+</span><svg class="ico" aria-hidden="true"><use href="#i-lightbulb"/></svg><span>Nos bonnes pratiques produit</span></li>
+              <li class="h-eq__res"><span class="h-eq__op">=</span><svg class="ico" aria-hidden="true"><use href="#i-sparkling"/></svg><span>Une meilleure réponse</span></li>
+            </ol>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
+  <aside class="notes">
+    <ul>
+      <li>Aujourd’hui, la solution légitime passe par PLIAGE, fermé à la flexibilité des outils IA, et par OpenCode Desktop, dont l’interface rebute les utilisateurs&nbsp;: une qualité d’UX en décalage avec toutes les autres solutions, qui peut freiner l’adoption.</li>
+      <li>Pour éviter le shadow IA, il faut un outil qui, sur les PC du ministère, donne envie d’être utilisé.</li>
+      <li>De nombreuses alternatives open source existent&nbsp;: nous pouvons en reprendre une et la personnaliser pour les besoins des ministères sociaux, sans partir de zéro. Elle reste branchée sur LiteLLM, donc sur les modèles souverains et la sécurité déjà en place.</li>
+      <li>Trois avantages&nbsp;: recueillir les besoins des profils non technophiles et adapter l’outil&nbsp;; contrôler les fonctionnalités, et renforcer la sécurité pour certaines populations&nbsp;; renforcer l’approche produit, chaque demande étant complétée par des consignes (un «&nbsp;prompt système&nbsp;») qui améliorent la réponse.</li>
+      <li>Choix de la base à faire après tests. Critères&nbsp;: une licence qui autorise la personnalisation, l’installation sur les PC Windows du ministère, la compatibilité avec LiteLLM.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ======================= 5 · FORMATION ======================= -->
 <section class="slide" data-title="Formation" aria-labelledby="t4">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">02</span>Formation</p></header>
   <div class="s-head">
@@ -495,7 +577,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   </aside>
 </section>
 
-<!-- ======================= 5 · ADOPTION (RÉFÉRENTS IA) ======================= -->
+<!-- ======================= 6 · ADOPTION (RÉFÉRENTS IA) ======================= -->
 <section class="slide" data-title="Adoption" aria-labelledby="t-adopt">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">02</span>Formation · adoption</p></header>
   <div class="s-head">
@@ -534,12 +616,13 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   </aside>
 </section>
 
-<!-- ======================= 6 · IMPACT ======================= -->
+<!-- ======================= 7 · IMPACT ======================= -->
 <section class="slide" data-title="Impact" aria-labelledby="t5">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">03</span>Impact</p></header>
   <div class="s-head">
     <h2 class="title" id="t5">De la découverte à l’orchestration, métier par métier</h2>
     <p class="lead"><b>Le défi&nbsp;:</b> passer du jouet à l’investissement rentable.</p>
+    <p class="def"><b>Orchestration&nbsp;:</b> l’IA enchaîne seule les étapes d’un travail, l’humain fixe le cap et valide.</p>
   </div>
   <div class="s-body">
     <div class="p-chart">
@@ -551,28 +634,30 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       </div>
       <h3 class="sr">Maturité IA, métier par métier&nbsp;: d’où l’on part, aujourd’hui, la suite</h3>
       <ol class="p-rows">
-          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><span><strong>Développeurs</strong><small>DACCORD</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>Découverte de l’IA</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><span><strong>Orchestrations éprouvées</strong> sur plusieurs semaines, optimisées par benchmark</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Étendre l’IA à la CDP</p></li>
-          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><span><strong>Développeurs</strong><small>VAO · Honorabilité</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>Découverte de l’IA</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><span><strong>Démarrent l’orchestration</strong></span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Vélocité mesurée avant le 27&nbsp;novembre</p></li>
-          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg><span><strong>Architectes</strong><small>Wissem</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>Aucun intérêt exprimé pour l’IA</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><span><strong>Un outil</strong> accélère l’analyse de cohérence des DA et peut en générer</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Présenter la méthode aux architectes</p></li>
-          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg><span><strong>Designers</strong><small>Louis</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>«&nbsp;L’IA a peu de valeur pour nous&nbsp;»</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><span><strong>Prototype en quelques prompts</strong>, génère des maquettes Figma conformes au DSFR</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Former d’autres designers</p></li>
-          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg><span><strong>CDP</strong><small>Mathilda</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>L’IA, une boîte noire</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><span><strong>Comprend les mécaniques</strong> de l’IA</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Orchestrer des cas d’usage à forte valeur ajoutée</p></li>
+          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><span><strong>Développeurs</strong><small>3 équipes</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>Découverte de l’IA</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span class="p-list"><span><strong>DACCORD&nbsp;:</strong> orchestrations éprouvées, optimisées par benchmark</span><span><strong>VAO, Honorabilité&nbsp;:</strong> démarrent l’orchestration</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Mesurer la vélocité des trois équipes, avant le 27&nbsp;novembre</p></li>
+          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg><span><strong>Architectes</strong></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>Aucun intérêt exprimé pour l’IA</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><span><strong>Un outil</strong> accélère l’analyse de cohérence des DA et peut en générer</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Développer de nouveaux cas d’usage</p></li>
+          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg><span><strong>Designers</strong></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>«&nbsp;L’IA a peu de valeur pour nous&nbsp;»</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span class="p-list"><span><strong>Prototype en quelques prompts</strong>, génère des maquettes Figma conformes au DSFR</span><span><strong>2 designers formés</strong>, un référent accompagné</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Former d’autres designers</p></li>
+          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg><span><strong>CDP</strong></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>L’IA, une boîte noire</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span class="p-list"><span><strong>3 CDP et Mathilda formés</strong> à l’IA</span><span><strong>Mathilda accompagnée</strong> pour épauler les CDP dans la durée&nbsp;: l’enjeu est l’adoption</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Implémenter des cas d’usage à forte valeur ajoutée et les mettre à disposition des utilisateurs</p></li>
       </ol>
     </div>
-    <p class="m-vig"><span class="badge badge--warn">Vigilance</span><span>Si seuls les développeurs maîtrisent l’IA, les problèmes d’organisation s’aggravent&nbsp;: ils ne disent plus non, le produit fait deux pas en avant, un pas en arrière. D’où l’IA chez les CDP.</span></p>
+    <p class="m-vig"><span class="badge badge--warn">Vigilance</span><span>Si seuls les développeurs maîtrisent l’IA, les problèmes d’organisation s’aggravent&nbsp;: ils ne disent plus non, le produit fait deux pas en avant, un pas en arrière. D’où l’IA chez les CDP et les designers.</span></p>
   </div>
   <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
       <li>D’où l’on part, où l’on arrive, métier par métier. La flèche verte, c’est l’apport de l’accompagnement.</li>
+      <li>Une ligne par métier&nbsp;: les trois équipes de développement (DACCORD, VAO, Honorabilité) sont regroupées.</li>
+      <li>Designers&nbsp;: deux designers formés, et Louis, référent, accompagné.</li>
+      <li>CDP&nbsp;: trois chefs de projet et Mathilda formés. Mathilda est désormais accompagnée pour pouvoir accompagner les CDP dans le temps&nbsp;: l’enjeu est l’adoption. La suite&nbsp;: implémenter des cas d’usage à forte valeur ajoutée et les mettre à disposition des utilisateurs.</li>
       <li>Développeurs&nbsp;: DACCORD a éprouvé l’orchestration plusieurs semaines et en est à l’optimiser, avec des benchmarks d’orchestration. VAO et Honorabilité démarrent l’orchestration. Sans IA chez la CDP, c’est elle qui devient le goulot d’étranglement&nbsp;: Mathilda est nécessaire pour faire avancer l’adoption.</li>
       <li>Egapro&nbsp;: équipe déjà augmentée, l’accompagnement a seulement aidé à optimiser les orchestrations.</li>
-      <li>Vélocité&nbsp;: chiffres retirés des slides en attendant les mesures de VAO et d’Honorabilité, avant le 27 novembre. Si la question vient&nbsp;: chez DACCORD, les développeurs perçoivent une vélocité plus que triplée en un mois.</li>
+      <li>Vélocité&nbsp;: chiffres retirés des slides en attendant les mesures des trois équipes (DACCORD, VAO, Honorabilité), avant le 27 novembre. Si la question vient&nbsp;: chez DACCORD, les développeurs perçoivent une vélocité plus que triplée en un mois.</li>
       <li>SIRENA&nbsp;: l’équipe de développement est entièrement externe, elle n’a pas été approchée.</li>
     </ul>
   </aside>
 </section>
 
-<!-- ======================= 7 · COMPLÉMENTARITÉ ======================= -->
+<!-- ======================= 8 · COMPLÉMENTARITÉ ======================= -->
 <section class="slide" data-title="Complémentarité" aria-labelledby="t6">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">04</span>Complémentarité</p></header>
   <div class="s-head">
@@ -625,7 +710,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   </aside>
 </section>
 
-<!-- ======================= 8 · PROCHAINES ÉTAPES ======================= -->
+<!-- ======================= 9 · PROCHAINES ÉTAPES ======================= -->
 <section class="slide" data-title="Prochaines étapes" aria-labelledby="t7">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">La suite</p></header>
   <div class="s-head">
@@ -636,7 +721,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <section class="n-date" aria-labelledby="n-date">
         <p class="label"><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg>Date limite</p>
         <p class="n-date__day" id="n-date">27 novembre</p>
-        <p class="n-date__what"><strong>Mesurer</strong> la vélocité de VAO et d’Honorabilité</p>
+        <p class="n-date__what"><strong>Mesurer</strong> la vélocité de DACCORD, VAO et Honorabilité</p>
       </section>
       <section class="n-list" aria-labelledby="n-next">
         <h3 class="label" id="n-next">Ensuite</h3>
@@ -652,7 +737,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>Une seule date arrêtée&nbsp;: avant le 27 novembre, les données de vélocité de VAO et d’Honorabilité.</li>
+      <li>Une seule date arrêtée&nbsp;: avant le 27 novembre, les données de vélocité de DACCORD, VAO et Honorabilité.</li>
       <li>Côté CDP, l’adoption est à faire avancer chez DACCORD et à lancer chez VAO, Honorabilité et Egapro, avec Mathilda.</li>
     </ul>
   </aside>
