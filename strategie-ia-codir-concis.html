@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="author" content="Selim Boukhari">
-<meta name="description" content="Stratégie IA, point d’étape pour la direction : le problème, notre réponse en quatre volets (outiller, former, étendre à tous les métiers, harmoniser), pourquoi ainsi, les résultats et la suite.">
+<meta name="description" content="Stratégie IA, point d’étape pour la direction : trois risques, notre réponse en quatre volets (outiller, former, étendre à tous les métiers, harmoniser), pour chaque volet les populations concernées et où nous en sommes, puis la suite.">
 <title>Stratégie IA : point d’étape</title>
 <style>
 /* ==========================================================================
@@ -14,15 +14,21 @@
    Clavier : flèches ou espace pour avancer · F plein écran · N notes · P imprimer
    Couleurs et typographie : jetons du Système de design de l’État (DSFR).
    Pour modifier un texte : chercher la slide (<section class="slide …">) plus bas.
+
+   Le fil du deck : le problème (trois risques) · notre réponse (quatre volets) · chaque volet,
+   avec les populations concernées et où nous en sommes · la suite (validation, mesure, volets).
+   Une couleur garde le même sens partout : orange = risque ou court terme, bleu France = notre
+   réponse et les populations, vert = en place, bleu pointillé = à venir, gris = point de départ.
+   Trois états seulement : en place, en cours, à venir.
    ========================================================================== */
 :root{
   --bf:#000091; --bf-975:#f5f5fe; --bf-950:#ececfe; --bf-925:#e3e3fd; --bf-850:#cacafb; --bf-525:#6a6af4;
   --ink:#161616; --ink-2:#3a3a3a; --ink-3:#666666;
   --line:#dddddd; --alt:#f6f6f6;
-  --ok:#18753c; --ok-bg:#b8fec9;
+  --ok:#18753c; --ok-bg:#b8fec9; --ok-975:#dffee6;
   --todo:#0063cb; --todo-bg:#e8edff;
   --warn:#b34000; --warn-bg:#ffe9e6;
-  --orange-975:#fef4f2; --orange-850:#fcc0b0; --orange-645:#e4794a;   /* orange terre battue (DSFR, illustratif) */
+  --orange-975:#fef4f2; --orange-850:#fcc0b0; --orange-645:#e4794a;
   --pad:120px;
   --arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m16.172 11-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2h12.172Z'/%3E%3C/svg%3E");
 }
@@ -31,19 +37,18 @@ html,body{margin:0;height:100%;background:#22232b;overflow:hidden}
 body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;color:var(--ink-2)}
 .sprite{position:absolute;width:0;height:0;overflow:hidden}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.nw{white-space:nowrap}
 
 /* ---------- Scène ---------- */
 .deck{position:fixed;inset:0}
 .stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center}
-.slide{position:absolute;inset:0;width:1920px;height:1080px;background:#fff;font-size:32px;line-height:1.35;overflow:hidden;display:none;flex-direction:column;padding:36px var(--pad) 0}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;background:#fff;font-size:36px;line-height:1.3;overflow:hidden;display:none;flex-direction:column;padding:36px var(--pad) 0}
 .slide.is-active{display:flex}
 .slide :where(h1,h2,h3,h4,p,ul,ol,li){margin:0;padding:0;font-size:inherit;line-height:inherit}
 .slide :where(ul,ol){list-style:none}
 .slide :where(h1,h2,h3,h4){color:var(--ink);font-weight:700}
 .slide :where(strong,b){font-weight:700;color:var(--ink)}
-.slide sup{font-size:.6em;line-height:0;vertical-align:.7em}
 .ico{width:1em;height:1em;fill:currentColor;flex:none}
-.x{font-size:.6em;font-weight:700;margin-right:.08em;vertical-align:.12em}   /* signe × dans les grands chiffres */
 
 /* ---------- Bloc-marque (règles du DSFR, mises à l’échelle par --u) ---------- */
 .bm{--u:16px;display:inline-block;margin:0;color:var(--ink);font-size:calc(1.05 * var(--u));font-weight:700;letter-spacing:-.01em;line-height:1.0317460317em;text-indent:-.1em;text-transform:uppercase}
@@ -56,23 +61,47 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .s-top__sep{width:1px;height:50px;background:var(--line)}
 .kicker{display:flex;align-items:center;gap:14px;font-size:26px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bf)}
 .kicker__num{display:inline-grid;place-items:center;min-width:48px;height:40px;padding:0 8px;background:var(--bf);color:#fff;letter-spacing:0}
+/* Fil d’Ariane des quatre volets, en haut à droite des slides de volet */
+.trail{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:24px;line-height:1;font-weight:500;color:var(--ink-3)}
+.trail li{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:4px solid var(--line)}
+.trail li span{font-weight:700;font-variant-numeric:tabular-nums}
+.trail li.is-on{color:var(--bf);font-weight:700;border-bottom-color:var(--bf);background:var(--bf-975)}
 .s-head{flex:none;margin-top:26px}
-.title{font-size:60px;line-height:1.1;letter-spacing:-.018em;text-wrap:balance}
-.lead{margin-top:14px;font-size:34px;line-height:1.35;color:var(--ink-2)}
-.lead b{color:var(--bf)}
-.def{margin-top:8px;font-size:26px;line-height:1.35;color:var(--ink-3)}
-.def b{color:var(--ink-2)}
-.s-body{flex:1 1 auto;min-height:0;margin:36px 0 26px;display:flex;flex-direction:column}
+.title{font-size:64px;line-height:1.1;letter-spacing:-.018em;text-wrap:balance}
+.lead{margin-top:14px;font-size:36px;line-height:1.3;color:var(--ink-2)}
+.lead b{color:var(--ink)}
+.s-body{flex:1 1 auto;min-height:0;margin:32px 0 26px;display:flex;flex-direction:column}
 .s-foot{flex:none;height:60px;margin:0 calc(-1 * var(--pad));padding:0 var(--pad);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:24px;color:var(--ink-3)}
 .s-foot strong{color:var(--ink)}
 .s-foot__page{margin-left:28px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
 .label{font-size:24px;line-height:1.3;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 
+/* Étiquettes d’étape : même couleur pour une même étape sur tout le deck */
+.tag{display:flex;align-items:center;gap:10px;font-size:24px;line-height:1.2;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.tag::before{content:"";flex:none;width:14px;height:14px;background:currentColor}
+.tag--pb{color:var(--warn)}
+.tag--how{color:var(--bf)}
+.tag--res{color:var(--ok)}
+.tag--next{color:var(--todo)}
+.tag--next::before{background:none;border:3px dashed currentColor}
+
 /* Badges d’état : même sens sur tout le deck */
-.badge{display:inline-flex;align-items:center;padding:4px 14px;border-radius:4px;font-size:24px;line-height:1.25;font-weight:700;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;vertical-align:middle}
+.badge{display:inline-flex;align-items:center;padding:5px 16px;border-radius:4px;font-size:24px;line-height:1.25;font-weight:700;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;vertical-align:middle}
 .badge--ok{background:var(--ok-bg);color:var(--ok)}
 .badge--todo{background:var(--todo-bg);color:var(--todo)}
-.badge--warn{background:var(--warn-bg);color:var(--warn)}
+.badge--next{background:#fff;color:var(--todo);border:2px dashed var(--todo)}
+
+/* Pastille de population : un carré bleu France, la même icône pour le même métier sur tout le deck */
+.pop{display:flex;align-items:center;gap:18px;font-weight:700;color:var(--ink);line-height:1.1}
+.pop__ico{display:grid;place-items:center;flex:none;width:64px;height:64px;background:var(--bf);color:#fff}
+.pop__ico .ico{font-size:36px}
+.pop small{display:block;margin-top:4px;font-size:.72em;font-weight:400;color:var(--ink-2)}
+
+/* Bandeau en bas du corps de slide : à venir (pointillé bleu) */
+.res{flex:none;display:flex;align-items:center;gap:30px;margin-top:24px;padding:18px 30px;background:var(--ok-975);border-left:8px solid var(--ok)}
+.res .tag{flex:none}
+.res p{font-size:36px;line-height:1.25;color:var(--ink)}
+.res--next{background:#fff;border:2px dashed var(--todo);border-left:8px solid var(--todo)}
 
 /* ---------- 1 · Couverture ---------- */
 .cover{padding:0}
@@ -83,7 +112,7 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .cover__kicker{font-size:26px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bf)}
 .cover__title{margin-top:26px;font-size:156px;line-height:.98;letter-spacing:-.035em}
 .cover__title span{color:var(--bf)}
-.cover__lead{margin-top:34px;font-size:38px;line-height:1.32;color:var(--ink-2);max-width:880px}
+.cover__lead{margin-top:34px;font-size:40px;line-height:1.3;color:var(--ink-2);max-width:900px}
 .cover__rule{width:96px;height:6px;background:var(--bf);margin:64px 0 30px}
 .cover__name{font-size:38px;font-weight:700;color:var(--ink);line-height:1.2}
 .cover__role{margin-top:4px;font-size:30px;color:var(--ink-2)}
@@ -95,192 +124,179 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .cover__parts .n{font-size:24px;font-weight:700;letter-spacing:.06em;color:var(--bf)}
 .cover__parts .t{font-size:31px;line-height:1.2;font-weight:700;color:var(--ink)}
 
-/* ---------- Trame commune des volets : le problème · le contexte · notre réponse · pourquoi ainsi · le résultat ----------
-   Même couleur pour une même étape sur tout le deck : orange = problème, gris = contexte,
-   bleu France = notre réponse et pourquoi ainsi, vert = résultat, bleu clair pointillé = la suite. */
-.tag{display:flex;align-items:center;gap:10px;font-size:22px;line-height:1.2;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
-.tag::before{content:"";flex:none;width:14px;height:14px;background:currentColor}
-.tag--pb{color:var(--warn)}
-.tag--how,.tag--why{color:var(--bf)}
-.tag--res{color:var(--ok)}
-.tag--next{color:var(--todo)}
-.tag--next::before{background:none;border:3px dashed currentColor}
-.fw-top{flex:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:44px;margin-top:22px}
-.fw-cell{display:flex;flex-direction:column;gap:6px;padding:2px 0 4px 24px;border-left:6px solid var(--line)}
-.fw-cell > p{font-size:32px;line-height:1.28;color:var(--ink-2);text-wrap:balance}
-.fw-cell--pb{border-left-color:var(--warn)}
-.fw-cell--pb > p{font-weight:700;color:var(--ink)}
-.fw-cell--wide{grid-column:1 / -1}
-.fw-body{margin-top:30px}
-.fw-main{flex:1;min-height:0;display:flex;flex-direction:column}
-.fw-main__head{flex:none;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 26px;padding-bottom:10px;border-bottom:3px solid var(--bf)}
-.fw-goal{font-size:36px;line-height:1.2;font-weight:700;color:var(--bf)}
-.fw-bot{flex:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:24px;margin-top:22px}
-.fw-box{display:flex;flex-direction:column;gap:6px;padding:14px 26px 16px}
-.fw-box > p{font-size:32px;line-height:1.28;color:var(--ink);text-wrap:balance}
-.fw-box--why{background:var(--bf-975);border-left:6px solid var(--bf)}
-.fw-box--res{background:#dffee6;border-left:6px solid var(--ok)}
-.fw-box--wide{grid-column:1 / -1}
-.fw-box--row{flex-direction:row;align-items:center;gap:28px}
-.fw-box--row .tag{flex:none}
-.fw-box--row > p{font-size:31px;text-wrap:nowrap}
-.fw-box strong{color:var(--ink)}
+/* ---------- 2 · Le problème : trois risques ---------- */
+.risks{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr) auto;column-gap:28px}
+.risk{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;min-width:0;padding:34px 40px 36px;background:var(--orange-975);border-top:8px solid var(--orange-645)}
+.risk__head{display:flex;align-items:center;gap:20px}
+.risk__ico{display:grid;place-items:center;flex:none;width:80px;height:80px;background:var(--warn)}
+.risk__ico .ico{font-size:48px;color:#fff}
+.risk__name{font-size:46px;line-height:1.05;letter-spacing:-.015em;color:var(--warn)}
+.risk__what{margin-top:34px;font-size:45px;line-height:1.2;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
+.risk__what small{display:block;margin-top:12px;font-size:32px;line-height:1.25;font-weight:400;letter-spacing:0;color:var(--ink-2)}
+.risk__then{padding-top:24px;border-top:2px solid var(--orange-850);font-size:38px;line-height:1.28;color:var(--ink-2);text-wrap:balance}
 
-/* ---------- 2 · Le problème ---------- */
-.pb-risks{flex:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto auto;column-gap:28px;margin-top:16px}
-.pb-risk{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;padding:34px 38px 34px;background:var(--orange-975);border-top:8px solid var(--orange-645)}
-.pb-risk__head{display:flex;align-items:center;gap:20px}
-.pb-risk__ico{display:grid;place-items:center;flex:none;width:84px;height:84px;background:var(--warn)}
-.pb-risk__ico .ico{font-size:50px;color:#fff}
-.pb-risk__name{font-size:46px;line-height:1.05;letter-spacing:-.015em;color:var(--warn)}
-.pb-risk__what{margin-top:16px;font-size:44px;line-height:1.22;font-weight:700;color:var(--ink);text-wrap:balance}
-.pb-risk__then{align-self:start;margin-top:26px;padding-top:18px;border-top:1px solid var(--orange-850);font-size:31px;line-height:1.3;color:var(--ink-2);text-wrap:balance}
-.pb-ctx{flex:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:28px;margin-top:auto}
-.pb-ctx > .tag{grid-column:1 / -1;margin-bottom:10px}
-.pb-ctx p{padding-left:22px;border-left:6px solid var(--line);font-size:32px;line-height:1.3;color:var(--ink-2);text-wrap:balance}
+/* ---------- 3 · Notre réponse : le risque, le volet, où nous en sommes ---------- */
+.map{flex:1;min-height:0;display:flex;flex-direction:column}
+.map__head{flex:none;display:grid;grid-template-columns:330px 36px minmax(0,1.1fr) minmax(0,1fr);column-gap:26px;align-items:center;padding-bottom:12px;border-bottom:3px solid var(--bf)}
+.map__head .tag{font-size:28px}
+.map__body{flex:1;min-height:0;display:grid;grid-template-columns:330px minmax(0,1fr);grid-template-rows:repeat(4,minmax(0,1fr));column-gap:26px}
+.map__risks,.map__rows{grid-row:1 / -1;display:grid;grid-template-rows:subgrid}
+.map__risks li{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;margin:10px 0;border-right:6px solid var(--orange-645)}   /* l’accolade relie le risque à son ou ses volets */
+.map__risks li.is-span{grid-row:span 2}   /* un risque, deux volets */
+.map__row{display:grid;grid-template-columns:36px minmax(0,1.1fr) minmax(0,1fr);column-gap:26px;align-items:center;border-bottom:1px solid var(--line)}
+.map__row:last-child{border-bottom:0}
+.rchip{display:inline-flex;align-items:center;gap:12px;padding:5px 16px 5px 12px;background:var(--orange-975);border-left:6px solid var(--orange-645);color:var(--warn);font-size:30px;line-height:1.2;font-weight:700}
+.rchip .ico{font-size:30px}
+.map__arrow{width:36px;height:36px;background:var(--bf);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat}
+.vol{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:20px;align-items:baseline}
+.vol__num{font-size:44px;line-height:1;font-weight:700;color:var(--bf);font-variant-numeric:tabular-nums}
+.vol__verb{font-size:42px;line-height:1.1;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.vol__what{grid-column:2;margin-top:2px;font-size:33px;line-height:1.22;color:var(--ink-2)}
+.got{display:flex;align-items:flex-start;gap:14px;font-size:36px;line-height:1.22;font-weight:500;color:var(--ink);text-wrap:balance}
+.got .ico{font-size:40px;margin-top:2px;color:var(--ok)}
+.got__next{display:block;width:fit-content;margin-top:6px;padding:1px 14px;border:2px dashed var(--todo);font-size:30px;font-weight:500;color:var(--todo)}
+.forwho{flex:none;display:flex;align-items:center;gap:36px;margin-top:16px;padding:14px 28px;background:var(--bf-975);border-left:8px solid var(--bf)}
+.forwho .tag{flex:none}
+.forwho ul{display:flex;align-items:center;gap:44px}
+.forwho .pop{font-size:34px}
+.forwho .pop__ico{width:56px;height:56px}
+.forwho .pop__ico .ico{font-size:32px}
 
-/* ---------- 3 · Notre réponse : un tableau qui suit la trame ---------- */
-.r-table{flex:1;min-height:0;display:flex;flex-direction:column}
-.r-head,.r-row{display:grid;grid-template-columns:410px minmax(0,1fr) minmax(0,.9fr) minmax(0,1.2fr);column-gap:34px}
-.r-head{flex:none;padding-bottom:12px;border-bottom:3px solid var(--bf)}
-.r-rows{flex:1;display:flex;flex-direction:column}
-.r-row{flex:1;align-items:center;border-bottom:1px solid var(--line)}
-.r-row:last-child{border-bottom:0}
-.r-vol{display:flex;align-items:center;gap:22px}
-.r-num{font-size:50px;line-height:1;font-weight:700;color:var(--bf);font-variant-numeric:tabular-nums}
-.r-verb{font-size:40px;line-height:1.1;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
-.r-row > p{font-size:32px;line-height:1.28;color:var(--ink-2);text-wrap:balance}
-.r-row > p.r-why{color:var(--bf);font-weight:500}
-.r-row > p.r-res{display:flex;align-items:flex-start;gap:12px;color:var(--ink);font-weight:500}
-.r-res .ico{font-size:32px;margin-top:2px;color:var(--ok)}
+/* ---------- 4 · Outiller : les populations en tête, sous chacune son IA et son mode de paiement ---------- */
+.acc{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);column-gap:28px}
+.acc__grp{display:flex;flex-direction:column;min-width:0}
+.acc__pops{flex:1;min-height:0;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);column-gap:8px}
+.acc__pop{display:flex;align-items:center;gap:16px;min-width:0;padding:14px 18px;background:var(--bf-975);border-top:8px solid var(--bf)}
+.acc__grp--own .acc__pop{background:var(--orange-975);border-top-color:var(--orange-645)}
+.acc__img{flex:none;width:108px;height:108px}
+.acc__name{font-size:46px;line-height:1.08;color:var(--ink)}
+.acc__name b{display:block;white-space:nowrap;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.acc__name em{display:block;margin-top:2px;white-space:nowrap;font-style:normal;font-size:38px;line-height:1.15;font-weight:700;letter-spacing:-.01em;color:var(--bf)}
+.acc__grp--own .acc__name em{color:var(--warn)}
+.acc__name small{display:block;margin-top:8px;font-size:30px;line-height:1.2;font-weight:400;color:var(--ink-2);text-wrap:balance}
+.acc__offer{flex:none;display:flex;flex-direction:column;gap:12px;padding:18px 24px 20px}
+.acc__grp--sov .acc__offer{background:var(--bf);color:#fff}
+.acc__grp--own .acc__offer{justify-content:space-between;background:#fff;box-shadow:inset 0 0 0 3px var(--orange-645);color:var(--ink)}
+.acc__tool{font-size:42px;line-height:1.1;letter-spacing:-.015em}
+.acc__grp--sov .acc__tool{color:#fff}
+.acc__tool small{display:block;margin-top:6px;font-size:30px;line-height:1.25;font-weight:400;letter-spacing:0}
+.acc__grp--sov .acc__tool small{color:var(--bf-925)}
+.acc__grp--own .acc__tool small{color:var(--ink-2)}
+.acc__pay{display:flex;align-items:flex-start;gap:12px;font-size:34px;line-height:1.2}
+.acc__pay .ico{font-size:38px;margin-top:2px}
+.acc__pay em{display:block;margin-top:4px;font-style:normal;font-weight:700}
+.acc__grp--sov .acc__pay strong{color:#fff}
+.acc__grp--own .acc__pay .ico,.acc__grp--own .acc__pay em{color:var(--warn)}
 
-/* ---------- 4 · Outiller : deux modèles de paiement face à face ---------- */
-.o2{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);column-gap:28px;margin-top:16px}
-.o2-col{display:flex;flex-direction:column;padding:22px 34px 26px;border-top:8px solid}
-.o2-col--main{background:var(--bf);border-top-color:var(--bf);color:#fff}
-.o2-col--sub{background:var(--orange-975);border-top-color:var(--orange-645);color:var(--ink)}
-.o2-pay{display:flex;align-items:center;gap:16px;font-size:46px;line-height:1.05;letter-spacing:-.02em}
-.o2-pay .ico{font-size:.8em}
-.o2-pay .badge{margin-left:auto}
-.o2-col--main .o2-pay{color:#fff}
-.o2-col--sub .o2-pay{color:var(--warn)}
-.o2-col--sub .badge--warn{background:var(--warn);color:#fff}
-.o2-what{margin-top:16px;font-size:38px;line-height:1.2;font-weight:700}
-.o2-what small{display:block;margin-top:4px;font-size:30px;font-weight:400}
-.o2-col--main .o2-what small{color:var(--bf-925)}
-.o2-col--sub .o2-what small{color:var(--ink-2)}
-.o2-for{margin-top:auto;padding-top:12px}
-.o2-col--main .o2-for{color:var(--bf-850)}
-.o2-who{margin-top:auto;display:flex;flex-direction:column;gap:10px}
-.o2-who li{display:flex;align-items:center;gap:16px;padding:12px 22px;background:#fff;color:var(--ink);font-size:32px;line-height:1.25}
-.o2-who .ico{font-size:32px;color:var(--bf)}
-.o2-col--sub .o2-who .ico{color:var(--warn)}
+/* ---------- 5 · Assistant IA maison : aujourd’hui, notre recommandation ---------- */
+.rec{flex:1;min-height:0;display:grid;grid-template-columns:500px 44px minmax(0,1fr);grid-template-rows:minmax(0,1fr);column-gap:18px;align-items:stretch}
+.rec__now{display:flex;flex-direction:column;gap:16px;min-width:0;padding:22px 28px 24px;background:var(--alt);border-top:8px solid var(--ink-3)}
+.rec__say{font-size:36px;line-height:1.2;font-weight:700;color:var(--ink);text-wrap:balance}
+.rec__tool{font-size:32px;line-height:1.25;color:var(--ink-2)}
+.rec__tool strong{display:block;font-size:36px;line-height:1.15;color:var(--ink)}
+.rec__risk{margin-top:auto;display:flex;align-items:center;gap:14px;padding-top:16px;border-top:2px solid var(--line);white-space:nowrap;font-size:34px;line-height:1.2;font-weight:700;color:var(--warn)}
+.rec__risk .ico{font-size:40px}
+.rec__arrow{align-self:center;width:44px;height:44px;background:var(--bf);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat}
+.rec__new{display:flex;flex-direction:column;min-width:0;padding:22px 28px 26px;background:var(--bf);color:#fff}
+.rec__new .tag{color:var(--bf-850)}
+.rec__goal{margin-top:8px;font-size:46px;line-height:1.1;letter-spacing:-.015em;color:#fff;text-wrap:balance}
+.rec__base{margin-top:8px;font-size:32px;line-height:1.25;color:var(--bf-925)}
+.rec__cards{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.rec__card{flex:1;display:grid;grid-template-columns:52px minmax(0,1fr);column-gap:20px;align-items:center;min-width:0;padding:6px 24px;background:#fff;color:var(--ink)}
+.rec__card .ico{font-size:48px;color:var(--bf)}
+.rec__card h4{font-size:36px;line-height:1.15}
+.rec__card p{margin-top:2px;font-size:30px;line-height:1.2;color:var(--ink-2)}
 
-/* ---------- 5 · Assistant IA maison : la réponse et ses trois apports ---------- */
-.h-cards{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr);grid-template-rows:auto minmax(0,1fr);column-gap:24px;margin-top:16px}
-.h-card{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;padding:18px 26px 18px;background:var(--bf-975);border-top:6px solid var(--bf)}
-.h-card > *{min-width:0}
-.h-card__head{display:flex;align-items:center;gap:20px;font-size:36px;line-height:1.15;letter-spacing:-.01em;text-wrap:balance}
-.h-card__ico{display:grid;place-items:center;flex:none;width:72px;height:72px;background:var(--bf)}
-.h-card__ico .ico{font-size:38px;color:#fff}
-.h-card__what{margin-top:14px;font-size:32px;line-height:1.3;color:var(--ink-2);text-wrap:balance}
-.h-eq{align-self:start;margin-top:14px;display:flex;flex-direction:column;gap:2px;padding:8px 20px 8px;background:#fff;border:1px solid var(--bf-925)}
-.h-eq li{display:grid;grid-template-columns:28px 34px minmax(0,1fr);column-gap:12px;align-items:center;font-size:30px;line-height:1.3;color:var(--ink)}
-.h-eq__op{font-size:32px;line-height:1;font-weight:700;color:var(--bf);text-align:center}
-.h-eq .ico{font-size:32px;color:var(--bf)}
-.h-eq li.h-eq__res{margin-top:4px;padding-top:6px;border-top:2px solid var(--bf);font-weight:700;color:var(--bf)}
+/* ---------- 6 · Former : trois étapes, chacune avec son public et son résultat ---------- */
+.steps{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr) auto;column-gap:44px}
+.step{position:relative;grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;min-width:0;padding:22px 30px 22px;background:var(--bf-975);border-top:8px solid var(--bf)}
+.step + .step::before{content:"";position:absolute;left:-40px;top:50%;width:36px;height:36px;margin-top:-18px;background:var(--bf);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat}
+.step__head{display:flex;align-items:center;gap:16px}
+.step__num{display:inline-grid;place-items:center;flex:none;width:60px;height:60px;border-radius:50%;background:var(--bf);color:#fff;font-size:32px;font-weight:700}
+.step__verb{font-size:48px;line-height:1.1;font-weight:700;letter-spacing:-.015em;color:var(--ink)}
+.step__what{margin-top:18px;font-size:38px;line-height:1.25;color:var(--ink);text-wrap:balance}
+.step__got{display:flex;align-items:center;gap:18px;min-height:112px;padding:14px 18px;background:var(--ok-975);border-left:8px solid var(--ok)}
+.step__got p{font-size:34px;line-height:1.2;color:var(--ink)}
+.step__got small{display:block;margin-top:2px;font-size:30px;font-weight:400;color:var(--ink-2)}
+.step__icons{display:flex;flex:none;gap:6px}
+.step__icons .pop__ico{width:48px;height:48px}
+.step__icons .pop__ico .ico{font-size:28px}
 
-/* ---------- 6 · Former : quatre étapes ---------- */
-.f-steps{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr) auto;column-gap:22px;margin-top:16px}
-.f-step{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;padding:18px 26px 18px;background:var(--bf-975);border-top:6px solid var(--bf)}
-.f-step > *{min-width:0}
-.f-step__head{display:flex;align-items:center;gap:16px}
-.f-num{display:inline-grid;place-items:center;flex:none;width:48px;height:48px;border-radius:50%;background:var(--bf);color:#fff;font-size:26px;font-weight:700}
-.f-verb{font-size:40px;line-height:1.1;font-weight:700;color:var(--ink);letter-spacing:-.01em}
-.f-step__what{margin-top:16px;font-size:34px;line-height:1.28;color:var(--ink);text-wrap:balance}
-.f-step__who{margin-top:12px;padding-top:12px;border-top:1px solid var(--bf-850);font-size:28px;line-height:1.28;font-weight:500;color:var(--bf)}
-.f-step__who .label{display:block;font-size:19px;color:var(--bf)}
-.f-step.is-todo{background:#fff;border:2px dashed var(--bf-525);border-top:6px solid var(--bf-850)}
-.f-step.is-todo .f-num{background:#fff;color:var(--bf);border:3px dashed var(--bf)}
+/* ---------- 7 · Former, diffuser : un référent IA par métier ---------- */
+.refs{flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:24px 28px}
+.ref{position:relative;display:grid;grid-template-columns:112px minmax(0,1fr);column-gap:28px;align-items:center;padding:20px 30px;background:var(--bf-975);border-left:8px solid var(--bf)}
+.ref .pop__ico{width:112px;height:112px}
+.ref .pop__ico .ico{font-size:64px}
+.ref__job{width:fit-content;font-size:28px;line-height:1.2;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--bf)}
+.ref__name{margin-top:2px;font-size:54px;line-height:1.1;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.ref__what{margin-top:8px;font-size:34px;line-height:1.25;color:var(--ink-2);text-wrap:balance}
+.ref .badge{position:absolute;top:22px;right:26px;font-size:26px}
+.ref.is-next{background:#fff;border:2px dashed var(--bf-525);border-left:8px solid var(--bf-850)}
 
-/* ---------- 7 · Diffusion : les référents, ce qu’ils diffusent, où on en est ---------- */
-.a-refs{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:16px}
-.a-head,.a-refs li{display:grid;grid-template-columns:360px minmax(0,1fr) 210px;column-gap:32px;align-items:center}
-.a-head{flex:none;padding-bottom:8px;border-bottom:1px solid var(--line)}
-.a-refs ul{flex:1;display:flex;flex-direction:column}
-.a-refs li{flex:1;border-bottom:1px solid var(--line)}
-.a-refs li:last-child{border-bottom:0}
-.a-who{display:grid;grid-template-columns:52px minmax(0,1fr);column-gap:16px;align-items:center;line-height:1.15}
-.a-who .ico{grid-row:span 2;font-size:42px;color:var(--bf)}
-.a-who strong{font-size:37px;color:var(--bf)}
-.a-who small{font-size:26px;color:var(--ink-3)}
-.a-what{font-size:33px;line-height:1.28;color:var(--ink);text-wrap:balance}
-.a-refs .badge{font-size:26px;padding:6px 16px}
+/* ---------- 8 · Étendre à tous les métiers : au départ -> aujourd’hui ---------- */
+.gain{flex:1;min-height:0;display:flex;flex-direction:column}
+.gain__head,.gain__row{display:grid;grid-template-columns:400px 400px 40px minmax(0,1fr);column-gap:18px}
+.gain__head{flex:none;align-items:end;padding-bottom:10px;border-bottom:3px solid var(--bf)}
+.gain__head .tag{font-size:28px}
+.gain__rows{flex:1;min-height:0;display:flex;flex-direction:column;gap:12px;padding-top:12px}
+.gain__row{flex:1 1 auto;min-height:0;align-items:stretch}
+.gain .pop{font-size:40px;align-self:center;white-space:nowrap}
+.gain .pop__ico{width:76px;height:76px}
+.gain .pop__ico .ico{font-size:44px}
+.gain__from,.gain__now{display:flex;flex-direction:column;justify-content:center;min-height:0;padding:8px 26px;font-size:35px;line-height:1.2;text-wrap:balance}
+.gain__from{background:var(--alt);color:var(--ink-2)}
+.gain__now{background:var(--ok-975);border-left:8px solid var(--ok);color:var(--ink);font-weight:500}
+.gain__now strong{color:var(--ok)}
+.gain__now span + span{margin-top:2px}
+.gain__next{width:fit-content;margin-top:6px!important;padding:0 12px;border:2px dashed var(--todo);background:#fff;font-size:30px;color:var(--todo)}
+.gain__arrow{align-self:center;justify-self:center;width:40px;height:40px;background:var(--ok);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat}
 
-/* ---------- 8 · Étendre à tous les métiers : d’où l’on part -> aujourd’hui -> la suite ---------- */
-.nw{white-space:nowrap}
-.p-chart{flex:1;min-height:0;display:flex;flex-direction:column}
-.p-head,.p-row{display:grid;grid-template-columns:262px minmax(0,.72fr) 32px minmax(0,1.5fr) 32px minmax(0,1fr);column-gap:10px}
-.p-head{flex:none;align-items:end;padding-bottom:10px;border-bottom:3px solid var(--bf)}
-.p-rows{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px;padding-top:10px}
-.p-row{flex:1 1 auto}
-.p-who{display:flex;align-items:center;gap:14px;line-height:1.15}
-.p-who .ico{font-size:34px;color:var(--bf)}
-.p-who strong{display:block;font-size:31px}
-.p-who small{display:block;margin-top:2px;font-size:23px;color:var(--ink-3);white-space:nowrap}
-.p-from,.p-now,.p-next{display:flex;align-items:center;padding:8px 20px;font-size:28px;line-height:1.25;text-wrap:balance}
-.p-from{background:var(--alt);color:var(--ink-2)}
-.p-now{background:#dffee6;border-left:6px solid var(--ok);color:var(--ink);font-size:29px;font-weight:500}
-.p-now strong{color:var(--ok)}
-.p-next{background:#fff;border:2px dashed var(--todo);color:var(--ink-2)}
-.p-arrow{align-self:center;justify-self:center;width:32px;height:32px;background:var(--ok);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat}
-.p-arrow--next{background:var(--todo)}
-.p-list{display:flex;flex-direction:column;gap:6px}
+/* ---------- 9 · Harmoniser : le socle (en place) et les méthodes (à venir), côte à côte ---------- */
+.duo{flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:minmax(0,1fr);column-gap:28px}
+.duo__col{display:flex;flex-direction:column;min-width:0;padding:28px 34px 32px}
+.duo__col--socle{background:var(--bf);color:#fff}
+.duo__col--methodes{background:var(--bf-975);border:3px dashed var(--bf)}
+.duo__col--socle .label{color:var(--bf-850)}
+.duo__col--methodes .label{color:var(--bf)}
+.duo__row{display:flex;align-items:center;gap:20px;margin-top:6px}
+.duo__name{font-size:72px;line-height:1.05;letter-spacing:-.025em}
+.duo__col--socle .duo__name{color:#fff}
+.duo__with{margin-top:6px;font-size:34px;line-height:1.25}
+.duo__col--socle .duo__with{color:var(--bf-925)}
+.duo__col--socle .duo__with strong{color:#fff}
+.duo__items{flex:1;min-height:0;margin-top:26px;display:flex;flex-direction:column;gap:16px}
+.duo__items li{flex:1;display:flex;align-items:center;gap:22px;padding:16px 26px;background:#fff;color:var(--ink);font-size:36px;line-height:1.15;white-space:nowrap}
+.duo__col--methodes .duo__items li{border:1px solid var(--bf-925)}
+.duo__items > li > .ico{flex:none;width:72px;font-size:60px;color:var(--bf)}
+.duo__items .pop__ico{width:72px;height:72px}
+.duo__items .pop__ico .ico{font-size:42px}
+.duo__items small{display:block;margin-top:6px;font-size:32px;font-weight:400;color:var(--ink-2)}
 
-/* ---------- 9 · Harmoniser : le socle et les méthodes ---------- */
-.c-stack{flex:1;min-height:0;display:flex;flex-direction:column-reverse;margin-top:16px}
-.c-layer{display:grid;grid-template-columns:330px minmax(0,1fr);column-gap:40px;align-items:center;padding:16px 36px}
-.c-id{display:flex;flex-direction:column;gap:4px}
-.c-id__row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.c-name{font-size:44px;line-height:1.1;letter-spacing:-.01em}
-.c-who{font-size:27px;line-height:1.25;color:var(--bf-925)}
-.c-who strong{color:#fff}
-.c-layer--socle{background:var(--bf);color:#fff}
-.c-layer--socle .c-name{color:#fff}
-.c-layer--socle .label{color:var(--bf-850)}
-.c-socle{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-.c-chip{display:flex;align-items:center;gap:16px;padding:12px 26px;background:#fff;color:var(--ink);font-size:33px;line-height:1.2}
-.c-chip .ico{font-size:36px;color:var(--bf)}
-.c-chip small{display:block;font-size:23px;color:var(--ink-3)}
-.c-layer--sdpc{flex:1;background:var(--bf-975);border:3px dashed var(--bf)}
-.c-sdpc{display:flex;flex-direction:column;gap:14px}
-.c-sdpc__what{font-size:35px;line-height:1.25;color:var(--ink)}
-.c-studios{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.c-studio{display:flex;flex-direction:column;gap:6px;padding:14px 22px;background:#fff;border:1px solid var(--bf-925)}
-.c-studio__h{display:flex;align-items:center;gap:12px;margin:0;font-size:30px;line-height:1.2;font-weight:700;color:var(--ink)}
-.c-studio__h .ico{color:var(--bf)}
-.c-studio p{font-size:31px;line-height:1.3;color:var(--ink-2);text-wrap:balance}
-.c-studio strong{color:var(--bf)}
-.c-link{flex:none;height:36px;position:relative}
-.c-link::before{content:"";position:absolute;left:58px;top:2px;bottom:2px;width:32px;background:var(--bf);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat;transform:rotate(-90deg)}
-
-/* ---------- 10 · La suite ---------- */
-.n-grid{flex:1;min-height:0;display:grid;grid-template-columns:500px minmax(0,1fr);column-gap:56px}
-.n-date{display:flex;flex-direction:column;justify-content:center;gap:14px;padding:40px 40px 44px;background:var(--bf);color:#fff}
-.n-date .label{display:flex;align-items:center;gap:12px;color:var(--bf-850)}
-.n-date .label .ico{font-size:30px}
-.n-date__day{font-size:66px;line-height:1.05;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
-.n-date__what{margin-top:12px;font-size:34px;line-height:1.3}
-.n-date__what strong{color:#fff}
-.n-list{display:flex;flex-direction:column}
-.n-list > .tag{padding-bottom:12px;border-bottom:3px solid var(--bf)}
-.n-list ol{flex:1;display:flex;flex-direction:column}
-.n-list li{flex:1;display:grid;grid-template-columns:330px minmax(0,1fr);column-gap:32px;align-items:center;border-bottom:1px solid var(--line)}
-.n-list li:last-child{border-bottom:0}
-.n-step{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
-.n-verb{font-size:35px;line-height:1.15;font-weight:700;color:var(--bf)}
-.n-what{font-size:35px;line-height:1.3;color:var(--ink);text-wrap:balance}
-.n-tag{padding:2px 12px;border-radius:999px;background:var(--bf-925);color:var(--bf);font-size:23px;line-height:1.35;font-weight:500;white-space:nowrap}
+/* ---------- 10 · La suite : aujourd’hui, avant le 27 novembre, ensuite ---------- */
+.tl{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,.74fr) minmax(0,.86fr) minmax(0,1.8fr);grid-template-rows:minmax(0,1fr);column-gap:44px}
+.tl__step{position:relative;display:flex;flex-direction:column;min-width:0;padding:28px 28px 32px}
+.tl__step + .tl__step::before{content:"";position:absolute;left:-41px;top:50%;width:38px;height:38px;margin-top:-19px;background:var(--bf);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat}
+.tl__step .label{display:flex;align-items:center;gap:14px;font-size:28px;line-height:1.2}
+.tl__step .label .ico{font-size:44px}
+.tl__what{margin-top:22px;font-size:34px;line-height:1.2;font-weight:500}
+.tl__big{margin-top:8px;font-size:44px;line-height:1.08;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+.tl__sub{margin-top:auto;padding-top:20px;font-size:32px;line-height:1.25;text-wrap:balance}
+.tl__step--ask{background:var(--bf);color:#fff}
+.tl__step--ask .label{color:var(--bf-850)}
+.tl__step--ask .tl__what,.tl__step--ask .tl__big{color:#fff}
+.tl__step--ask .tl__sub{color:var(--bf-925);border-top:2px solid var(--bf-525)}
+.tl__step--date{background:var(--bf-975);border-top:8px solid var(--bf)}
+.tl__step--date .label{color:var(--bf)}
+.tl__step--date .tl__what{color:var(--ink-2)}
+.tl__step--date .tl__big{color:var(--ink)}
+.tl__step--date .tl__sub{color:var(--ink-2);border-top:2px solid var(--bf-850)}
+.tl__step--next{background:#fff;border:2px dashed var(--bf-525);border-top:8px solid var(--bf-850);padding-bottom:18px}
+.tl__step--next .label{color:var(--todo)}
+.tl__list{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:10px}
+.tl__list li{flex:1;display:grid;grid-template-columns:246px minmax(0,1fr);column-gap:18px;align-items:center;border-bottom:1px solid var(--line);font-size:32px;line-height:1.22;color:var(--ink);text-wrap:balance}
+.tl__list li:last-child{border-bottom:0}
+.tl__vol{display:flex;align-items:baseline;gap:10px;font-size:34px;font-weight:700;color:var(--bf);white-space:nowrap}
+.tl__vol span{font-size:26px;font-variant-numeric:tabular-nums}
 
 /* ---------- Notes, aide, progression (hors slides) ---------- */
 .notes{display:none}
@@ -303,8 +319,9 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   .deck{position:static}
   .stage{position:static;transform:none!important;width:auto;height:auto}
   .slide{position:relative;display:flex!important;break-after:page;page-break-after:always}
+  .slide:last-child{break-after:auto;page-break-after:auto}
   .cover{display:grid!important}
-  .deck-hint,.deck-progress,.notes-panel{display:none!important}
+  .deck-hint,.deck-progress,.notes-panel,#annonce{display:none!important}   /* #annonce : sinon une page vide en fin de PDF */
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
@@ -331,25 +348,26 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <div class="cover__heading">
       <p class="cover__kicker">Point d’étape pour la direction · Novembre 2026</p>
       <h1 class="cover__title" id="t1">Stratégie <span>IA</span></h1>
-      <p class="cover__lead">Des agents performants avec l’IA, sans dépendre d’aucun fournisseur</p>
+      <p class="cover__lead">Des agents performants avec l’IA,<br>quel que soit le fournisseur</p>
     </div>
     <div class="cover__rule" aria-hidden="true"></div>
     <p class="cover__name">Selim Boukhari</p>
     <p class="cover__role">Responsable stratégie de déploiement de l’IA et formateur</p>
   </div>
   <div class="cover__aside">
-    <p class="label">Notre réponse en quatre volets</p>
+    <p class="label">Quatre volets</p>
     <ol class="cover__parts">
       <li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAJPHN0eWxlPgoJCS5mci1hcnR3b3JrLWRlY29yYXRpdmUgewoJCQlmaWxsOiAjRUNFQ0ZGOwoJCX0KCQkuZnItYXJ0d29yay1taW5vciB7CgkJCWZpbGw6ICNFMTAwMEY7CgkJfQoJCS5mci1hcnR3b3JrLW1ham9yIHsKCQkJZmlsbDogIzAwMDA5MTsKCQl9Cgk8L3N0eWxlPgoJPHN5bWJvbCBpZD0iYXJ0d29yay1kZWNvcmF0aXZlIj4KICAgIDxwYXRoIGQ9Ik01OSw3NmMtMC41NTE0LDAtMS0wLjQ0ODYtMS0xczAuNDQ4Ni0xLDEtMXMxLDAuNDQ4NiwxLDFTNTkuNTUxNCw3Niw1OSw3NnogTTY3LDEyYy0wLjU1MTQsMC0xLTAuNDQ4Ni0xLTEKCXMwLjQ0ODYtMSwxLTFzMSwwLjQ0ODYsMSwxUzY3LjU1MTQsMTIsNjcsMTJ6IE05LDE2Yy0wLjU1MTQsMC0xLTAuNDQ4Ni0xLTFzMC40NDg2LTEsMS0xczEsMC40NDg2LDEsMVM5LjU1MTQsMTYsOSwxNnoiLz4KICA8L3N5bWJvbD4KICA8c3ltYm9sIGlkPSJhcnR3b3JrLW1pbm9yIj4KICAgIDxwYXRoIGQ9Ik00NSw0MGgxMGMwLjU1MjMxLDAsMS0wLjQ0NzY5LDEtMXYtOGMwLTAuNTUyMzEtMC40NDc2OS0xLTEtMUg0NWMtMC41NTIzMSwwLTEsMC40NDc2OS0xLDF2OAoJQzQ0LDM5LjU1MjMxLDQ0LjQ0NzY5LDQwLDQ1LDQweiBNNDYsMzJoOHY2aC04VjMyeiBNNjEsNDRINTFjLTAuNTUyMzEsMC0xLDAuNDQ3NjktMSwxdjhjMCwwLjU1MjMxLDAuNDQ3NjksMSwxLDFoMTAKCWMwLjU1MjMxLDAsMS0wLjQ0NzY5LDEtMXYtOEM2Miw0NC40NDc2OSw2MS41NTIzMSw0NCw2MSw0NHogTTYwLDUyaC04di02aDhWNTJ6IE01OCwzMWMwLTAuNTEyODIsMC4zODU5OS0wLjkzNTQ5LDAuODgzNDItMC45OTMyOQoJTDU5LDMwaDJjMC41NTIzMSwwLDEsMC40NDc2OSwxLDFjMCwwLjUxMjgyLTAuMzg1OTksMC45MzU0OS0wLjg4MzQyLDAuOTkzMjlMNjEsMzJoLTJDNTguNDQ3NjksMzIsNTgsMzEuNTUyMzEsNTgsMzF6IE02MiwzNQoJYzAsMC41MTI4Mi0wLjM4NTk5LDAuOTM1NDktMC44ODM0MiwwLjk5MzI5TDYxLDM2aC0yYy0wLjU1MjMxLDAtMS0wLjQ0NzY5LTEtMWMwLTAuNTEyODIsMC4zODU5OS0wLjkzNTQ5LDAuODgzNDItMC45OTMyOUw1OSwzNGgyCglDNjEuNTUyMzEsMzQsNjIsMzQuNDQ3NjksNjIsMzV6IE02MiwzOWMwLDAuNTEyODItMC4zODU5OSwwLjkzNTQ5LTAuODgzNDIsMC45OTMyOUw2MSw0MGgtMmMtMC41NTIzMSwwLTEtMC40NDc2OS0xLTEKCWMwLTAuNTEyODIsMC4zODU5OS0wLjkzNTQ5LDAuODgzNDItMC45OTMyOUw1OSwzOGgyQzYxLjU1MjMxLDM4LDYyLDM4LjQ0NzY5LDYyLDM5eiBNNDgsNDUKCWMwLDAuNTEyODItMC4zODU5OSwwLjkzNTQ5LTAuODgzNDIsMC45OTMyOUw0Nyw0NmgtMmMtMC41NTIzMSwwLTEtMC40NDc2OS0xLTFjMC0wLjUxMjgyLDAuMzg1OTktMC45MzU0OSwwLjg4MzQyLTAuOTkzMjlMNDUsNDRoMgoJQzQ3LjU1MjMxLDQ0LDQ4LDQ0LjQ0NzY5LDQ4LDQ1eiBNNDgsNDljMCwwLjUxMjgyLTAuMzg1OTksMC45MzU0OS0wLjg4MzQyLDAuOTkzMjlMNDcsNTBoLTJjLTAuNTUyMzEsMC0xLTAuNDQ3NjktMS0xCgljMC0wLjUxMjgyLDAuMzg1OTktMC45MzU0OSwwLjg4MzQyLTAuOTkzMjlMNDUsNDhoMkM0Ny41NTIzMSw0OCw0OCw0OC40NDc2OSw0OCw0OXogTTQ4LDUzCgljMCwwLjUxMjgyLTAuMzg1OTksMC45MzU0OS0wLjg4MzQyLDAuOTkzMjlMNDcsNTRoLTJjLTAuNTUyMzEsMC0xLTAuNDQ3NjktMS0xYzAtMC41MTI4MiwwLjM4NTk5LTAuOTM1NDksMC44ODM0Mi0wLjk5MzI5TDQ1LDUyaDIKCUM0Ny41NTIzMSw1Miw0OCw1Mi40NDc2OSw0OCw1M3oiLz4KICA8L3N5bWJvbD4KICA8c3ltYm9sIGlkPSJhcnR3b3JrLW1ham9yIj4KICAgIDxwYXRoIGQ9Ik0xNiwyMWMwLTAuNTUxMzksMC40NDg2MS0xLDEtMXMxLDAuNDQ4NjEsMSwxcy0wLjQ0ODYxLDEtMSwxUzE2LDIxLjU1MTM5LDE2LDIxeiBNMjEsMjIKCWMwLjU1MTM5LDAsMS0wLjQ0ODYxLDEtMXMtMC40NDg2MS0xLTEtMXMtMSwwLjQ0ODYxLTEsMVMyMC40NDg2MSwyMiwyMSwyMnogTTI1LDIyYzAuNTUxMzksMCwxLTAuNDQ4NjEsMS0xcy0wLjQ0ODYxLTEtMS0xCglzLTEsMC40NDg2MS0xLDFTMjQuNDQ4NjEsMjIsMjUsMjJ6IE0zNS44MzA4MSwzMS41Nzk5bC00LjI3NzI4LTEuNDkyMTNsMC40Mzk4OC0xLjc5ODg5TDMyLDI4LjIzNDA3CglDMzEuOTk5NTcsMjguMTA4MjIsMzEuODkyNywyOCwzMS43NTQwOSwyOEgzMC4zNzc1bC0wLjA2NjI4LDAuMDA4NzNjLTAuMDg0NTksMC4wMjI1OC0wLjE1MjIyLDAuMDg3NzctMC4xNzMxLDAuMTcyOTcKCWwtMS4zNTY3NSw1LjU0NjMzbDAuMDAwNzMtMC4yNjgyNWwtMC4wMDc4MS0wLjA1ODU5bC0wLjAyMjA5LTAuMDUzNzdjLTAuMDI4NjktMC4wNTA2LTAuMDc2Ni0wLjA5MDY0LTAuMTM2MTctMC4xMTAyMwoJbC0yLjEyOTQ2LTAuNjk5NzdsMi4xMjk0Ni0wLjY5OTA0bDAuMDU1MzYtMC4wMjZjMC4wNjc5OS0wLjA0Mjc5LDAuMTEwNzItMC4xMTYwOSwwLjExMDcyLTAuMTk2NTlWMzAuMzg2NmwtMC4wMDc2My0wLjA1ODcyCgljLTAuMDM0NjctMC4xMzAzNy0wLjE4MTk1LTAuMjExMy0wLjMyMjI3LTAuMTYyNDhsLTQuMjkwNDEsMS40OTQwMmwtMC4wNTQwOCwwLjAyNjQ5QzI0LjA0MTM4LDMxLjcyOSwyNCwzMS44MDEyNywyNCwzMS44ODA0OQoJdjEuMzE0NThsMC4wMDc1MSwwLjA1NzhjMC4wMTk3MSwwLjA3NDM0LDAuMDc2NiwwLjEzNjM1LDAuMTU0MywwLjE2MzQ1bDQuMjkwNDEsMS40OTM5bDAuMDM4MjEsMC4wMDgzNmwtMC4xOTM1NCwwLjc5MjU0CglsLTAuMDA2NTksMC4wNTQ3NUMyOC4yOTA3MSwzNS44OTE3OCwyOC4zOTc3MSwzNiwyOC41MzYzMiwzNmgxLjM3NjU5bDAuMDY2MjItMC4wMDg3MwoJYzAuMDg0NjYtMC4wMjI1OCwwLjE1MjI4LTAuMDg3NzcsMC4xNzMxLTAuMTcyOTdsMC45OTMyOS00LjA2MTg5YzAuMDA4OTcsMC4wMDQwOSwwLjAxODM3LDAuMDA3ODEsMC4wMjgwOCwwLjAxMDk5bDIuMjI1NTIsMC43MzIxOAoJbC0yLjIyNTUyLDAuNzMzMDNsLTAuMDU3ODYsMC4wMjcyOEMzMS4wNDQ2MiwzMy4zMDQ2OSwzMSwzMy4zODE0NywzMSwzMy40NjU3djEuMjg3NmwwLjAwNzg3LDAuMDYxNTIKCWMwLjAzNjMyLDAuMTM2NiwwLjE5MDMxLDAuMjIxMjUsMC4zMzcwNCwwLjE3MDFsNC40ODU5LTEuNTY0ODJsMC4wNTY1OC0wLjAyNzcxQzM1Ljk1NjczLDMzLjM0NzE3LDM2LDMzLjI3MTQyLDM2LDMzLjE4ODQ4Cgl2LTEuMzc2OTVsLTAuMDA3ODEtMC4wNjA1NUMzNS45NzE2MiwzMS42NzMxLDM1LjkxMjExLDMxLjYwODIyLDM1LjgzMDgxLDMxLjU3OTl6IE0xNiwzMmgydi00aC0yVjMyeiBNMTYsMzZoMnYtMmgtMlYzNnogTTE2LDQyaDIKCXYtNGgtMlY0MnogTTE2LDQ4aDJ2LTRoLTJWNDh6IE0xNiw1Mmgydi0yaC0yVjUyeiBNNjgsMTd2NDZjMCwwLjU1MjMxLTAuNDQ3NjksMS0xLDFIMTNjLTAuNTUyMzEsMC0xLTAuNDQ3NjktMS0xVjE3CgljMC0wLjU1MjMxLDAuNDQ3NjktMSwxLTFoNTRDNjcuNTUyMzEsMTYsNjgsMTYuNDQ3NjksNjgsMTd6IE0xNCw1OGg2VjI2aC02VjU4eiBNNjYsMThIMTR2NmgzN2MwLjU1MjMxLDAsMSwwLjQ0NzY5LDEsMQoJYzAsMC41MTI4Mi0wLjM4NTk5LDAuOTM1NDktMC44ODM0MiwwLjk5MzI5TDUxLDI2SDQwdjMyaDE1YzAuNTUyMzEsMCwxLDAuNDQ3NjksMSwxYzAsMC41MTI4Mi0wLjM4NTk5LDAuOTM1NDktMC44ODM0MiwwLjk5MzI5CglMNTUsNjBIMTR2Mmg1MnYtMmgtNWMtMC41NTIzMSwwLTEtMC40NDc2OS0xLTFjMC0wLjUxMjgyLDAuMzg1OTktMC45MzU0OSwwLjg4MzQyLTAuOTkzMjlMNjEsNThoNVYyNmgtOWMtMC41NTIzMSwwLTEtMC40NDc2OS0xLTEKCWMwLTAuNTEyODIsMC4zODU5OS0wLjkzNTQ5LDAuODgzNDItMC45OTMyOUw1NywyNGg5VjE4eiBNMzgsNThWMjZIMjJ2MzJIMzh6Ii8+CiAgPC9zeW1ib2w+CiAgPHVzZSBjbGFzcz0iZnItYXJ0d29yay1kZWNvcmF0aXZlIiBocmVmPSIjYXJ0d29yay1kZWNvcmF0aXZlIi8+CiAgPHVzZSBjbGFzcz0iZnItYXJ0d29yay1taW5vciIgaHJlZj0iI2FydHdvcmstbWlub3IiLz4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLW1ham9yIiBocmVmPSIjYXJ0d29yay1tYWpvciIvPgo8L3N2Zz4K" alt=""><span class="n">01</span><span class="t">Outiller</span></li>
       <li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHN0eWxlPgoJCS5mci1hcnR3b3JrLWRlY29yYXRpdmUgewoJCQlmaWxsOiAjRUNFQ0ZGOwoJCX0KCQkuZnItYXJ0d29yay1taW5vciB7CgkJCWZpbGw6ICNFMTAwMEY7CgkJfQoJCS5mci1hcnR3b3JrLW1ham9yIHsKCQkJZmlsbDogIzAwMDA5MTsKCQl9Cgk8L3N0eWxlPgogIDxzeW1ib2wgaWQ9ImFydHdvcmstZGVjb3JhdGl2ZSI+CiAgICA8cGF0aCBkPSJNNiAzNGMuNTUgMCAxLS40NSAxLTFzLS40NS0xLTEtMS0xIC40NS0xIDEgLjQ1IDEgMSAxWk00NiA2Yy41NSAwIDEtLjQ1IDEtMXMtLjQ1LTEtMS0xLTEgLjQ1LTEgMSAuNDUgMSAxIDFabTIwIDU2Yy41NSAwIDEtLjQ1IDEtMXMtLjQ1LTEtMS0xLTEgLjQ1LTEgMSAuNDUgMSAxIDFabTgtMzJjLjU1IDAgMS0uNDUgMS0xcy0uNDUtMS0xLTEtMSAuNDUtMSAxIC40NSAxIDEgMVpNMzYgNzNjLjU1IDAgMS0uNDUgMS0xcy0uNDUtMS0xLTEtMSAuNDUtMSAxIC40NSAxIDEgMVoiLz4KICA8L3N5bWJvbD4KICA8c3ltYm9sIGlkPSJhcnR3b3JrLW1pbm9yIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTQwIDI2LjI5MDNjLTUuODg3MiAwLTEwLjY1NyA0Ljc2OTgtMTAuNjU3IDEwLjY1NyAwIC4zODc3LjAyNDMuNzg5MS4wNjU3IDEuMTc4NS4wMDE0LjAxMzIuMDAyNS4wMjYzLjAwMzQuMDM5My42MDI1IDUuMzA2OCA1LjExMyA5LjQzOTIgMTAuNTg3OSA5LjQzOTIgNS44ODcyIDAgMTAuNjU3LTQuNzY5OCAxMC42NTctMTAuNjU3UzQ1Ljg4NzIgMjYuMjkwMyA0MCAyNi4yOTAzWk0yNy40MTYxIDM4LjMwMTZjLjAwMS4wMTYxLjAwMjQuMDMyMy4wMDQyLjA0ODUuNjk3NCA2LjMyNSA2LjA2MTUgMTEuMjU0MiAxMi41Nzk3IDExLjI1NDIgNi45OTE3IDAgMTIuNjU3LTUuNjY1MiAxMi42NTctMTIuNjU3IDAtNi45OTE3LTUuNjY1My0xMi42NTctMTIuNjU3LTEyLjY1Ny02Ljk5MTggMC0xMi42NTcgNS42NjUzLTEyLjY1NyAxMi42NTcgMCAuNDU2MS4wMjc2LjkxNjEuMDczMSAxLjM1NDNaIi8+CiAgICA8cGF0aCBkPSJNNDAuMDAwMSA0OS42MDQ0Yy05LjA5ODQgMC0xNi40ODExIDcuMzc0NS0xNi40ODExIDE2LjQ4MTEgMCAuNTUyMi0uNDQ3NyAxLTEgMXMtMS0uNDQ3OC0xLTFjMC0xMC4yMTE5IDguMjc4OC0xOC40ODExIDE4LjQ4MTEtMTguNDgxMSAxMC4yMDI1IDAgMTguNDgxIDguMjc4NSAxOC40ODEgMTguNDgxMSAwIC41NTIyLS40NDc3IDEtMSAxLS41NTIyIDAtMS0uNDQ3OC0xLTEgMC05LjA5OC03LjM4MzEtMTYuNDgxMS0xNi40ODEtMTYuNDgxMVogTTU3LjM5NDEgMjEuNjgyNGMxLjEwNDYgMCAyLS44OTU0IDItMnMtLjg5NTQtMi0yLTItMiAuODk1NC0yIDIgLjg5NTQgMiAyIDJaIi8+CiAgPC9zeW1ib2w+CiAgPHN5bWJvbCBpZD0iYXJ0d29yay1tYWpvciI+CiAgICA8cGF0aCBkPSJNNjQuMDQ0NiAzNC4yODg0Yy41NTIzLjAwNDUuOTk2My40NTU4Ljk5MTkgMS4wMDgxbC0uMDcxNCA4Ljc5NDFjLS4wMDQ1LjU1MjItLjQ1NTguOTk2My0xLjAwODEuOTkxOC0uNTUyMi0uMDA0NS0uOTk2My0uNDU1OC0uOTkxOC0xLjAwODFsLjA3MTMtOC43OTRjLjAwNDUtLjU1MjMuNDU1OC0uOTk2NCAxLjAwODEtLjk5MTlaTTE0LjU3NzUgMTIuMjk0MUExLjAwMDEgMS4wMDAxIDAgMCAxIDE1LjI5MTYgMTJsNDguOTExMy4yODU0YTEuMDAwNCAxLjAwMDQgMCAwIDEgLjk5NDIgMS4wMDc2bC0uMTMzOCAxNy41OTdjLS4wMDQyLjU1MjMtLjQ1NTMuOTk2Ni0xLjAwNzYuOTkyNC0uNTUyMi0uMDA0Mi0uOTk2NS0uNDU1My0uOTkyMy0xLjAwNzZsLjEyNjEtMTYuNTk1My00Ni44OTQ1LS4yNzM2LjI3NjEgMzAuMDY3M2MuMDA1MS41NTIzLS40Mzg1IDEuMDA0MS0uOTkwNyAxLjAwOTItLjU1MjMuMDA1MS0xLjAwNDEtLjQzODUtMS4wMDkyLS45OTA4bC0uMjg1NC0zMS4wODI0YS45OTk3Ljk5OTcgMCAwIDEgLjI5MTctLjcxNTFaIE0xNC44NTQ2IDQzLjM4NDhhMS4wMDA0IDEuMDAwNCAwIDAgMSAuNzE2NS0uMzAyNGg4Ljc5NDFjLjU1MjIgMCAxIC40NDc3IDEgMXMtLjQ0NzggMS0xIDFoLTguMzcybC02LjYyMzggNi44MDNoOS43MzM2Yy41NTIzIDAgMSAuNDQ3NyAxIDFzLS40NDc3IDEtMSAxSDdhMSAxIDAgMCAxLS43MTY1LTEuNjk3Nmw4LjU3MTEtOC44MDNaIE0yMi41IDUyLjg4NTRjMC0uNTUyMy40NDc3LTEgMS0xaDEuMDk3Yy41NTIzIDAgMSAuNDQ3NyAxIDEgMCAuNTUyMi0uNDQ3NyAxLTEgMUgyMy41Yy0uNTUyMyAwLTEtLjQ0NzgtMS0xWm0zMS42NzExLTguODAzYzAtLjU1MjMuNDQ3Ny0xIDEtMWg4Ljc5NGEuOTk5Ny45OTk3IDAgMCAxIC42OTc5LjI4MzhsOS4wMzQ5IDguODAyOUExIDEgMCAwIDEgNzMgNTMuODg1NEg1NS40MDNjLS41NTIzIDAtMS0uNDQ3Ny0xLTFzLjQ0NzctMSAxLTFoMTUuMTM3N2wtNi45ODIyLTYuODAzaC04LjM4NzRjLS41NTIzIDAtMS0uNDQ3Ny0xLTFabS0zNC45NzEtMjYuNGMwLS41NTIzLjQ0NzctMSAxLTFoMjYuNGMuNTUyMyAwIDEgLjQ0NzcgMSAxcy0uNDQ3NyAxLTEgMWgtMjYuNGMtLjU1MjMgMC0xLS40NDc3LTEtMVptMCA0LjQwNmMwLS41NTIzLjQ0NzctMSAxLTFoOC44MDI5Yy41NTIzIDAgMSAuNDQ3NyAxIDFzLS40NDc3IDEtMSAxaC04LjgwMjljLS41NTIzIDAtMS0uNDQ3Ny0xLTFabTAgNC4zOTdjMC0uNTUyMy40NDc3LTEgMS0xaDQuMzk3Yy41NTIzIDAgMSAuNDQ3NyAxIDFzLS40NDc3IDEtMSAxaC00LjM5N2MtLjU1MjMgMC0xLS40NDc3LTEtMVogTTE5Ljk5NDkgNTIuODg1NGEuODkxOS44OTE5IDAgMCAxLS44OTE5Ljg5MTkuODkyLjg5MiAwIDEgMSAuODkxOS0uODkxOVoiLz4KICA8L3N5bWJvbD4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLWRlY29yYXRpdmUiIGhyZWY9IiNhcnR3b3JrLWRlY29yYXRpdmUiLz4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLW1pbm9yIiBocmVmPSIjYXJ0d29yay1taW5vciIvPgogIDx1c2UgY2xhc3M9ImZyLWFydHdvcmstbWFqb3IiIGhyZWY9IiNhcnR3b3JrLW1ham9yIi8+Cjwvc3ZnPgo=" alt=""><span class="n">02</span><span class="t">Former</span></li>
-      <li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAJPHN0eWxlPgoJCS5mci1hcnR3b3JrLWRlY29yYXRpdmUgewoJCQlmaWxsOiAjRUNFQ0ZGOwoJCX0KCQkuZnItYXJ0d29yay1taW5vciB7CgkJCWZpbGw6ICNFMTAwMEY7CgkJfQoJCS5mci1hcnR3b3JrLW1ham9yIHsKCQkJZmlsbDogIzAwMDA5MTsKCQl9Cgk8L3N0eWxlPgoJPHN5bWJvbCBpZD0iYXJ0d29yay1kZWNvcmF0aXZlIj4KICAgIDxwYXRoIGQ9Ik03MywxOGMtMC41NTE0LDAtMS0wLjQ0ODYtMS0xczAuNDQ4Ni0xLDEtMXMxLDAuNDQ4NiwxLDFTNzMuNTUxNCwxOCw3MywxOHogTTcsMThjLTAuNTUxNCwwLTEtMC40NDg2LTEtMQoJczAuNDQ4Ni0xLDEtMXMxLDAuNDQ4NiwxLDFTNy41NTE0LDE4LDcsMTh6IE0xMSw2OGMtMC41NTE0LDAtMS0wLjQ0ODYtMS0xczAuNDQ4Ni0xLDEtMXMxLDAuNDQ4NiwxLDFTMTEuNTUxNCw2OCwxMSw2OHogTTY1LDcyCgljLTAuNTUxNCwwLTEtMC40NDg2LTEtMXMwLjQ0ODYtMSwxLTFzMSwwLjQ0ODYsMSwxUzY1LjU1MTQsNzIsNjUsNzJ6IE0xOSw2Yy0wLjU1MTQsMC0xLTAuNDQ4Ni0xLTFjMC0wLjU1MTQ1LDAuNDQ4Ni0xLDEtMQoJczEsMC40NDg1NSwxLDFDMjAsNS41NTE0LDE5LjU1MTQsNiwxOSw2eiBNNTUsNzhjLTAuNTUxNCwwLTEtMC40NDg2LTEtMXMwLjQ0ODYtMSwxLTFzMSwwLjQ0ODYsMSwxUzU1LjU1MTQsNzgsNTUsNzh6Ii8+CiAgPC9zeW1ib2w+CiAgPHN5bWJvbCBpZD0iYXJ0d29yay1taW5vciI+CiAgICA8cGF0aCBkPSJNNjUuMTAxNjIsMzMuOTgxMzhjLTAuNTQwNzEsMC4xMTI5Mi0xLjA3MDQzLTAuMjMzODktMS4xODMyMy0wLjc3NDYKCWMtMC4zMTg2LTEuNTI2MzctMS41NTItMi43ODgyNy0zLjE4NjU4LTMuMjQzNDdjLTAuNTMyMS0wLjE0ODEzLTAuODQzMzItMC42OTk1Mi0wLjY5NTE5LTEuMjMxNTEKCWMwLjE0ODE5LTAuNTMyMSwwLjY5OTU4LTAuODQzMzIsMS4yMzE1Ny0wLjY5NTEzYzIuMzM5NiwwLjY1MTQzLDQuMTMzMjQsMi40ODYzMyw0LjYwODAzLDQuNzYxNTQKCUM2NS45ODkwMSwzMy4zMzg5Myw2NS42NDIyMSwzMy44Njg1OSw2NS4xMDE2MiwzMy45ODEzOHogTTcyLjIzMjEyLDU0Ljk5MDQyYy0xLjM4MzczLDAuNzk4NzctMy4xMzkyMiwwLjM3MDE4LTQuMDA1NjItMC45NDgKCWwtMC4wOTI0Ny0wLjE1MDE1bC01Ljg2NjctMTAuMTYxMjVDNjEuNTM3NTQsNDMuOTAxMDYsNjAuNzgwODgsNDQsNjAsNDRjLTUuNTE0ODksMC0xMC00LjQ4NTExLTEwLTEwYzAtNS41MTUyLDQuNDg0OTktMTAsMTAtMTAKCXMxMCw0LjQ4NDgsMTAsMTBjMCwyLjU2NDg4LTAuOTc4NDUsNC44OTkzNS0yLjU3MTExLDYuNjcxMTRsNS45MDExOCwxMC4yMjExMwoJQzc0LjE1ODYzLDUyLjMyNzIxLDczLjY2NjkzLDU0LjE2MTk5LDcyLjIzMjEyLDU0Ljk5MDQyeiBNNjgsMzRjMC00LjQxMDU4LTMuNTg5NDgtOC04LThzLTgsMy41ODk0Mi04LDhjMCw0LjQxMDI4LDMuNTg5NzIsOCw4LDgKCVM2OCwzOC40MTAyOCw2OCwzNHogTTcxLjY1MDU3LDUxLjk5NjdsLTAuMDUyNDktMC4xMDQ0M2wtNS42ODQ2My05Ljg0NjA3Yy0wLjUzNTg5LDAuMzk0OS0xLjExMDcyLDAuNzM3MTItMS43MjA0LDEuMDIwMgoJbDUuNjcyOTcsOS44MjU4N2MwLjI3NjE4LDAuNDc4MzMsMC44ODc3NiwwLjY0MjIxLDEuMzY2MDksMC4zNjYwM0M3MS42NzYyMSw1My4wMDE4OSw3MS44NDkxOCw1Mi40NTYzLDcxLjY1MDU3LDUxLjk5Njd6CgkgTTQ1Ljg5NDQxLDMwLjU1MjhjMC4yMjkzNywwLjQ1ODY4LDAuMDczMTIsMS4wMDk0LTAuMzQ1ODksMS4yODM1MWwtMC4xMDEzMiwwLjA1ODExbC0xLjUxMjk0LDAuNzU2NDcKCUM0My42MjExNSwzNC41NDY4MSw0MS45ODM1OCwzNiw0MCwzNmMtMi4wNDg3MSwwLTMuNzIxOC0xLjU1Mi0zLjk1MzQzLTMuNTM5MjVsLTMuNDQ2MDQtMy40NDYwNAoJQzMxLjg5OTM1LDI5LjYyMDMsMzAuOTk3NTYsMzAsMzAsMzBjLTEuMzY1NiwwLTIuNTcwMzctMC42ODkxNS0zLjI5MjMtMS43MzU4NGwtMi43NDQ0NSwxLjM3MjE5QzIzLjk3NDQzLDI5Ljc1OCwyNCwyOS44NzU0OSwyNCwzMAoJYzAsMi4yMDY0OC0xLjc5MzUyLDQtNCw0cy00LTEuNzkzNTItNC00YzAtMi4yMDY2LDEuNzkzNTItNCw0LTRjMS4zNjU2LDAsMi41NzAzNywwLjY4OTA5LDMuMjkyMzYsMS43MzU3OGwyLjc0NDM4LTEuMzcyMTMKCUMyNi4wMjU1NywyNi4yNDIsMjYsMjYuMTI0NTEsMjYsMjZjMC0yLjIwNjYsMS43OTM1Mi00LDQtNHM0LDEuNzkzNCw0LDRjMCwwLjQ3MTgtMC4wOTY2OCwwLjkxODA5LTAuMjQ3MTksMS4zMzg2MmwyLjc1MzIzLDIuNzUzMjMKCUMzNy4xODYwNCwyOC44NTE4NywzOC40ODgxLDI4LDQwLDI4YzEuNjg1MTgsMCwzLjEyMjUsMS4wNDkzMiwzLjcxMDk0LDIuNTI2NTVsMC44NDE4Ni0wLjQyMDk2CglDNDUuMDQ2ODEsMjkuODU4NTgsNDUuNjQ3NCwzMC4wNTg3OCw0NS44OTQ0MSwzMC41NTI4eiBNMjIsMzBjMC0xLjEwMTk5LTAuODk4MDEtMi0yLTJzLTIsMC44OTgwMS0yLDJjMCwxLjEwMTkzLDAuODk4MDcsMiwyLDIKCVMyMiwzMS4xMDE5MywyMiwzMHogTTMyLDI2YzAtMS4xMDE5OS0wLjg5ODAxLTItMi0ycy0yLDAuODk4MDEtMiwyYzAsMS4xMDE5MywwLjg5ODA3LDIsMiwyUzMyLDI3LjEwMTkzLDMyLDI2eiBNNDIsMzIKCWMwLTEuMTAxOTktMC44OTgwMS0yLTItMnMtMiwwLjg5ODAxLTIsMmMwLDEuMTAxODcsMC44OTgxMywyLDIsMkM0MS4xMDE5MywzNCw0MiwzMy4xMDE4Nyw0MiwzMnoiLz4KICA8L3N5bWJvbD4KICA8c3ltYm9sIGlkPSJhcnR3b3JrLW1ham9yIj4KICAgIDxwYXRoIGQ9Ik01OC4wMDY3MSwxOS4xMTY1OEM1OC4wNjQ1MSwxOS42MTQwMSw1OC40ODcxOCwyMCw1OSwyMGMwLjU1MjMxLDAsMS0wLjQ0NzY5LDEtMXYtMmwtMC4wMDY3MS0wLjExNjU4CglDNTkuOTM1NDksMTYuMzg1OTksNTkuNTEyODIsMTYsNTksMTZINDB2LTFjMC0xLjU5NzcyLTEuMjQ4OS0yLjkwMzY5LTIuODIzNjctMi45OTQ4N0wzNywxMmgtNAoJYy0xLjU5NzcyLDAtMi45MDM2OSwxLjI0ODktMi45OTQ4NywyLjgyMzY3TDMwLDE1djFIMTFsLTAuMTE2NTgsMC4wMDY3MUMxMC4zODU5OSwxNi4wNjQ1MSwxMCwxNi40ODcxOCwxMCwxN3YzOGwwLjAwNjcxLDAuMTE2NTgKCUMxMC4wNjQ1MSw1NS42MTQwMSwxMC40ODcxOCw1NiwxMSw1Nmg3djFsMC4wMDUxMywwLjE3NjI3QzE4LjA5NjMxLDU4Ljc1MTEsMTkuNDAyMjgsNjAsMjEsNjBoMTAuMDAwMDZsLTQuODAwMDUsNi40MDAwMgoJTDI2LjEzMDk4LDY2LjUwNWMtMC4yNDY0NiwwLjQzMTUyLTAuMTM4NzksMC45ODkwNywwLjI2OTA0LDEuMjk0OThjMC40NDE3NywwLjMzMTQyLDEuMDY4NiwwLjI0MTgyLDEuMzk5OTYtMC4yMDAwMUwzMy41LDYwCgloMy4wMDAwNmw1LjY5OTk1LDcuNTk5OThjMC4zMzEzNiwwLjQ0MTgzLDAuOTU4MTksMC41MzE0MywxLjM5OTk2LDAuMjAwMDFjMC40MDc4NC0wLjMwNTkxLDAuNTE1NS0wLjg2MzQ2LDAuMjY5MDQtMS4yOTQ5OAoJbC0wLjA2OTAzLTAuMTA0OThMMzksNjBoMTBsMC4xNzYzMy0wLjAwNTEzQzUwLjc1MTEsNTkuOTAzNjksNTIsNTguNTk3NzIsNTIsNTd2LTFoN2wwLjExNjU4LTAuMDA2NzEKCUM1OS42MTQwMSw1NS45MzU0OSw2MCw1NS41MTI4Miw2MCw1NXYtNmwtMC4wMDY3MS0wLjExNjU4QzU5LjkzNTQ5LDQ4LjM4NTk5LDU5LjUxMjgyLDQ4LDU5LDQ4bC0wLjExNjU4LDAuMDA2NzEKCUM1OC4zODU5OSw0OC4wNjQ1MSw1OCw0OC40ODcxOCw1OCw0OXY1SDEyVjE4aDQ2djFMNTguMDA2NzEsMTkuMTE2NTh6IE01MCw1N2wtMC4wMDY3MSwwLjExNjU4CglDNDkuOTM1NDksNTcuNjE0MDEsNDkuNTEyODIsNTgsNDksNThIMjFsLTAuMTE2NTgtMC4wMDY3MUMyMC4zODU5OSw1Ny45MzU0OSwyMCw1Ny41MTI4MiwyMCw1N3YtMWgzMFY1N3ogTTMyLDE1CgljMC0wLjUxMjgyLDAuMzg1OTktMC45MzU0OSwwLjg4MzQyLTAuOTkzMjlMMzMsMTRoNGMwLjUxMjgyLDAsMC45MzU0OSwwLjM4NTk5LDAuOTkzMjksMC44ODM0MkwzOCwxNXYxaC02VjE1eiBNMjIsNDF2LTFoLTR2OGg0di0zCgljMC0wLjUxMjgyLDAuMzg1OTktMC45MzU0OSwwLjg4MzQyLTAuOTkzMjlMMjMsNDRjMC41MTI4MiwwLDAuOTM1NDksMC4zODU5OSwwLjk5MzI5LDAuODgzNDJMMjQsNDV2NAoJYzAsMC41MTI4Mi0wLjM4NTk5LDAuOTM1NDktMC44ODM0MiwwLjk5MzI5TDIzLDUwaC02Yy0wLjUxMjgyLDAtMC45MzU0OS0wLjM4NTk5LTAuOTkzMjktMC44ODM0MkwxNiw0OVYzOQoJYzAtMC41MTI4MiwwLjM4NTk5LTAuOTM1NDksMC44ODM0Mi0wLjk5MzI5TDE3LDM4aDZjMC41MTI4MiwwLDAuOTM1NDksMC4zODU5OSwwLjk5MzI5LDAuODgzNDJMMjQsMzl2MmMwLDAuNTUyMzEtMC40NDc2OSwxLTEsMQoJYy0wLjUxMjgyLDAtMC45MzU0OS0wLjM4NTk5LTAuOTkzMjktMC44ODM0MkwyMiw0MXogTTI4LDM2djEyaDRWMzdjMC0wLjUxMjgyLDAuMzg1OTktMC45MzU0OSwwLjg4MzQyLTAuOTkzMjlMMzMsMzYKCWMwLjUxMjgyLDAsMC45MzU0OSwwLjM4NTk5LDAuOTkzMjksMC44ODM0MkwzNCwzN3YxMmMwLDAuNTEyODItMC4zODU5OSwwLjkzNTQ5LTAuODgzNDIsMC45OTMyOUwzMyw1MGgtNgoJYy0wLjUxMjgyLDAtMC45MzU0OS0wLjM4NTk5LTAuOTkzMjktMC44ODM0MkwyNiw0OVYzNWMwLTAuNTEyODIsMC4zODU5OS0wLjkzNTQ5LDAuODgzNDItMC45OTMyOUwyNywzNGgyYzAuNTUyMzEsMCwxLDAuNDQ3NjksMSwxCgljMCwwLjUxMjgyLTAuMzg1OTksMC45MzU0OS0wLjg4MzQyLDAuOTkzMjlMMjksMzZIMjh6IE0zOCw0NHY0aDR2LTVjMC0wLjUxMjgyLDAuMzg1OTktMC45MzU0OSwwLjg4MzQyLTAuOTkzMjlMNDMsNDIKCWMwLjUxMjgyLDAsMC45MzU0OSwwLjM4NTk5LDAuOTkzMjksMC44ODM0Mkw0NCw0M3Y2YzAsMC41MTI4Mi0wLjM4NTk5LDAuOTM1NDktMC44ODM0MiwwLjk5MzI5TDQzLDUwaC02CgljLTAuNTEyODIsMC0wLjkzNTQ5LTAuMzg1OTktMC45OTMyOS0wLjg4MzQyTDM2LDQ5di02YzAtMC41MTI4MiwwLjM4NTk5LTAuOTM1NDksMC44ODM0Mi0wLjk5MzI5TDM3LDQyaDJjMC41NTIzMSwwLDEsMC40NDc2OSwxLDEKCWMwLDAuNTEyODItMC4zODU5OSwwLjkzNTQ5LTAuODgzNDIsMC45OTMyOUwzOSw0NEgzOHogTTQ4LDQxdjdoNHYtMWMwLTAuNTEyODIsMC4zODU5OS0wLjkzNTQ5LDAuODgzNDItMC45OTMyOUw1Myw0NgoJYzAuNTEyODIsMCwwLjkzNTQ5LDAuMzg1OTksMC45OTMyOSwwLjg4MzQyTDU0LDQ3djJjMCwwLjUxMjgyLTAuMzg1OTksMC45MzU0OS0wLjg4MzQyLDAuOTkzMjlMNTMsNTBoLTYKCWMtMC41MTI4MiwwLTAuOTM1NDktMC4zODU5OS0wLjk5MzI5LTAuODgzNDJMNDYsNDl2LThjMC0wLjU1MjMxLDAuNDQ3NjktMSwxLTFjMC41MTI4MiwwLDAuOTM1NDksMC4zODU5OSwwLjk5MzI5LDAuODgzNDJMNDgsNDF6IgoJLz4KICA8L3N5bWJvbD4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLWRlY29yYXRpdmUiIGhyZWY9IiNhcnR3b3JrLWRlY29yYXRpdmUiLz4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLW1pbm9yIiBocmVmPSIjYXJ0d29yay1taW5vciIvPgogIDx1c2UgY2xhc3M9ImZyLWFydHdvcmstbWFqb3IiIGhyZWY9IiNhcnR3b3JrLW1ham9yIi8+Cjwvc3ZnPgo=" alt=""><span class="n">03</span><span class="t">Étendre à tous les métiers</span></li>
-      <li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHN0eWxlPgoJCS5mci1hcnR3b3JrLWRlY29yYXRpdmUgewoJCQlmaWxsOiAjRUNFQ0ZGOwoJCX0KCQkuZnItYXJ0d29yay1taW5vciB7CgkJCWZpbGw6ICNFMTAwMEY7CgkJfQoJCS5mci1hcnR3b3JrLW1ham9yIHsKCQkJZmlsbDogIzAwMDA5MTsKCQl9Cgk8L3N0eWxlPgogIDxzeW1ib2wgaWQ9ImFydHdvcmstZGVjb3JhdGl2ZSI+CiAgICA8cGF0aCBkPSJNNzMgMzNjLS41NTE0IDAtMS0uNDQ4Ni0xLTFzLjQ0ODYtMSAxLTEgMSAuNDQ4NiAxIDEtLjQ0ODYgMS0xIDFaTTEyIDQzYy0uNTUxNCAwLTEtLjQ0ODYtMS0xcy40NDg2LTEgMS0xIDEgLjQ0ODYgMSAxLS40NDg2IDEtMSAxWk04IDZjLS41NTE0IDAtMS0uNDQ4Ni0xLTFzLjQ0ODYtMSAxLTEgMSAuNDQ4NiAxIDEtLjQ0ODYgMS0xIDFabTE1IDY4Yy0uNTUxNCAwLTEtLjQ0ODYtMS0xcy40NDg2LTEgMS0xIDEgLjQ0ODYgMSAxLS40NDg2IDEtMSAxWk00NCA4Yy0uNTUxNCAwLTEtLjQ0ODYtMS0xcy40NDg2LTEgMS0xIDEgLjQ0ODYgMSAxLS40NDg2IDEtMSAxWm0yNyA2NGMtLjU1MTQgMC0xLS40NDg2LTEtMXMuNDQ4Ni0xIDEtMSAxIC40NDg2IDEgMS0uNDQ4NiAxLTEgMVoiLz4KICA8L3N5bWJvbD4KICA8c3ltYm9sIGlkPSJhcnR3b3JrLW1pbm9yIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTY2IDE0YTIuOTg2MyAyLjk4NjMgMCAwIDEtLjQ5NTcgMS42NTI1QzY2LjY5MyAxNi4zMzk2IDY3LjUgMTcuNTI1NyA2Ny41IDE5YzAgLjU1MjMtLjQ0NzcgMS0xIDFzLTEtLjQ0NzctMS0xYzAtMS4wMDE1LS45MDgzLTItMi41LTItMS41NzAzIDAtMi41IDEuMDczNi0yLjUgMiAwIC41NTIzLS40NDc3IDEtMSAxcy0xLS40NDc3LTEtMWMwLTEuNDEyOC44MDgzLTIuNjIxNyAyLjAwNzQtMy4zM0EyLjk4NjIgMi45ODYyIDAgMCAxIDYwIDE0YzAtMS42NTY5IDEuMzQzMS0zIDMtM3MzIDEuMzQzMSAzIDNabS00IDBjMC0uNTUyMy40NDc3LTEgMS0xczEgLjQ0NzcgMSAxLS40NDc3IDEtMSAxLTEtLjQ0NzctMS0xWm0tMzUgNWEyLjk4NjMgMi45ODYzIDAgMCAxLS40OTU3IDEuNjUyNUMyNy42OTI5IDIxLjMzOTYgMjguNSAyMi41MjU3IDI4LjUgMjRjMCAuNTUyMy0uNDQ3NyAxLTEgMXMtMS0uNDQ3Ny0xLTFjMC0xLjAwMTUtLjkwODMtMi0yLjUtMi0xLjU3MDMgMC0yLjUgMS4wNzM2LTIuNSAyIDAgLjU1MjMtLjQ0NzcgMS0xIDFzLTEtLjQ0NzctMS0xYzAtMS40MTI4LjgwODMtMi42MjE3IDIuMDA3NC0zLjMzQTIuOTg2MiAyLjk4NjIgMCAwIDEgMjEgMTljMC0xLjY1NjkgMS4zNDMxLTMgMy0zczMgMS4zNDMxIDMgM1ptLTQgMGMwLS41NTIzLjQ0NzctMSAxLTFzMSAuNDQ3NyAxIDEtLjQ0NzcgMS0xIDEtMS0uNDQ3Ny0xLTFabTE0LjUgMTdhMy45ODU2IDMuOTg1NiAwIDAgMCAxLjAxOTEgMi42Njc0QzM2LjQzMjcgMzkuNjYzMiAzNSA0MS42NzIyIDM1IDQ0YzAgLjU1MjMuNDQ3NyAxIDEgMXMxLS40NDc3IDEtMWMwLTIuMDc0OCAxLjg3NjQtNCA0LjUtNCAyLjYzNzEgMCA0LjUgMS44Mzc2IDQuNSA0IDAgLjU1MjMuNDQ3NyAxIDEgMXMxLS40NDc3IDEtMWMwLTIuMzk5Ny0xLjQzMTItNC4zNzI5LTMuNTA3NS01LjM0NTdBMy45ODUgMy45ODUgMCAwIDAgNDUuNSAzNmMwLTIuMjA5MS0xLjc5MDktNC00LTQtMi4yMDkxIDAtNCAxLjc5MDktNCA0Wm00LTJjLTEuMTA0NiAwLTIgLjg5NTQtMiAycy44OTU0IDIgMiAyaC4wMDM1YzEuMTAzLS4wMDE5IDEuOTk2NS0uODk2NiAxLjk5NjUtMiAwLTEuMTA0Ni0uODk1NC0yLTItMlpNNDcgNjNhMi45ODYzIDIuOTg2MyAwIDAgMS0uNDk1NyAxLjY1MjVDNDcuNjkzIDY1LjMzOTYgNDguNSA2Ni41MjU3IDQ4LjUgNjhjMCAuNTUyMy0uNDQ3NyAxLTEgMXMtMS0uNDQ3Ny0xLTFjMC0xLjAwMDgtLjkwNy0xLjk5ODUtMi40OTY0LTJoLS4wMDcxYy0xLjU2ODEuMDAxNi0yLjQ5NjUgMS4wNzQzLTIuNDk2NSAyIDAgLjU1MjMtLjQ0NzcgMS0xIDFzLTEtLjQ0NzctMS0xYzAtMS40MTI4LjgwODMtMi42MjE3IDIuMDA3NC0zLjMzQTIuOTg2MiAyLjk4NjIgMCAwIDEgNDEgNjNjMC0xLjY1NjkgMS4zNDMxLTMgMy0zczMgMS4zNDMxIDMgM1ptLTQgMGMwLS41NTIzLjQ0NzctMSAxLTFzMSAuNDQ3NyAxIDEtLjQ0NzcgMS0xIDFoLS4wMDI1Yy0uNTUxMi0uMDAxNC0uOTk3NS0uNDQ4Ni0uOTk3NS0xWm0yNC0yMmMtMS42NTY5IDAtMyAxLjM0MzEtMyAzIDAgLjYxODIuMTg3IDEuMTkyNy41MDc0IDEuNjdDNjMuMzA4MyA0Ni4zNzgzIDYyLjUgNDcuNTg3MiA2Mi41IDQ5YzAgLjU1MjMuNDQ3NyAxIDEgMXMxLS40NDc3IDEtMWMwLS45MjY0LjkyOTgtMiAyLjUtMiAxLjU5MTcgMCAyLjUuOTk4NSAyLjUgMiAwIC41NTIzLjQ0NzcgMSAxIDFzMS0uNDQ3NyAxLTFjMC0xLjQ3NDMtLjgwNy0yLjY2MDQtMS45OTU3LTMuMzQ3NUEyLjk4NjMgMi45ODYzIDAgMCAwIDcwIDQ0YzAtMS42NTY5LTEuMzQzMS0zLTMtM1ptLTEgM2MwLS41NTIzLjQ0NzctMSAxLTFzMSAuNDQ3NyAxIDEtLjQ0NzcgMS0xIDEtMS0uNDQ3Ny0xLTFaTTE3IDU4YTIuOTg2MyAyLjk4NjMgMCAwIDEtLjQ5NTcgMS42NTI1QzE3LjY5MjkgNjAuMzM5NiAxOC41IDYxLjUyNTcgMTguNSA2M2MwIC41NTIzLS40NDc3IDEtMSAxcy0xLS40NDc3LTEtMWMwLTEuMDAxNS0uOTA4My0yLTIuNS0yLTEuNTcwMyAwLTIuNSAxLjA3MzYtMi41IDIgMCAuNTUyMy0uNDQ3NyAxLTEgMXMtMS0uNDQ3Ny0xLTFjMC0xLjQxMjguODA4My0yLjYyMTcgMi4wMDc0LTMuMzNBMi45ODYyIDIuOTg2MiAwIDAgMSAxMSA1OGMwLTEuNjU2OSAxLjM0MzEtMyAzLTNzMyAxLjM0MzEgMyAzWm0tNCAwYzAtLjU1MjMuNDQ3Ny0xIDEtMXMxIC40NDc3IDEgMS0uNDQ3NyAxLTEgMS0xLS40NDc3LTEtMVogTTEyIDI2Yy41NTIzIDAgMS0uNDQ3NyAxLTFzLS40NDc3LTEtMS0xLTEgLjQ0NzctMSAxIC40NDc3IDEgMSAxWiIvPgogIDwvc3ltYm9sPgogIDxzeW1ib2wgaWQ9ImFydHdvcmstbWFqb3IiPgogICAgPHBhdGggZD0iTTY3IDM5Yy0zLjg2NiAwLTcgMy4xMzQtNyA3czMuMTM0IDcgNyA3IDctMy4xMzQgNy03LTMuMTM0LTctNy03Wm0tOSA3YzAtNC45NzA2IDQuMDI5NC05IDktOXM5IDQuMDI5NCA5IDktNC4wMjk0IDktOSA5LTktNC4wMjk0LTktOVpNMTMuNDMzNSAyNy4xNzZjLjQ1NTEtLjMxMjkgMS4wNzc3LS4xOTc2IDEuMzkwNS4yNTc1Ljk3NTkgMS40MTkzIDIuNDIyNCAyLjUyMTcgNC4xMjMyIDMuMzcyMS40OTQuMjQ3LjY5NDIuODQ3Ni40NDcyIDEuMzQxNi0uMjQ3LjQ5NC0uODQ3Ni42OTQyLTEuMzQxNi40NDcyLTEuODk5Mi0uOTQ5Ni0zLjY1MjctMi4yNDcyLTQuODc2OC00LjAyNzktLjMxMjktLjQ1NTEtLjE5NzYtMS4wNzc3LjI1NzUtMS4zOTA1Wk0yNCAxNGMtMy44NjYgMC03IDMuMTM0LTcgN3MzLjEzNCA3IDcgNyA3LTMuMTM0IDctNy0zLjEzNC03LTctN1ptLTkgN2MwLTQuOTcwNiA0LjAyOTQtOSA5LTlzOSA0LjAyOTQgOSA5LTQuMDI5NCA5LTkgOS05LTQuMDI5NC05LTlabS0xIDMyYy0zLjg2NiAwLTcgMy4xMzQtNyA3czMuMTM0IDcgNyA3IDctMy4xMzQgNy03LTMuMTM0LTctNy03Wm0tOSA3YzAtNC45NzA2IDQuMDI5NC05IDktOXM5IDQuMDI5NCA5IDktNC4wMjk0IDktOSA5LTktNC4wMjk0LTktOVptNDktNDRjMC00Ljk1MjMgNC4wNDc3LTkgOS05IDEuMzU5MiAwIDIuNzExOS4zMzggMy44NDcyLjkwNTYuNDk0LjI0Ny42OTQyLjg0NzYuNDQ3MiAxLjM0MTYtLjI0Ny40OTQtLjg0NzYuNjk0Mi0xLjM0MTYuNDQ3MkM2NS4wODgxIDkuMjYyMSA2NC4wNDA4IDkgNjMgOWMtMy44NDc3IDAtNyAzLjE1MjMtNyA3czMuMTUyMyA3IDcgNyA3LTMuMTUyMyA3LTdjMC0uNTUyMy40NDc3LTEgMS0xczEgLjQ0NzcgMSAxYzAgNC45NTIzLTQuMDQ3NyA5LTkgOXMtOS00LjA0NzctOS05WiBNNjguMiAxMC4yYy4zMzE0LS40NDE4Ljk1ODItLjUzMTQgMS40LS4yLjEwMS4wNzU3LjE4MzguMTU2Mi4yNDI5LjIxNzEuMDU3LjA1ODguMTExMi4xMTk3LjE0OTcuMTYzMWwuMDA0OC4wMDU0Yy4wNDQ2LjA1MDIuMDcxNi4wODAzLjA5NTUuMTA1LjAwODYuMDA4OC4wMTQyLjAxNDIuMDE3MS4wMTcuNDMzMi4zMzMyLjUxODkuOTUzOS4xOSAxLjM5MjQtLjMzMTQuNDQxOC0uOTU4Mi41MzE0LTEuNC4yYTIuMDg4NSAyLjA4ODUgMCAwIDEtLjI0MjktLjIxNzEgNS4yNjg2IDUuMjY4NiAwIDAgMS0uMTQ5Ny0uMTYzMWwtLjAwNDgtLjAwNTVhMy40OTkgMy40OTkgMCAwIDAtLjA5NTUtLjEwNDljLS4wMDg2LS4wMDg4LS4wMTQyLS4wMTQyLS4wMTcxLS4wMTctLjQzMzItLjMzMzItLjUxODktLjk1MzktLjE5LTEuMzkyNFpNMzUgNjVjMC00Ljk1MjMgNC4wNDc3LTkgOS05czkgNC4wNDc3IDkgOS00LjA0NzcgOS05IDljLTEuMzU5MiAwLTIuNzExOS0uMzM3OS0zLjg0NzItLjkwNTYtLjQ5NC0uMjQ3LS42OTQyLS44NDc2LS40NDcyLTEuMzQxNi4yNDctLjQ5NC44NDc2LS42OTQyIDEuMzQxNi0uNDQ3Mi44NjQ3LjQzMjMgMS45MTIuNjk0NCAyLjk1MjguNjk0NCAzLjg0NzcgMCA3LTMuMTUyMyA3LTdzLTMuMTUyMy03LTctNy03IDMuMTUyMy03IDdjMCAuNTUyMy0uNDQ3NyAxLTEgMXMtMS0uNDQ3Ny0xLTFaIE0zNy4yIDY5LjRjLjMzMTQtLjQ0MTguOTU4Mi0uNTMxNCAxLjQtLjIuMTAxLjA3NTguMTgzOC4xNTYyLjI0MjkuMjE3MS4wNTcuMDU4OC4xMTEyLjExOTguMTQ5Ny4xNjMxbC4wMDQ4LjAwNTRjLjA0NDYuMDUwMi4wNzE2LjA4MDMuMDk1NS4xMDUuMDA4Ni4wMDg4LjAxNDIuMDE0Mi4wMTcxLjAxNy40MzMyLjMzMzIuNTE4OS45NTM5LjE5IDEuMzkyNC0uMzMxNC40NDE4LS45NTgyLjUzMTQtMS40LjJhMi4wODg1IDIuMDg4NSAwIDAgMS0uMjQyOS0uMjE3MSA1LjI2ODYgNS4yNjg2IDAgMCAxLS4xNTQ1LS4xNjg1IDMuNTMyMyAzLjUzMjMgMCAwIDAtLjA5NTUtLjEwNWMtLjAwODYtLjAwODgtLjAxNDItLjAxNDItLjAxNzEtLjAxNy0uNDMzMi0uMzMzMi0uNTE4OS0uOTUzOS0uMTktMS4zOTI0Wk00MS41IDMwYy01LjI0NjcgMC05LjUgNC4yNTMzLTkuNSA5LjVzNC4yNTMzIDkuNSA5LjUgOS41IDkuNS00LjI1MzMgOS41LTkuNS00LjI1MzMtOS41LTkuNS05LjVaTTMwIDM5LjVDMzAgMzMuMTQ4NyAzNS4xNDg3IDI4IDQxLjUgMjhTNTMgMzMuMTQ4NyA1MyAzOS41IDQ3Ljg1MTMgNTEgNDEuNSA1MSAzMCA0NS44NTEzIDMwIDM5LjVaIE01Ny43MDcxIDIxLjI5MjljLjM5MDUuMzkwNS4zOTA1IDEuMDIzNyAwIDEuNDE0MmwtOSA5Yy0uMzkwNS4zOTA1LTEuMDIzNy4zOTA1LTEuNDE0MiAwLS4zOTA1LS4zOTA1LS4zOTA1LTEuMDIzNyAwLTEuNDE0Mmw5LTljLjM5MDUtLjM5MDUgMS4wMjM3LS4zOTA1IDEuNDE0MiAwWm0tNi42ODE1IDIxLjQ4MjJjLjEyNDItLjUzODEuNjYxMS0uODczNyAxLjE5OTMtLjc0OTVsNi41IDEuNWMuNTM4MS4xMjQyLjg3MzcuNjYxMS43NDk1IDEuMTk5My0uMTI0Mi41MzgxLS42NjExLjg3MzctMS4xOTkyLjc0OTVsLTYuNS0xLjVjLS41MzgyLS4xMjQyLS44NzM4LS42NjExLS43NDk2LTEuMTk5M1ptLTguMTA4NyA2LjcyODNjLjU1MDQtLjA0NTggMS4wMzM4LjM2MzIgMS4wNzk2LjkxMzVsLjUwMDEgNmMuMDQ1OC41NTA0LS4zNjMyIDEuMDMzOC0uOTEzNSAxLjA3OTYtLjU1MDQuMDQ1OS0xLjAzMzgtLjM2MzEtMS4wNzk2LS45MTM1bC0uNTAwMS02Yy0uMDQ1OC0uNTUwMy4zNjMyLTEuMDMzNy45MTM1LTEuMDc5NlptLTE0LjEyNC0yMi43MTA1Yy4zOTA1LS4zOTA1IDEuMDIzNy0uMzkwNSAxLjQxNDIgMGw0LjUgNC41Yy4zOTA1LjM5MDUuMzkwNSAxLjAyMzcgMCAxLjQxNDItLjM5MDUuMzkwNS0xLjAyMzcuMzkwNS0xLjQxNDIgMGwtNC41LTQuNWMtLjM5MDUtLjM5MDUtLjM5MDUtMS4wMjM3IDAtMS40MTQyWm00LjUxMTMgMTkuMTEyN2MuMzI4Mi40NDQyLjIzNDMgMS4wNzAzLS4yMDk4IDEuMzk4NmwtMTEuNSA4LjVjLS40NDQxLjMyODMtMS4wNzAzLjIzNDMtMS4zOTg2LS4yMDk4LS4zMjgyLS40NDQxLS4yMzQzLTEuMDcwMy4yMDk4LTEuMzk4NmwxMS41LTguNWMuNDQ0MS0uMzI4MiAxLjA3MDMtLjIzNDMgMS4zOTg2LjIwOThaIi8+CiAgPC9zeW1ib2w+CiAgPHVzZSBjbGFzcz0iZnItYXJ0d29yay1kZWNvcmF0aXZlIiBocmVmPSIjYXJ0d29yay1kZWNvcmF0aXZlIi8+CiAgPHVzZSBjbGFzcz0iZnItYXJ0d29yay1taW5vciIgaHJlZj0iI2FydHdvcmstbWlub3IiLz4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLW1ham9yIiBocmVmPSIjYXJ0d29yay1tYWpvciIvPgo8L3N2Zz4K" alt=""><span class="n">04</span><span class="t">Harmoniser</span></li>
+      <li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHN0eWxlPgoJCS5mci1hcnR3b3JrLWRlY29yYXRpdmUgewoJCQlmaWxsOiAjRUNFQ0ZGOwoJCX0KCQkuZnItYXJ0d29yay1taW5vciB7CgkJCWZpbGw6ICNFMTAwMEY7CgkJfQoJCS5mci1hcnR3b3JrLW1ham9yIHsKCQkJZmlsbDogIzAwMDA5MTsKCQl9Cgk8L3N0eWxlPgogIDxzeW1ib2wgaWQ9ImFydHdvcmstZGVjb3JhdGl2ZSI+CiAgICA8cGF0aCBkPSJNNzMgMzNjLS41NTE0IDAtMS0uNDQ4Ni0xLTFzLjQ0ODYtMSAxLTEgMSAuNDQ4NiAxIDEtLjQ0ODYgMS0xIDFaTTEyIDQzYy0uNTUxNCAwLTEtLjQ0ODYtMS0xcy40NDg2LTEgMS0xIDEgLjQ0ODYgMSAxLS40NDg2IDEtMSAxWk04IDZjLS41NTE0IDAtMS0uNDQ4Ni0xLTFzLjQ0ODYtMSAxLTEgMSAuNDQ4NiAxIDEtLjQ0ODYgMS0xIDFabTE1IDY4Yy0uNTUxNCAwLTEtLjQ0ODYtMS0xcy40NDg2LTEgMS0xIDEgLjQ0ODYgMSAxLS40NDg2IDEtMSAxWk00NCA4Yy0uNTUxNCAwLTEtLjQ0ODYtMS0xcy40NDg2LTEgMS0xIDEgLjQ0ODYgMSAxLS40NDg2IDEtMSAxWm0yNyA2NGMtLjU1MTQgMC0xLS40NDg2LTEtMXMuNDQ4Ni0xIDEtMSAxIC40NDg2IDEgMS0uNDQ4NiAxLTEgMVoiLz4KICA8L3N5bWJvbD4KICA8c3ltYm9sIGlkPSJhcnR3b3JrLW1pbm9yIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTY2IDE0YTIuOTg2MyAyLjk4NjMgMCAwIDEtLjQ5NTcgMS42NTI1QzY2LjY5MyAxNi4zMzk2IDY3LjUgMTcuNTI1NyA2Ny41IDE5YzAgLjU1MjMtLjQ0NzcgMS0xIDFzLTEtLjQ0NzctMS0xYzAtMS4wMDE1LS45MDgzLTItMi41LTItMS41NzAzIDAtMi41IDEuMDczNi0yLjUgMiAwIC41NTIzLS40NDc3IDEtMSAxcy0xLS40NDc3LTEtMWMwLTEuNDEyOC44MDgzLTIuNjIxNyAyLjAwNzQtMy4zM0EyLjk4NjIgMi45ODYyIDAgMCAxIDYwIDE0YzAtMS42NTY5IDEuMzQzMS0zIDMtM3MzIDEuMzQzMSAzIDNabS00IDBjMC0uNTUyMy40NDc3LTEgMS0xczEgLjQ0NzcgMSAxLS40NDc3IDEtMSAxLTEtLjQ0NzctMS0xWm0tMzUgNWEyLjk4NjMgMi45ODYzIDAgMCAxLS40OTU3IDEuNjUyNUMyNy42OTI5IDIxLjMzOTYgMjguNSAyMi41MjU3IDI4LjUgMjRjMCAuNTUyMy0uNDQ3NyAxLTEgMXMtMS0uNDQ3Ny0xLTFjMC0xLjAwMTUtLjkwODMtMi0yLjUtMi0xLjU3MDMgMC0yLjUgMS4wNzM2LTIuNSAyIDAgLjU1MjMtLjQ0NzcgMS0xIDFzLTEtLjQ0NzctMS0xYzAtMS40MTI4LjgwODMtMi42MjE3IDIuMDA3NC0zLjMzQTIuOTg2MiAyLjk4NjIgMCAwIDEgMjEgMTljMC0xLjY1NjkgMS4zNDMxLTMgMy0zczMgMS4zNDMxIDMgM1ptLTQgMGMwLS41NTIzLjQ0NzctMSAxLTFzMSAuNDQ3NyAxIDEtLjQ0NzcgMS0xIDEtMS0uNDQ3Ny0xLTFabTE0LjUgMTdhMy45ODU2IDMuOTg1NiAwIDAgMCAxLjAxOTEgMi42Njc0QzM2LjQzMjcgMzkuNjYzMiAzNSA0MS42NzIyIDM1IDQ0YzAgLjU1MjMuNDQ3NyAxIDEgMXMxLS40NDc3IDEtMWMwLTIuMDc0OCAxLjg3NjQtNCA0LjUtNCAyLjYzNzEgMCA0LjUgMS44Mzc2IDQuNSA0IDAgLjU1MjMuNDQ3NyAxIDEgMXMxLS40NDc3IDEtMWMwLTIuMzk5Ny0xLjQzMTItNC4zNzI5LTMuNTA3NS01LjM0NTdBMy45ODUgMy45ODUgMCAwIDAgNDUuNSAzNmMwLTIuMjA5MS0xLjc5MDktNC00LTQtMi4yMDkxIDAtNCAxLjc5MDktNCA0Wm00LTJjLTEuMTA0NiAwLTIgLjg5NTQtMiAycy44OTU0IDIgMiAyaC4wMDM1YzEuMTAzLS4wMDE5IDEuOTk2NS0uODk2NiAxLjk5NjUtMiAwLTEuMTA0Ni0uODk1NC0yLTItMlpNNDcgNjNhMi45ODYzIDIuOTg2MyAwIDAgMS0uNDk1NyAxLjY1MjVDNDcuNjkzIDY1LjMzOTYgNDguNSA2Ni41MjU3IDQ4LjUgNjhjMCAuNTUyMy0uNDQ3NyAxLTEgMXMtMS0uNDQ3Ny0xLTFjMC0xLjAwMDgtLjkwNy0xLjk5ODUtMi40OTY0LTJoLS4wMDcxYy0xLjU2ODEuMDAxNi0yLjQ5NjUgMS4wNzQzLTIuNDk2NSAyIDAgLjU1MjMtLjQ0NzcgMS0xIDFzLTEtLjQ0NzctMS0xYzAtMS40MTI4LjgwODMtMi42MjE3IDIuMDA3NC0zLjMzQTIuOTg2MiAyLjk4NjIgMCAwIDEgNDEgNjNjMC0xLjY1NjkgMS4zNDMxLTMgMy0zczMgMS4zNDMxIDMgM1ptLTQgMGMwLS41NTIzLjQ0NzctMSAxLTFzMSAuNDQ3NyAxIDEtLjQ0NzcgMS0xIDFoLS4wMDI1Yy0uNTUxMi0uMDAxNC0uOTk3NS0uNDQ4Ni0uOTk3NS0xWm0yNC0yMmMtMS42NTY5IDAtMyAxLjM0MzEtMyAzIDAgLjYxODIuMTg3IDEuMTkyNy41MDc0IDEuNjdDNjMuMzA4MyA0Ni4zNzgzIDYyLjUgNDcuNTg3MiA2Mi41IDQ5YzAgLjU1MjMuNDQ3NyAxIDEgMXMxLS40NDc3IDEtMWMwLS45MjY0LjkyOTgtMiAyLjUtMiAxLjU5MTcgMCAyLjUuOTk4NSAyLjUgMiAwIC41NTIzLjQ0NzcgMSAxIDFzMS0uNDQ3NyAxLTFjMC0xLjQ3NDMtLjgwNy0yLjY2MDQtMS45OTU3LTMuMzQ3NUEyLjk4NjMgMi45ODYzIDAgMCAwIDcwIDQ0YzAtMS42NTY5LTEuMzQzMS0zLTMtM1ptLTEgM2MwLS41NTIzLjQ0NzctMSAxLTFzMSAuNDQ3NyAxIDEtLjQ0NzcgMS0xIDEtMS0uNDQ3Ny0xLTFaTTE3IDU4YTIuOTg2MyAyLjk4NjMgMCAwIDEtLjQ5NTcgMS42NTI1QzE3LjY5MjkgNjAuMzM5NiAxOC41IDYxLjUyNTcgMTguNSA2M2MwIC41NTIzLS40NDc3IDEtMSAxcy0xLS40NDc3LTEtMWMwLTEuMDAxNS0uOTA4My0yLTIuNS0yLTEuNTcwMyAwLTIuNSAxLjA3MzYtMi41IDIgMCAuNTUyMy0uNDQ3NyAxLTEgMXMtMS0uNDQ3Ny0xLTFjMC0xLjQxMjguODA4My0yLjYyMTcgMi4wMDc0LTMuMzNBMi45ODYyIDIuOTg2MiAwIDAgMSAxMSA1OGMwLTEuNjU2OSAxLjM0MzEtMyAzLTNzMyAxLjM0MzEgMyAzWm0tNCAwYzAtLjU1MjMuNDQ3Ny0xIDEtMXMxIC40NDc3IDEgMS0uNDQ3NyAxLTEgMS0xLS40NDc3LTEtMVogTTEyIDI2Yy41NTIzIDAgMS0uNDQ3NyAxLTFzLS40NDc3LTEtMS0xLTEgLjQ0NzctMSAxIC40NDc3IDEgMSAxWiIvPgogIDwvc3ltYm9sPgogIDxzeW1ib2wgaWQ9ImFydHdvcmstbWFqb3IiPgogICAgPHBhdGggZD0iTTY3IDM5Yy0zLjg2NiAwLTcgMy4xMzQtNyA3czMuMTM0IDcgNyA3IDctMy4xMzQgNy03LTMuMTM0LTctNy03Wm0tOSA3YzAtNC45NzA2IDQuMDI5NC05IDktOXM5IDQuMDI5NCA5IDktNC4wMjk0IDktOSA5LTktNC4wMjk0LTktOVpNMTMuNDMzNSAyNy4xNzZjLjQ1NTEtLjMxMjkgMS4wNzc3LS4xOTc2IDEuMzkwNS4yNTc1Ljk3NTkgMS40MTkzIDIuNDIyNCAyLjUyMTcgNC4xMjMyIDMuMzcyMS40OTQuMjQ3LjY5NDIuODQ3Ni40NDcyIDEuMzQxNi0uMjQ3LjQ5NC0uODQ3Ni42OTQyLTEuMzQxNi40NDcyLTEuODk5Mi0uOTQ5Ni0zLjY1MjctMi4yNDcyLTQuODc2OC00LjAyNzktLjMxMjktLjQ1NTEtLjE5NzYtMS4wNzc3LjI1NzUtMS4zOTA1Wk0yNCAxNGMtMy44NjYgMC03IDMuMTM0LTcgN3MzLjEzNCA3IDcgNyA3LTMuMTM0IDctNy0zLjEzNC03LTctN1ptLTkgN2MwLTQuOTcwNiA0LjAyOTQtOSA5LTlzOSA0LjAyOTQgOSA5LTQuMDI5NCA5LTkgOS05LTQuMDI5NC05LTlabS0xIDMyYy0zLjg2NiAwLTcgMy4xMzQtNyA3czMuMTM0IDcgNyA3IDctMy4xMzQgNy03LTMuMTM0LTctNy03Wm0tOSA3YzAtNC45NzA2IDQuMDI5NC05IDktOXM5IDQuMDI5NCA5IDktNC4wMjk0IDktOSA5LTktNC4wMjk0LTktOVptNDktNDRjMC00Ljk1MjMgNC4wNDc3LTkgOS05IDEuMzU5MiAwIDIuNzExOS4zMzggMy44NDcyLjkwNTYuNDk0LjI0Ny42OTQyLjg0NzYuNDQ3MiAxLjM0MTYtLjI0Ny40OTQtLjg0NzYuNjk0Mi0xLjM0MTYuNDQ3MkM2NS4wODgxIDkuMjYyMSA2NC4wNDA4IDkgNjMgOWMtMy44NDc3IDAtNyAzLjE1MjMtNyA3czMuMTUyMyA3IDcgNyA3LTMuMTUyMyA3LTdjMC0uNTUyMy40NDc3LTEgMS0xczEgLjQ0NzcgMSAxYzAgNC45NTIzLTQuMDQ3NyA5LTkgOXMtOS00LjA0NzctOS05WiBNNjguMiAxMC4yYy4zMzE0LS40NDE4Ljk1ODItLjUzMTQgMS40LS4yLjEwMS4wNzU3LjE4MzguMTU2Mi4yNDI5LjIxNzEuMDU3LjA1ODguMTExMi4xMTk3LjE0OTcuMTYzMWwuMDA0OC4wMDU0Yy4wNDQ2LjA1MDIuMDcxNi4wODAzLjA5NTUuMTA1LjAwODYuMDA4OC4wMTQyLjAxNDIuMDE3MS4wMTcuNDMzMi4zMzMyLjUxODkuOTUzOS4xOSAxLjM5MjQtLjMzMTQuNDQxOC0uOTU4Mi41MzE0LTEuNC4yYTIuMDg4NSAyLjA4ODUgMCAwIDEtLjI0MjktLjIxNzEgNS4yNjg2IDUuMjY4NiAwIDAgMS0uMTQ5Ny0uMTYzMWwtLjAwNDgtLjAwNTVhMy40OTkgMy40OTkgMCAwIDAtLjA5NTUtLjEwNDljLS4wMDg2LS4wMDg4LS4wMTQyLS4wMTQyLS4wMTcxLS4wMTctLjQzMzItLjMzMzItLjUxODktLjk1MzktLjE5LTEuMzkyNFpNMzUgNjVjMC00Ljk1MjMgNC4wNDc3LTkgOS05czkgNC4wNDc3IDkgOS00LjA0NzcgOS05IDljLTEuMzU5MiAwLTIuNzExOS0uMzM3OS0zLjg0NzItLjkwNTYtLjQ5NC0uMjQ3LS42OTQyLS44NDc2LS40NDcyLTEuMzQxNi4yNDctLjQ5NC44NDc2LS42OTQyIDEuMzQxNi0uNDQ3Mi44NjQ3LjQzMjMgMS45MTIuNjk0NCAyLjk1MjguNjk0NCAzLjg0NzcgMCA3LTMuMTUyMyA3LTdzLTMuMTUyMy03LTctNy03IDMuMTUyMy03IDdjMCAuNTUyMy0uNDQ3NyAxLTEgMXMtMS0uNDQ3Ny0xLTFaIE0zNy4yIDY5LjRjLjMzMTQtLjQ0MTguOTU4Mi0uNTMxNCAxLjQtLjIuMTAxLjA3NTguMTgzOC4xNTYyLjI0MjkuMjE3MS4wNTcuMDU4OC4xMTEyLjExOTguMTQ5Ny4xNjMxbC4wMDQ4LjAwNTRjLjA0NDYuMDUwMi4wNzE2LjA4MDMuMDk1NS4xMDUuMDA4Ni4wMDg4LjAxNDIuMDE0Mi4wMTcxLjAxNy40MzMyLjMzMzIuNTE4OS45NTM5LjE5IDEuMzkyNC0uMzMxNC40NDE4LS45NTgyLjUzMTQtMS40LjJhMi4wODg1IDIuMDg4NSAwIDAgMS0uMjQyOS0uMjE3MSA1LjI2ODYgNS4yNjg2IDAgMCAxLS4xNTQ1LS4xNjg1IDMuNTMyMyAzLjUzMjMgMCAwIDAtLjA5NTUtLjEwNWMtLjAwODYtLjAwODgtLjAxNDItLjAxNDItLjAxNzEtLjAxNy0uNDMzMi0uMzMzMi0uNTE4OS0uOTUzOS0uMTktMS4zOTI0Wk00MS41IDMwYy01LjI0NjcgMC05LjUgNC4yNTMzLTkuNSA5LjVzNC4yNTMzIDkuNSA5LjUgOS41IDkuNS00LjI1MzMgOS41LTkuNS00LjI1MzMtOS41LTkuNS05LjVaTTMwIDM5LjVDMzAgMzMuMTQ4NyAzNS4xNDg3IDI4IDQxLjUgMjhTNTMgMzMuMTQ4NyA1MyAzOS41IDQ3Ljg1MTMgNTEgNDEuNSA1MSAzMCA0NS44NTEzIDMwIDM5LjVaIE01Ny43MDcxIDIxLjI5MjljLjM5MDUuMzkwNS4zOTA1IDEuMDIzNyAwIDEuNDE0MmwtOSA5Yy0uMzkwNS4zOTA1LTEuMDIzNy4zOTA1LTEuNDE0MiAwLS4zOTA1LS4zOTA1LS4zOTA1LTEuMDIzNyAwLTEuNDE0Mmw5LTljLjM5MDUtLjM5MDUgMS4wMjM3LS4zOTA1IDEuNDE0MiAwWm0tNi42ODE1IDIxLjQ4MjJjLjEyNDItLjUzODEuNjYxMS0uODczNyAxLjE5OTMtLjc0OTVsNi41IDEuNWMuNTM4MS4xMjQyLjg3MzcuNjYxMS43NDk1IDEuMTk5My0uMTI0Mi41MzgxLS42NjExLjg3MzctMS4xOTkyLjc0OTVsLTYuNS0xLjVjLS41MzgyLS4xMjQyLS44NzM4LS42NjExLS43NDk2LTEuMTk5M1ptLTguMTA4NyA2LjcyODNjLjU1MDQtLjA0NTggMS4wMzM4LjM2MzIgMS4wNzk2LjkxMzVsLjUwMDEgNmMuMDQ1OC41NTA0LS4zNjMyIDEuMDMzOC0uOTEzNSAxLjA3OTYtLjU1MDQuMDQ1OS0xLjAzMzgtLjM2MzEtMS4wNzk2LS45MTM1bC0uNTAwMS02Yy0uMDQ1OC0uNTUwMy4zNjMyLTEuMDMzNy45MTM1LTEuMDc5NlptLTE0LjEyNC0yMi43MTA1Yy4zOTA1LS4zOTA1IDEuMDIzNy0uMzkwNSAxLjQxNDIgMGw0LjUgNC41Yy4zOTA1LjM5MDUuMzkwNSAxLjAyMzcgMCAxLjQxNDItLjM5MDUuMzkwNS0xLjAyMzcuMzkwNS0xLjQxNDIgMGwtNC41LTQuNWMtLjM5MDUtLjM5MDUtLjM5MDUtMS4wMjM3IDAtMS40MTQyWm00LjUxMTMgMTkuMTEyN2MuMzI4Mi40NDQyLjIzNDMgMS4wNzAzLS4yMDk4IDEuMzk4NmwtMTEuNSA4LjVjLS40NDQxLjMyODMtMS4wNzAzLjIzNDMtMS4zOTg2LS4yMDk4LS4zMjgyLS40NDQxLS4yMzQzLTEuMDcwMy4yMDk4LTEuMzk4NmwxMS41LTguNWMuNDQ0MS0uMzI4MiAxLjA3MDMtLjIzNDMgMS4zOTg2LjIwOThaIi8+CiAgPC9zeW1ib2w+CiAgPHVzZSBjbGFzcz0iZnItYXJ0d29yay1kZWNvcmF0aXZlIiBocmVmPSIjYXJ0d29yay1kZWNvcmF0aXZlIi8+CiAgPHVzZSBjbGFzcz0iZnItYXJ0d29yay1taW5vciIgaHJlZj0iI2FydHdvcmstbWlub3IiLz4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLW1ham9yIiBocmVmPSIjYXJ0d29yay1tYWpvciIvPgo8L3N2Zz4K" alt=""><span class="n">03</span><span class="t">Étendre à tous les métiers</span></li>
+      <li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+Cgk8c3R5bGU+CgkuZnItYXJ0d29yay1kZWNvcmF0aXZlIHsKCQlmaWxsOiAjRUNFQ0ZGOwoJfQoJLmZyLWFydHdvcmstbWlub3IgewoJCWZpbGw6ICNFMTAwMEY7Cgl9CgkuZnItYXJ0d29yay1tYWpvciB7CgkJZmlsbDogIzAwMDA5MTsKCX0KCTwvc3R5bGU+Cgk8c3ltYm9sIGlkPSJhcnR3b3JrLWRlY29yYXRpdmUiPgoJCTxwYXRoIGQ9Ik0xOSw3MCBDMTkuNTUxNDAwMSw3MCAyMCw3MC40NDg1NTI5IDIwLDcxIEMyMCw3MS41NTE0MDAxIDE5LjU1MTQwMDEsNzIgMTksNzIgQzE4LjQ0ODU5OTksNzIgMTgsNzEuNTUxNDAwMSAxOCw3MSBDMTgsNzAuNDQ4NTUyOSAxOC40NDg1OTk5LDcwIDE5LDcwIFogTTY3LDY0IEM2Ny41NTE0MDAxLDY0IDY4LDY0LjQ0ODU1MjkgNjgsNjUgQzY4LDY1LjU1MTQwMDEgNjcuNTUxNDAwMSw2NiA2Nyw2NiBDNjYuNDQ4NTk5OSw2NiA2Niw2NS41NTE0MDAxIDY2LDY1IEM2Niw2NC40NDg1NTI5IDY2LjQ0ODU5OTksNjQgNjcsNjQgWiBNOSwzMCBDOS41NTE0MDAxMSwzMCAxMCwzMC40NDg1NTI5IDEwLDMxIEMxMCwzMS41NTE0MDAxIDkuNTUxNDAwMTEsMzIgOSwzMiBDOC40NDg1OTk4OSwzMiA4LDMxLjU1MTQwMDEgOCwzMSBDOCwzMC40NDg1NTI5IDguNDQ4NTk5ODksMzAgOSwzMCBaIE02NywxNCBDNjcuNTUxNDAwMSwxNCA2OCwxNC40NDg1NTI5IDY4LDE1IEM2OCwxNS41NTE0MDAxIDY3LjU1MTQwMDEsMTYgNjcsMTYgQzY2LjQ0ODU5OTksMTYgNjYsMTUuNTUxNDAwMSA2NiwxNSBDNjYsMTQuNDQ4NTUyOSA2Ni40NDg1OTk5LDE0IDY3LDE0IFogTTMxLDggQzMxLjU1MTQwMDEsOCAzMiw4LjQ0ODU1MjkgMzIsOSBDMzIsOS41NTE0MDAxMSAzMS41NTE0MDAxLDEwIDMxLDEwIEMzMC40NDg1OTk5LDEwIDMwLDkuNTUxNDAwMTEgMzAsOSBDMzAsOC40NDg1NTI5IDMwLjQ0ODU5OTksOCAzMSw4IFoiLz4KCTwvc3ltYm9sPgoJPHN5bWJvbCBpZD0iYXJ0d29yay1taW5vciI+CgkJPHBhdGggZD0iTTUzLjMwMjI3MjYsNDYuMjE3OTI1NyBDNTUuMzg4NTQ1Myw0Ni45MzYyODcgNTYuNTAwNDM1Niw0OS4yMTYgNTUuNzgyMDc0Myw1MS4zMDIyNzI2IEM1NS4wNjM2ODA2LDUzLjM4ODYzOTQgNTIuNzg0MDM5Miw1NC41MDA0NDkxIDUwLjY5NzcyNzQsNTMuNzgyMDc0MyBDNTAuMTc1NTMxOSw1My42MDIyNjggNDkuODk3OTcwNiw1My4wMzMxODMxIDUwLjA3Nzc3Nyw1Mi41MTA5ODc2IEM1MC4yNTc1ODMzLDUxLjk4ODc5MjEgNTAuODI2NjY4Miw1MS43MTEyMzA4IDUxLjM0ODg2MzcsNTEuODkxMDM3MiBDNTIuMzkwNzk4Miw1Mi4yNDk4MDQgNTMuNTMyMjYwOCw1MS42OTMwOTg0IDUzLjg5MTAzNzIsNTAuNjUxMTM2MyBDNTQuMjQ5Nzg1OCw0OS42MDkyNTQ3IDUzLjY5MzAxOCw0OC40Njc3MTE1IDUyLjY1MTEzNjMsNDguMTA4OTYyOCBDNTEuNjU2NjEyOSw0Ny43NjY1MjEgNTAuNTcxMjgyMiw0OC4yNTgyNTgzIDUwLjE2MjY1MjMsNDkuMjA5ODM2MiBMNTAuMTA4OTYyOCw0OS4zNDg4NjM3IEM0OS45MjkxNTY1LDQ5Ljg3MTA1OTIgNDkuMzYwMDcxNiw1MC4xNDg2MjA0IDQ4LjgzNzg3NjEsNDkuOTY4ODE0MSBDNDguMzE1NjgwNiw0OS43ODkwMDc4IDQ4LjAzODExOTQsNDkuMjE5OTIyOSA0OC4yMTc5MjU3LDQ4LjY5NzcyNzQgQzQ4LjkzNjI4Nyw0Ni42MTE0NTQ3IDUxLjIxNiw0NS40OTk1NjQ0IDUzLjMwMjI3MjYsNDYuMjE3OTI1NyBaIE0zOC41LDI4LjY2OTg3MyBDMzguOTc4MjkyNiwyOC45NDYwMTU0IDM5LjE0MjE2NzgsMjkuNTU3NjA1OCAzOC44NjYwMjU0LDMwLjAzNTg5ODQgQzM4LjU4OTg4MywzMC41MTQxOTEgMzcuOTc4MjkyNiwzMC42NzgwNjYyIDM3LjUsMzAuNDAxOTIzOCBDMzYuMDY4MTI0MSwyOS41NzUyMjk5IDM0LjIyODYzOTUsMzAuMDY4MDg2MyAzMy40MDE5MjM4LDMxLjUgQzMyLjU3NTI2NTksMzIuOTMxODEzNCAzMy4wNjgxODY2LDM0Ljc3MTQxODQgMzQuNSwzNS41OTgwNzYyIEMzNS44ODA2NzcyLDM2LjM5NTIxMDYgMzcuNjQwNTM4MSwzNS45NjUzMzg5IDM4LjUwNTY5NDQsMzQuNjQ5Nzk4NSBMMzguNTk4MDc2MiwzNC41IEMzOC44NzQyMTg2LDM0LjAyMTcwNzQgMzkuNDg1ODA5LDMzLjg1NzgzMjIgMzkuOTY0MTAxNiwzNC4xMzM5NzQ2IEM0MC40NDIzOTQyLDM0LjQxMDExNyA0MC42MDYyNjk0LDM1LjAyMTcwNzQgNDAuMzMwMTI3LDM1LjUgQzM4Ljk1MTE4NDQsMzcuODg4Mzk4NiAzNS44ODgzOTg2LDM4LjcwOTA2OTYgMzMuNSwzNy4zMzAxMjcgQzMxLjExMTYwMTQsMzUuOTUxMTg0NCAzMC4yOTA5MzA0LDMyLjg4ODM5ODYgMzEuNjY5ODczLDMwLjUgQzMzLjA0ODg4MDcsMjguMTExNDg4NSAzNi4xMTE1NTE1LDI3LjI5MDkwMTYgMzguNSwyOC42Njk4NzMgWiIvPgoJPC9zeW1ib2w+Cgk8c3ltYm9sIGlkPSJhcnR3b3JrLW1ham9yIj4KCQk8cGF0aCBkPSJNNTAuNTI2OTE2MywzNiBMNTMuNTU0MDAyMywzNi4wMDMyMzg5IEw1My43MTE4NzAxLDM2LjAxOTI3ODMgQzU0LjM3NTMzMTEsMzYuMTI3NDgzNyA1NC44NzkwOTc4LDM2LjY3MDM1MDEgNTQuOTQzMzE3OSwzNy4zMzI5NjA2IEw1NC45NTAyNDk3LDM3LjQ3NjY2NjcgTDU0Ljk0OTc1NzUsMzguMjU1NjI4MyBMNTQuOTUzMjc5MiwzOC4zODU0NDAyIEM1NC45ODc1MTc3LDM4LjkxNDU3ODggNTUuMzA5NjE0NCwzOS4zODIwMDEgNTUuODI2NzQxNSwzOS42MjIyODIxIEw1Ni4zNTg5NTk1LDM5Ljg0NDcwNCBMNTYuNTYyMTAwNiwzOS45MzUwODU3IEM1Ny4wNjU2MjQxLDQwLjE2NzQxOTMgNTcuNjYwNjIzOCw0MC4wODY5IDU4LjA5MDcwNjcsMzkuNzM2NDU4MyBMNTguMjAzNzIwNiwzOS42MzQyMjMzIEw1OC44NDcxMDE1LDM4Ljk5NzcyMiBMNTguOTg1MjgyMSwzOC44ODg1MTg1IEM1OS41MjY3MDEzLDM4LjUxNjk5NzkgNjAuMjQ4MTE5NSwzOC41NDk5OTc2IDYwLjc1NTc5MjcsMzguOTYxNiBMNjAuODY4OTc0NSwzOS4wNjMyOTQyIEw2My4wMTA0MzA4LDQxLjIxMTAwMzkgTDYzLjExOTQyNDgsNDEuMzQ5MTk3MiBDNjMuNDg5NjU2OCw0MS44OTAwNjI3IDYzLjQ1NTk4NzcsNDIuNjEwNzUxMSA2My4wNDUxODc0LDQzLjExNzY0NTggTDYyLjk0MzcwNDgsNDMuMjMwNjQ3MiBMNjIuMzkwMTExMiw0My43ODQzMDY4IEw2Mi4yOTY4OTk2LDQzLjg4MjQ5MzcgQzYxLjkyMTAyOTQsNDQuMzExMjExNCA2MS44MzIwMyw0NC45MzA3MTE2IDYyLjA3OTQyOTIsNDUuNDYzMDA2NyBDNjIuMTQxNjU0MSw0NS41OTk5MTk1IDYyLjIwMjUyOTYsNDUuNzQxNzU3NCA2Mi4yNTg1OTMzLDQ1Ljg4MDAwNDMgTDYyLjM4NTA0MjEsNDYuMTk5OTM4MiBDNjIuNTkyODQ0LDQ2LjY2ODMxNDkgNjMuMDUxODcxOCw0Ni45OTMxNjcxIDYzLjU3MjkwMTIsNDcuMDQzMjQ5NCBMNjMuNzE2Mzk1Miw0Ny4wNDk5OTcyIEw2NC42MDQwMDIzLDQ3LjA1MzIzODkgTDY0Ljc2MTg3MDEsNDcuMDY5Mjc4MyBDNjUuNDI1MzMxMSw0Ny4xNzc0ODM3IDY1LjkyOTA5NzgsNDcuNzIwMzUwMSA2NS45OTMzMTc5LDQ4LjM4Mjk2MDYgTDY2LjAwMDI0OTcsNDguNTI2NjY2NyBMNjUuOTk3MDEwOCw1MS41NTM3NTI2IEw2NS45ODA5NzEzLDUxLjcxMTYyMDQgQzY1Ljg3Mjc2Niw1Mi4zNzUwODE1IDY1LjMyOTg5OTYsNTIuODc4ODQ4MSA2NC42NjcyODksNTIuOTQzMDY4MyBMNjQuNTIzNTgzLDUyLjk1IEw2My43MzY1NDUxLDUyLjk0OTcyODYgTDYzLjYwOTQyMzUsNTIuOTUyMTI1OCBDNjMuMDkwNDU1OCw1Mi45ODE2OTE1IDYyLjYyMTk2NzUsNTMuMzAwMTU0NCA2Mi4zODYyMzY4LDUzLjc5MjYxOTMgTDYyLjMyNzg1NDQsNTMuOTMxMTU1NiBMNjIuMjUwODMyOCw1NC4xMjUyMjQzIEM2Mi4xOTM0NjQ5LDU0LjI2NTcyNTkgNjIuMTMxNTE0LDU0LjQwOTM4MDcgNjIuMDYzOTQ5Nyw1NC41NTc4NDI2IEM2MS44MzExOTgyLDU1LjA1ODQ2NDYgNjEuOTEyNDcyNSw1NS42NTUyMzIxIDYyLjI2NjQzNTQsNTYuMDg3MDE5NyBMNjIuMzY5NzAwNSw1Ni4yMDA0OTM0IEw2My4wMDI1Mjc2LDU2Ljg0MDIyMTggTDYzLjExMTczMTIsNTYuOTc4NDAyNCBDNjMuNDgzMjUxOCw1Ny41MTk4MjE2IDYzLjQ1MDI1MjEsNTguMjQxMjM5OSA2My4wMzk1NTAxLDU4Ljc0ODAxMTEgTDYyLjkzODA4MDIsNTguODYwOTY4NCBMNjAuNzg2NTg3NCw2MS4wMTI3MTk0IEw2MC42NDgzNTMsNjEuMTIxNDU1IEM2MC4xMDgyNjE0LDYxLjQ4OTg3OSA1OS4zODg0MTc0LDYxLjQ1NDk3OTIgNTguODgyNDAwNyw2MS4wNDQ3Njg3IEw1OC43Njk2MDI1LDYwLjk0MzQ1NTIgTDU4LjIxNzMyMzQsNjAuMzkxMTU3NyBMNTguMTE4Njk0Niw2MC4yOTc4OTQ3IEM1Ny42ODgxOTU1LDU5LjkyMTcyNDIgNTcuMDcwNTIzNSw1OS44MzI2MjA4IDU2LjU0MDU2MzIsNjAuMDc3NjQxMyBDNTYuNDAxODQzOSw2MC4xNDA3MDg4IDU2LjI1OTM5OTYsNjAuMjAxODg1MyA1Ni4xMjA3NzExLDYwLjI1ODEyMzkgTDU1LjgwMDMxMTUsNjAuMzg0NzkyNCBDNTUuMzMxOTM0OCw2MC41OTI1OTQzIDU1LjAwNzA4MjUsNjEuMDUxNjIyMSA1NC45NTcwMDAyLDYxLjU3MjY1MTUgTDU0Ljk1MDI1MjUsNjEuNzE2MTQ1NSBMNTQuOTQ3MDEwOCw2Mi42MDM3NTI2IEw1NC45MzA5NzEzLDYyLjc2MTYyMDQgQzU0LjgyMjc2Niw2My40MjUwODE1IDU0LjI3OTg5OTYsNjMuOTI4ODQ4MSA1My42MTcyODksNjMuOTkzMDY4MyBMNTMuNDczNTgzLDY0IEw1MC40NDY0OTcsNjMuOTk2NzYxMSBMNTAuMjg4NjI5Miw2My45ODA3MjE3IEM0OS42MjUxNjgyLDYzLjg3MjUxNjMgNDkuMTIxNDAxNiw2My4zMjk2NDk5IDQ5LjA1NzE4MTQsNjIuNjY3MDM5NCBMNDkuMDUwMjQ5Nyw2Mi41MjMzMzMzIEw0OS4wNTA2ODY0LDYxLjc0MjU1MTUgTDQ5LjA0NzQyODcsNjEuNjEzNjgzMSBDNDkuMDE0MzkyOSw2MS4wODgxODEyIDQ4LjY5NDgyMjIsNjAuNjIxNDM1NSA0OC4xODUwMzk0LDYwLjM4MTI1MzMgTDQ3LjY0NTY1MzgsNjAuMTU1NDU5OCBMNDcuNDU1MDY3MSw2MC4wNzA3OTM5IEM0Ni45NTAzNDQzLDU5Ljg0NjU3NjcgNDYuNzIyOTQ5Niw1OS4yNTU2NTQxIDQ2Ljk0NzE2NjgsNTguNzUwOTMxMyBDNDcuMTU1MzY4NSw1OC4yODIyNjAxIDQ3LjY3OTc2LDU4LjA1MjcxMzcgNDguMTU3NzIwMiw1OC4yMDE4MzM0IEw0OC4yNjcwMjk0LDU4LjI0MzAzMSBMNDguNDM4MDUxMiw1OC4zMTkyNTM5IEw0OC43Njc1NjUzLDU4LjQ1ODY2NDcgQzQ5Ljk5ODg0NzEsNTguOTAzNTAyMiA1MC44NjcwOTg4LDYwLjAwMjY3ODIgNTEuMDI1ODk1LDYxLjMxMjgzNDcgTDUxLjA0NTAyMTgsNjEuNTIxMzkwMiBMNTEuMDUwMjQ5Nyw2MS43MTMgTDUxLjA1MTA0ODIsNjIgTDUyLjk1MTA0ODIsNjIgTDUyLjk1MDI1NDIsNjEuNzE3OTU0NyBDNTIuOTQ3ODk4LDYwLjQxODExODMgNTMuNjc0NjUyOCw1OS4yMjk4MDg5IDU0LjgzMzU4ODEsNTguNjMyODIzOCBMNTUuMDIwMTI2MSw1OC41NDM1NDcgTDU1LjQ1MTg1NzYsNTguMzcwNjU5OSBMNTUuNzA3MDAwMSw1OC4yNTk2MzkyIEM1Ni44ODI4ODI3LDU3LjcxNTkzNDggNTguMjU2ODg5LDU3Ljg3NjYwMDYgNTkuMjkxMzMwNCw1OC42NzYwNjU5IEw1OS40NjA1MDA5LDU4LjgxNTIxMzYgTDU5LjYwNzc5NzYsNTguOTUzOTQ4MyBMNTkuODE2MDQ4Miw1OS4xNjEgTDYxLjE1NjA0ODIsNTcuODE2IEw2MC45NTgxODA1LDU3LjYxNzM4NjEgQzU5Ljk3MzQ2MzQsNTYuNjQxNDIzOCA1OS42NjkwMDQ0LDU1LjE3NDg0MDggNjAuMTY2Mjc3Miw1My45MTAzMDg1IEw2MC4yNDY4OTYyLDUzLjcyMjIzMDYgTDYwLjMyNDczODEsNTMuNTQ2NjMyOSBMNjAuMzk1NDY4NCw1My4zNzg1NTA5IEw2MC40NTkyNjI0LDUzLjIxODY1NDMgQzYwLjkxMDcxNzMsNTEuOTg1NzI4OSA2Mi4wMTk4MjcsNTEuMTE4ODA3NCA2My4zMzEwOTk5LDUwLjk3MDc4MzggTDYzLjUyOTI1MDEsNTAuOTU0MDE2MSBMNjMuNzEzMjQ5Nyw1MC45NSBMNjQuMDAxMDQ4Miw1MC45NSBMNjQuMDAxMDQ4Miw0OS4wNSBMNjMuNzE4MjA0Myw0OS4wNDk5OTU1IEM2Mi40MTgzNjgsNDkuMDUyMzUxNyA2MS4yMzAwNTg1LDQ4LjMyNTU5NjggNjAuNjMzMDczNSw0Ny4xNjY2NjE2IEw2MC41NDM3OTY3LDQ2Ljk4MDEyMzYgTDYwLjQwNzI1NTUsNDYuNjM2ODI4NSBMNjAuMjYyMjMwMiw0Ni4yOTgyOTk4IEM1OS43MTQ4MDQyLDQ1LjEyMDY3MDEgNTkuODc1MTYwOSw0My43NDE5Mzk0IDYwLjY3NzAzMzYsNDIuNzA3MjMwOSBMNjAuODE2NjA3Niw0Mi41MzgwNTgzIEw2MC45NTQxOTgsNDIuMzkyNDUyIEw2MS4xNjIwNDgyLDQyLjE4NSBMNTkuODIyMDQ4Miw0MC44NDUgTDU5LjYxODUzMTksNDEuMDQ3ODM3MiBDNTguNjQzMDk3Myw0Mi4wMjYxODIzIDU3LjE4MzQxMDYsNDIuMzI4MDA0NyA1NS45MjQzMTY5LDQxLjgzNjU5NTIgTDU1LjczNzA0MjksNDEuNzU2OTE5OSBMNTUuNTY1Mzc1LDQxLjY4MDQwOSBMNTUuMjUwMjUyMyw0MS41NDYyMjA1IEM1NC4wMDkyNDMxLDQxLjEwNTI4ODggNTMuMTMzMDcyOSw0MC4wMDA4MjQ2IDUyLjk3NDI1NjYsMzguNjgwOTI3MyBMNTIuOTU1ODU4MywzOC40ODEzODI5IEw1Mi45NTAyNDk3LDM4LjI4NyBMNTIuOTUxMDQ4MiwzOCBMNTEuMDUxMDQ4MiwzOCBMNTEuMDUwMjQ1MiwzOC4yODIwNDUzIEM1MS4wNTI2MDE0LDM5LjU4MTg4MTcgNTAuMzI1ODQ2NSw0MC43NzAxOTExIDQ5LjE2NjkxMTIsNDEuMzY3MTc2MiBMNDguOTgwMzczMiw0MS40NTY0NTMgTDQ4LjgxNDc0NzMsNDEuNTIzMTY2OCBDNDguNjM1ODIyMyw0MS41OTEzODIgNDguNDU3ODA2Nyw0MS42NjU2ODIzIDQ4LjI4NzY4NzEsNDEuNzQzMDI1NyBDNDcuNzg0OTIzNyw0MS45NzE2MDI4IDQ3LjE5MjA1NTIsNDEuNzQ5MzMxIDQ2Ljk2MzQ3ODEsNDEuMjQ2NTY3NyBDNDYuNzM0OTAxLDQwLjc0MzgwNDMgNDYuOTU3MTcyOSw0MC4xNTA5MzU4IDQ3LjQ1OTkzNjIsMzkuOTIyMzU4NyBDNDcuNTk4NjU1NCwzOS44NTkyOTEyIDQ3Ljc0MTA5OTcsMzkuNzk4MTE0NyA0Ny44Nzk3MjgyLDM5Ljc0MTg3NjEgTDQ4LjIwMDE4NzksMzkuNjE1MjA3NiBDNDguNjY4NTY0NiwzOS40MDc0MDU3IDQ4Ljk5MzQxNjgsMzguOTQ4Mzc3OSA0OS4wNDM0OTkxLDM4LjQyNzM0ODUgTDQ5LjA1MDI0NjgsMzguMjgzODU0NSBMNDkuMDUzNDg4NSwzNy4zOTYyNDc0IEw0OS4wNjk1MjgsMzcuMjM4Mzc5NiBDNDkuMTc3NzMzNCwzNi41NzQ5MTg1IDQ5LjcyMDU5OTgsMzYuMDcxMTUxOSA1MC4zODMyMTAzLDM2LjAwNjkzMTcgTDUwLjUyNjkxNjMsMzYgWiBNMzMuODU4MTYwOCwxNiBMMzcuNzM3MTYyNSwxNi4wMDMyNTg0IEwzNy45MTc2MTEzLDE2LjAyMTE4MzMgQzM4LjY0NjM1NjIsMTYuMTQwMzk2MSAzOS4xOTgxNTIxLDE2LjczOTczODMgMzkuMjY0MjgsMTcuNDY4ODUgTDM5LjI3MDkzODUsMTcuNjE2Mjk4OCBMMzkuMjcwNDQ5MywxOC42MzI3Mjk4IEwzOS4yNzU0NTk0LDE4LjgxMDM5MjkgQzM5LjMyNzQ2MDksMTkuNjE2NDg0MSAzOS44MjM3MzQyLDIwLjMyNTY4MDggNDAuNTk2ODgxNiwyMC42NzAwNzUzIEw0MC43NjY3MzI5LDIwLjczODE5MjggTDQxLjI1OTQ5MDcsMjAuOTQ2MTY2MSBMNDEuNTE3NjQzNSwyMS4wNjEzNDIxIEM0Mi4yODA2MjY2LDIxLjQxNDQ2MDkgNDMuMTgyODE0NSwyMS4yODM3ODUyIDQzLjgyMzc2MDksMjAuNzM3NTkzMyBMNDMuOTU2OTYyMSwyMC42MTQyMTcxIEw0NC43NjY0NDMxLDE5LjgwOTM5MjYgTDQ0LjkyMzYxMywxOS42ODQwNjc3IEM0NS41MTkwNzk5LDE5LjI3NDIyMTggNDYuMzE0NzQ2MiwxOS4zMTMwMjA1IDQ2Ljg3MDc1NiwxOS43NzEyOTc5IEw0Ni45ODYwNzI1LDE5Ljg3NTkxMDIgTDQ5LjcyODA3MSwyMi42MzI0Nzc4IEw0OS44NTI1NjcxLDIyLjc4OTg1NjcgQzUwLjI1ODE1MTIsMjMuMzg0MTYyNSA1MC4yMTg5Njc3LDI0LjE3NzQxNzUgNDkuNzY0MTQ1MywyNC43MzI1ODI0IEw0OS42NjAzMzIyLDI0Ljg0Nzc0MjggTDQ4Ljk0MDY4NDgsMjUuNTY5ODQ3NiBMNDguODEzNjczOSwyNS43MDQzNzE0IEM0OC4yNTI3MTQsMjYuMzQ2MTQwOCA0OC4xMjAwNDUzLDI3LjI3MjQwODMgNDguNDg3MDMyNiwyOC4wNjQzNTQ1IEM0OC41NjU1NTQ2LDI4LjIzNzY0ODkgNDguNjQyNDE3NSwyOC40MTcyODI1IDQ4LjcxMzc4NzYsMjguNTkzODU0NSBMNDguODc5ODkzNywyOS4wMTQ3Mzk4IEM0OS4xOTYzNjQ5LDI5LjczMDIxMzMgNDkuODk4MTYwMSwzMC4yMTk3MDkyIDUwLjY4OTA1NDMsMzAuMjgwNTI2MyBMNTAuODU5Nzg3NCwzMC4yODY5MjMzIEw1MS45ODA5Mzg3LDMwLjI5MDE4NTQgTDUyLjA4MDYwODQsMzAuMjk4MjUxMiBDNTIuNjMxMDkzNiwzMC4zNDI3OTkyIDUzLjA0MTIzNjcsMzAuODI1MTY5IDUyLjk5NjY4ODcsMzEuMzc1NjU0MSBDNTIuOTU1MzIyNiwzMS44ODY4MTg5IDUyLjUzNjQ0NzEsMzIuMjc2OTc0NSA1Mi4wMzYwNjk1LDMyLjI5NDQzNTMgTDUxLjkxOTI4NTcsMzIuMjkxNzM0MyBMNTEuOTAwMjczOCwzMi4yODY5MjcgTDUwLjg2MTYwMjEsMzIuMjg2OTIxNyBDNDkuMjgzMjI1NiwzMi4yODk3OTE0IDQ3Ljg0MTYzNjcsMzEuMzk4ODExOSA0Ny4xMzAyMzAyLDI5Ljk4ODQzNTkgTDQ3LjAzNzgwMTksMjkuNzkyOTI3NyBMNDYuOTUzOTI5MSwyOS41ODQyMDg5IEM0Ni44OTQwMTI4LDI5LjQyNjU3NTIgNDYuODMwNDMyMywyOS4yNjkxODUxIDQ2Ljc2NTk0NDQsMjkuMTE4Mjc5MSBMNDYuNjY4ODc2OSwyOC44OTc1NjMyIEM0Ni4wMDQ3ODEyLDI3LjQ2NDYyNDMgNDYuMjA1Nzk2MSwyNS43ODUyODkgNDcuMTg2MDM1MiwyNC41Mzc0MjI1IEw0Ny4zMzEzNjEsMjQuMzYyMTY0MyBMNDcuNTAyNjcwMywyNC4xODAxNjQgTDQ3Ljk3Nzk0NzEsMjMuNzA0IEw0NS44Mzk5NDcxLDIxLjU2IEw0NS4zNzM5MDk4LDIyLjAyNTY4OTYgQzQ0LjE5MDQ3ODYsMjMuMjE2MjQ3NyA0Mi40MTQ5OTY3LDIzLjU3ODU1MDEgNDAuODg4MTgzOCwyMi45Njc0NzM5IEw0MC42OTA1MTM2LDIyLjg4MjIzNjIgTDQwLjQ2Mzg4MjcsMjIuNzgwOTk0NSBMNDAuMDQyNTQ2MywyMi42MDE2MTU5IEMzOC41NDAxNDc2LDIyLjA2NjE5NTIgMzcuNDgxOTM2MiwyMC43MjIzMjM0IDM3LjI5NzY5LDE5LjEyNTMzNDYgTDM3LjI3ODAyMywxOC45MDYwNDY3IEwzNy4yNzA5Mzg1LDE4LjY2NDAwNjggTDM3LjI3MDk0NzEsMTggTDM0LjI0Mzk0NzEsMTggTDM0LjI0MzcxOCwxOC42NTgxMzcyIEMzNC4yNDY1NzQ2LDIwLjIzODc1MTYgMzMuMzU5MDUwMiwyMS42ODM0MTIzIDMxLjk1MjMyMzEsMjIuMzk3MTY0MSBMMzEuNzU3MzEzMywyMi40ODk5MDc2IEwzMS41NDkxMDI3LDIyLjU3NDA4MjYgQzMxLjM5MTYyMSwyMi42MzQzMDQzIDMxLjIzNDY4NjcsMjIuNjk4MTAxNyAzMS4wODI2OTUzLDIyLjc2MzUxNTcgTDMwLjg1ODk2NDcsMjIuODYyNjA0MiBDMjkuNDI5OTEyOCwyMy41MjUzNzA3IDI3Ljc1ODAwMzYsMjMuMzIyOTgwNSAyNi41MTIzNjQ4LDIyLjM0MTM5NzcgTDI2LjMzNzM4ODQsMjIuMTk1ODgwMiBMMjYuMTU0MTQ2LDIyLjAyMjkzNjQgTDI1LjY4NTk0NzEsMjEuNTU0IEwyMy41NDU5NDcxLDIzLjcgTDI0LjAwNzkwNjgsMjQuMTY0NjgyMSBDMjUuMjAxMzg4OCwyNS4zNTExMzY2IDI1LjU2NTA4MzYsMjcuMTM2ODgxMyAyNC45NTM0NTY5LDI4LjY2Mzc2ODQgTDI0Ljg2ODEzNjQsMjguODYxMzg5MSBMMjQuNzY3NDAzNiwyOS4wODgyNzE3IEwyNC41ODIzNTY4LDI5LjUyODA1NyBDMjQuMDQyODE5OCwzMS4wMjU5ODUxIDIyLjcwMzM0OTQsMzIuMDc5ODcwMyAyMS4xMTU0ODIyLDMyLjI2MTAzNzkgTDIwLjg5NzQ2NywzMi4yODAyOTMgTDIwLjY1ODkyODEsMzIuMjg2OTI3IEwxOS45OTk5NDcxLDMyLjI4NyBMMTkuOTk5OTQ3MSwzNS4zMyBMMjAuNjUzMDU5OCwzNS4zMjkzNzcyIEMyMi4yMzE0MzYyLDM1LjMyNjUwNzQgMjMuNjczMDI1MiwzNi4yMTc0ODY5IDI0LjM4NDQzMTYsMzcuNjI3ODYyOSBMMjQuNDc2ODYsMzcuODIzMzcxMSBMMjQuNTYwNzMyNywzOC4wMzIwODk5IEMyNC42MjA2NDksMzguMTg5NzIzNiAyNC42ODQyMjk2LDM4LjM0NzExMzcgMjQuNzQ4NzE3NCwzOC40OTgwMTk3IEwyNC44NDU3ODUsMzguNzE4NzM1NiBDMjUuNTA5ODgwNiw0MC4xNTE2NzQ1IDI1LjMwODg2NTgsNDEuODMxMDA5OCAyNC4zMjg2MjY2LDQzLjA3ODg3NjMgTDI0LjE4MzMwMDksNDMuMjU0MTM0NiBMMjQuMDExOTg2LDQzLjQzNjE0MDQgTDIzLjUzOTk0NzEsNDMuOTEyIEwyNS42Nzk5NDcxLDQ2LjA1OCBMMjYuMTQ1NSw0NS41OTA2MDkyIEMyNy4zMjg5MzEyLDQ0LjQwMDA1MTEgMjkuMTA0NDEzMSw0NC4wMzc3NDg3IDMwLjYzMTEyODcsNDQuNjQ4NzgxNiBMMzEuMDU0ODYxMyw0NC44MzQ5OTg2IEwzMS40OTMwMDc0LDQ1LjAyMDQ4NDYgQzMyLjk4NzM1NDcsNDUuNTYxOTk3OSAzNC4wMzc1MTUyLDQ2LjkwNDc2MDkgMzQuMjE3OTQwNyw0OC40OTQ5NzA0IEwzNC4yMzcxMTMzLDQ4LjcxMzI5ODggTDM0LjI0Mzk0NzEsNDkgTDM4LjAwMTk0NzEsNDkgTDM4LjAwMzIxMjgsNDguNDQ2MjczNSBMMzguMDE5MjUyMiw0OC4yODg0MDU3IEMzOC4xMjc0NTc2LDQ3LjYyNDk0NDYgMzguNjcwMzI0LDQ3LjEyMTE3OCAzOS4zMzI5MzQ1LDQ3LjA1Njk1NzggTDM5LjQ3NjY0MDUsNDcuMDUwMDI2MSBMNDAuMjU3NDIyNCw0Ny4wNTA0NjI5IEw0MC4zODYyOTA4LDQ3LjA0NzIwNTIgQzQwLjkxMTc5MjcsNDcuMDE0MTY5MyA0MS4zNzg1Mzg0LDQ2LjY5NDU5ODcgNDEuNjE4NzIwNiw0Ni4xODQ4MTU5IEw0MS44NDQ1MTQsNDUuNjQ1NDMwMyBMNDEuOTM2MjczOCw0NS40MzkyMzY5IEM0Mi4xNjkwMjUzLDQ0LjkzODYxNDggNDIuMDg3NzUxMSw0NC4zNDE4NDc0IDQxLjczMzc4ODIsNDMuOTEwMDU5OCBMNDEuNjMwNTIzLDQzLjc5NjU4NjEgTDQwLjk5NzY5NTksNDMuMTU2ODU3NiBMNDAuODg4NDkyNCw0My4wMTg2NzcxIEM0MC41MTY5NzE4LDQyLjQ3NzI1NzggNDAuNTQ5OTcxNCw0MS43NTU4Mzk2IDQwLjk2MTU3MzksNDEuMjQ4MTY2NCBMNDEuMDYzMjY4MSw0MS4xMzQ5ODQ2IEw0My4yMDk4OTg5LDM4Ljk5NDQyMjYgTDQzLjI3NTY3MDgsMzguOTM5ODI4IEM0My43MDA2MzExLDM4LjU4NzA4NTYgNDQuMzMxMDgzNywzOC42NDU2Mjk3IDQ0LjY4MzgyNjEsMzkuMDcwNTg5OSBDNDUuMDA5NDM0NSwzOS40NjI4NjA5IDQ0Ljk4NDU5NzYsNDAuMDMwMjI2IDQ0LjY0NDYwNzEsNDAuMzkyNjMzMyBMNDQuNTUzMDY0Miw0MC40Nzg3NDUyIEw0NC41NTU3MDA2LDQwLjQ3MDk4OTggTDQyLjg0NTM2NzUsNDIuMTgyODg3NCBMNDMuMDQyMDQzLDQyLjM3OTY5MzQgQzQ0LjAyNjc2MDIsNDMuMzU1NjU1NyA0NC4zMzEyMTkxLDQ0LjgyMjIzODcgNDMuODM3MDY5Niw0Ni4wNzk4MjMxIEw0My42ODA3Miw0Ni40Mzc4Mjc2IEw0My41NDEzMDkxLDQ2Ljc2NzM0MTcgQzQzLjA5NjQ3MTcsNDcuOTk4NjIzNSA0MS45OTcyOTU3LDQ4Ljg2Njg3NTMgNDAuNjg3MTM5Miw0OS4wMjU2NzE0IEw0MC40Nzg1ODM3LDQ5LjA0NDc5ODIgTDQwLjI4Njk3MzksNDkuMDUwMDI2MSBMNDAuMDAwMzY3NSw0OS4wNTA4ODc0IEw0MC4wMDAzNjc1LDUwLjk1MDg4NzQgTDQwLjI4MjAxOTIsNTAuOTUwMDMwNiBDNDEuNTgxODU1NSw1MC45NDc2NzQ0IDQyLjc3MDE2NSw1MS42NzQ0MjkzIDQzLjM2NzE1MDEsNTIuODMzMzY0NSBMNDMuNDU2NDI2OSw1My4wMTk5MDI2IEw0My41MjMxNDA3LDUzLjE4NTUyODUgQzQzLjU2ODUwMDUsNTMuMzA0NTA1IDQzLjYxNjY0MDQsNTMuNDIzMzEyMyA0My42NjUxODA1LDUzLjUzNjYwMDkgTDQzLjczNzk5MzMsNTMuNzAxNzI2MyBDNDQuMjg1NDE5Myw1NC44NzkzNTYgNDQuMTI1MDYyNyw1Ni4yNTgwODY3IDQzLjMyMzE5LDU3LjI5Mjc5NTIgTDQzLjE4MzYxNTksNTcuNDYxOTY3OCBMNDMuMDQ2MDE5OSw1Ny42MDc1Nzk3IEw0Mi44NDAzNjc1LDU3LjgxMzg4NzQgTDQ0LjU0OTE0OTUsNTkuNTIyNTIyIEM0NC45MDk2MzI2LDU5Ljg4MzAwNjggNDQuOTM3MzYwNyw2MC40NTAyMzggNDQuNjMyMzM0OCw2MC44NDI1Mjg0IEw0NC41NDkxNDU5LDYwLjkzNjczNTUgQzQ0LjE4ODY2MSw2MS4yOTcyMTg2IDQzLjYyMTQyOTksNjEuMzI0OTQ2NyA0My4yMjkxMzk1LDYxLjAxOTkyMDggTDQzLjEzNDkzMjQsNjAuOTM2NzMxOSBMNDAuOTk0Njk2OSw1OC43OTA0OTQzIEw0MC44ODUzMzg2LDU4LjY1MjQ2MjcgQzQwLjUxMzA2MzksNTguMTExNDM5IDQwLjU0NDk3OTYsNTcuMzkwMDkyMSA0MC45NTYzMTMzLDU2Ljg4MTM3MDMgTDQxLjA1Nzk2MDUsNTYuNzY3OTI2MiBMNDEuNjEwMTEyNCw1Ni4yMTU3MTk0IEw0MS43MDMzMjM5LDU2LjExNzUzMjQgQzQyLjA3OTE5NDEsNTUuNjg4ODE0NyA0Mi4xNjgxOTM1LDU1LjA2OTMxNDUgNDEuOTIwNzk0Myw1NC41MzcwMTk0IEM0MS44NTg1Njk0LDU0LjQwMDEwNjYgNDEuNzk3Njk0LDU0LjI1ODI2ODggNDEuNzQxNjMwMiw1NC4xMjAwMjE5IEw0MS42MTUxODE1LDUzLjgwMDA4NzkgQzQxLjQwNzM3OTUsNTMuMzMxNzExMiA0MC45NDgzNTE4LDUzLjAwNjg1OSA0MC40MjczMjI0LDUyLjk1Njc3NjcgTDQwLjI4MzgyODQsNTIuOTUwMDI5IEwzOS4zOTYyMjEyLDUyLjk0Njc4NzIgTDM5LjIzODM1MzQsNTIuOTMwNzQ3OCBDMzguNTc0ODkyNCw1Mi44MjI1NDI0IDM4LjA3MTEyNTgsNTIuMjc5Njc2IDM4LjAwNjkwNTYsNTEuNjE3MDY1NSBMMzcuOTk5OTczOSw1MS40NzMzNTk1IEwzNy45OTk5NDcxLDUxIEwzMy4yNDM3MjM0LDUxIEMzMi43MzA4ODc1LDUxIDMyLjMwODIxNjIsNTAuNjEzOTU5OCAzMi4yNTA0NTExLDUwLjExNjYyMTEgTDMyLjI0MzcyMzQsNTAgTDMyLjI0NDE1NzUsNDguOTgxNzU0MyBMMzIuMjM5NTA1OCw0OC44MDUzMTM4IEMzMi4xODkzMDIsNDguMDA0MzAxNyAzMS42OTY5MDQ5LDQ3LjI5NjAzNzUgMzAuOTMyNzQ2OCw0Ni45NTA4NzMxIEwzMC43NjQ5MDExLDQ2Ljg4MjU2NTQgTDMwLjI2MDQ0MjQsNDYuNjcwMzMwNCBMMzAuMDAxNzY2Myw0Ni41NTQ5NTY3IEMyOS4yMzg3ODMyLDQ2LjIwMTgzOCAyOC4zMzY1OTUzLDQ2LjMzMjUxMzYgMjcuNjk1NjQ4OSw0Ni44Nzg3MDU2IEwyNy41NjI0NDc3LDQ3LjAwMjA4MTcgTDI2Ljc1Mjk2NjcsNDcuODA2OTA2MiBMMjYuNTk1Nzk2OCw0Ny45MzIyMzExIEMyNi4wMDAzMjk4LDQ4LjM0MjA3NyAyNS4yMDQ2NjM2LDQ4LjMwMzI3ODMgMjQuNjQ4NjUzNyw0Ny44NDUwMDA5IEwyNC41MzMzMzczLDQ3Ljc0MDM4ODcgTDIxLjc5MjU1NjgsNDQuOTg1Mjk0MSBMMjEuNjY3NTQ0OCw0NC44Mjc5NjcgQzIxLjI1OTYwNzcsNDQuMjMzMzE5NSAyMS4yOTY4NTg2LDQzLjQzOTM4NTQgMjEuNzUyMjE5NCw0Mi44ODIyNzYxIEwyMS44NTYxODY1LDQyLjc2NjY3OTQgTDIyLjU3Mzk3Nyw0Mi4wNDY0NTEyIEwyMi43MDA5ODgsNDEuOTExOTI3NCBDMjMuMjYxOTQ3OSw0MS4yNzAxNTggMjMuMzk0NjE2Niw0MC4zNDM4OTA1IDIzLjAyNzYyOTIsMzkuNTUxOTQ0NCBDMjIuOTQ5MTA3MywzOS4zNzg2NDk5IDIyLjg3MjI0NDQsMzkuMTk5MDE2MyAyMi44MDA4NzQyLDM5LjAyMjQ0NDMgTDIyLjYzNDc2ODIsMzguNjAxNTU5IEMyMi4zMTgyOTcsMzcuODg2MDg1NSAyMS42MTY1MDE3LDM3LjM5NjU4OTYgMjAuODI1NjA3NiwzNy4zMzU3NzI1IEwyMC42NTQ4NzQ0LDM3LjMyOTM3NTUgTDE5LjUzMzcyMzEsMzcuMzI2MTEzNCBMMTkuMzUzMjc0MywzNy4zMDgxODg1IEMxOC42MjQ1Mjk0LDM3LjE4ODk3NTggMTguMDcyNzMzNCwzNi41ODk2MzM1IDE4LjAwNjYwNTYsMzUuODYwNTIxOCBMMTcuOTk5OTQ3MSwzNS43MTMwNzMgTDE4LjAwMzE2NjUsMzEuODIzMDQ3OCBMMTguMDIwOTUxNCwzMS42NDI3NjIyIEMxOC4xMzk0ODk1LDMwLjkxMzc0NDMgMTguNzM3NDgzNywzMC4zNTk5ODI5IDE5LjQ2Njg2MDUsMzAuMjkzNjEwNSBMMTkuNjE0Mzg0NSwzMC4yODY5MjcgTDIwLjYyOTI4NzIsMzAuMjg3MzY2NCBMMjAuODA0ODk1NCwzMC4yODI3MTQ1IEMyMS42MDEyMTQ4LDMwLjIzMjUwMTkgMjIuMzA2NDQ3OCwyOS43MzkxNzkxIDIyLjY1MDY1MjEsMjguOTcyMjMwMSBMMjIuNzE4Nzg1OSwyOC44MDM3NTc1IEwyMi45MzAzMjc1LDI4LjI5Nzg5MjYgTDIzLjA0NjUyNjQsMjguMDM1ODkyOCBDMjMuNDAyNDg0NywyNy4yNjc5NDc0IDIzLjI2Nzc0NTgsMjYuMzUxNzc4NiAyMi43MTExNjU3LDI1LjcwNTA2NDcgTDIyLjU5NDI0NTUsMjUuNTc5NDM4NCBMMjEuNzk2NjM1MSwyNC43NzIyODE3IEwyMS42NzE4MjMzLDI0LjYxNDgxNjEgQzIxLjI2NDc0MjYsMjQuMDE5Nzc3OCAyMS4zMDMxODU3LDIzLjIyNTc2MjggMjEuNzU4ODc1OCwyMi42Njk3NzUyIEwyMS44NjI4OTk4LDIyLjU1NDQzNzYgTDI0LjYxMDEyMzUsMTkuODA0OTc1OCBMMjQuNzY3MjE4MSwxOS42Nzk1NDIxIEMyNS4zNjIyNDY4LDE5LjI2OTM5NjUgMjYuMTU3NjkzNSwxOS4zMDcyNDQ1IDI2LjcxNTAxOTEsMTkuNzY1MTQ0NiBMMjYuODMwNjQxNSwxOS44Njk2ODUyIEwyNy41NDY3OTc2LDIwLjU4NzgzNzEgTDI3LjY4MTQyMzQsMjAuNzE1MjE5NCBDMjguMzIxOTM0NCwyMS4yNzY1OTQgMjkuMjM5MDAwMSwyMS40MDkyODc3IDMwLjAyMzMxNjgsMjEuMDQ1NTU5NSBDMzAuMTk4NDkyOCwyMC45NjU2NzU5IDMwLjM3ODQ0MDMsMjAuODg4MTU5NCAzMC41NTUwMDc5LDIwLjgxNjMzMTggTDMwLjk3NTEyNzIsMjAuNjQ5NTEyNiBDMzEuNjg3ODk5MSwyMC4zMzIzMjMyIDMyLjE3NjYwODIsMTkuNjI3Mjg5OSAzMi4yMzczMzI1LDE4LjgzMTcwMTggTDMyLjI0MzcxOTcsMTguNjU5OTQwOSBMMzIuMjQ2OTQyOCwxNy41MzYxMjA4IEwzMi4yNjQ3Mjc2LDE3LjM1NTgzNTIgQzMyLjM4MzI2NTcsMTYuNjI2ODE3MyAzMi45ODEyNiwxNi4wNzMwNTU5IDMzLjcxMDYzNjgsMTYuMDA2NjgzNSBMMzMuODU4MTYwOCwxNiBaIE02NSwzMCBDNjUuNTUyMjg0NywzMCA2NiwzMC40NDc3MTUzIDY2LDMxIEM2NiwzMS41MTI4MzU4IDY1LjYxMzk1OTgsMzEuOTM1NTA3MiA2NS4xMTY2MjExLDMxLjk5MzI3MjMgTDY1LDMyIEw2MSwzMiBDNjAuNDQ3NzE1MywzMiA2MCwzMS41NTIyODQ3IDYwLDMxIEM2MCwzMC40ODcxNjQyIDYwLjM4NjA0MDIsMzAuMDY0NDkyOCA2MC44ODMzNzg5LDMwLjAwNjcyNzcgTDYxLDMwIEw2NSwzMCBaIE01NywzMCBDNTcuNTUxNDAwMSwzMCA1OCwzMC40NDg1OTk5IDU4LDMxIEM1OCwzMS41NTE0NDcxIDU3LjU1MTQwMDEsMzIgNTcsMzIgQzU2LjQ0ODU5OTksMzIgNTYsMzEuNTUxNDQ3MSA1NiwzMSBDNTYsMzAuNDQ4NTk5OSA1Ni40NDg1OTk5LDMwIDU3LDMwIFoiLz4KCTwvc3ltYm9sPgogIDx1c2UgY2xhc3M9ImZyLWFydHdvcmstbWFqb3IiIGhyZWY9IiNhcnR3b3JrLW1ham9yIi8+CiAgPHVzZSBjbGFzcz0iZnItYXJ0d29yay1taW5vciIgaHJlZj0iI2FydHdvcmstbWlub3IiLz4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLW1ham9yIiBocmVmPSIjYXJ0d29yay1tYWpvciIvPgo8L3N2Zz4K" alt=""><span class="n">04</span><span class="t">Harmoniser</span></li>
     </ol>
   </div>
   <aside class="notes">
     <ul>
       <li>Objet&nbsp;: où en est la stratégie IA, ce qu’elle produit déjà, et la suite.</li>
-      <li>Le fil&nbsp;: le problème, notre réponse en quatre volets (outiller, former, étendre à tous les métiers, harmoniser), puis pour chaque volet pourquoi nous le faisons ainsi et ce qu’il produit déjà.</li>
+      <li>Accroche possible&nbsp;: les designers disaient «&nbsp;l’IA a peu de valeur pour nous&nbsp;»&#8239;; l’un d’eux, Louis, prototype aujourd’hui en quelques demandes à l’IA et forme d’autres designers (slide 8).</li>
+      <li>Le fil&nbsp;: le problème (trois risques), notre réponse en quatre volets (outiller, former, étendre à tous les métiers, harmoniser), puis pour chaque volet à qui il s’adresse et ce qu’il produit déjà.</li>
     </ul>
   </aside>
 </section>
@@ -359,41 +377,35 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">Le problème</p></header>
   <div class="s-head">
     <h2 class="title" id="t2">Nos agents utiliseront l’IA, avec ou sans cadre</h2>
+    <p class="lead">Sans cadre, trois risques.</p>
   </div>
-  <div class="s-body fw-body">
-    <h3 class="tag tag--pb">Sans cadre, trois risques</h3>
-    <ul class="pb-risks">
-      <li class="pb-risk">
-        <p class="pb-risk__head"><span class="pb-risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg></span><strong class="pb-risk__name">Shadow IA</strong></p>
-        <p class="pb-risk__what">L’IA grand public, hors du cadre</p>
-        <p class="pb-risk__then">Faute d’outil officiel attrayant</p>
+  <div class="s-body">
+    <ul class="risks">
+      <li class="risk">
+        <p class="risk__head"><span class="risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg></span><strong class="risk__name">Shadow IA</strong></p>
+        <p class="risk__what">Des IA <span class="nw">grand public</span> utilisées hors du cadre</p>
+        <p class="risk__then">Faute d’outil officiel attrayant</p>
       </li>
-      <li class="pb-risk">
-        <p class="pb-risk__head"><span class="pb-risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg></span><strong class="pb-risk__name">Dépendance</strong></p>
-        <p class="pb-risk__what">«&nbsp;Ça ne marche que sur Claude&nbsp;»</p>
-        <p class="pb-risk__then">Si une puissance étrangère l’impose, on repart de zéro</p>
+      <li class="risk">
+        <p class="risk__head"><span class="risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg></span><strong class="risk__name">Dépendance</strong></p>
+        <p class="risk__what">«&nbsp;Ça ne marche que sur Claude&nbsp;»<small>Claude, une IA américaine</small></p>
+        <p class="risk__then">Si une puissance étrangère nous contraint à en changer, on repart de zéro</p>
       </li>
-      <li class="pb-risk">
-        <p class="pb-risk__head"><span class="pb-risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg></span><strong class="pb-risk__name">Désorganisation</strong></p>
-        <p class="pb-risk__what">Seuls les développeurs maîtrisent l’IA</p>
-        <p class="pb-risk__then">Le produit fait deux pas en avant, un en arrière</p>
+      <li class="risk">
+        <p class="risk__head"><span class="risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg></span><strong class="risk__name">Désorganisation</strong></p>
+        <p class="risk__what">L’IA reste l’affaire des seuls développeurs</p>
+        <p class="risk__then">Sans les autres métiers, le produit fait deux pas en avant, un en arrière</p>
       </li>
     </ul>
-    <div class="pb-ctx">
-      <h3 class="tag">Le contexte</h3>
-      <p>Les outils américains donnent vite des résultats</p>
-      <p>Abonnements&nbsp;: plus d’IA qu’on n’en paie, pour un temps</p>
-      <p>Au départ, hors des développeurs&nbsp;: boîte&nbsp;noire ou sans intérêt</p>
-    </div>
   </div>
-  <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
+  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Point d’étape pour la direction · Novembre 2026</span><span>Selim Boukhari<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
       <li>Nos agents utiliseront l’IA de toute façon. La vraie question&nbsp;: avec quels outils, et sous quelle dépendance.</li>
       <li>Shadow IA&nbsp;: l’usage d’IA grand public hors du cadre, faute d’outil officiel attrayant.</li>
-      <li>Dépendance&nbsp;: pour des résultats modérément viables, on peut passer par les outils américains clés en main et se reposer sur nos lauriers. C’est ainsi que commence le «&nbsp;ça ne marche que sur Claude&nbsp;». Si une puissance étrangère nous l’impose, on repart de zéro.</li>
-      <li>Désorganisation&nbsp;: si seuls les développeurs maîtrisent l’IA, les problèmes d’organisation s’aggravent. Ils ne disent plus non, le produit fait deux pas en avant, un en arrière, et la CDP devient le goulot d’étranglement.</li>
-      <li>Contexte&nbsp;: les abonnements permettent aujourd’hui de consommer plus d’IA qu’on n’en paie, mais temporairement. Au départ, les développeurs découvraient l’IA, les architectes n’avaient exprimé aucun intérêt, les designers lui voyaient peu de valeur, et pour les CDP c’était une boîte noire.</li>
+      <li>Dépendance&nbsp;: pour des résultats modérément viables, on peut passer par les outils américains clés en main et se reposer sur nos lauriers. C’est ainsi que commence le «&nbsp;ça ne marche que sur Claude&nbsp;». Si une puissance étrangère nous contraint à en changer, on repart de zéro.</li>
+      <li>Désorganisation&nbsp;: si seuls les développeurs maîtrisent l’IA, les problèmes d’organisation s’aggravent. Les développeurs ne disent plus non, le produit fait deux pas en avant, un en arrière, et le chef de projet devient le goulot d’étranglement. Et sans méthodes communes, chaque équipe invente seule ses pratiques.</li>
+      <li>Contexte&nbsp;: les abonnements permettent aujourd’hui de consommer plus d’IA qu’on n’en paie, mais temporairement. Au départ, les développeurs découvraient l’IA, les architectes n’avaient exprimé aucun intérêt, les designers lui voyaient peu de valeur, et pour les chefs de projet c’était une boîte noire.</li>
     </ul>
   </aside>
 </section>
@@ -402,123 +414,144 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
 <section class="slide" data-title="Notre réponse" aria-labelledby="t3">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">Notre réponse</p></header>
   <div class="s-head">
-    <h2 class="title" id="t3">Une IA souveraine, des agents formés, tous les métiers à bord</h2>
+    <h2 class="title" id="t3">Quatre volets, et déjà des résultats sur chacun</h2>
   </div>
   <div class="s-body">
-    <div class="r-table">
-      <div class="r-head" aria-hidden="true"><span class="tag">Volet</span><span class="tag tag--how">Notre réponse</span><span class="tag tag--why">Pourquoi ainsi</span><span class="tag tag--res">Le résultat</span></div>
-      <h3 class="sr">Les quatre volets&nbsp;: notre réponse, pourquoi ainsi, le résultat</h3>
-      <ol class="r-rows">
-        <li class="r-row"><p class="r-vol"><span class="r-num">01</span><span class="r-verb">Outiller</span></p><p><span class="sr">Notre réponse&nbsp;: </span>IA souveraine sur les PC, puis assistant maison</p><p class="r-why"><span class="sr">Pourquoi ainsi&nbsp;: </span>Contre le shadow IA et la dépendance</p><p class="r-res"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Le résultat&nbsp;: </span>Fonctionne sur les PC du ministère</span></p></li>
-        <li class="r-row"><p class="r-vol"><span class="r-num">02</span><span class="r-verb">Former</span></p><p><span class="sr">Notre réponse&nbsp;: </span>Acculturer, accompagner, puis un référent par métier</p><p class="r-why"><span class="sr">Pourquoi ainsi&nbsp;: </span>Contre la dépendance</p><p class="r-res"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Le résultat&nbsp;: </span>4 métiers acculturés, 1 référent en place, 2 en cours</span></p></li>
-        <li class="r-row"><p class="r-vol"><span class="r-num">03</span><span class="r-verb">Étendre à tous les métiers</span></p><p><span class="sr">Notre réponse&nbsp;: </span>Développeurs, architectes, designers, CDP</p><p class="r-why"><span class="sr">Pourquoi ainsi&nbsp;: </span>Contre la désorganisation</p><p class="r-res"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Le résultat&nbsp;: </span>DACCORD orchestre, VAO et Honorabilité démarrent</span></p></li>
-        <li class="r-row"><p class="r-vol"><span class="r-num">04</span><span class="r-verb">Harmoniser</span></p><p><span class="sr">Notre réponse&nbsp;: </span>SDCID le socle, SDPC les méthodes</p><p class="r-why"><span class="sr">Pourquoi ainsi&nbsp;: </span>Des pratiques communes</p><p class="r-res"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Le résultat&nbsp;: </span>Socle en place, méthodes à venir</span></p></li>
-      </ol>
+    <div class="map">
+      <div class="map__head" aria-hidden="true"><span class="tag tag--pb">Le risque</span><span></span><span class="tag tag--how">Le volet</span><span class="tag tag--res">Où nous en sommes</span></div>
+      <h3 class="sr">Les quatre volets&nbsp;: le risque traité, le volet, où nous en sommes</h3>
+      <div class="map__body">
+        <ul class="map__risks" aria-hidden="true">
+          <li><span class="rchip"><svg class="ico"><use href="#i-eye-off"/></svg>Shadow IA</span><span class="rchip"><svg class="ico"><use href="#i-links"/></svg>Dépendance</span></li>
+          <li><span class="rchip"><svg class="ico"><use href="#i-links"/></svg>Dépendance</span></li>
+          <li class="is-span"><span class="rchip"><svg class="ico"><use href="#i-go-back"/></svg>Désorganisation</span></li>
+        </ul>
+        <ol class="map__rows">
+          <li class="map__row">
+            <span class="map__arrow" aria-hidden="true"></span>
+            <p class="vol"><span class="vol__num">01</span><span class="vol__verb">Outiller</span><span class="vol__what">Une IA souveraine, payée à l’usage<span class="sr">. Risques traités&nbsp;: shadow IA, dépendance.</span></span></p>
+            <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span>Elle fonctionne sur les PC du ministère</span></p>
+          </li>
+          <li class="map__row">
+            <span class="map__arrow" aria-hidden="true"></span>
+            <p class="vol"><span class="vol__num">02</span><span class="vol__verb">Former</span><span class="vol__what">Des agents performants, <span class="nw">quel que soit le fournisseur</span><span class="sr">. Risque traité&nbsp;: dépendance.</span></span></p>
+            <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span><span class="nw">4 métiers acculturés,</span> <span class="nw">3 équipes accompagnées</span></span></p>
+          </li>
+          <li class="map__row">
+            <span class="map__arrow" aria-hidden="true"></span>
+            <p class="vol"><span class="vol__num">03</span><span class="vol__verb">Étendre à tous les métiers</span><span class="vol__what">Pas seulement les développeurs<span class="sr">. Risque traité&nbsp;: désorganisation.</span></span></p>
+            <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span>Chaque métier a progressé</span></p>
+          </li>
+          <li class="map__row">
+            <span class="map__arrow" aria-hidden="true"></span>
+            <p class="vol"><span class="vol__num">04</span><span class="vol__verb">Harmoniser</span><span class="vol__what">Un socle et des méthodes de travail communes<span class="sr">. Risque traité&nbsp;: désorganisation.</span></span></p>
+            <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span>Socle en place<span class="got__next">Méthodes à venir</span></span></p>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="forwho">
+      <h3 class="tag tag--how">Pour qui</h3>
+      <ul>
+        <li class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span>Développeurs</li>
+        <li class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg></span>Architectes</li>
+        <li class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg></span>Designers</li>
+        <li class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg></span>Chefs de projet</li>
+      </ul>
     </div>
   </div>
-  <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
+  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Point d’étape pour la direction · Novembre 2026</span><span>Selim Boukhari<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>Notre réponse tient en quatre volets. Chacun suit ensuite la même trame&nbsp;: le problème, le contexte, notre réponse, pourquoi ainsi, le résultat.</li>
-      <li>Chaque volet répond à un risque de la slide précédente&nbsp;: outiller contre le shadow IA et la dépendance, former contre la dépendance (à un fournisseur comme à une seule personne), étendre à tous les métiers contre la désorganisation&#8239;; harmoniser fait durer l’ensemble.</li>
-      <li>Résultats&nbsp;: l’IA souveraine fonctionne sur les PC du ministère. DACCORD optimise ses orchestrations, VAO et Honorabilité les démarrent. La vélocité des trois équipes est mesurée avant le 27 novembre.</li>
+      <li>Notre réponse tient en quatre volets, et chacun répond à un risque de la slide précédente.</li>
+      <li>Outiller contre le shadow IA et la dépendance&#8239;; former contre la dépendance (à un fournisseur comme à une seule personne)&#8239;; étendre à tous les métiers et harmoniser contre la désorganisation, pour que chaque équipe n’invente pas seule ses pratiques.</li>
+      <li>Quatre métiers sont concernés&nbsp;: développeurs, architectes, designers, chefs de projet.</li>
+      <li>Où nous en sommes&nbsp;: l’IA souveraine fonctionne sur les PC du ministère. DACCORD en est à optimiser ses orchestrations, VAO et Honorabilité les démarrent. La vélocité des trois équipes sera mesurée avant le 27 novembre.</li>
     </ul>
   </aside>
 </section>
 
 <!-- ======================= 4 · 01 OUTILLER ======================= -->
 <section class="slide" data-title="Outiller" aria-labelledby="t4">
-  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">01</span>Outiller</p></header>
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">01</span>Outiller</p><ol class="trail" aria-label="Les quatre volets"><li class="is-on" aria-current="step"><span>01</span>Outiller</li><li><span>02</span>Former</li><li><span>03</span>Étendre</li><li><span>04</span>Harmoniser</li></ol></header>
   <div class="s-head">
-    <h2 class="title" id="t4">L’IA souveraine fonctionne déjà sur les PC du ministère</h2>
-    <div class="fw-top">
-      <div class="fw-cell fw-cell--pb"><h3 class="tag tag--pb">Le problème</h3><p>Une IA souveraine, performante, à coût maîtrisé, sur des postes parfois contraignants</p></div>
-      <div class="fw-cell"><h3 class="tag">Le contexte</h3><p>Abonnements&nbsp;: aujourd’hui, plus d’IA qu’on n’en paie, pour un temps</p></div>
-    </div>
+    <h2 class="title" id="t4">Pour les internes et les sujets sensibles,<br>l’IA souveraine fonctionne déjà sur les PC du ministère</h2>
+    <p class="lead">Trois populations, deux modes de paiement.</p>
   </div>
-  <div class="s-body fw-body">
-    <div class="fw-main">
-      <div class="fw-main__head"><h3 class="tag tag--how">Notre réponse</h3><p class="fw-goal">Deux modèles de paiement, selon le public</p></div>
-      <div class="o2">
-        <section class="o2-col o2-col--main" aria-labelledby="o-a">
-          <h4 class="o2-pay" id="o-a"><svg class="ico" aria-hidden="true"><use href="#i-euro"/></svg>Payé à l’usage<span class="badge badge--ok">Long terme</span></h4>
-          <p class="o2-what">Modèles Scaleway<small>Validés par nos benchmarks</small></p>
-          <ul class="o2-who">
-            <li><svg class="ico" aria-hidden="true"><use href="#i-team"/></svg><span>Les internes</span></li>
-            <li><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg><span>Les externes sur des sujets sensibles</span></li>
-          </ul>
-        </section>
-        <section class="o2-col o2-col--sub" aria-labelledby="o-b">
-          <h4 class="o2-pay" id="o-b"><svg class="ico" aria-hidden="true"><use href="#i-warning"/></svg>Abonnement<span class="badge badge--warn">Court terme</span></h4>
-          <p class="o2-what">Leurs propres outils IA<small>À leurs frais</small></p>
-          <ul class="o2-who">
-            <li><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><span>Les externes sur des sujets open source</span></li>
-          </ul>
-        </section>
-      </div>
+  <div class="s-body">
+    <div class="acc">
+      <section class="acc__grp acc__grp--sov" aria-labelledby="o-a">
+        <ul class="acc__pops">
+          <li class="acc__pop"><img class="acc__img" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAJPHN0eWxlPgoJCS5mci1hcnR3b3JrLWRlY29yYXRpdmUgewoJCQlmaWxsOiAjRUNFQ0ZGOwoJCX0KCQkuZnItYXJ0d29yay1taW5vciB7CgkJCWZpbGw6ICNFMTAwMEY7CgkJfQoJCS5mci1hcnR3b3JrLW1ham9yIHsKCQkJZmlsbDogIzAwMDA5MTsKCQl9Cgk8L3N0eWxlPgoJPHN5bWJvbCBpZD0iYXJ0d29yay1kZWNvcmF0aXZlIj4KICAgIDxwYXRoIGQ9Ik01Nyw3OGMtMC41NTE0LDAtMS0wLjQ0ODYtMS0xczAuNDQ4Ni0xLDEtMXMxLDAuNDQ4NiwxLDFTNTcuNTUxNCw3OCw1Nyw3OHogTTYxLDZjLTAuNTUxNCwwLTEtMC40NDg2LTEtMQoJYzAtMC41NTE0NSwwLjQ0ODYtMSwxLTFzMSwwLjQ0ODU1LDEsMUM2Miw1LjU1MTQsNjEuNTUxNCw2LDYxLDZ6IE0yNyw3OGMtMC41NTE0LDAtMS0wLjQ0ODYtMS0xczAuNDQ4Ni0xLDEtMXMxLDAuNDQ4NiwxLDEKCVMyNy41NTE0LDc4LDI3LDc4eiIvPgogIDwvc3ltYm9sPgogIDxzeW1ib2wgaWQ9ImFydHdvcmstbWlub3IiPgogICAgPHBhdGggZD0iTTQ0Ljk5MzI5LDkuODgzMzZMNDUsMTB2NGMwLDAuNTUyMzEtMC40NDc2OSwxLTEsMWMtMC41MTI4MiwwLTAuOTM1NDktMC4zODU5OS0wLjk5MzI5LTAuODgzNDJMNDMsMTR2LTQKCWMwLTAuNTUyMzEsMC40NDc2OS0xLDEtMUM0NC41MTI4Miw5LDQ0LjkzNTQ5LDkuMzg2MDUsNDQuOTkzMjksOS44ODMzNnogTTE5LDM0aC02bC0wLjExNjU4LDAuMDA2NzEKCUMxMi4zODU5OSwzNC4wNjQ1MSwxMiwzNC40ODcxOCwxMiwzNWMwLDAuNTUyMzEsMC40NDc2OSwxLDEsMWg2bDAuMTE2NTgtMC4wMDY3MUMxOS42MTQwMSwzNS45MzU0OSwyMCwzNS41MTI4MiwyMCwzNQoJQzIwLDM0LjQ0NzY5LDE5LjU1MjMxLDM0LDE5LDM0eiBNNDMsMzdjMCwxLjY1NjkyLTEuMzQzMDgsMy0zLDNzLTMtMS4zNDMwOC0zLTNzMS4zNDMwOC0zLDMtM1M0MywzNS4zNDMwOCw0MywzN3ogTTQxLDM3CgljMC0wLjU1MjMxLTAuNDQ3NjktMS0xLTFzLTEsMC40NDc2OS0xLDFzMC40NDc2OSwxLDEsMVM0MSwzNy41NTIzMSw0MSwzN3ogTTE5LDM4aC02bC0wLjExNjU4LDAuMDA2NzEKCUMxMi4zODU5OSwzOC4wNjQ1MSwxMiwzOC40ODcxOCwxMiwzOWMwLDAuNTUyMzEsMC40NDc2OSwxLDEsMWg2bDAuMTE2NTgtMC4wMDY3MUMxOS42MTQwMSwzOS45MzU0OSwyMCwzOS41MTI4MiwyMCwzOQoJQzIwLDM4LjQ0NzY5LDE5LjU1MjMxLDM4LDE5LDM4eiBNMzEsMzRoLTZsLTAuMTE2NTgsMC4wMDY3MUMyNC4zODU5OSwzNC4wNjQ1MSwyNCwzNC40ODcxOCwyNCwzNWMwLDAuNTUyMzEsMC40NDc2OSwxLDEsMWg2CglsMC4xMTY1OC0wLjAwNjcxQzMxLjYxNDAxLDM1LjkzNTQ5LDMyLDM1LjUxMjgyLDMyLDM1QzMyLDM0LjQ0NzY5LDMxLjU1MjMxLDM0LDMxLDM0eiBNMzEsMzhoLTZsLTAuMTE2NTgsMC4wMDY3MQoJQzI0LjM4NTk5LDM4LjA2NDUxLDI0LDM4LjQ4NzE4LDI0LDM5YzAsMC41NTIzMSwwLjQ0NzY5LDEsMSwxaDZsMC4xMTY1OC0wLjAwNjcxQzMxLjYxNDAxLDM5LjkzNTQ5LDMyLDM5LjUxMjgyLDMyLDM5CglDMzIsMzguNDQ3NjksMzEuNTUyMzEsMzgsMzEsMzh6IE01NSwzNGgtNmwtMC4xMTY1OCwwLjAwNjcxQzQ4LjM4NTk5LDM0LjA2NDUxLDQ4LDM0LjQ4NzE4LDQ4LDM1YzAsMC41NTIzMSwwLjQ0NzY5LDEsMSwxaDYKCWwwLjExNjU4LTAuMDA2NzFDNTUuNjE0MDEsMzUuOTM1NDksNTYsMzUuNTEyODIsNTYsMzVDNTYsMzQuNDQ3NjksNTUuNTUyMzEsMzQsNTUsMzR6IE01NSwzOGgtNmwtMC4xMTY1OCwwLjAwNjcxCglDNDguMzg1OTksMzguMDY0NTEsNDgsMzguNDg3MTgsNDgsMzljMCwwLjU1MjMxLDAuNDQ3NjksMSwxLDFoNmwwLjExNjU4LTAuMDA2NzFDNTUuNjE0MDEsMzkuOTM1NDksNTYsMzkuNTEyODIsNTYsMzkKCUM1NiwzOC40NDc2OSw1NS41NTIzMSwzOCw1NSwzOHogTTYxLDM2aDZsMC4xMTY1OC0wLjAwNjcxQzY3LjYxNDAxLDM1LjkzNTQ5LDY4LDM1LjUxMjgyLDY4LDM1YzAtMC41NTIzMS0wLjQ0NzY5LTEtMS0xaC02CglsLTAuMTE2NTgsMC4wMDY3MUM2MC4zODU5OSwzNC4wNjQ1MSw2MCwzNC40ODcxOCw2MCwzNUM2MCwzNS41NTIzMSw2MC40NDc2OSwzNiw2MSwzNnogTTY3LDM4aC02bC0wLjExNjU4LDAuMDA2NzEKCUM2MC4zODU5OSwzOC4wNjQ1MSw2MCwzOC40ODcxOCw2MCwzOWMwLDAuNTUyMzEsMC40NDc2OSwxLDEsMWg2bDAuMTE2NTgtMC4wMDY3MUM2Ny42MTQwMSwzOS45MzU0OSw2OCwzOS41MTI4Miw2OCwzOQoJQzY4LDM4LjQ0NzY5LDY3LjU1MjMxLDM4LDY3LDM4eiIvPgogIDwvc3ltYm9sPgogIDxzeW1ib2wgaWQ9ImFydHdvcmstbWFqb3IiPgogICAgPHBhdGggZD0iTTM5LjAwNjcxLDE0LjExNjU4TDM5LDE0di00YzAtMC41NTIzMSwwLjQ0NzY5LTEsMS0xYzAuNTEyODIsMCwwLjkzNTQ5LDAuMzg2MDUsMC45OTMyOSwwLjg4MzM2TDQxLDEwdjQKCWMwLDAuNTUyMzEtMC40NDc2OSwxLTEsMUMzOS40ODcxOCwxNSwzOS4wNjQ1MSwxNC42MTQwMSwzOS4wMDY3MSwxNC4xMTY1OHogTTc3LDI2SDY0di01bC0wLjAwNjcxLTAuMTE2NTgKCUM2My45MzU0OSwyMC4zODU5OSw2My41MTI4MiwyMCw2MywyMGMtMC41NTIzMSwwLTEsMC40NDc2OS0xLDF2NUgxOHYtNGgzNWwwLjExNjU4LTAuMDA2NzFDNTMuNjE0MDEsMjEuOTM1NDksNTQsMjEuNTEyODIsNTQsMjEKCWMwLTAuNTUyMzEtMC40NDc2OS0xLTEtMUg0MXYtM2wtMC4wMDY3MS0wLjExNjU4QzQwLjkzNTQ5LDE2LjM4NTk5LDQwLjUxMjgyLDE2LDQwLDE2Yy0wLjU1MjMxLDAtMSwwLjQ0NzY5LTEsMXYzSDE3CglsLTAuMTE2NTgsMC4wMDY3MUMxNi4zODU5OSwyMC4wNjQ1MSwxNiwyMC40ODcxOCwxNiwyMXY1SDNsLTAuMTE2NjQsMC4wMDY3MUMyLjM4NjA1LDI2LjA2NDUxLDIsMjYuNDg3MTgsMiwyNwoJYzAsMC41NTIzMSwwLjQ0NzY5LDEsMSwxaDc0bDAuMTE2NTgtMC4wMDY3MUM3Ny42MTQwMSwyNy45MzU0OSw3OCwyNy41MTI4Miw3OCwyN0M3OCwyNi40NDc2OSw3Ny41NTIzMSwyNiw3NywyNnogTTI1LDY2CgljMC41NTIzMSwwLDEtMC40NDc2OSwxLTFWNDVsLTAuMDA2NzEtMC4xMTY1OEMyNS45MzU0OSw0NC4zODU5OSwyNS41MTI4Miw0NCwyNSw0NGMtMC41NTIzMSwwLTEsMC40NDc2OS0xLDF2MjBsMC4wMDY3MSwwLjExNjU4CglDMjQuMDY0NTEsNjUuNjE0MDEsMjQuNDg3MTgsNjYsMjUsNjZ6IE0yMSw0OGMtMC41NTIzMSwwLTEsMC40NDc2OS0xLDF2MTloLThWNDlsLTAuMDA2NzEtMC4xMTY1OAoJQzExLjkzNTQ5LDQ4LjM4NTk5LDExLjUxMjgyLDQ4LDExLDQ4Yy0wLjU1MjMxLDAtMSwwLjQ0NzY5LTEsMXYxOUg3bC0wLjExNjY0LDAuMDA2NzFDNi4zODYwNSw2OC4wNjQ1MSw2LDY4LjQ4NzE4LDYsNjkKCWMwLDAuNTUyMzEsMC40NDc2OSwxLDEsMWgxNGMwLjA2OTAzLDAsMC4xMzY0MS0wLjAwNzAyLDAuMjAxNDgtMC4wMjAzMkMyMS42NTcyMyw2OS44ODY0MSwyMiw2OS40ODMyMiwyMiw2OVY0OWwtMC4wMDY3MS0wLjExNjU4CglDMjEuOTM1NDksNDguMzg1OTksMjEuNTEyODIsNDgsMjEsNDh6IE0xNSw2MmMwLjU1MjMxLDAsMS0wLjQ0NzY5LDEtMVY0NWwtMC4wMDY3MS0wLjExNjU4QzE1LjkzNTQ5LDQ0LjM4NTk5LDE1LjUxMjgyLDQ0LDE1LDQ0CgljLTAuNTUyMzEsMC0xLDAuNDQ3NjktMSwxdjE2bDAuMDA2NzEsMC4xMTY1OEMxNC4wNjQ1MSw2MS42MTQwMSwxNC40ODcxOCw2MiwxNSw2MnogTTU3LDIyaDJsMC4xMTY1OC0wLjAwNjcxCglDNTkuNjE0MDEsMjEuOTM1NDksNjAsMjEuNTEyODIsNjAsMjFjMC0wLjU1MjMxLTAuNDQ3NjktMS0xLTFoLTJsLTAuMTE2NTgsMC4wMDY3MUM1Ni4zODU5OSwyMC4wNjQ1MSw1NiwyMC40ODcxOCw1NiwyMQoJQzU2LDIxLjU1MjMxLDU2LjQ0NzY5LDIyLDU3LDIyeiBNNyw2NmMwLjU1MjMxLDAsMS0wLjQ0NzY5LDEtMVYzMWwtMC4wMDY3MS0wLjExNjU4QzcuOTM1NDksMzAuMzg1OTksNy41MTI4MiwzMCw3LDMwCgljLTAuNTUyMzEsMC0xLDAuNDQ3NjktMSwxdjM0bDAuMDA2NzEsMC4xMTY1OEM2LjA2NDUxLDY1LjYxNDAxLDYuNDg3MTgsNjYsNyw2NnogTTMzLDQ4aDE0CgljMC41MTI4MiwwLDAuOTM1NDksMC4zODU5OSwwLjk5MzI5LDAuODgzNDJMNDgsNDl2MTVoM2MwLjU1MjMxLDAsMSwwLjQ0NzY5LDEsMWMwLDAuNTEyODItMC4zODU5OSwwLjkzNTQ5LTAuODgzNDIsMC45OTMyOUw1MSw2NgoJSDI5Yy0wLjU1MjMxLDAtMS0wLjQ0NzY5LTEtMWMwLTAuNTEyODIsMC4zODU5OS0wLjkzNTQ5LDAuODgzNDItMC45OTMyOUwyOSw2NGgzVjQ5YzAtMC41MTI4MiwwLjM4NTk5LTAuOTM1NDksMC44ODM0Mi0wLjk5MzI5CglMMzMsNDh6IE0zNCw2NGg1di05YzAtMC41NTIzMSwwLjQ0NzY5LTEsMS0xYzAuNTEyODIsMCwwLjkzNTQ5LDAuMzg1OTksMC45OTMyOSwwLjg4MzQyTDQxLDU1djloNVY0OS45OTkwMkgzNFY2NHogTTQ1LDQ2CglsMC4xMTY1OC0wLjAwNjcxQzQ1LjYxNDAxLDQ1LjkzNTQ5LDQ2LDQ1LjUxMjgyLDQ2LDQ1YzAtMC41NTIzMS0wLjQ0NzY5LTEtMS0xSDM1bC0wLjExNjU4LDAuMDA2NzEKCUMzNC4zODU5OSw0NC4wNjQ1MSwzNCw0NC40ODcxOCwzNCw0NWMwLDAuNTUyMzEsMC40NDc2OSwxLDEsMUg0NXogTTU1Ljk5MzI5LDY1LjExNjU4TDU2LDY1VjQ1YzAtMC41NTIzMS0wLjQ0NzY5LTEtMS0xCgljLTAuNTEyODIsMC0wLjkzNTQ5LDAuMzg1OTktMC45OTMyOSwwLjg4MzQyTDU0LDQ1djIwYzAsMC41NTIzMSwwLjQ0NzY5LDEsMSwxQzU1LjUxMjgyLDY2LDU1LjkzNTQ5LDY1LjYxNDAxLDU1Ljk5MzI5LDY1LjExNjU4egoJIE01OS45OTMyOSw2MS4xMTY1OEw2MCw2MVY0OWMwLTAuNTUyMzEtMC40NDc2OS0xLTEtMWMtMC41MTI4MiwwLTAuOTM1NDksMC4zODU5OS0wLjk5MzI5LDAuODgzNDJMNTgsNDl2MTIKCWMwLDAuNTUyMzEsMC40NDc2OSwxLDEsMUM1OS41MTI4Miw2Miw1OS45MzU0OSw2MS42MTQwMSw1OS45OTMyOSw2MS4xMTY1OHogTTY1Ljk5MzI5LDY1LjExNjU4TDY2LDY1VjQ1YzAtMC41NTIzMS0wLjQ0NzY5LTEtMS0xCgljLTAuNTEyODIsMC0wLjkzNTQ5LDAuMzg1OTktMC45OTMyOSwwLjg4MzQyTDY0LDQ1djIwYzAsMC41NTIzMSwwLjQ0NzY5LDEsMSwxQzY1LjUxMjgyLDY2LDY1LjkzNTQ5LDY1LjYxNDAxLDY1Ljk5MzI5LDY1LjExNjU4egoJIE02OSw0OGMtMC41MTI4MiwwLTAuOTM1NDksMC4zODU5OS0wLjk5MzI5LDAuODgzNDJMNjgsNDl2MTlIMjVsLTAuMTE2NTgsMC4wMDY3MUMyNC4zODU5OSw2OC4wNjQ1MSwyNCw2OC40ODcxOCwyNCw2OQoJYzAsMC41NTIzMSwwLjQ0NzY5LDEsMSwxaDQ0YzAuMDM5NDksMCwwLjA3ODQzLTAuMDAyMzIsMC4xMTY3LTAuMDA2NzFjMC40NTg5OC0wLjA1MzQxLDAuODIzMy0wLjQxNzYsMC44NzY1OS0wLjg3NjcxCglDNjkuOTk3NjgsNjkuMDc4MzcsNzAsNjkuMDM5MzcsNzAsNjlWNDlDNzAsNDguNDQ3NjksNjkuNTUyMzEsNDgsNjksNDh6IE03MywzMGMtMC41NTIzMSwwLTEsMC40NDc2OS0xLDF2MzhsMC4wMDY3MSwwLjExNjU4CglDNzIuMDY0NTEsNjkuNjE0MDEsNzIuNDg3MTgsNzAsNzMsNzBjMC41NTIzMSwwLDEtMC40NDc2OSwxLTFWMzFsLTAuMDA2NzEtMC4xMTY1OEM3My45MzU0OSwzMC4zODU5OSw3My41MTI4MiwzMCw3MywzMHoiLz4KICA8L3N5bWJvbD4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLWRlY29yYXRpdmUiIGhyZWY9IiNhcnR3b3JrLWRlY29yYXRpdmUiLz4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLW1pbm9yIiBocmVmPSIjYXJ0d29yay1taW5vciIvPgogIDx1c2UgY2xhc3M9ImZyLWFydHdvcmstbWFqb3IiIGhyZWY9IiNhcnR3b3JrLW1ham9yIi8+Cjwvc3ZnPgo=" alt=""><p class="acc__name"><b>Les internes</b></p></li>
+          <li class="acc__pop"><img class="acc__img" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAJPHN0eWxlPgoJCS5mci1hcnR3b3JrLWRlY29yYXRpdmUgewoJCQlmaWxsOiAjRUNFQ0ZGOwoJCX0KCQkuZnItYXJ0d29yay1taW5vciB7CgkJCWZpbGw6ICNFMTAwMEY7CgkJfQoJCS5mci1hcnR3b3JrLW1ham9yIHsKCQkJZmlsbDogIzAwMDA5MTsKCQl9Cgk8L3N0eWxlPgoJPHN5bWJvbCBpZD0iYXJ0d29yay1kZWNvcmF0aXZlIj4KICAgIDxwYXRoIGQ9Ik0xNyw4Yy0wLjYsMC0xLTAuNC0xLTFjMC0wLjYsMC40LTEsMS0xczEsMC40LDEsMUMxOCw3LjYsMTcuNiw4LDE3LDh6IE03LDY0Yy0wLjYsMC0xLTAuNC0xLTFzMC40LTEsMS0xCgkJczEsMC40LDEsMVM3LjYsNjQsNyw2NHogTTc3LDU4Yy0wLjYsMC0xLTAuNC0xLTFzMC40LTEsMS0xczEsMC40LDEsMVM3Ny42LDU4LDc3LDU4eiBNNjEsNmMtMC42LDAtMS0wLjQtMS0xYzAtMC42LDAuNC0xLDEtMQoJCXMxLDAuNCwxLDFDNjIsNS42LDYxLjYsNiw2MSw2eiIvPgogIDwvc3ltYm9sPgogIDxzeW1ib2wgaWQ9ImFydHdvcmstbWlub3IiPgogICAgPHBhdGggZD0iTTM5LDQyYy0zLjMsMC02LDIuNy02LDZjMCwyLjIsMS4yLDQuMiwzLDUuMlY1N2MwLDEuNywxLjMsMywzLDNzMy0xLjMsMy0zdi0zLjhjMS44LTEsMy0zLDMtNS4yCgkJQzQ1LDQ0LjcsNDIuMyw0MiwzOSw0MnogTTQwLDU3YzAsMC42LTAuNCwxLTEsMWwtMC4xLDBjLTAuNS0wLjEtMC45LTAuNS0wLjktMXYtM2gyVjU3eiBNMzksNTJjLTIuMiwwLTQtMS44LTQtNHMxLjgtNCw0LTQKCQlzNCwxLjgsNCw0UzQxLjIsNTIsMzksNTJ6Ii8+CiAgPC9zeW1ib2w+CiAgPHN5bWJvbCBpZD0iYXJ0d29yay1tYWpvciI+CiAgICA8cGF0aCBkPSJNNjEuNSw1OS43YzAsMS41LTEuMiwyLjUtMi44LDIuOGwtMC4xLDFoLTEuMmwtMC4yLTIuMmMxLjUtMC4yLDIuNS0wLjUsMi41LTEuNmMwLTAuNy0wLjUtMS4yLTEuMi0xLjIKCQljLTAuNywwLTEuMSwwLjQtMS42LDEuMWwtMS40LTAuOWMwLjctMS4yLDEuNy0xLjgsMy4xLTEuOEM2MC4xLDU3LDYxLjUsNTguMSw2MS41LDU5Ljd6IE01OCw2NC4zYy0wLjYsMC0xLjEsMC41LTEuMSwxLjEKCQlzMC41LDEuMSwxLjEsMS4xYzAuNiwwLDEuMS0wLjUsMS4xLTEuMVM1OC42LDY0LjMsNTgsNjQuM3ogTTYxLDQ4Yy0wLjYsMC0xLDAuNC0xLDFzMC40LDEsMSwxczEtMC40LDEtMVM2MS42LDQ4LDYxLDQ4eiBNMjYsNDkKCQljMCwwLjYsMC40LDEsMSwxczEtMC40LDEtMXMtMC40LTEtMS0xUzI2LDQ4LjQsMjYsNDl6IE02OCw2MmMwLDUuNS00LjUsMTAtMTAsMTBjLTMuMywwLTYuMi0xLjYtOC00SDE4Yy0yLjIsMC0zLjktMS45LTQtNC4zCgkJbDAtMC4ydi0yNWMwLTIuNCwxLjYtNC40LDMuOC00LjVsMC4yLDBoMi4yYy0wLjEtMC4zLTAuMi0wLjYtMC4yLTF2LTJjMC0xLjMsMC44LTIuNCwyLTIuOGMwLDAsMCwwLDAsMGwwLTAuMXYtMy44CgkJQzIyLDE1LjcsMjkuMiwxMCwzOSwxMHMxNyw1LjcsMTcsMTQuMmMwLDAuNi0wLjQsMS0xLDFzLTEtMC40LTEtMUM1NCwxNi45LDQ3LjgsMTIsMzksMTJjLTguNiwwLTE0LjgsNC43LTE1LDExLjlsMCwwLjNWMjhoNAoJCWMxLjcsMCwzLDEuMywzLDN2MmMwLDAuNC0wLjEsMC43LTAuMiwxaDE2LjNjLTAuMS0wLjMtMC4yLTAuNi0wLjItMXYtMmMwLTEuNywxLjMtMywzLTN2LTMuNGMwLTUuMi00LjYtOC42LTExLjEtOC42CgkJYy01LjcsMC0xMCwyLjctMTAuOSw2LjhjLTAuMSwwLjUtMC43LDAuOS0xLjIsMC44Yy0wLjUtMC4xLTAuOS0wLjctMC44LTEuMmMxLjEtNS4yLDYuMy04LjQsMTIuOS04LjRjNy40LDAsMTIuOSw0LjEsMTMuMSwxMC4zCgkJbDAsMC4zVjI4aDNjMS43LDAsMywxLjMsMywzdjJjMCwwLjQtMC4xLDAuNy0wLjIsMUg1OGMyLjIsMCwzLjksMS45LDQsNC4zbDAsMC4yVjQ1YzAsMC42LTAuNCwxLTEsMWMtMC41LDAtMC45LTAuNC0xLTAuOWwwLTAuMQoJCXYtNi41YzAtMS4zLTAuOC0yLjQtMS44LTIuNUw1OCwzNkgxOGMtMSwwLTEuOSwxLTIsMi4zbDAsMC4yVjQ4aDdjMC42LDAsMSwwLjQsMSwxYzAsMC41LTAuNCwwLjktMC45LDFMMjMsNTBoLTd2Nmg2bDAuMiwwCgkJYzEuNiwwLjEsMi44LDEuNCwyLjgsM3Y3aDIzLjhjLTAuNS0xLjItMC44LTIuNi0wLjgtNGMwLTUuNSw0LjUtMTAsMTAtMTBDNjMuNSw1Miw2OCw1Ni41LDY4LDYyeiBNNDksMzNjMCwwLjYsMC40LDEsMSwxaDUKCQljMC42LDAsMS0wLjQsMS0xdi0yYzAtMC42LTAuNC0xLTEtMWgtNWMtMC42LDAtMSwwLjQtMSwxVjMzeiBNMjIsMzNjMCwwLjYsMC40LDEsMSwxaDVjMC42LDAsMS0wLjQsMS0xdi0yYzAtMC42LTAuNC0xLTEtMWgtNQoJCWMtMC42LDAtMSwwLjQtMSwxVjMzeiBNMjMsNTlsMC0wLjFjLTAuMS0wLjUtMC41LTAuOS0xLTAuOWgtNnY1LjVjMCwxLjMsMC44LDIuNCwxLjgsMi41bDAuMSwwaDVWNTl6IE02Niw2MmMwLTQuNC0zLjYtOC04LTgKCQlzLTgsMy42LTgsOHMzLjYsOCw4LDhTNjYsNjYuNCw2Niw2MnoiLz4KICA8L3N5bWJvbD4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLWRlY29yYXRpdmUiIGhyZWY9IiNhcnR3b3JrLWRlY29yYXRpdmUiLz4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLW1pbm9yIiBocmVmPSIjYXJ0d29yay1taW5vciIvPgogIDx1c2UgY2xhc3M9ImZyLWFydHdvcmstbWFqb3IiIGhyZWY9IiNhcnR3b3JrLW1ham9yIi8+Cjwvc3ZnPgo=" alt=""><p class="acc__name"><b>Les externes</b><em>sujets sensibles</em><small>À tenir loin des puissances étrangères</small></p></li>
+        </ul>
+        <div class="acc__offer">
+          <h3 class="acc__tool" id="o-a">IA souveraine&nbsp;: modèles Scaleway<small>Fournisseur français · validés par nos tests comparatifs</small></h3>
+          <p class="acc__pay"><svg class="ico" aria-hidden="true"><use href="#i-euro"/></svg><span><strong>Paiement à l’usage</strong> · conforme au RGPD<em>Long terme</em></span></p>
+        </div>
+      </section>
+      <section class="acc__grp acc__grp--own" aria-labelledby="o-b">
+        <ul class="acc__pops">
+          <li class="acc__pop"><img class="acc__img" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAJPHN0eWxlPgoJCS5mci1hcnR3b3JrLWRlY29yYXRpdmUgewoJCQlmaWxsOiAjRUNFQ0ZGOwoJCX0KCQkuZnItYXJ0d29yay1taW5vciB7CgkJCWZpbGw6ICNFMTAwMEY7CgkJfQoJCS5mci1hcnR3b3JrLW1ham9yIHsKCQkJZmlsbDogIzAwMDA5MTsKCQl9Cgk8L3N0eWxlPgoJPHN5bWJvbCBpZD0iYXJ0d29yay1kZWNvcmF0aXZlIj4KICAgIDxwYXRoIGQ9Ik02OCwxM2MtMC41NTE0LDAtMS0wLjQ0ODYtMS0xczAuNDQ4Ni0xLDEtMXMxLDAuNDQ4NiwxLDFTNjguNTUxNCwxMyw2OCwxM3ogTTMwLDgwYy0wLjU1MTQsMC0xLTAuNDQ4Ni0xLTEKCXMwLjQ0ODYtMSwxLTFzMSwwLjQ0ODYsMSwxUzMwLjU1MTQsODAsMzAsODB6IE0xNSwxMGMtMC41NTE0LDAtMS0wLjQ0ODYtMS0xYzAtMC41NTE0NSwwLjQ0ODYtMSwxLTFzMSwwLjQ0ODU1LDEsMQoJQzE2LDkuNTUxNCwxNS41NTE0LDEwLDE1LDEweiIvPgogIDwvc3ltYm9sPgogIDxzeW1ib2wgaWQ9ImFydHdvcmstbWlub3IiPgogICAgPHBhdGggZD0iTTU0LDM1Yy05LjM4ODc5LDAtMTcsNy42MTEyMS0xNywxN2MwLDAuMDYzNzIsMC4wMDA0MywwLjEyNzMyLDAuMDAxMSwwLjE5MDgKCWMtMC4wMzgwMiwzLjMxMzIzLDAuOTMzMjksNi42NTIyOCwyLjk1NDQxLDkuNTUwNzhjMy4wNzI1MSw0LjQwNjQ5LDcuOTk5NTcsNi45NzQ3MywxMy4xNjk2OCw3LjIzNjMzCgljMC4yMjUxLDAuMDExNDEsMC40NTE0MiwwLjAxODM3LDAuNjc4NzEsMC4wMjFjMi4yMzYzMywwLjAyNTUxLDQuNTA0NTgtMC4zODE0MSw2LjY3NjAzLTEuMjU4MTIKCWMwLjA2MzYtMC4wMjU3LDAuMTIzNi0wLjA1NzUsMC4xNzk1LTAuMDk0NmMyLjQ0NTg2LTEuMDQyMzYsNC41OTc2LTIuNjQxNiw2LjI5NTktNC42MzgzNwoJYzAuMTIwNjctMC4wNjA2MSwwLjIzNDE5LTAuMTQ5OSwwLjMzMzE5LTAuMjcxNDJjMi40NjY5OC0zLjAyNDYsMy43NTI1LTYuNzYwMzgsMy43MTA1MS0xMC41NTIwNgoJQzcwLjk5OTY5LDUyLjEyMjkyLDcxLDUyLjA2MTUyLDcxLDUyQzcxLDQyLjYxMTIxLDYzLjM4ODkyLDM1LDU0LDM1eiBNNTQsMzdjMS42ODY4OSwwLDMuMzA4NzIsMC4yNzg1LDQuODIyMDgsMC43OTE4NwoJbC0wLjQwMjU5LDAuMjc5MzZsLTAuNDQ0MjEsMC4zMjA2OGMtMC43NjkxNywwLjU2ODkxLTEuMjkzMTUsMS4wMzc2LTEuNjIzOTYsMS40ODAyOQoJYy0wLjAzOTI1LDAuMDUyNDktMC4wOTM0NCwwLjE1MTk4LTAuMTUzNjksMC4yNzM4bC0wLjEyNjA0LDAuMjY1ODFsLTAuMzM4OTksMC43NjAzOAoJYy0wLjIyODMzLDAuNDQ3MDItMC40MzIxOSwwLjY0ODc0LTAuNjAxMDcsMC42Njk0M2wtMC4xMjA0MiwwLjAwOTc3bC0wLjE1MDM5LDAuMDAyNzVsLTAuMzEyMTktMC4wMDk1Mkw1My40NjYsNDEuNzg0NjcKCWMtMC4wNTM0MS0wLjAwMTk1LTAuMTA0OC0wLjAwMzY2LTAuMTU0NzktMC4wMDQ4OGwtMC4yOTA4My0wLjAwMjY5Yy0wLjA0Nzc5LDAuMDAwMzEtMC4wOTU3LDAuMDAxMS0wLjE0NDU5LDAuMDAyMgoJYy0xLjU5MjI5LDAuMDM2OC0yLjc1MzkxLDAuNTY5NTItMy4yNzEzLDEuOTQyNjNsLTAuMDcwOTgsMC4yMDY4NWMtMC4zNzU5MiwxLjIwOTQxLTAuMjk0NDMsMy4wMjExMiwwLjMwMTgyLDQuNDA0ODUKCWwwLjAxMDY4LDAuMDIyNGwtMC4xMzQ3LTAuMTMxMzVjLTAuNjQzMzctMC42MTM4OS0xLjE5ODQ5LTAuOTUzNTUtMS45NDkyMi0xLjE1NjQ5bC0wLjQyNjc2LTAuMTA2NTFsLTEuMjE4MTQtMC4yNjA2OAoJbC0wLjUzNDYxLTAuMTI1OTJsLTAuNDE3MTgtMC4xMTE1N2wtMC4yMTM1LTAuMDY0NTFsLTAuMTYyMTEtMC4wNTUzbC0wLjExMTAyLTAuMDQ0OAoJYy0wLjA0Mjg1LTAuMDE5NTktMC4wNjY1OS0wLjAzNDkxLTAuMDcxNTktMC4wNDUxN2MtMC4wMzA1OC0wLjA2MzcyLTAuMDUzNTktMC4xNDM5Mi0wLjA3MDU2LTAuMjU3ODFsLTAuMDIxLTAuMTk4MjQKCWwtMC4wMTI4Mi0wLjI2MTZsLTAuMDA1OC0wLjMzNzc3bC0wLjAwMDYxLTAuMjAwMDFjMC0wLjE4MjM3LTAuMDAxMS0wLjM0OTQ5LTAuMDAzOTEtMC41MDQ3bC0wLjAxMzk4LTAuNDMzMTEKCWMtMC4wMjY5Mi0wLjUzODUxLTAuMDg5NzItMC45Mzg2LTAuMjI1MDQtMS40MTA4OWMtMC4wNjgxOC0wLjIzODI4LTAuMTUyNzctMC40NjkzLTAuMjU1MzctMC42OTM5NwoJYy0wLjExNDM4LTAuMjU3MDItMC4yNjIyMS0wLjUwMTM0LTAuNDM4NzItMC43MjU2NUM0Ni4yNTk3LDM4LjYxMTY5LDQ5Ljk0MTcxLDM3LDU0LDM3eiBNNjUuNjA1NTMsNjEuNTA0MDMKCWMtMS4yMzUyMywxLjUwNjQ3LTIuNzU3OTMsMi43NjgxOS00LjQ4NDMxLDMuNzAxMDVjLTAuMDg5MTEtMC43NTk0Ni0wLjI5ODU4LTEuNDg0OC0wLjU3MzEyLTIuMTQwODcKCWMtMC4yMjI2LTAuNTI5NTQtMC42MzE3Ny0xLjE4MTA5LTEuMjI3OTctMS45NTk5bC0wLjM0Mzc1LTAuNDM3NWwtMC4zODA4Ni0wLjQ2MjgzbC0wLjQxODAzLTAuNDg4NGwtMC40NTUwOC0wLjUxNDEKCUw1Ny4yMzAxLDU4LjY2MTVsLTAuNTI5NDgtMC41NjYyMmwtMC41NjY3MS0wLjU5MjQxbC0wLjI5NzE4LTAuMzA2MDljLTAuMDMxNTYtMC4wMzIyOS0wLjA2MDEyLTAuMDYyNjgtMC4wODYtMC4wOTI1OQoJbC0wLjA2OTAzLTAuMDg5NDhjLTAuMDcwOTItMC4xMDU4My0wLjEwODIyLTAuMjIxNjItMC4xMTQ2OS0wLjQwNTA5bDAuMDAxODktMC4xNzUyOWwwLjAxNjYtMC4yMTY2MWwwLjAzMDg4LTAuMjY1ODEKCWwwLjA3MjMzLTAuNTA5MDNsMC4wNjk3Ni0wLjQ2MDU3bDAuMDI5MjQtMC4xMzY3MmMwLjEwMDQ2LTAuMzkxMzYsMC4zMzM1Ni0wLjYyMDc5LDEuMTIzMTctMC44MzU3NWwwLjI4NDQ4LTAuMDcxNDFsMC4zMjkxLTAuMDcxNDEKCWwwLjU4NTIxLTAuMTEwMjNsMC43MDU0NC0wLjExNzI1bDAuNDI0MjYtMC4wNjUxMmwwLjI4NDczLTAuMDMzNTFjMC42NTY5Mi0wLjA1ODE3LDAuOTI1OTYsMC4wODU1MSwxLjM2NjA5LDAuNjgyOThsMC4xODY0LDAuMjYzNzkKCWwwLjM0MTMxLDAuNDk3MDFjMC42NDA1NiwwLjkxNTg5LDEuMTAwNDYsMS4yNzU4MiwyLjA3Njc4LDEuNzI1MzRsMC4yMTc0MSwwLjA5NzljMC4zNzA3MywwLjE2NDU1LDAuNjQ4MTMsMC4yOTU1OSwwLjk2NDYsMC40NjI3NwoJbDAuMjQ2ODksMC4xMzMzYzAuNTIzMTksMC4yOTI0MiwwLjcwMTExLDAuNDg4NCwwLjc1OTIyLDEuMjMzODNsMC4wMTU5MywwLjI4Njk5bDAuMDA4MDYsMC4zMzg5OWwwLjAwMjYyLDAuMzk3MDlsMC4wMDAxMiwwLjQyNDEzCglDNjUuNzA5NTMsNjAuNTg3MjgsNjUuNjczNTgsNjEuMDYwMTgsNjUuNjA1NTMsNjEuNTA0MDN6IE02Ny42NDM5OCw1OC4yNDEwOWMtMC4xNDk5Ni0xLjI4NzQxLTAuNTk4NTctMS45NDIzOC0xLjc1MDMxLTIuNTg2CgljLTAuMzk0OS0wLjIxNzQ3LTAuNzA3NTgtMC4zNzM3OC0xLjA3OTM1LTAuNTQ0MTlsLTAuMjkyMjQtMC4xMzE1OWMtMC44MjU1LTAuMzY0ODEtMS4wMTk3OC0wLjUwNDAzLTEuNDYxNzktMS4xMzU5MwoJbC0wLjIyODUyLTAuMzMwODdjLTEuMTI1NDktMS42NzMzNC0xLjk5NTE4LTIuMjA5ODQtNC4wNTg2NS0xLjg5MDkzYy0zLjY1OTYxLDAuNTY3NDQtNC43MjE2MiwxLjI3MDItNS4wMDQ4MiwzLjEzOTQKCWwtMC4wOTcxMSwwLjY2ODY0Yy0wLjAxMDM4LDAuMDc2MzUtMC4wMjAwMiwwLjE1MDctMC4wMjg4MSwwLjIyMjlsLTAuMDQzNTIsMC40MDk0OAoJYy0wLjEwNjk5LDEuMjI0MzcsMC4wODU5NCwxLjc5MjM2LDAuODA1OTEsMi41MzExOWwwLjUyNjMxLDAuNTQ0MzdsMC40OTQwMiwwLjUyMWwwLjQ2MTE4LDAuNDk3MjVsMC40Mjg1MywwLjQ3Mjk2bDAuMzk1MjYsMC40NDg0OQoJbDAuMzYyMTIsMC40MjM0bDAuMzI4NDksMC4zOTgxM2wwLjI5NDgsMC4zNzIwN2wwLjI2MDkzLDAuMzQ2MDFjMC4wNDA1OSwwLjA1NTQyLDAuMDc5NzcsMC4xMDk4LDAuMTE3NTUsMC4xNjMwMmwwLjIwOTQxLDAuMzA1NzkKCWMwLjE5MjMyLDAuMjkyMTgsMC4zMzI3LDAuNTQzNTIsMC40MjA0MSwwLjc1MjAxbDAuMDkyMSwwLjIzMzRjMC4yMDYxOCwwLjU1NDU3LDAuMzQ4MDIsMS4xNzYyMSwwLjM2NzgsMS43OTYyNkw1OS4xNjQsNjYuMDg3NAoJYy0xLjQ2NDExLDAuNTM2ODctMy4wMzUyMiwwLjg1MTk5LTQuNjcyNjEsMC45MDQ3MkM1NC4zMjgxOSw2Ni45OTczOCw1NC4xNjQ0Myw2Nyw1NCw2NwoJYy04LjIxOTk3LDAtMTQuODk1NjktNi42MTItMTQuOTk4NzgtMTQuODA3NWMwLjA0MDk1LTMuMTc0NjIsMS4xMzgzMS02LjMyMTExLDMuMjQ2MjgtOC45MDk2MWwwLjA3ODQ5LTAuMDk1ODlsMC4wMDQ4MiwwLjAxMzE4CgljMC4wNzM3OSwwLjI1NzgxLDAuMTE2MzksMC40OTc4LDAuMTM5NzcsMC44MTA3OWwwLjAxNzUyLDAuMzQwODJsMC4wMDc1MSwwLjQwOTYxbDAuMDAzOTEsMC42ODg3OAoJYzAuMDEzMzEsMC43OTcsMC4wNzYyOSwxLjE5MzQyLDAuMzA1NDIsMS42NzA0MWMwLjM1Nzg1LDAuNzQyOCwwLjg4NDY0LDEuMDUzODksMi4xNTg2OSwxLjM3MDE4bDAuNDI3OCwwLjEwMDU5bDAuNDgxNTEsMC4xMDQKCWwwLjg1Njc1LDAuMTgwMDVsMC4yNzQ1NCwwLjA2MzE3bDAuMjM1NzIsMC4wNjAxOGMwLjUzNDE4LDAuMTQ0NDEsMC45ODgxNiwwLjUxNDgzLDEuNzYwNTYsMS4zNzcxNGwwLjUzMDcsMC41OTI1OQoJYzAuMzAxODIsMC4zMjU2MiwwLjUwNTc0LDAuNTE4OCwwLjczMzg5LDAuNjQ4OGMwLjMzMzc0LDAuMTkwMTksMC43NDY3LDAuMTcyMzYsMS4wNjI4MS0wLjA0NTUzCgljMC4zODEyMy0wLjI2Mjg4LDAuNzg2NS0wLjg1MTA3LDAuOTc3ODQtMS41MjE2MWMwLjE4ODktMC42NjI2LDAuMTQ5OTYtMS4zMjI3NS0wLjE5OTA0LTEuODE3MDhsLTAuMTAyOTEtMC4xMzA0OQoJYy0wLjY4ODk2LTAuNzk0NjgtMC44Njg5LTIuNzczOTMtMC41MjgyLTMuNjc0MTljMC4xNjU4My0wLjQ0MDEyLDAuNTc5MS0wLjYyOTU4LDEuNDQ2NTMtMC42NDk3MmwwLjIzMTg3LTAuMDAxMjhsMC4zOTg4LDAuMDEzMzEKCWwwLjgxMTUyLDAuMDQ3NDlsMC4zMTY0NywwLjAxMzYxYzAuMDQ3MjQsMC4wMDE0LDAuMDkxOTIsMC4wMDIzOCwwLjEzNDY0LDAuMDAyODdsMC4yMzcwNi0wLjAwMjVsMC4yMTQxMS0wLjAxMzc5CgljMC4wMzUxLTAuMDAzMywwLjA3MDMxLTAuMDA3MDgsMC4xMDYwMi0wLjAxMTM1YzAuOTIyOTctMC4xMTI5MiwxLjU1MjY3LTAuNjgyNTYsMi4wMzkwNi0xLjU1Mzk2bDAuMTQyNTItMC4yNzI5NWwwLjA4OTktMC4xOTI0NAoJbDAuMjE5My0wLjUwNjFsMC4wODk3Mi0wLjIyNjM4YzAuMDAxODktMC4wMDU5OCwwLjAwMjA4LTAuMDA4MTgsMC4wMDAzNy0wLjAwNTk4YzAuMTM5NzEtMC4xODY4OSwwLjM5MTkxLTAuNDI0NDQsMC43NDkyMS0wLjcxMDk0CglsMC4zMzE3OS0wLjI1NzUxbDAuMzgyMi0wLjI4MTM3YzAuMDY3OTMtMC4wNDg4MywwLjEzNzgyLTAuMDk4NTcsMC4yMDk3Mi0wLjE0OTQ4bDAuNDU1ODctMC4zMTY1M2wwLjMyMDc0LTAuMjE3NDFsMC4yMDM0OSwwLjA5NDQ4CgljMy45NTExNywxLjg5MDE0LDYuODYzNzcsNS4zODYwNSw3Ljk0MTQxLDkuNTcwMTNsMC4wODk3OCwwLjM2ODljMC4yMjk0MywwLjk5OTMzLDAuMzQ4NjMsMi4wMTAxMywwLjM2MTIxLDMuMDE2NgoJQzY4Ljk3MjYsNTQuMzQ0NzksNjguNDkwNDIsNTYuMzkzOCw2Ny42NDM5OCw1OC4yNDEwOXoiLz4KICA8L3N5bWJvbD4KICA8c3ltYm9sIGlkPSJhcnR3b3JrLW1ham9yIj4KICAgIDxwYXRoIGQ9Ik02NywxOHYxNmMwLDAuNTUyMzEtMC40NDc2OSwxLTEsMWMtMC41MTI4MiwwLTAuOTM1NDktMC4zODU5OS0wLjk5MzI5LTAuODgzNDJMNjUsMzR2LTdoLTkKCWMtMC41NTIzMSwwLTEtMC40NDc2OS0xLTFjMC0wLjUxMjgyLDAuMzg1OTktMC45MzU0OSwwLjg4MzQyLTAuOTkzMjlMNTYsMjVoOXYtNkgxM3Y2aDM3YzAuNTUyMzEsMCwxLDAuNDQ3NjksMSwxCgljMCwwLjUxMjgyLTAuMzg1OTksMC45MzU0OS0wLjg4MzQyLDAuOTkzMjlMNTAsMjdIMTN2MzZoMjNjMC41MTI4MiwwLDAuOTM1NDksMC4zODU5OSwwLjk5MzI5LDAuODgzNDJMMzcsNjQKCWMwLDAuNTEyODItMC4zODU5OSwwLjkzNTQ5LTAuODgzNDIsMC45OTMyOUwzNiw2NUgxMmMtMC41MTI4MiwwLTAuOTM1NDktMC4zODU5OS0wLjk5MzI5LTAuODgzNDJMMTEsNjRWMTgKCWMwLTAuNTEyODIsMC4zODU5OS0wLjkzNTQ5LDAuODgzNDItMC45OTMyOUwxMiwxN2g1NGMwLjUxMjgyLDAsMC45MzU0OSwwLjM4NTk5LDAuOTkzMjksMC44ODM0Mkw2NywxOHogTTE1LDIyCgljMCwwLjU1MTM5LDAuNDQ4NjEsMSwxLDFzMS0wLjQ0ODYxLDEtMXMtMC40NDg2MS0xLTEtMVMxNSwyMS40NDg2MSwxNSwyMnogTTE5LDIyYzAsMC41NTEzOSwwLjQ0ODYxLDEsMSwxczEtMC40NDg2MSwxLTEKCXMtMC40NDg2MS0xLTEtMVMxOSwyMS40NDg2MSwxOSwyMnogTTIzLDIyYzAsMC41NTEzOSwwLjQ0ODYxLDEsMSwxczEtMC40NDg2MSwxLTFzLTAuNDQ4NjEtMS0xLTFTMjMsMjEuNDQ4NjEsMjMsMjJ6CgkgTTYyLjExNjU4LDIyLjk5MzI5QzYyLjYxNDAxLDIyLjkzNTQ5LDYzLDIyLjUxMjgyLDYzLDIyYzAtMC41NTIzMS0wLjQ0NzY5LTEtMS0xSDMybC0wLjExNjU4LDAuMDA2NzEKCUMzMS4zODU5OSwyMS4wNjQ1MSwzMSwyMS40ODcxOCwzMSwyMmMwLDAuNTUyMzEsMC40NDc2OSwxLDEsMWgzMEw2Mi4xMTY1OCwyMi45OTMyOXogTTM4LDMzSDIwbC0wLjExNjU4LDAuMDA2NzEKCUMxOS4zODU5OSwzMy4wNjQ1MSwxOSwzMy40ODcxOCwxOSwzNGMwLDAuNTUyMzEsMC40NDc2OSwxLDEsMWgxOGwwLjExNjU4LTAuMDA2NzFDMzguNjE0MDEsMzQuOTM1NDksMzksMzQuNTEyODIsMzksMzQKCUMzOSwzMy40NDc2OSwzOC41NTIzMSwzMywzOCwzM3ogTTM0LjExNjU4LDQwLjk5MzI5QzM0LjYxNDAxLDQwLjkzNTQ5LDM1LDQwLjUxMjgyLDM1LDQwYzAtMC41NTIzMS0wLjQ0NzY5LTEtMS0xSDIwCglsLTAuMTE2NTgsMC4wMDY3MUMxOS4zODU5OSwzOS4wNjQ1MSwxOSwzOS40ODcxOCwxOSw0MGMwLDAuNTUyMzEsMC40NDc2OSwxLDEsMWgxNEwzNC4xMTY1OCw0MC45OTMyOXogTTIwLDQ1bC0wLjExNjU4LDAuMDA2NzEKCUMxOS4zODU5OSw0NS4wNjQ1MSwxOSw0NS40ODcxOCwxOSw0NmMwLDAuNTUyMzEsMC40NDc2OSwxLDEsMWgxMmwwLjExNjU4LTAuMDA2NzFDMzIuNjE0MDEsNDYuOTM1NDksMzMsNDYuNTEyODIsMzMsNDYKCWMwLTAuNTUyMzEtMC40NDc2OS0xLTEtMUgyMHoiLz4KICA8L3N5bWJvbD4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLWRlY29yYXRpdmUiIGhyZWY9IiNhcnR3b3JrLWRlY29yYXRpdmUiLz4KICA8dXNlIGNsYXNzPSJmci1hcnR3b3JrLW1pbm9yIiBocmVmPSIjYXJ0d29yay1taW5vciIvPgogIDx1c2UgY2xhc3M9ImZyLWFydHdvcmstbWFqb3IiIGhyZWY9IiNhcnR3b3JrLW1ham9yIi8+Cjwvc3ZnPgo=" alt=""><p class="acc__name"><b>Les externes</b><em>sujets open source</em><small>Code public</small></p></li>
+        </ul>
+        <div class="acc__offer">
+          <h3 class="acc__tool" id="o-b">Leurs propres outils IA<small>Avantageux, mais pour un temps</small></h3>
+          <p class="acc__pay"><svg class="ico" aria-hidden="true"><use href="#i-euro"/></svg><span><strong>Abonnement, à leurs frais</strong><em>Court terme</em></span></p>
+        </div>
+      </section>
     </div>
-    <div class="fw-bot">
-      <div class="fw-box fw-box--why"><h3 class="tag tag--why">Pourquoi ainsi</h3><p>Souverain et conforme RGPD, donc pérenne</p></div>
-      <div class="fw-box fw-box--res"><h3 class="tag tag--res">Le résultat</h3><p><strong>Acquis&nbsp;:</strong> fonctionne sur les PC Windows. <strong>À venir&nbsp;:</strong> le centre logiciel.</p></div>
-    </div>
+    <div class="res res--next"><h3 class="tag tag--next">À venir</h3><p>L’intégration des outils d’IA souveraine au <strong>centre logiciel</strong> du ministère.</p></div>
   </div>
-  <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
+  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Point d’étape pour la direction · Novembre 2026</span><span>Selim Boukhari<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>Le problème&nbsp;: trouver une IA souveraine, performante et à coût maîtrisé, sur des postes parfois contraignants.</li>
-      <li>Le contexte&nbsp;: en IA, deux modèles de paiement. Le souverain et conforme RGPD se paie à l’usage&#8239;; les abonnements permettent aujourd’hui de consommer plus d’IA qu’on n’en paie, mais temporairement.</li>
-      <li>Notre réponse&nbsp;: les internes accèdent aux modèles Scaleway, retenus après des benchmarks qui ont vérifié leur pertinence. Les externes sur des sujets sensibles, à tenir loin des puissances étrangères, ont le même accès. Les externes sur des sujets open source apportent leurs outils IA, à leurs frais.</li>
-      <li>Pourquoi ainsi&nbsp;: le paiement à l’usage est pérenne&#8239;; l’abonnement est une stratégie de court terme, non pérenne si l’offre disparaît.</li>
-      <li>Le résultat&nbsp;: des solutions fonctionnent déjà sur les PC Windows du ministère. Prochaine étape&nbsp;: les intégrer au centre logiciel, pour sécuriser leur pérennité.</li>
+      <li>Le défi&nbsp;: une IA souveraine, performante et à coût maîtrisé, sur des postes parfois contraignants.</li>
+      <li>En IA, deux modèles de paiement. Le souverain et conforme au RGPD se paie à l’usage&#8239;; les abonnements permettent aujourd’hui de consommer plus d’IA qu’on n’en paie, mais temporairement.</li>
+      <li>Trois populations&nbsp;: les internes accèdent aux modèles Scaleway, retenus après des benchmarks qui ont vérifié leur pertinence. Les externes sur des sujets sensibles, à tenir loin des puissances étrangères, ont le même accès. Les externes sur des sujets open source apportent leurs outils IA, à leurs frais.</li>
+      <li>Le paiement à l’usage est pérenne&#8239;; l’abonnement est une stratégie de court terme, non pérenne si l’offre disparaît.</li>
+      <li>Où nous en sommes&nbsp;: des solutions fonctionnent déjà sur les PC Windows du ministère. Prochaine étape&nbsp;: les intégrer au centre logiciel, pour sécuriser leur pérennité.</li>
     </ul>
   </aside>
 </section>
 
 <!-- ======================= 5 · 01 OUTILLER · RECOMMANDATION : ASSISTANT IA MAISON ======================= -->
 <section class="slide" data-title="Assistant IA maison" aria-labelledby="t5">
-  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">01</span>Outiller · recommandation</p></header>
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">01</span>Outiller · recommandation</p><ol class="trail" aria-label="Les quatre volets"><li class="is-on" aria-current="step"><span>01</span>Outiller</li><li><span>02</span>Former</li><li><span>03</span>Étendre</li><li><span>04</span>Harmoniser</li></ol></header>
   <div class="s-head">
-    <h2 class="title" id="t5">Un assistant IA maison, que les agents auront envie d’utiliser</h2>
-    <div class="fw-top">
-      <div class="fw-cell fw-cell--pb"><h3 class="tag tag--pb">Le problème</h3><p>Faute d’outil officiel attrayant, le risque du shadow IA</p></div>
-      <div class="fw-cell"><h3 class="tag">Le contexte</h3><p>PLIAGE, fermé à la flexibilité des outils IA&#8239;; OpenCode Desktop, une interface qui rebute</p></div>
-    </div>
+    <h2 class="title" id="t5">Notre recommandation&nbsp;: un assistant IA maison<br>que les agents auront envie d’utiliser</h2>
   </div>
-  <div class="s-body fw-body">
-    <div class="fw-main">
-      <div class="fw-main__head"><h3 class="tag tag--how">Notre réponse</h3><p class="fw-goal">Adapter un assistant open source existant</p></div>
-      <ul class="h-cards">
-        <li class="h-card">
-          <h4 class="h-card__head"><span class="h-card__ico"><svg class="ico" aria-hidden="true"><use href="#i-user-heart"/></svg></span>Pensé pour tous les profils</h4>
-          <p class="h-card__what">Même les non-technophiles</p>
-        </li>
-        <li class="h-card">
-          <h4 class="h-card__head"><span class="h-card__ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span>Fonctions et sécurité par population</h4>
-        </li>
-        <li class="h-card">
-          <h4 class="h-card__head"><span class="h-card__ico"><svg class="ico" aria-hidden="true"><use href="#i-magic"/></svg></span>L’approche produit dans chaque demande</h4>
-          <ol class="h-eq">
-            <li><span class="h-eq__op"></span><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg><span>Votre demande</span></li>
-            <li><span class="h-eq__op">+</span><svg class="ico" aria-hidden="true"><use href="#i-lightbulb"/></svg><span>Nos bonnes pratiques</span></li>
-            <li class="h-eq__res"><span class="h-eq__op">=</span><svg class="ico" aria-hidden="true"><use href="#i-sparkling"/></svg><span>Une meilleure réponse</span></li>
-          </ol>
-        </li>
-      </ul>
+  <div class="s-body">
+    <div class="rec">
+      <section class="rec__now" aria-labelledby="r-now">
+        <h3 class="tag" id="r-now">Aujourd’hui</h3>
+        <p class="rec__say">Des outils officiels, mais peu attrayants</p>
+        <p class="rec__tool"><strong>OpenCode Desktop</strong>Une interface qui rebute</p>
+        <p class="rec__tool"><strong>PLIAGE</strong>Fermé, sans la souplesse des outils IA</p>
+        <p class="rec__risk"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg>Risque&nbsp;: le shadow IA</p>
+      </section>
+      <span class="rec__arrow" aria-hidden="true"></span>
+      <section class="rec__new" aria-labelledby="r-new">
+        <h3 class="tag" id="r-new">Soumis à votre validation</h3>
+        <p class="rec__goal">Un assistant open source existant,<br>adapté à nos besoins</p>
+        <p class="rec__base">Branché sur nos modèles souverains et notre sécurité</p>
+        <ul class="rec__cards">
+          <li class="rec__card"><svg class="ico" aria-hidden="true"><use href="#i-user-heart"/></svg><div><h4>Pour tous les profils</h4><p>Même les non-technophiles</p></div></li>
+          <li class="rec__card"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg><div><h4>Adapté à chaque population</h4><p>À chacune ses fonctions, sa sécurité</p></div></li>
+          <li class="rec__card"><svg class="ico" aria-hidden="true"><use href="#i-magic"/></svg><div><h4>Une meilleure réponse à chaque demande</h4><p>Votre demande + nos bonnes pratiques, sans effort</p></div></li>
+        </ul>
+      </section>
     </div>
-    <div class="fw-bot">
-      <div class="fw-box fw-box--why"><h3 class="tag tag--why">Pourquoi ainsi</h3><p>Sans partir de zéro, sur les modèles et la sécurité en place</p></div>
-      <div class="fw-box fw-box--res"><h3 class="tag tag--res">Résultat attendu</h3><p>Un frein à l’adoption en moins</p></div>
-    </div>
+    <div class="res res--next"><h3 class="tag tag--next">À venir</h3><p>Tester des assistants open source, puis choisir la base de l’assistant maison.</p></div>
   </div>
-  <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
+  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Point d’étape pour la direction · Novembre 2026</span><span>Selim Boukhari<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>Le problème&nbsp;: pour éviter le shadow IA, il faut un outil qui, sur les PC du ministère, donne envie d’être utilisé.</li>
-      <li>Le contexte&nbsp;: aujourd’hui, la solution légitime passe par PLIAGE, fermé à la flexibilité des outils IA, et par OpenCode Desktop, dont l’interface rebute les utilisateurs&nbsp;: une qualité d’UX en décalage avec toutes les autres solutions, qui peut freiner l’adoption.</li>
-      <li>Notre réponse&nbsp;: de nombreuses alternatives open source existent. Nous pouvons en reprendre une et la personnaliser pour les besoins des ministères sociaux.</li>
+      <li>Aujourd’hui, l’offre officielle passe par OpenCode Desktop, dont l’interface rebute les utilisateurs (une qualité d’usage en décalage avec toutes les autres solutions, qui peut freiner l’adoption), et par PLIAGE, fermé à la flexibilité des outils IA.</li>
+      <li>Pour éviter le shadow IA, il faut un outil qui, sur les PC du ministère, donne envie d’être utilisé.</li>
+      <li>Notre recommandation, soumise à votre validation&nbsp;: reprendre une des nombreuses alternatives open source et la personnaliser pour nos besoins.</li>
       <li>Trois avantages&nbsp;: recueillir les besoins des profils non technophiles et adapter l’outil&#8239;; choisir les fonctions par population, et renforcer la sécurité si besoin&#8239;; renforcer l’approche produit, chaque demande étant complétée automatiquement, sans effort pour l’agent, par des consignes (un «&nbsp;prompt système&nbsp;») qui améliorent la réponse.</li>
-      <li>Pourquoi ainsi&nbsp;: on ne part pas de zéro, et l’outil reste branché sur LiteLLM, donc sur les modèles souverains et la sécurité déjà en place.</li>
-      <li>Résultat attendu&nbsp;: un outil officiel que les agents ont envie d’utiliser.</li>
+      <li>On ne part pas de zéro, et l’outil reste branché sur LiteLLM, donc sur les modèles souverains et la sécurité déjà en place.</li>
+      <li>Résultat attendu&nbsp;: un outil officiel que les agents ont envie d’utiliser, donc un frein à l’adoption en moins.</li>
       <li>Choix de la base à faire après tests. Critères&nbsp;: une licence qui autorise la personnalisation, l’installation sur les PC Windows du ministère, la compatibilité avec LiteLLM.</li>
     </ul>
   </aside>
@@ -526,195 +559,187 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
 
 <!-- ======================= 6 · 02 FORMER ======================= -->
 <section class="slide" data-title="Former" aria-labelledby="t6">
-  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">02</span>Former</p></header>
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">02</span>Former</p><ol class="trail" aria-label="Les quatre volets"><li><span>01</span>Outiller</li><li class="is-on" aria-current="step"><span>02</span>Former</li><li><span>03</span>Étendre</li><li><span>04</span>Harmoniser</li></ol></header>
   <div class="s-head">
-    <h2 class="title" id="t6">Former nos agents pour ne dépendre d’aucun fournisseur d’IA</h2>
-    <div class="fw-top">
-      <div class="fw-cell fw-cell--pb"><h3 class="tag tag--pb">Le problème</h3><p>Sans formation, on finit par <span class="nw">«&nbsp;ça ne marche que sur Claude&nbsp;»</span></p></div>
-      <div class="fw-cell"><h3 class="tag">Le contexte</h3><p>Les outils américains clés en main donnent vite des résultats</p></div>
-    </div>
+    <h2 class="title" id="t6">Former nos agents pour pouvoir changer<br>de fournisseur d’IA sans repartir de zéro</h2>
+    <p class="lead">Sans formation, on se repose sur les outils américains&nbsp;: <span class="nw">«&nbsp;ça ne marche que sur Claude&nbsp;».</span></p>
   </div>
-  <div class="s-body fw-body">
-    <div class="fw-main">
-      <div class="fw-main__head"><h3 class="tag tag--how">Notre réponse</h3><p class="fw-goal">Quatre étapes</p></div>
-      <ol class="f-steps">
-        <li class="f-step">
-          <p class="f-step__head"><span class="f-num">1</span><span class="f-verb">Acculturer</span></p>
-          <p class="f-step__what">Comprendre l’IA, sans boîte noire</p>
-          <p class="f-step__who">Tous les métiers</p>
-        </li>
-        <li class="f-step">
-          <p class="f-step__head"><span class="f-num">2</span><span class="f-verb">Accompagner</span></p>
-          <p class="f-step__what">Vers la maîtrise de l’état de l’art</p>
-          <p class="f-step__who">Équipes de développement</p>
-        </li>
-        <li class="f-step">
-          <p class="f-step__head"><span class="f-num">3</span><span class="f-verb">Diffuser</span></p>
-          <p class="f-step__what">Un référent IA par métier</p>
-          <p class="f-step__who">Page suivante</p>
-        </li>
-        <li class="f-step is-todo">
-          <p class="f-step__head"><span class="f-num">4</span><span class="f-verb">Animer</span></p>
-          <p class="f-step__what">Webinaires sur l’IA</p>
-          <p class="f-step__who"><span class="badge badge--todo">À venir</span></p>
-        </li>
-      </ol>
-    </div>
-    <div class="fw-bot">
-      <div class="fw-box fw-box--why"><h3 class="tag tag--why">Pourquoi ainsi</h3><p>Des agents performants sur des outils souverains, donc pérennes</p></div>
-      <div class="fw-box fw-box--res"><h3 class="tag tag--res">Le résultat</h3><p>4 métiers acculturés, 3 équipes de développement accompagnées</p></div>
-    </div>
+  <div class="s-body">
+    <ol class="steps">
+      <li class="step">
+        <p class="step__head"><span class="step__num">1</span><span class="step__verb">Acculturer</span></p>
+        <p class="step__what">Comprendre l’IA, sans boîte noire</p>
+        <div class="step__got">
+          <span class="step__icons" aria-hidden="true"><span class="pop__ico"><svg class="ico"><use href="#i-code"/></svg></span><span class="pop__ico"><svg class="ico"><use href="#i-compasses"/></svg></span><span class="pop__ico"><svg class="ico"><use href="#i-palette"/></svg></span><span class="pop__ico"><svg class="ico"><use href="#i-roadmap"/></svg></span></span>
+          <p><strong>4 métiers acculturés</strong></p></div>
+      </li>
+      <li class="step">
+        <p class="step__head"><span class="step__num">2</span><span class="step__verb">Accompagner</span></p>
+        <p class="step__what">D’un usage léger à la maîtrise</p>
+        <div class="step__got">
+          <span class="step__icons" aria-hidden="true"><span class="pop__ico"><svg class="ico"><use href="#i-code"/></svg></span></span>
+          <p><strong>3 équipes de développement</strong><small>DACCORD, VAO, Honorabilité</small></p></div>
+      </li>
+      <li class="step">
+        <p class="step__head"><span class="step__num">3</span><span class="step__verb">Diffuser</span></p>
+        <p class="step__what">Un référent IA par métier, pour former ses pairs</p>
+        <div class="step__got">
+          <span class="step__icons" aria-hidden="true"><span class="pop__ico"><svg class="ico"><use href="#i-user-star"/></svg></span></span>
+          <p><strong>1 référent en place</strong><small>2 en cours, 1 à venir</small></p></div>
+      </li>
+    </ol>
+    <div class="res res--next"><h3 class="tag tag--next">À venir</h3><p>Des webinaires sur l’IA.</p></div>
   </div>
-  <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
+  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Point d’étape pour la direction · Novembre 2026</span><span>Selim Boukhari<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>Le problème&nbsp;: aujourd’hui, pour des résultats modérément viables, on peut passer par les outils américains clés en main et se reposer sur nos lauriers. C’est ainsi que commence le «&nbsp;ça ne marche que sur Claude&nbsp;».</li>
-      <li>L’enjeu&nbsp;: se prémunir du vendor lock-in et profiter pleinement des solutions souveraines, donc pérennes, sans avoir à repartir de zéro si une puissance étrangère nous l’impose.</li>
-      <li>Notre réponse&nbsp;: acculturer CDP, architectes, développeurs et designers&#8239;; accompagner les équipes de développement d’un usage léger, voire débutant, vers la maîtrise de l’état de l’art&#8239;; diffuser par un référent IA accompagné par métier (slide suivante)&#8239;; animer, avec des webinaires à venir.</li>
-      <li>Pourquoi ainsi&nbsp;: des agents de l’État performants sans les solutions américaines clés en main ou semi-clés en main, et sans shadow IA.</li>
-      <li>Le résultat&nbsp;: CDP, architectes, développeurs et designers acculturés&#8239;; DACCORD, VAO et Honorabilité accompagnés vers l’état de l’art.</li>
+      <li>Aujourd’hui, pour des résultats modérément viables, on peut passer par les outils américains clés en main et se reposer sur nos lauriers. C’est ainsi que commence le «&nbsp;ça ne marche que sur Claude&nbsp;».</li>
+      <li>L’enjeu&nbsp;: se prémunir contre la dépendance à un fournisseur (vendor lock-in) et profiter pleinement des solutions souveraines, donc pérennes, sans avoir à repartir de zéro si une puissance étrangère nous y contraint. La formation nous en prémunit, en rendant nos agents performants avec des outils souverains.</li>
+      <li>Trois étapes&nbsp;: acculturer développeurs, architectes, designers et chefs de projet&#8239;; accompagner les équipes de développement d’un usage léger, voire débutant, vers la maîtrise de l’état de l’art&#8239;; diffuser grâce à un référent IA par métier, lui-même accompagné (slide suivante). À venir&nbsp;: animer, avec des webinaires.</li>
+      <li>Ce que cela donne&nbsp;: des agents de l’État performants sans les solutions américaines clés en main ou semi-clés en main, et sans shadow IA.</li>
+      <li>Où nous en sommes&nbsp;: développeurs, architectes, designers et chefs de projet acculturés&#8239;; DACCORD, VAO et Honorabilité accompagnés vers l’état de l’art.</li>
+      <li>Aujourd’hui, l’accompagnement repose sur une seule personne&nbsp;: d’où les référents, un par métier (chez les développeurs, les tech leads, chacun pour son équipe).</li>
     </ul>
   </aside>
 </section>
 
-<!-- ======================= 7 · 02 FORMER · DIFFUSION (RÉFÉRENTS IA) ======================= -->
-<section class="slide" data-title="Diffusion" aria-labelledby="t7">
-  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">02</span>Former · diffusion</p></header>
+<!-- ======================= 7 · 02 FORMER · DIFFUSER (RÉFÉRENTS IA) ======================= -->
+<section class="slide" data-title="Référents IA" aria-labelledby="t7">
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">02</span>Former · diffuser</p><ol class="trail" aria-label="Les quatre volets"><li><span>01</span>Outiller</li><li class="is-on" aria-current="step"><span>02</span>Former</li><li><span>03</span>Étendre</li><li><span>04</span>Harmoniser</li></ol></header>
   <div class="s-head">
     <h2 class="title" id="t7">Un référent IA par métier, pour que les usages durent</h2>
-    <div class="fw-top">
-      <div class="fw-cell fw-cell--pb"><h3 class="tag tag--pb">Le problème</h3><p>Une montée en compétence qui s’arrête aux équipes accompagnées</p></div>
-      <div class="fw-cell"><h3 class="tag">Le contexte</h3><p>Aujourd’hui, l’accompagnement repose sur une seule personne</p></div>
-    </div>
+    <p class="lead">Aujourd’hui, l’accompagnement repose sur une seule personne.</p>
   </div>
-  <div class="s-body fw-body">
-    <div class="fw-main">
-      <div class="fw-main__head"><h3 class="tag tag--how">Notre réponse</h3><p class="fw-goal">Accompagner un référent, qui forme ensuite ses pairs</p></div>
-      <div class="a-refs">
-        <div class="a-head" aria-hidden="true"><span class="tag">Référent</span><span class="tag">Ce qu’il diffuse</span><span class="tag tag--res">Le résultat</span></div>
-        <ul>
-          <li><p class="a-who"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg><strong>Louis</strong><small>designers</small></p><p class="a-what">Référent de fait, forme d’autres designers</p><p><span class="badge badge--ok">En place</span></p></li>
-          <li><p class="a-who"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg><strong>Wissem</strong><small>architectes</small></p><p class="a-what">Sa méthode d’analyse des dossiers d’architecture</p><p><span class="badge badge--todo">En cours</span></p></li>
-          <li><p class="a-who"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg><strong>Mathilda</strong><small>CDP</small></p><p class="a-what">Fait avancer l’adoption chez les CDP</p><p><span class="badge badge--todo">En cours</span></p></li>
-          <li><p class="a-who"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><strong>Tech leads</strong><small>développeurs</small></p><p class="a-what">Font monter leur équipe en compétence, avec une veille IA</p><p><span class="badge badge--todo">Prévu</span></p></li>
-        </ul>
-      </div>
-    </div>
-    <div class="fw-bot">
-      <div class="fw-box fw-box--why fw-box--wide fw-box--row"><h3 class="tag tag--why">Pourquoi ainsi</h3><p>Le savoir reste dans chaque métier, sans dépendre d’une seule personne</p></div>
-    </div>
+  <div class="s-body">
+    <ul class="refs">
+      <li class="ref is-next">
+        <span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span>
+        <div><p class="ref__job">Développeurs</p><p class="ref__name">Les tech leads</p><p class="ref__what">Deviendront référents de leur équipe, avec une veille IA</p></div>
+        <span class="badge badge--next">À venir</span>
+      </li>
+      <li class="ref">
+        <span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg></span>
+        <div><p class="ref__job">Architectes</p><p class="ref__name">Wissem</p><p class="ref__what">Présente aux architectes sa méthode outillée d’analyse des dossiers d’architecture</p></div>
+        <span class="badge badge--todo">En cours</span>
+      </li>
+      <li class="ref">
+        <span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg></span>
+        <div><p class="ref__job">Designers</p><p class="ref__name">Louis</p><p class="ref__what">Référent de fait&nbsp;: il forme déjà d’autres designers</p></div>
+        <span class="badge badge--ok">En place</span>
+      </li>
+      <li class="ref">
+        <span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg></span>
+        <div><p class="ref__job">Chefs de projet</p><p class="ref__name">Mathilda</p><p class="ref__what">Fait avancer l’adoption chez les chefs de projet</p></div>
+        <span class="badge badge--todo">En cours</span>
+      </li>
+    </ul>
   </div>
-  <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
+  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Point d’étape pour la direction · Novembre 2026</span><span>Selim Boukhari<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>Le problème&nbsp;: une montée en compétence qui s’arrête aux équipes accompagnées ne dure pas.</li>
-      <li>Le contexte&nbsp;: aujourd’hui, l’accompagnement repose sur une seule personne.</li>
-      <li>Notre réponse, en trois temps&nbsp;: accompagner un référent par métier sur ses cas d’usage concrets&#8239;; il montre sa méthode et forme ses pairs&#8239;; puis évangéliser au-delà des équipes, avec des webinaires et une instance de veille IA, à venir.</li>
-      <li>Louis est déjà référent de fait chez les designers&nbsp;: il partage ses pratiques et forme d’autres designers. Wissem présente aux architectes sa méthode outillée d’analyse de cohérence des dossiers d’architecture. Chez les CDP, la référente fait avancer et suit l’adoption, avec des cas d’usage à forte valeur ajoutée. Les tech leads de toutes les équipes deviendront référents IA, responsables de la montée en compétence de leur équipe, avec une instance de veille IA.</li>
-      <li>Pourquoi ainsi&nbsp;: c’est ce qui rend le dispositif indépendant d’une seule personne.</li>
+      <li>Une montée en compétence qui s’arrête aux équipes accompagnées ne dure pas. Et aujourd’hui, l’accompagnement repose sur une seule personne.</li>
+      <li>Notre réponse, en trois temps&nbsp;: accompagner un référent par métier sur ses cas d’usage concrets&#8239;; le laisser montrer sa méthode et former ses pairs&#8239;; puis évangéliser au-delà des équipes, avec des webinaires et une instance de veille IA, à venir.</li>
+      <li>Développeurs&nbsp;: les tech leads de toutes les équipes deviendront référents IA, responsables de la montée en compétence de leur équipe, avec une instance de veille IA.</li>
+      <li>Architectes&nbsp;: Wissem présente aux architectes sa méthode outillée d’analyse de cohérence des dossiers d’architecture.</li>
+      <li>Designers&nbsp;: Louis est déjà référent de fait. Il partage ses pratiques et forme d’autres designers.</li>
+      <li>Chefs de projet&nbsp;: Mathilda, leur référente, fait avancer et suit l’adoption, avec des cas d’usage à forte valeur ajoutée (dernière slide).</li>
+      <li>Le savoir reste dans chaque métier&nbsp;: c’est ce qui rend le dispositif indépendant d’une seule personne.</li>
     </ul>
   </aside>
 </section>
 
 <!-- ======================= 8 · 03 ÉTENDRE À TOUS LES MÉTIERS ======================= -->
 <section class="slide" data-title="Étendre à tous les métiers" aria-labelledby="t8">
-  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">03</span>Étendre à tous les métiers</p></header>
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">03</span>Étendre à tous les métiers</p><ol class="trail" aria-label="Les quatre volets"><li><span>01</span>Outiller</li><li><span>02</span>Former</li><li class="is-on" aria-current="step"><span>03</span>Étendre</li><li><span>04</span>Harmoniser</li></ol></header>
   <div class="s-head">
-    <h2 class="title" id="t8">Chaque métier progresse, DACCORD orchestre déjà</h2>
-    <div class="fw-top">
-      <div class="fw-cell fw-cell--pb"><h3 class="tag tag--pb">Le problème</h3><p>Passer du jouet à l’investissement rentable</p></div>
-      <div class="fw-cell"><h3 class="tag">Repère</h3><p><strong>Orchestration&nbsp;:</strong> l’IA enchaîne seule les étapes, l’humain pilote et valide</p></div>
-    </div>
+    <h2 class="title" id="t8">Chaque métier a progressé,<br>des développeurs aux chefs de projet</h2>
   </div>
-  <div class="s-body fw-body">
-    <div class="p-chart">
-      <div class="p-head" aria-hidden="true">
-        <span class="tag tag--how">Notre réponse</span>
-        <span class="tag">D’où l’on part</span><span></span>
-        <span class="tag tag--res">Le résultat aujourd’hui</span><span></span>
-        <span class="tag tag--next">La suite</span>
-      </div>
-      <h3 class="sr">Maturité IA, métier par métier&nbsp;: d’où l’on part, aujourd’hui, la suite</h3>
-      <ol class="p-rows">
-          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><span><strong>Développeurs</strong><small>3 équipes</small></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>Découverte de l’IA</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span class="p-list"><span><strong>DACCORD&nbsp;:</strong> orchestrations éprouvées et optimisées</span><span><strong>VAO, Honorabilité&nbsp;:</strong> démarrent</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Mesurer la vélocité avant le 27&nbsp;novembre</p></li>
-          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg><span><strong>Architectes</strong></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>Aucun intérêt exprimé</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span><strong>Un outil</strong> accélère l’analyse des dossiers d’architecture et peut en générer</span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Nouveaux cas d’usage</p></li>
-          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg><span><strong>Designers</strong></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>«&nbsp;L’IA a peu de valeur pour nous&nbsp;»</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span class="p-list"><span><strong>Prototypes en quelques prompts</strong>, maquettes Figma conformes au DSFR</span><span><strong>2 designers formés</strong></span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Former d’autres designers</p></li>
-          <li class="p-row"><p class="p-who"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg><span><strong>CDP</strong></span></p><p class="p-from"><span class="sr">D’où l’on part&nbsp;: </span>L’IA, une boîte noire</p><span class="p-arrow" aria-hidden="true"></span><p class="p-now"><span class="sr">Aujourd’hui&nbsp;: </span><span class="p-list"><span><strong>3 CDP et leur référente formés</strong></span><span>L’enjeu&nbsp;: l’adoption</span></span></p><span class="p-arrow p-arrow--next" aria-hidden="true"></span><p class="p-next"><span class="sr">La suite&nbsp;: </span>Livrer des cas d’usage à forte valeur ajoutée</p></li>
+  <div class="s-body">
+    <div class="gain">
+      <div class="gain__head" aria-hidden="true"><span class="tag tag--how">Le métier</span><span class="tag">Au départ</span><span></span><span class="tag tag--res">Aujourd’hui</span></div>
+      <h3 class="sr">Métier par métier&nbsp;: au départ, aujourd’hui</h3>
+      <ol class="gain__rows">
+        <li class="gain__row">
+          <p class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span><span>Développeurs<small>3 équipes</small></span></p>
+          <p class="gain__from"><span class="sr">Au départ&nbsp;: </span>Découverte de l’IA</p>
+          <span class="gain__arrow" aria-hidden="true"></span>
+          <p class="gain__now"><span class="sr">Aujourd’hui&nbsp;: </span><span><strong>DACCORD&nbsp;:</strong> l’IA enchaîne seule les étapes, l’équipe pilote et valide</span><span><strong>VAO, Honorabilité&nbsp;:</strong> démarrent à leur tour</span><span class="gain__next">Mesure de la vélocité&nbsp;: avant le 27&nbsp;novembre</span></p>
+        </li>
+        <li class="gain__row">
+          <p class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg></span><span>Architectes</span></p>
+          <p class="gain__from"><span class="sr">Au départ&nbsp;: </span>Aucun intérêt exprimé</p>
+          <span class="gain__arrow" aria-hidden="true"></span>
+          <p class="gain__now"><span class="sr">Aujourd’hui&nbsp;: </span><span>Un outil <strong>accélère l’analyse des dossiers d’architecture</strong> et peut en générer</span></p>
+        </li>
+        <li class="gain__row">
+          <p class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg></span><span>Designers</span></p>
+          <p class="gain__from"><span class="sr">Au départ&nbsp;: </span>«&nbsp;L’IA a peu de valeur pour nous&nbsp;»</p>
+          <span class="gain__arrow" aria-hidden="true"></span>
+          <p class="gain__now"><span class="sr">Aujourd’hui&nbsp;: </span><span><strong>Prototypes en quelques demandes à l’IA</strong>, maquettes Figma conformes au DSFR</span><span>2 designers formés</span></p>
+        </li>
+        <li class="gain__row">
+          <p class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg></span><span>Chefs de projet</span></p>
+          <p class="gain__from"><span class="sr">Au départ&nbsp;: </span>L’IA, une boîte noire</p>
+          <span class="gain__arrow" aria-hidden="true"></span>
+          <p class="gain__now"><span class="sr">Aujourd’hui&nbsp;: </span><span><strong>3 chefs de projet et leur référente formés</strong></span><span class="gain__next">À venir&nbsp;: l’adoption</span></p>
+        </li>
       </ol>
     </div>
-    <div class="fw-bot">
-      <div class="fw-box fw-box--why fw-box--wide fw-box--row"><h3 class="tag tag--why">Pourquoi ainsi</h3><p>Si seuls les développeurs maîtrisent l’IA, les problèmes d’organisation s’aggravent</p></div>
-    </div>
   </div>
-  <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
+  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Point d’étape pour la direction · Novembre 2026</span><span>Selim Boukhari<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>Le problème&nbsp;: passer du jouet à l’investissement rentable.</li>
-      <li>Lecture&nbsp;: d’où l’on part, où l’on en est, la suite, métier par métier. La flèche verte, c’est l’apport de l’accompagnement.</li>
-      <li>Développeurs&nbsp;: DACCORD a éprouvé l’orchestration plusieurs semaines et en est à l’optimiser, avec des benchmarks d’orchestration. VAO et Honorabilité démarrent l’orchestration.</li>
+      <li>L’enjeu&nbsp;: passer du jouet à l’investissement rentable.</li>
+      <li>Lecture, métier par métier&nbsp;: d’où l’on part, où l’on en est. La flèche verte, c’est l’apport de l’accompagnement.</li>
+      <li>Orchestrer&nbsp;: l’IA enchaîne seule les étapes, l’humain pilote et valide.</li>
+      <li>Développeurs&nbsp;: DACCORD a éprouvé l’orchestration pendant plusieurs semaines et en est à l’optimiser, avec des benchmarks d’orchestration. VAO et Honorabilité démarrent l’orchestration.</li>
       <li>Architectes&nbsp;: l’outil accélère l’analyse de cohérence des dossiers d’architecture. La suite&nbsp;: développer de nouveaux cas d’usage.</li>
-      <li>Designers&nbsp;: deux designers formés, et Louis, référent, accompagné.</li>
-      <li>CDP&nbsp;: trois chefs de projet et leur référente formés. La référente est désormais accompagnée pour accompagner les CDP dans le temps&nbsp;: l’enjeu est l’adoption. La suite&nbsp;: implémenter des cas d’usage à forte valeur ajoutée et les mettre à disposition des utilisateurs.</li>
-      <li>Pourquoi tous les métiers&nbsp;: si seuls les développeurs maîtrisent l’IA, ils ne disent plus non, le produit fait deux pas en avant, un en arrière. Sans IA chez la CDP, c’est elle qui devient le goulot d’étranglement.</li>
+      <li>Designers&nbsp;: deux designers formés, et Louis, référent, accompagné. La suite&nbsp;: poursuivre la formation des designers.</li>
+      <li>Chefs de projet&nbsp;: trois chefs de projet et leur référente formés. La référente est désormais accompagnée pour suivre les chefs de projet dans le temps&nbsp;: l’enjeu est l’adoption. La suite&nbsp;: livrer des cas d’usage à forte valeur ajoutée et les mettre à disposition des utilisateurs.</li>
+      <li>Pourquoi tous les métiers&nbsp;: si seuls les développeurs maîtrisent l’IA, ils ne disent plus non, le produit fait deux pas en avant, un en arrière. Sans IA chez le chef de projet, c’est lui qui devient le goulot d’étranglement.</li>
       <li>Egapro&nbsp;: équipe déjà augmentée, l’accompagnement a seulement aidé à optimiser les orchestrations. SIRENA&nbsp;: l’équipe de développement est entièrement externe, elle n’a pas été approchée.</li>
-      <li>Vélocité&nbsp;: chiffres retirés des slides en attendant les mesures des trois équipes (DACCORD, VAO, Honorabilité), avant le 27 novembre. Si la question vient&nbsp;: chez DACCORD, les développeurs perçoivent une vélocité plus que triplée en un mois.</li>
+      <li>Vélocité&nbsp;: pas de chiffre à l’écran tant que la vélocité des trois équipes (DACCORD, VAO, Honorabilité) n’est pas mesurée (prévu avant le 27 novembre). Si la question vient&nbsp;: chez DACCORD, les développeurs perçoivent une vélocité plus que triplée en un mois.</li>
     </ul>
   </aside>
 </section>
 
 <!-- ======================= 9 · 04 HARMONISER ======================= -->
 <section class="slide" data-title="Harmoniser" aria-labelledby="t9">
-  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">04</span>Harmoniser</p></header>
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker"><span class="kicker__num">04</span>Harmoniser</p><ol class="trail" aria-label="Les quatre volets"><li><span>01</span>Outiller</li><li><span>02</span>Former</li><li><span>03</span>Étendre</li><li class="is-on" aria-current="step"><span>04</span>Harmoniser</li></ol></header>
   <div class="s-head">
     <h2 class="title" id="t9">SDCID fournit le socle, SDPC fournira les méthodes</h2>
-    <div class="fw-top">
-      <div class="fw-cell fw-cell--pb"><h3 class="tag tag--pb">Le problème</h3><p>Chaque équipe invente seule ses pratiques d’IA</p></div>
-      <div class="fw-cell"><h3 class="tag">Le contexte</h3><p>SDCID et SDPC agissent toutes deux sur l’IA</p></div>
+    <p class="lead">SDCID et SDPC agissent toutes deux sur l’IA&nbsp;: à chacune son rôle.</p>
+  </div>
+  <div class="s-body">
+    <div class="duo">
+      <section class="duo__col duo__col--socle" aria-labelledby="c-sdcid">
+        <p class="label">Le socle technique</p>
+        <div class="duo__row"><h3 class="duo__name" id="c-sdcid">SDCID</h3><span class="badge badge--ok">En place</span></div>
+        <p class="duo__with">avec <strong>Victor</strong> et <strong>Adrien</strong></p>
+        <ul class="duo__items">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-server"/></svg><span><strong>L’accès unique aux modèles d’IA</strong><small>LiteLLM</small></span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg><span><strong>La sécurité</strong></span></li>
+        </ul>
+      </section>
+      <section class="duo__col duo__col--methodes" aria-labelledby="c-sdpc">
+        <p class="label">Les méthodes de travail communes</p>
+        <div class="duo__row"><h3 class="duo__name" id="c-sdpc">SDPC</h3><span class="badge badge--next">À venir</span></div>
+        <p class="duo__with">Deux studios, portés par <strong>Selim</strong></p>
+        <ul class="duo__items">
+          <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span><span><strong>Les méthodes des développeurs</strong><small>Studio tech</small></span></li>
+          <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg></span><span><strong>Les méthodes des chefs de projet</strong><small>Studio produit, avec leur référente</small></span></li>
+        </ul>
+      </section>
     </div>
   </div>
-  <div class="s-body fw-body">
-    <div class="fw-main">
-      <div class="fw-main__head"><h3 class="tag tag--how">Notre réponse</h3></div>
-      <div class="c-stack">
-        <section class="c-layer c-layer--socle" aria-labelledby="c-sdcid">
-          <div class="c-id">
-            <p class="label">Le socle</p>
-            <div class="c-id__row"><h4 class="c-name" id="c-sdcid">SDCID</h4><span class="badge badge--ok">En place</span></div>
-            <p class="c-who">avec <strong>Victor</strong> et <strong>Adrien</strong></p>
-          </div>
-          <div class="c-socle">
-            <p class="c-chip"><svg class="ico" aria-hidden="true"><use href="#i-server"/></svg><span>LiteLLM<small>l’accès unique aux modèles d’IA</small></span></p>
-            <p class="c-chip"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg><span>La sécurité</span></p>
-          </div>
-        </section>
-        <div class="c-link" aria-hidden="true"></div>
-        <section class="c-layer c-layer--sdpc" aria-labelledby="c-sdpc">
-          <div class="c-id">
-            <p class="label">Les méthodes</p>
-            <div class="c-id__row"><h4 class="c-name" id="c-sdpc">SDPC</h4><span class="badge badge--todo">À venir</span></div>
-          </div>
-          <div class="c-sdpc">
-            <p class="c-sdpc__what">Méthodes de travail des CDP et des développeurs</p>
-            <div class="c-studios">
-              <div class="c-studio"><h5 class="c-studio__h"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg>Studio tech</h5><p><strong>Selim</strong>, expert IA</p></div>
-              <div class="c-studio"><h5 class="c-studio__h"><svg class="ico" aria-hidden="true"><use href="#i-lightbulb"/></svg>Studio produit</h5><p><strong>Selim</strong>, avec la référente CDP</p></div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-    <div class="fw-bot">
-      <div class="fw-box fw-box--why"><h3 class="tag tag--why">Pourquoi ainsi</h3><p>Chacun son rôle&nbsp;: la technique à SDCID, les méthodes à SDPC</p></div>
-      <div class="fw-box fw-box--res"><h3 class="tag tag--res">Le résultat</h3><p><strong>Socle en place.</strong> À venir&nbsp;: des pratiques harmonisées.</p></div>
-    </div>
-  </div>
-  <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
+  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Point d’étape pour la direction · Novembre 2026</span><span>Selim Boukhari<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>Le problème&nbsp;: sans méthodes communes, chaque équipe construit ses propres pratiques.</li>
-      <li>SDCID, avec Victor et Adrien, fournit la base de LiteLLM, le point d’accès unique aux modèles d’IA, et la sécurité.</li>
-      <li>À venir&nbsp;: SDPC fournit les workflows standards des CDP et des développeurs, pour harmoniser les pratiques de nos utilisateurs.</li>
-      <li>Studio tech&nbsp;: sous la responsabilité de Selim, expert IA et compétent en tech. Studio produit&nbsp;: Selim, expert IA, avec l’aide de la référente CDP.</li>
+      <li>SDCID et SDPC agissent toutes deux sur l’IA. Sans méthodes communes, chaque équipe construit ses propres pratiques.</li>
+      <li>À chacune son rôle&nbsp;: la technique à SDCID, les méthodes à SDPC.</li>
+      <li>SDCID, avec Victor et Adrien, fournit le socle&nbsp;: LiteLLM, le point d’accès unique aux modèles d’IA, et la sécurité.</li>
+      <li>À venir&nbsp;: SDPC fournira les méthodes de travail communes (workflows standards) des développeurs et des chefs de projet, pour harmoniser les pratiques de nos utilisateurs.</li>
+      <li>Studio tech&nbsp;: sous la responsabilité de Selim, expert IA et compétent en tech. Studio produit&nbsp;: Selim, expert IA, avec l’aide de la référente des chefs de projet.</li>
     </ul>
   </aside>
 </section>
@@ -723,35 +748,42 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
 <section class="slide" data-title="La suite" aria-labelledby="t10">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">La suite</p></header>
   <div class="s-head">
-    <h2 class="title" id="t10">D’abord mesurer, ensuite pérenniser et étendre</h2>
+    <h2 class="title" id="t10">Valider aujourd’hui, mesurer avant le 27&nbsp;novembre,<br>puis avancer sur chaque volet</h2>
   </div>
   <div class="s-body">
-    <div class="n-grid">
-      <section class="n-date" aria-labelledby="n-date">
-        <p class="label"><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg>Date limite</p>
-        <p class="n-date__day" id="n-date">27 novembre</p>
-        <p class="n-date__what"><strong>Mesurer</strong> la vélocité de DACCORD, VAO et Honorabilité</p>
-      </section>
-      <section class="n-list" aria-labelledby="n-next">
-        <h3 class="tag tag--next" id="n-next">Ensuite</h3>
-        <ol>
-          <li><span class="n-step"><span class="n-verb">Pérenniser</span><span class="n-tag">01 · Outiller</span></span><span class="n-what">Intégrer les outils au centre logiciel</span></li>
-          <li><span class="n-step"><span class="n-verb">Tester</span><span class="n-tag">01 · Outiller</span></span><span class="n-what">Choisir la base de l’assistant maison</span></li>
-          <li><span class="n-step"><span class="n-verb">Animer</span><span class="n-tag">02 · Former</span></span><span class="n-what">Webinaires sur l’IA</span></li>
-          <li><span class="n-step"><span class="n-verb">Étendre aux CDP</span><span class="n-tag">03 · Tous les métiers</span></span><span class="n-what">Orchestrer des cas d’usage à forte valeur ajoutée</span></li>
-          <li><span class="n-step"><span class="n-verb">Standardiser</span><span class="n-tag">04 · Harmoniser</span></span><span class="n-what">Les méthodes de travail des CDP et des développeurs</span></li>
-        </ol>
-      </section>
-    </div>
+    <ol class="tl">
+      <li class="tl__step tl__step--ask">
+        <p class="label">Aujourd’hui</p>
+        <h3 class="tl__what">Soumis à votre validation</h3>
+        <p class="tl__big">Un assistant IA maison</p>
+        <p class="tl__sub">Un assistant open source existant, adapté à nos besoins</p>
+      </li>
+      <li class="tl__step tl__step--date">
+        <p class="label"><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg><span>Avant<br>le 27&nbsp;novembre</span></p>
+        <h3 class="tl__what">La mesure</h3>
+        <p class="tl__big">La vélocité des développeurs</p>
+        <p class="tl__sub">Leur rythme de livraison, chez DACCORD, VAO et Honorabilité</p>
+      </li>
+      <li class="tl__step tl__step--next">
+        <p class="label">Ensuite, volet par volet</p>
+        <ul class="tl__list">
+          <li><span class="tl__vol"><span>01</span>Outiller</span><span>Intégrer les outils au centre logiciel. Tester, puis choisir la base de l’assistant maison</span></li>
+          <li><span class="tl__vol"><span>02</span>Former</span><span>Faire des tech leads des référents IA, lancer les webinaires</span></li>
+          <li><span class="tl__vol"><span>03</span>Étendre</span><span>Avec les chefs de projet, livrer des cas d’usage à forte valeur ajoutée et suivre leur adoption</span></li>
+          <li><span class="tl__vol"><span>04</span>Harmoniser</span><span>Fournir les méthodes de travail communes</span></li>
+        </ul>
+      </li>
+    </ol>
   </div>
-  <footer class="s-foot"><span><strong>Selim Boukhari</strong> · Responsable stratégie de déploiement de l’IA et formateur</span><span>Stratégie IA · Novembre 2026<span class="s-foot__page" data-page></span></span></footer>
+  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Point d’étape pour la direction · Novembre 2026</span><span>Selim Boukhari<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
+      <li>Aujourd’hui&nbsp;: nous soumettons à votre validation la recommandation d’un assistant IA maison (slide 5). Ensuite&nbsp;: tester des assistants open source, puis choisir la base (licence qui autorise la personnalisation, installation sur les PC Windows du ministère, compatibilité avec LiteLLM).</li>
       <li>Une seule date arrêtée&nbsp;: avant le 27 novembre, les données de vélocité de DACCORD, VAO et Honorabilité.</li>
-      <li>Pérenniser&nbsp;: intégrer les outils au centre logiciel des PC Windows du ministère.</li>
-      <li>Assistant maison&nbsp;: tester des assistants open source, puis choisir la base (licence qui autorise la personnalisation, installation sur les PC Windows du ministère, compatibilité avec LiteLLM).</li>
-      <li>Côté CDP&nbsp;: orchestrer des cas d’usage à forte valeur ajoutée et suivre leur adoption. L’adoption est à faire avancer chez DACCORD et à lancer chez VAO, Honorabilité et Egapro.</li>
-      <li>Standardiser&nbsp;: SDPC fournit les méthodes de travail standard des CDP et des développeurs.</li>
+      <li>Outiller&nbsp;: intégrer les outils au centre logiciel des PC Windows du ministère, pour sécuriser leur pérennité.</li>
+      <li>Former&nbsp;: les tech leads de toutes les équipes deviendront référents IA, avec une instance de veille IA&#8239;; lancer les webinaires sur l’IA.</li>
+      <li>Étendre&nbsp;: côté chefs de projet, livrer des cas d’usage à forte valeur ajoutée et suivre leur adoption. L’adoption est à faire avancer chez DACCORD et à lancer chez VAO, Honorabilité et Egapro.</li>
+      <li>Harmoniser&nbsp;: SDPC fournira les méthodes de travail communes des développeurs et des chefs de projet.</li>
     </ul>
   </aside>
 </section>
