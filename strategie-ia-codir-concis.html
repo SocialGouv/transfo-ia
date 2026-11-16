@@ -124,17 +124,20 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .cover__parts .n{font-size:24px;font-weight:700;letter-spacing:.06em;color:var(--bf)}
 .cover__parts .t{font-size:31px;line-height:1.2;font-weight:700;color:var(--ink)}
 
-/* ---------- 2 · Le problème : trois risques ---------- */
-.risks{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr) auto;column-gap:28px}
-.risk{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;min-width:0;padding:24px 36px 30px;background:var(--orange-975);border-top:8px solid var(--orange-645)}
-.risk__head{display:flex;align-items:center;gap:20px}
-.risk__ico{display:grid;place-items:center;flex:none;width:72px;height:72px;background:var(--warn)}
-.risk__ico .ico{font-size:44px;color:#fff}
-.risk__name{font-size:44px;line-height:1.05;letter-spacing:-.015em;color:var(--warn)}
-.risk__what{margin-top:20px;font-size:42px;line-height:1.16;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
-.risk__what small{display:block;margin-top:10px;font-size:30px;line-height:1.25;font-weight:400;letter-spacing:0;color:var(--ink-2)}
-.risk__then{padding-top:22px;border-top:2px solid var(--orange-850);font-size:34px;line-height:1.28;color:var(--ink-2);text-wrap:balance}
-.risk__then li + li{margin-top:14px}   /* la désorganisation a deux faces : entre fonctions, entre équipes */
+/* ---------- 2 · Le problème : deux risques courts à gauche, la désorganisation et ses deux faces à droite ---------- */
+.risks{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:20px 28px}
+.risk{grid-column:1;display:flex;flex-direction:column;min-width:0;padding:18px 32px 20px;background:var(--orange-975);border-top:8px solid var(--orange-645)}
+.risk--wide{grid-column:2;grid-row:1 / -1;padding:26px 36px 30px}
+.risk__head{display:flex;align-items:center;gap:18px}
+.risk__ico{display:grid;place-items:center;flex:none;width:60px;height:60px;background:var(--warn)}
+.risk__ico .ico{font-size:38px;color:#fff}
+.risk__name{font-size:40px;line-height:1.05;letter-spacing:-.015em;color:var(--warn)}
+.risk__what{margin-top:12px;font-size:38px;line-height:1.16;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
+.risk__what small{display:block;margin-top:6px;font-size:30px;line-height:1.25;font-weight:400;letter-spacing:0;color:var(--ink-2)}
+.risk__then{margin-top:12px;padding-top:12px;border-top:2px solid var(--orange-850);font-size:32px;line-height:1.28;color:var(--ink-2)}
+.risk--wide .risk__what{margin-top:20px;font-size:42px}
+.risk--wide .risk__then{margin-top:22px;padding-top:22px}
+.risk__then li + li{margin-top:18px}   /* la désorganisation a deux faces : entre fonctions, entre équipes */
 
 /* ---------- 3 · Notre réponse : une ligne par volet, avec en face le risque qu’il traite et où nous en sommes ---------- */
 .map{flex:1;min-height:0;display:flex;flex-direction:column}
@@ -378,10 +381,9 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
 
 <!-- ======================= 2 · LE PROBLÈME ======================= -->
 <section class="slide" data-title="Le problème" aria-labelledby="t2">
-  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">Le problème</p></header>
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">Le problème · trois risques</p></header>
   <div class="s-head">
     <h2 class="title" id="t2">Nos agents utiliseront l’IA, avec ou sans cadre</h2>
-    <p class="lead">Sans cadre, trois risques.</p>
   </div>
   <div class="s-body">
     <ul class="risks">
@@ -395,12 +397,12 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         <p class="risk__what">«&nbsp;Ça ne marche que sur Claude&nbsp;»<small>Claude, une IA américaine</small></p>
         <p class="risk__then">Si une puissance étrangère nous contraint à en changer, on repart de zéro</p>
       </li>
-      <li class="risk">
+      <li class="risk risk--wide">
         <p class="risk__head"><span class="risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg></span><strong class="risk__name">Désorganisation</strong></p>
         <p class="risk__what">Avec l’IA, les écarts peuvent se creuser</p>
         <ul class="risk__then">
-          <li><b>Entre fonctions</b>&nbsp;: les développeurs s’approprient l’IA plus vite que les autres, mais imparfaitement, sans coaching</li>
-          <li><b>Entre équipes</b>&nbsp;: sans méthodes communes, les pratiques divergent</li>
+          <li><b>Entre fonctions</b>&nbsp;: avec l’IA, les développeurs produisent si vite qu’ils ne jouent plus leur rôle de garde-fou sur la clarté des besoins&nbsp;: un besoin flou est codé au lieu d’être questionné. Ce décalage de rythme peut aussi pousser les autres fonctions à moins bien préparer le terrain.</li>
+          <li><b>Entre équipes</b>&nbsp;: sans méthodes communes de travail avec l’IA, les écarts entre les pratiques se creuseront davantage.</li>
         </ul>
       </li>
     </ul>
@@ -411,7 +413,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <li>Nos agents utiliseront l’IA de toute façon. La vraie question&nbsp;: avec quels outils, et sous quelle dépendance.</li>
       <li>Shadow IA&nbsp;: l’usage d’IA grand public hors du cadre, faute d’outil officiel attrayant. Les PC Windows du ministère sont très restreints&nbsp;: ils ne permettent pas d’installer tout ce que l’on souhaite, ce qui peut conduire au shadow IA.</li>
       <li>Dépendance&nbsp;: pour des résultats modérément viables, on peut passer par les outils américains clés en main et se reposer sur nos lauriers. C’est ainsi que commence le «&nbsp;ça ne marche que sur Claude&nbsp;». Si une puissance étrangère nous contraint à en changer, on repart de zéro.</li>
-      <li>Désorganisation&nbsp;: avec l’IA, les écarts peuvent se creuser, de deux façons. Entre fonctions&nbsp;: les développeurs s’approprient l’IA plus vite que les designers et les métiers, même si, sans coaching, ils ne la maîtrisent pas parfaitement. Ils ne disent plus non, le produit fait deux pas en avant, un en arrière, et le chef de projet devient le goulot d’étranglement. Entre équipes&nbsp;: les méthodes de travail ne sont pas communes, et avec l’IA chaque équipe développe des pratiques encore plus différentes.</li>
+      <li>Désorganisation&nbsp;: avec l’IA, les écarts peuvent se creuser, de deux façons. Entre fonctions&nbsp;: les développeurs s’approprient l’IA plus vite que les designers et les métiers, même si, sans coaching, ils ne la maîtrisent pas parfaitement. Ils produisent si vite qu’ils ne jouent plus leur rôle de garde-fou sur la clarté des besoins&nbsp;: ils ne disent plus non, un besoin flou est codé au lieu d’être questionné. Ce décalage de rythme peut aussi pousser les autres fonctions à moins bien préparer le terrain&nbsp;: le produit fait deux pas en avant, un en arrière, et le chef de projet devient le goulot d’étranglement. Entre équipes&nbsp;: sans méthodes communes de travail avec l’IA, chaque équipe développe des pratiques encore plus différentes, et les écarts entre les pratiques se creuseront davantage.</li>
       <li>Contexte&nbsp;: les abonnements permettent aujourd’hui de consommer plus d’IA qu’on n’en paie, mais temporairement. Au départ, les développeurs découvraient l’IA, les architectes n’avaient exprimé aucun intérêt, les designers lui voyaient peu de valeur, et pour les chefs de projet c’était une boîte noire.</li>
     </ul>
   </aside>
