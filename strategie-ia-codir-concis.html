@@ -134,6 +134,7 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .risk__what{margin-top:20px;font-size:42px;line-height:1.16;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
 .risk__what small{display:block;margin-top:10px;font-size:30px;line-height:1.25;font-weight:400;letter-spacing:0;color:var(--ink-2)}
 .risk__then{padding-top:22px;border-top:2px solid var(--orange-850);font-size:34px;line-height:1.28;color:var(--ink-2);text-wrap:balance}
+.risk__then li + li{margin-top:14px}   /* la désorganisation a deux faces : entre fonctions, entre équipes */
 
 /* ---------- 3 · Notre réponse : une ligne par volet, avec en face le risque qu’il traite et où nous en sommes ---------- */
 .map{flex:1;min-height:0;display:flex;flex-direction:column}
@@ -146,6 +147,7 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .map__risk{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
 .rchip{display:inline-flex;align-items:center;gap:12px;padding:5px 16px 5px 12px;background:var(--orange-975);border-left:6px solid var(--orange-645);color:var(--warn);font-size:30px;line-height:1.2;font-weight:700}
 .rchip .ico{font-size:30px}
+.rchip small{display:block;font-size:24px;line-height:1.2;font-weight:500}   /* quelle face du risque : entre fonctions, entre équipes */
 .vol{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:20px;align-items:baseline}
 .vol__num{font-size:44px;line-height:1;font-weight:700;color:var(--bf);font-variant-numeric:tabular-nums}
 .vol__verb{font-size:42px;line-height:1.1;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
@@ -262,7 +264,7 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .duo__row{display:flex;align-items:center;gap:20px;margin-top:6px}
 .duo__name{font-size:72px;line-height:1.05;letter-spacing:-.025em}
 .duo__col--socle .duo__name{color:#fff}
-.duo__with{margin-top:6px;font-size:34px;line-height:1.25}
+.duo__with{margin-top:6px;font-size:33px;line-height:1.25;white-space:nowrap}
 .duo__col--socle .duo__with{color:var(--bf-925)}
 .duo__col--socle .duo__with strong{color:#fff}
 .duo__items{flex:1;min-height:0;margin-top:26px;display:flex;flex-direction:column;gap:16px}
@@ -271,6 +273,7 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .duo__items > li > .ico{flex:none;width:72px;font-size:60px;color:var(--bf)}
 .duo__items .pop__ico{width:72px;height:72px}
 .duo__items .pop__ico .ico{font-size:42px}
+.duo__studio{display:block;font-size:44px;line-height:1.1;letter-spacing:-.015em;color:var(--bf)}   /* le nom du studio d’abord, sa mission dessous */
 .duo__items small{display:block;margin-top:6px;font-size:30px;line-height:1.2;font-weight:400;color:var(--ink-2);white-space:normal;text-wrap:balance}
 
 /* ---------- 10 · La suite : aujourd’hui, avant le 27 novembre, ensuite ---------- */
@@ -394,8 +397,11 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       </li>
       <li class="risk">
         <p class="risk__head"><span class="risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg></span><strong class="risk__name">Désorganisation</strong></p>
-        <p class="risk__what">Les développeurs s’approprient l’IA plus vite que les autres fonctions<small>Mais imparfaitement, sans coaching</small></p>
-        <p class="risk__then">Sans les autres fonctions, le produit fait deux pas en avant, un en arrière</p>
+        <p class="risk__what">Avec l’IA, les écarts se creusent</p>
+        <ul class="risk__then">
+          <li><b>Entre fonctions</b>&nbsp;: les développeurs s’approprient l’IA plus vite que les autres, mais imparfaitement, sans coaching</li>
+          <li><b>Entre équipes</b>&nbsp;: sans méthodes communes, les pratiques divergent</li>
+        </ul>
       </li>
     </ul>
   </div>
@@ -405,7 +411,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <li>Nos agents utiliseront l’IA de toute façon. La vraie question&nbsp;: avec quels outils, et sous quelle dépendance.</li>
       <li>Shadow IA&nbsp;: l’usage d’IA grand public hors du cadre, faute d’outil officiel attrayant. Les PC Windows du ministère sont très restreints&nbsp;: ils ne permettent pas d’installer tout ce que l’on souhaite, ce qui peut conduire au shadow IA.</li>
       <li>Dépendance&nbsp;: pour des résultats modérément viables, on peut passer par les outils américains clés en main et se reposer sur nos lauriers. C’est ainsi que commence le «&nbsp;ça ne marche que sur Claude&nbsp;». Si une puissance étrangère nous contraint à en changer, on repart de zéro.</li>
-      <li>Désorganisation&nbsp;: les développeurs s’approprient l’IA plus vite que les autres fonctions, même si, sans coaching, ils ne la maîtrisent pas parfaitement. S’ils avancent seuls, les problèmes d’organisation s’aggravent. Les développeurs ne disent plus non, le produit fait deux pas en avant, un en arrière, et le chef de projet devient le goulot d’étranglement. Et sans méthodes communes, chaque équipe invente seule ses pratiques.</li>
+      <li>Désorganisation&nbsp;: avec l’IA, les écarts se creusent, de deux façons. Entre fonctions&nbsp;: les développeurs s’approprient l’IA plus vite que les designers et les métiers, même si, sans coaching, ils ne la maîtrisent pas parfaitement. Ils ne disent plus non, le produit fait deux pas en avant, un en arrière, et le chef de projet devient le goulot d’étranglement. Entre équipes&nbsp;: les méthodes de travail ne sont pas communes, et avec l’IA chaque équipe développe des pratiques encore plus différentes.</li>
       <li>Contexte&nbsp;: les abonnements permettent aujourd’hui de consommer plus d’IA qu’on n’en paie, mais temporairement. Au départ, les développeurs découvraient l’IA, les architectes n’avaient exprimé aucun intérêt, les designers lui voyaient peu de valeur, et pour les chefs de projet c’était une boîte noire.</li>
     </ul>
   </aside>
@@ -433,13 +439,13 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
           <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span><span class="nw">4 fonctions acculturées,</span> <span class="nw">3 équipes accompagnées</span></span></p>
         </li>
         <li class="map__row">
-          <p class="map__risk"><span class="sr">Risque traité&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg>Désorganisation</span></p>
+          <p class="map__risk"><span class="sr">Risque traité&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg><span>Désorganisation<small>entre fonctions</small></span></span></p>
           <p class="vol"><span class="vol__num">03</span><span class="vol__verb">Étendre à tous les métiers</span><span class="vol__what">Pas seulement les développeurs</span></p>
           <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span>Chaque métier a progressé</span></p>
         </li>
         <li class="map__row">
-          <p class="map__risk"><span class="sr">Risque traité&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg>Désorganisation</span></p>
-          <p class="vol"><span class="vol__num">04</span><span class="vol__verb">Harmoniser</span><span class="vol__what"><b>Un socle</b>&nbsp;: l’accès unique et sécurisé à l’IA<br><b>Des méthodes de travail communes</b>&nbsp;: <span class="nw">les savoir-faire et les outils donnés à l’IA</span></span></p>
+          <p class="map__risk"><span class="sr">Risque traité&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg><span>Désorganisation<small>entre équipes</small></span></span></p>
+          <p class="vol"><span class="vol__num">04</span><span class="vol__verb">Harmoniser</span><span class="vol__what"><b>Un socle</b> (API Gateway LiteLLM)&nbsp;: <span class="nw">l’accès unique et sécurisé à l’IA</span><br><b>Des méthodes de travail communes</b>&nbsp;: <span class="nw">les savoir-faire et les outils donnés à l’IA</span></span></p>
           <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span>Socle en place<span class="got__next">Méthodes à venir</span></span></p>
         </li>
       </ol>
@@ -458,9 +464,10 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <aside class="notes">
     <ul>
       <li>Notre réponse tient en quatre volets, et chacun répond à un risque de la slide précédente.</li>
-      <li>Outiller contre le shadow IA et la dépendance&#8239;; former contre la dépendance (à un fournisseur comme à une seule personne)&#8239;; étendre à tous les métiers et harmoniser contre la désorganisation, pour que chaque équipe n’invente pas seule ses pratiques.</li>
+      <li>Outiller contre le shadow IA et la dépendance&#8239;; former contre la dépendance (à un fournisseur comme à une seule personne)&#8239;; étendre à tous les métiers contre les écarts entre fonctions&#8239;; harmoniser contre les écarts entre équipes.</li>
+      <li>Harmoniser, pourquoi&nbsp;: avec l’IA, sans méthodes de travail communes, chaque équipe développerait des pratiques encore plus différentes. Harmoniser évite de creuser les écarts entre équipes. Au-delà du risque évité, c’est un gain&nbsp;: l’IA permet de standardiser les pratiques.</li>
       <li>Quatre fonctions sont concernées&nbsp;: développeurs, architectes, designers, chefs de projet.</li>
-      <li>Harmoniser&nbsp;: le socle, c’est LiteLLM (une API Gateway), l’accès unique et sécurisé aux modèles d’IA. Les méthodes de travail communes, ce sont les skills et les MCP communs&nbsp;: des savoir-faire donnés à l’IA et ses connexions à nos outils.</li>
+      <li>Harmoniser, quoi&nbsp;: le socle, c’est l’API Gateway LiteLLM, l’accès unique et sécurisé aux modèles d’IA. Les méthodes de travail communes, ce sont les skills et les MCP communs&nbsp;: des savoir-faire donnés à l’IA et ses connexions à nos outils.</li>
       <li>Où nous en sommes&nbsp;: l’IA souveraine fonctionne sur les PC du ministère. DACCORD en est à optimiser ses orchestrations, VAO et Honorabilité les démarrent. La vélocité des trois équipes sera mesurée avant le 27 novembre.</li>
     </ul>
   </aside>
@@ -713,17 +720,17 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         <div class="duo__row"><h3 class="duo__name" id="c-sdcid">SDCID</h3><span class="badge badge--ok">En place</span></div>
         <p class="duo__with">avec <strong>Victor</strong> et <strong>Adrien</strong></p>
         <ul class="duo__items">
-          <li><svg class="ico" aria-hidden="true"><use href="#i-server"/></svg><span><strong>L’accès unique aux modèles d’IA</strong><small>LiteLLM</small></span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-server"/></svg><span><strong>L’accès unique aux modèles d’IA</strong><small>API Gateway LiteLLM</small></span></li>
           <li><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg><span><strong>La sécurité</strong></span></li>
         </ul>
       </section>
       <section class="duo__col duo__col--methodes" aria-labelledby="c-sdpc">
         <p class="label">Les méthodes de travail communes</p>
         <div class="duo__row"><h3 class="duo__name" id="c-sdpc">SDPC</h3><span class="badge badge--next">À venir</span></div>
-        <p class="duo__with">Studios pilotés jusqu’ici par <strong>Selim</strong>, expert IA</p>
+        <p class="duo__with">Transformation IA pilotée par <strong>Selim</strong>, expert IA</p>
         <ul class="duo__items">
-          <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span><span><strong>Les méthodes des développeurs</strong><small>Studio tech</small></span></li>
-          <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg></span><span><strong>Les méthodes des chefs de projet</strong><small>Studio produit · besoins recueillis avec leur référente, puis optimisés avec l’IA</small></span></li>
+          <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span><span><strong class="duo__studio">Studio tech</strong><small>Partager les méthodes de travail des développeurs dans l’API Gateway</small></span></li>
+          <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg></span><span><strong class="duo__studio">Studio produit</strong><small>Co-construire les méthodes de travail des chefs de projet&nbsp;: expertise IA de Selim, expertise métier de leur référente</small></span></li>
         </ul>
       </section>
     </div>
@@ -733,9 +740,9 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <ul>
       <li>SDCID et SDPC agissent toutes deux sur l’IA. Sans méthodes communes, chaque équipe construit ses propres pratiques.</li>
       <li>À chacune son rôle&nbsp;: la technique à SDCID, les méthodes à SDPC.</li>
-      <li>SDCID, avec Victor et Adrien, fournit le socle&nbsp;: LiteLLM (une API Gateway), le point d’accès unique aux modèles d’IA, et la sécurité.</li>
-      <li>À venir&nbsp;: SDPC fournira les méthodes de travail communes (skills et MCP communs&nbsp;: des savoir-faire donnés à l’IA et ses connexions à nos outils) des développeurs et des chefs de projet, pour harmoniser les pratiques de nos utilisateurs.</li>
-      <li>Jusqu’ici, Selim pilote le studio produit et le studio tech par son expertise IA. Côté produit, il s’appuiera sur la référente des chefs de projet pour recueillir les besoins et les optimiser avec l’IA.</li>
+      <li>SDCID, avec Victor et Adrien, fournit le socle&nbsp;: l’API Gateway LiteLLM, le point d’accès unique aux modèles d’IA, et la sécurité.</li>
+      <li>À venir&nbsp;: SDPC fournira les méthodes de travail communes (skills et MCP communs&nbsp;: des savoir-faire donnés à l’IA et ses connexions à nos outils) des développeurs et des chefs de projet, pour harmoniser les pratiques de nos utilisateurs. Avec l’IA, c’est aussi un gain&nbsp;: elle permet de standardiser les pratiques.</li>
+      <li>La transformation IA est pilotée par Selim, expert IA. Studio tech&nbsp;: partager les méthodes de travail des développeurs dans l’API Gateway. Studio produit&nbsp;: co-construire les méthodes de travail, avec d’une part l’expertise IA de Selim et d’autre part l’expertise métier de la référente des chefs de projet.</li>
     </ul>
   </aside>
 </section>
@@ -763,10 +770,10 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <li class="tl__step tl__step--next">
         <p class="label">Ensuite, volet par volet</p>
         <ul class="tl__list">
-          <li><span class="tl__vol"><span>01</span>Outiller</span><span>Intégrer les outils au centre logiciel. Tester, puis choisir la base de l’assistant maison</span></li>
+          <li><span class="tl__vol"><span>01</span>Outiller</span><span>Intégrer les outils au centre logiciel. Valider l’ambition de créer un outil IA maison</span></li>
           <li><span class="tl__vol"><span>02</span>Former</span><span>Faire des tech leads des référents IA, lancer les webinaires</span></li>
           <li><span class="tl__vol"><span>03</span>Étendre</span><span>Avec les chefs de projet, livrer des cas d’usage à forte valeur ajoutée et suivre leur adoption</span></li>
-          <li><span class="tl__vol"><span>04</span>Harmoniser</span><span>Fournir les méthodes de travail communes</span></li>
+          <li><span class="tl__vol"><span>04</span>Harmoniser</span><span>Fournir les méthodes de travail communes à l’API Gateway</span></li>
         </ul>
       </li>
     </ol>
@@ -776,10 +783,10 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <ul>
       <li>Aujourd’hui&nbsp;: nous soumettons à votre validation la recommandation d’un assistant IA maison (slide 5). Elle implique un pilotage, un recueil des besoins, une feuille de route, une mise en place et un suivi de l’adoption. Ensuite&nbsp;: tester des outils open source, puis choisir la base (licence qui autorise la personnalisation, installation sur les PC Windows du ministère, compatibilité avec LiteLLM).</li>
       <li>Une seule date arrêtée&nbsp;: avant le 27 novembre, les données de vélocité de DACCORD, VAO et Honorabilité.</li>
-      <li>Outiller&nbsp;: intégrer les outils au centre logiciel des PC Windows du ministère, pour sécuriser leur pérennité.</li>
+      <li>Outiller&nbsp;: intégrer les outils au centre logiciel des PC Windows du ministère, pour sécuriser leur pérennité&#8239;; valider l’ambition de créer un outil IA maison.</li>
       <li>Former&nbsp;: les tech leads de toutes les équipes deviendront référents IA, avec une instance de veille IA&#8239;; lancer les webinaires sur l’IA.</li>
       <li>Étendre&nbsp;: côté chefs de projet, livrer des cas d’usage à forte valeur ajoutée et suivre leur adoption. L’adoption est à faire avancer chez DACCORD et à lancer chez VAO, Honorabilité et Egapro.</li>
-      <li>Harmoniser&nbsp;: SDPC fournira les méthodes de travail communes des développeurs et des chefs de projet.</li>
+      <li>Harmoniser&nbsp;: SDPC fournira à l’API Gateway les méthodes de travail communes des développeurs et des chefs de projet.</li>
     </ul>
   </aside>
 </section>
