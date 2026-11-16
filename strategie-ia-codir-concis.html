@@ -126,28 +126,26 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 
 /* ---------- 2 · Le problème : trois risques ---------- */
 .risks{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr) auto;column-gap:28px}
-.risk{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;min-width:0;padding:34px 40px 36px;background:var(--orange-975);border-top:8px solid var(--orange-645)}
+.risk{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;min-width:0;padding:24px 36px 30px;background:var(--orange-975);border-top:8px solid var(--orange-645)}
 .risk__head{display:flex;align-items:center;gap:20px}
-.risk__ico{display:grid;place-items:center;flex:none;width:80px;height:80px;background:var(--warn)}
-.risk__ico .ico{font-size:48px;color:#fff}
-.risk__name{font-size:46px;line-height:1.05;letter-spacing:-.015em;color:var(--warn)}
-.risk__what{margin-top:34px;font-size:45px;line-height:1.2;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
-.risk__what small{display:block;margin-top:12px;font-size:32px;line-height:1.25;font-weight:400;letter-spacing:0;color:var(--ink-2)}
-.risk__then{padding-top:24px;border-top:2px solid var(--orange-850);font-size:38px;line-height:1.28;color:var(--ink-2);text-wrap:balance}
+.risk__ico{display:grid;place-items:center;flex:none;width:72px;height:72px;background:var(--warn)}
+.risk__ico .ico{font-size:44px;color:#fff}
+.risk__name{font-size:44px;line-height:1.05;letter-spacing:-.015em;color:var(--warn)}
+.risk__what{margin-top:20px;font-size:42px;line-height:1.16;font-weight:700;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
+.risk__what small{display:block;margin-top:10px;font-size:30px;line-height:1.25;font-weight:400;letter-spacing:0;color:var(--ink-2)}
+.risk__then{padding-top:22px;border-top:2px solid var(--orange-850);font-size:34px;line-height:1.28;color:var(--ink-2);text-wrap:balance}
 
-/* ---------- 3 · Notre réponse : le risque, le volet, où nous en sommes ---------- */
+/* ---------- 3 · Notre réponse : une ligne par volet, avec en face le risque qu’il traite et où nous en sommes ---------- */
 .map{flex:1;min-height:0;display:flex;flex-direction:column}
-.map__head{flex:none;display:grid;grid-template-columns:330px 36px minmax(0,1.1fr) minmax(0,1fr);column-gap:26px;align-items:center;padding-bottom:12px;border-bottom:3px solid var(--bf)}
+.map__head,.map__row{display:grid;grid-template-columns:310px minmax(0,1fr) 500px;column-gap:32px;align-items:center}
+.map__head{flex:none;padding-bottom:12px;border-bottom:3px solid var(--bf)}
 .map__head .tag{font-size:28px}
-.map__body{flex:1;min-height:0;display:grid;grid-template-columns:330px minmax(0,1fr);grid-template-rows:repeat(4,minmax(0,1fr));column-gap:26px}
-.map__risks,.map__rows{grid-row:1 / -1;display:grid;grid-template-rows:subgrid}
-.map__risks li{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;margin:10px 0;border-right:6px solid var(--orange-645)}   /* l’accolade relie le risque à son ou ses volets */
-.map__risks li.is-span{grid-row:span 2}   /* un risque, deux volets */
-.map__row{display:grid;grid-template-columns:36px minmax(0,1.1fr) minmax(0,1fr);column-gap:26px;align-items:center;border-bottom:1px solid var(--line)}
+.map__rows{flex:1;min-height:0;display:flex;flex-direction:column}
+.map__row{flex:1 1 auto;align-items:start;align-content:center;border-bottom:1px solid var(--line)}   /* la hauteur suit le contenu : la ligne 04 porte deux définitions */
 .map__row:last-child{border-bottom:0}
+.map__risk{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
 .rchip{display:inline-flex;align-items:center;gap:12px;padding:5px 16px 5px 12px;background:var(--orange-975);border-left:6px solid var(--orange-645);color:var(--warn);font-size:30px;line-height:1.2;font-weight:700}
 .rchip .ico{font-size:30px}
-.map__arrow{width:36px;height:36px;background:var(--bf);-webkit-mask:var(--arrow) center/contain no-repeat;mask:var(--arrow) center/contain no-repeat}
 .vol{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:20px;align-items:baseline}
 .vol__num{font-size:44px;line-height:1;font-weight:700;color:var(--bf);font-variant-numeric:tabular-nums}
 .vol__verb{font-size:42px;line-height:1.1;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
@@ -189,10 +187,10 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .acc__grp--own .acc__pay .ico,.acc__grp--own .acc__pay em{color:var(--warn)}
 
 /* ---------- 5 · Assistant IA maison : aujourd’hui, notre recommandation ---------- */
-.rec{flex:1;min-height:0;display:grid;grid-template-columns:500px 44px minmax(0,1fr);grid-template-rows:minmax(0,1fr);column-gap:18px;align-items:stretch}
+.rec{flex:1;min-height:0;display:grid;grid-template-columns:560px 44px minmax(0,1fr);grid-template-rows:minmax(0,1fr);column-gap:18px;align-items:stretch}
 .rec__now{display:flex;flex-direction:column;gap:16px;min-width:0;padding:22px 28px 24px;background:var(--alt);border-top:8px solid var(--ink-3)}
 .rec__say{font-size:36px;line-height:1.2;font-weight:700;color:var(--ink);text-wrap:balance}
-.rec__tool{font-size:32px;line-height:1.25;color:var(--ink-2)}
+.rec__tool{font-size:32px;line-height:1.25;color:var(--ink-2);text-wrap:balance}
 .rec__tool strong{display:block;font-size:36px;line-height:1.15;color:var(--ink)}
 .rec__risk{margin-top:auto;display:flex;align-items:center;gap:14px;padding-top:16px;border-top:2px solid var(--line);white-space:nowrap;font-size:34px;line-height:1.2;font-weight:700;color:var(--warn)}
 .rec__risk .ico{font-size:40px}
@@ -206,6 +204,9 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .rec__card .ico{font-size:48px;color:var(--bf)}
 .rec__card h4{font-size:36px;line-height:1.15}
 .rec__card p{margin-top:2px;font-size:30px;line-height:1.2;color:var(--ink-2)}
+.rec__needs ul{flex:1;min-width:0;display:flex;align-items:center}   /* les cinq chantiers que la recommandation engage */
+.rec__needs li{flex:1 1 auto;text-align:center;font-size:30px;line-height:1.3;font-weight:500;color:var(--ink);white-space:nowrap}
+.rec__needs li + li{border-left:2px solid var(--bf-850)}
 
 /* ---------- 6 · Former : trois étapes, chacune avec son public et son résultat ---------- */
 .steps{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr) auto;column-gap:44px}
@@ -270,7 +271,7 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .duo__items > li > .ico{flex:none;width:72px;font-size:60px;color:var(--bf)}
 .duo__items .pop__ico{width:72px;height:72px}
 .duo__items .pop__ico .ico{font-size:42px}
-.duo__items small{display:block;margin-top:6px;font-size:32px;font-weight:400;color:var(--ink-2)}
+.duo__items small{display:block;margin-top:6px;font-size:30px;line-height:1.2;font-weight:400;color:var(--ink-2);white-space:normal;text-wrap:balance}
 
 /* ---------- 10 · La suite : aujourd’hui, avant le 27 novembre, ensuite ---------- */
 .tl{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,.74fr) minmax(0,.86fr) minmax(0,1.8fr);grid-template-rows:minmax(0,1fr);column-gap:44px}
@@ -384,7 +385,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <li class="risk">
         <p class="risk__head"><span class="risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg></span><strong class="risk__name">Shadow IA</strong></p>
         <p class="risk__what">Des IA <span class="nw">grand public</span> utilisées hors du cadre</p>
-        <p class="risk__then">Faute d’outil officiel attrayant</p>
+        <p class="risk__then">Faute d’outil officiel attrayant, et sur des PC Windows très restreints, où l’on n’installe pas tout ce que l’on souhaite</p>
       </li>
       <li class="risk">
         <p class="risk__head"><span class="risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg></span><strong class="risk__name">Dépendance</strong></p>
@@ -393,8 +394,8 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       </li>
       <li class="risk">
         <p class="risk__head"><span class="risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg></span><strong class="risk__name">Désorganisation</strong></p>
-        <p class="risk__what">L’IA reste l’affaire des seuls développeurs</p>
-        <p class="risk__then">Sans les autres métiers, le produit fait deux pas en avant, un en arrière</p>
+        <p class="risk__what">Les développeurs s’approprient l’IA plus vite que les autres fonctions<small>Mais imparfaitement, sans coaching</small></p>
+        <p class="risk__then">Sans les autres fonctions, le produit fait deux pas en avant, un en arrière</p>
       </li>
     </ul>
   </div>
@@ -402,9 +403,9 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <aside class="notes">
     <ul>
       <li>Nos agents utiliseront l’IA de toute façon. La vraie question&nbsp;: avec quels outils, et sous quelle dépendance.</li>
-      <li>Shadow IA&nbsp;: l’usage d’IA grand public hors du cadre, faute d’outil officiel attrayant.</li>
+      <li>Shadow IA&nbsp;: l’usage d’IA grand public hors du cadre, faute d’outil officiel attrayant. Les PC Windows du ministère sont très restreints&nbsp;: ils ne permettent pas d’installer tout ce que l’on souhaite, ce qui peut conduire au shadow IA.</li>
       <li>Dépendance&nbsp;: pour des résultats modérément viables, on peut passer par les outils américains clés en main et se reposer sur nos lauriers. C’est ainsi que commence le «&nbsp;ça ne marche que sur Claude&nbsp;». Si une puissance étrangère nous contraint à en changer, on repart de zéro.</li>
-      <li>Désorganisation&nbsp;: si seuls les développeurs maîtrisent l’IA, les problèmes d’organisation s’aggravent. Les développeurs ne disent plus non, le produit fait deux pas en avant, un en arrière, et le chef de projet devient le goulot d’étranglement. Et sans méthodes communes, chaque équipe invente seule ses pratiques.</li>
+      <li>Désorganisation&nbsp;: les développeurs s’approprient l’IA plus vite que les autres fonctions, même si, sans coaching, ils ne la maîtrisent pas parfaitement. S’ils avancent seuls, les problèmes d’organisation s’aggravent. Les développeurs ne disent plus non, le produit fait deux pas en avant, un en arrière, et le chef de projet devient le goulot d’étranglement. Et sans méthodes communes, chaque équipe invente seule ses pratiques.</li>
       <li>Contexte&nbsp;: les abonnements permettent aujourd’hui de consommer plus d’IA qu’on n’en paie, mais temporairement. Au départ, les développeurs découvraient l’IA, les architectes n’avaient exprimé aucun intérêt, les designers lui voyaient peu de valeur, et pour les chefs de projet c’était une boîte noire.</li>
     </ul>
   </aside>
@@ -418,37 +419,30 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   </div>
   <div class="s-body">
     <div class="map">
-      <div class="map__head" aria-hidden="true"><span class="tag tag--pb">Le risque</span><span></span><span class="tag tag--how">Le volet</span><span class="tag tag--res">Où nous en sommes</span></div>
+      <div class="map__head" aria-hidden="true"><span class="tag tag--pb">Le risque</span><span class="tag tag--how">Le volet</span><span class="tag tag--res">Où nous en sommes</span></div>
       <h3 class="sr">Les quatre volets&nbsp;: le risque traité, le volet, où nous en sommes</h3>
-      <div class="map__body">
-        <ul class="map__risks" aria-hidden="true">
-          <li><span class="rchip"><svg class="ico"><use href="#i-eye-off"/></svg>Shadow IA</span><span class="rchip"><svg class="ico"><use href="#i-links"/></svg>Dépendance</span></li>
-          <li><span class="rchip"><svg class="ico"><use href="#i-links"/></svg>Dépendance</span></li>
-          <li class="is-span"><span class="rchip"><svg class="ico"><use href="#i-go-back"/></svg>Désorganisation</span></li>
-        </ul>
-        <ol class="map__rows">
-          <li class="map__row">
-            <span class="map__arrow" aria-hidden="true"></span>
-            <p class="vol"><span class="vol__num">01</span><span class="vol__verb">Outiller</span><span class="vol__what">Une IA souveraine, payée à l’usage<span class="sr">. Risques traités&nbsp;: shadow IA, dépendance.</span></span></p>
-            <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span>Elle fonctionne sur les PC du ministère</span></p>
-          </li>
-          <li class="map__row">
-            <span class="map__arrow" aria-hidden="true"></span>
-            <p class="vol"><span class="vol__num">02</span><span class="vol__verb">Former</span><span class="vol__what">Des agents performants, <span class="nw">quel que soit le fournisseur</span><span class="sr">. Risque traité&nbsp;: dépendance.</span></span></p>
-            <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span><span class="nw">4 métiers acculturés,</span> <span class="nw">3 équipes accompagnées</span></span></p>
-          </li>
-          <li class="map__row">
-            <span class="map__arrow" aria-hidden="true"></span>
-            <p class="vol"><span class="vol__num">03</span><span class="vol__verb">Étendre à tous les métiers</span><span class="vol__what">Pas seulement les développeurs<span class="sr">. Risque traité&nbsp;: désorganisation.</span></span></p>
-            <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span>Chaque métier a progressé</span></p>
-          </li>
-          <li class="map__row">
-            <span class="map__arrow" aria-hidden="true"></span>
-            <p class="vol"><span class="vol__num">04</span><span class="vol__verb">Harmoniser</span><span class="vol__what">Un socle et des méthodes de travail communes<span class="sr">. Risque traité&nbsp;: désorganisation.</span></span></p>
-            <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span>Socle en place<span class="got__next">Méthodes à venir</span></span></p>
-          </li>
-        </ol>
-      </div>
+      <ol class="map__rows">
+        <li class="map__row">
+          <p class="map__risk"><span class="sr">Risques traités&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg>Shadow IA</span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
+          <p class="vol"><span class="vol__num">01</span><span class="vol__verb">Outiller</span><span class="vol__what">Une IA souveraine, payée à l’usage</span></p>
+          <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span>Elle fonctionne sur les PC du ministère</span></p>
+        </li>
+        <li class="map__row">
+          <p class="map__risk"><span class="sr">Risque traité&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
+          <p class="vol"><span class="vol__num">02</span><span class="vol__verb">Former</span><span class="vol__what">Des agents performants, <span class="nw">quel que soit le fournisseur</span></span></p>
+          <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span><span class="nw">4 fonctions acculturées,</span> <span class="nw">3 équipes accompagnées</span></span></p>
+        </li>
+        <li class="map__row">
+          <p class="map__risk"><span class="sr">Risque traité&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg>Désorganisation</span></p>
+          <p class="vol"><span class="vol__num">03</span><span class="vol__verb">Étendre à tous les métiers</span><span class="vol__what">Pas seulement les développeurs</span></p>
+          <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span>Chaque métier a progressé</span></p>
+        </li>
+        <li class="map__row">
+          <p class="map__risk"><span class="sr">Risque traité&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg>Désorganisation</span></p>
+          <p class="vol"><span class="vol__num">04</span><span class="vol__verb">Harmoniser</span><span class="vol__what"><b>Un socle</b>&nbsp;: l’accès unique et sécurisé à l’IA<br><b>Des méthodes de travail communes</b>&nbsp;: <span class="nw">les savoir-faire et les outils donnés à l’IA</span></span></p>
+          <p class="got"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><span class="sr">Où nous en sommes&nbsp;: </span>Socle en place<span class="got__next">Méthodes à venir</span></span></p>
+        </li>
+      </ol>
     </div>
     <div class="forwho">
       <h3 class="tag tag--how">Pour qui</h3>
@@ -465,7 +459,8 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <ul>
       <li>Notre réponse tient en quatre volets, et chacun répond à un risque de la slide précédente.</li>
       <li>Outiller contre le shadow IA et la dépendance&#8239;; former contre la dépendance (à un fournisseur comme à une seule personne)&#8239;; étendre à tous les métiers et harmoniser contre la désorganisation, pour que chaque équipe n’invente pas seule ses pratiques.</li>
-      <li>Quatre métiers sont concernés&nbsp;: développeurs, architectes, designers, chefs de projet.</li>
+      <li>Quatre fonctions sont concernées&nbsp;: développeurs, architectes, designers, chefs de projet.</li>
+      <li>Harmoniser&nbsp;: le socle, c’est LiteLLM (une API Gateway), l’accès unique et sécurisé aux modèles d’IA. Les méthodes de travail communes, ce sont les skills et les MCP communs&nbsp;: des savoir-faire donnés à l’IA et ses connexions à nos outils.</li>
       <li>Où nous en sommes&nbsp;: l’IA souveraine fonctionne sur les PC du ministère. DACCORD en est à optimiser ses orchestrations, VAO et Honorabilité les démarrent. La vélocité des trois équipes sera mesurée avant le 27 novembre.</li>
     </ul>
   </aside>
@@ -525,14 +520,14 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <section class="rec__now" aria-labelledby="r-now">
         <h3 class="tag" id="r-now">Aujourd’hui</h3>
         <p class="rec__say">Des outils officiels, mais peu attrayants</p>
-        <p class="rec__tool"><strong>OpenCode Desktop</strong>Une interface qui rebute</p>
+        <p class="rec__tool"><strong>OpenCode Desktop</strong>Une ergonomie moins attractive que celle de ses concurrents</p>
         <p class="rec__tool"><strong>PLIAGE</strong>Fermé, sans la souplesse des outils IA</p>
         <p class="rec__risk"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg>Risque&nbsp;: le shadow IA</p>
       </section>
       <span class="rec__arrow" aria-hidden="true"></span>
       <section class="rec__new" aria-labelledby="r-new">
         <h3 class="tag" id="r-new">Soumis à votre validation</h3>
-        <p class="rec__goal">Un assistant open source existant,<br>adapté à nos besoins</p>
+        <p class="rec__goal">Un outil open source existant,<br>adapté à nos besoins</p>
         <p class="rec__base">Branché sur nos modèles souverains et notre sécurité</p>
         <ul class="rec__cards">
           <li class="rec__card"><svg class="ico" aria-hidden="true"><use href="#i-user-heart"/></svg><div><h4>Pour tous les profils</h4><p>Même les non-technophiles</p></div></li>
@@ -541,14 +536,15 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         </ul>
       </section>
     </div>
-    <div class="res res--next"><h3 class="tag tag--next">À venir</h3><p>Tester des assistants open source, puis choisir la base de l’assistant maison.</p></div>
+    <div class="res res--next rec__needs"><h3 class="tag tag--next">Ce que cela implique</h3><ul><li>Pilotage</li><li>Recueil des besoins</li><li>Feuille de route</li><li>Mise en place</li><li>Suivi de l’adoption</li></ul></div>
   </div>
   <footer class="s-foot"><span><strong>Stratégie IA</strong> · Point d’étape pour la direction · Novembre 2026</span><span>Selim Boukhari<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>Aujourd’hui, l’offre officielle passe par OpenCode Desktop, dont l’interface rebute les utilisateurs (une qualité d’usage en décalage avec toutes les autres solutions, qui peut freiner l’adoption), et par PLIAGE, fermé à la flexibilité des outils IA.</li>
+      <li>Aujourd’hui, l’offre officielle passe par OpenCode Desktop, dont l’ergonomie est moins attractive que celle de ses concurrents (une qualité d’usage en décalage avec les standards du marché, qui peut freiner l’adoption), et par PLIAGE, fermé à la flexibilité des outils IA.</li>
       <li>Pour éviter le shadow IA, il faut un outil qui, sur les PC du ministère, donne envie d’être utilisé.</li>
       <li>Notre recommandation, soumise à votre validation&nbsp;: reprendre une des nombreuses alternatives open source et la personnaliser pour nos besoins.</li>
+      <li>Ce que la recommandation implique&nbsp;: un pilotage, un recueil des besoins, une feuille de route, une mise en place et un suivi de l’adoption.</li>
       <li>Trois avantages&nbsp;: recueillir les besoins des profils non technophiles et adapter l’outil&#8239;; choisir les fonctions par population, et renforcer la sécurité si besoin&#8239;; renforcer l’approche produit, chaque demande étant complétée automatiquement, sans effort pour l’agent, par des consignes (un «&nbsp;prompt système&nbsp;») qui améliorent la réponse.</li>
       <li>On ne part pas de zéro, et l’outil reste branché sur LiteLLM, donc sur les modèles souverains et la sécurité déjà en place.</li>
       <li>Résultat attendu&nbsp;: un outil officiel que les agents ont envie d’utiliser, donc un frein à l’adoption en moins.</li>
@@ -571,7 +567,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         <p class="step__what">Comprendre l’IA, sans boîte noire</p>
         <div class="step__got">
           <span class="step__icons" aria-hidden="true"><span class="pop__ico"><svg class="ico"><use href="#i-code"/></svg></span><span class="pop__ico"><svg class="ico"><use href="#i-compasses"/></svg></span><span class="pop__ico"><svg class="ico"><use href="#i-palette"/></svg></span><span class="pop__ico"><svg class="ico"><use href="#i-roadmap"/></svg></span></span>
-          <p><strong>4 métiers acculturés</strong></p></div>
+          <p><strong>4 fonctions acculturées</strong></p></div>
       </li>
       <li class="step">
         <p class="step__head"><span class="step__num">2</span><span class="step__verb">Accompagner</span></p>
@@ -724,10 +720,10 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <section class="duo__col duo__col--methodes" aria-labelledby="c-sdpc">
         <p class="label">Les méthodes de travail communes</p>
         <div class="duo__row"><h3 class="duo__name" id="c-sdpc">SDPC</h3><span class="badge badge--next">À venir</span></div>
-        <p class="duo__with">Deux studios, portés par <strong>Selim</strong></p>
+        <p class="duo__with">Studios pilotés jusqu’ici par <strong>Selim</strong>, expert IA</p>
         <ul class="duo__items">
           <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span><span><strong>Les méthodes des développeurs</strong><small>Studio tech</small></span></li>
-          <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg></span><span><strong>Les méthodes des chefs de projet</strong><small>Studio produit, avec leur référente</small></span></li>
+          <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg></span><span><strong>Les méthodes des chefs de projet</strong><small>Studio produit · besoins recueillis avec leur référente, puis optimisés avec l’IA</small></span></li>
         </ul>
       </section>
     </div>
@@ -737,9 +733,9 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <ul>
       <li>SDCID et SDPC agissent toutes deux sur l’IA. Sans méthodes communes, chaque équipe construit ses propres pratiques.</li>
       <li>À chacune son rôle&nbsp;: la technique à SDCID, les méthodes à SDPC.</li>
-      <li>SDCID, avec Victor et Adrien, fournit le socle&nbsp;: LiteLLM, le point d’accès unique aux modèles d’IA, et la sécurité.</li>
-      <li>À venir&nbsp;: SDPC fournira les méthodes de travail communes (workflows standards) des développeurs et des chefs de projet, pour harmoniser les pratiques de nos utilisateurs.</li>
-      <li>Studio tech&nbsp;: sous la responsabilité de Selim, expert IA et compétent en tech. Studio produit&nbsp;: Selim, expert IA, avec l’aide de la référente des chefs de projet.</li>
+      <li>SDCID, avec Victor et Adrien, fournit le socle&nbsp;: LiteLLM (une API Gateway), le point d’accès unique aux modèles d’IA, et la sécurité.</li>
+      <li>À venir&nbsp;: SDPC fournira les méthodes de travail communes (skills et MCP communs&nbsp;: des savoir-faire donnés à l’IA et ses connexions à nos outils) des développeurs et des chefs de projet, pour harmoniser les pratiques de nos utilisateurs.</li>
+      <li>Jusqu’ici, Selim pilote le studio produit et le studio tech par son expertise IA. Côté produit, il s’appuiera sur la référente des chefs de projet pour recueillir les besoins et les optimiser avec l’IA.</li>
     </ul>
   </aside>
 </section>
@@ -756,7 +752,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         <p class="label">Aujourd’hui</p>
         <h3 class="tl__what">Soumis à votre validation</h3>
         <p class="tl__big">Un assistant IA maison</p>
-        <p class="tl__sub">Un assistant open source existant, adapté à nos besoins</p>
+        <p class="tl__sub">Un outil open source existant, adapté à nos besoins</p>
       </li>
       <li class="tl__step tl__step--date">
         <p class="label"><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg><span>Avant<br>le 27&nbsp;novembre</span></p>
@@ -778,7 +774,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <footer class="s-foot"><span><strong>Stratégie IA</strong> · Point d’étape pour la direction · Novembre 2026</span><span>Selim Boukhari<span class="s-foot__page" data-page></span></span></footer>
   <aside class="notes">
     <ul>
-      <li>Aujourd’hui&nbsp;: nous soumettons à votre validation la recommandation d’un assistant IA maison (slide 5). Ensuite&nbsp;: tester des assistants open source, puis choisir la base (licence qui autorise la personnalisation, installation sur les PC Windows du ministère, compatibilité avec LiteLLM).</li>
+      <li>Aujourd’hui&nbsp;: nous soumettons à votre validation la recommandation d’un assistant IA maison (slide 5). Elle implique un pilotage, un recueil des besoins, une feuille de route, une mise en place et un suivi de l’adoption. Ensuite&nbsp;: tester des outils open source, puis choisir la base (licence qui autorise la personnalisation, installation sur les PC Windows du ministère, compatibilité avec LiteLLM).</li>
       <li>Une seule date arrêtée&nbsp;: avant le 27 novembre, les données de vélocité de DACCORD, VAO et Honorabilité.</li>
       <li>Outiller&nbsp;: intégrer les outils au centre logiciel des PC Windows du ministère, pour sécuriser leur pérennité.</li>
       <li>Former&nbsp;: les tech leads de toutes les équipes deviendront référents IA, avec une instance de veille IA&#8239;; lancer les webinaires sur l’IA.</li>
