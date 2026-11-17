@@ -1,0 +1,12 @@
+besoins Manuel:
+
+- interroger une doc technique
+--- un DA
+--- des documents spécifiques pour documenter le systeme mis en place pour un sujet spécifique
+--- pas assez de documentation
+
+- interroger une doc fonctionnelle
+--- Tickets du board
+
+-> générer une doc
+-> enrichir cette doc 

@@ -1,0 +1,55 @@
+comment je fais augmenter la production chez elle:
+- je forme toutes les fonctions : donc je te permets d'éviter les problèmes de désorganisation
+--
+-- donc je te permets d'éviter de te faire vendor locké grâce à 
+- j'accompagne des référents : 
+- je 
+
+opportunité:
+--> quelle est l'opportunité de l'IA
+
+risques: 
+--> risques qu'on identifie
+
+nos résultats, et comment on a adressé les risques
+
+la slide des 4 volets -> mettre les volets en stream
+
+slide 4: les commentaires de bas de slide c'est pas good ergo
+
+slide 5: mettre en avant le risque sur l'adoption - pb de conduite du changement à mettre en avant encore plus 
+ce que ça implique -> en faire une slide entière 
+
+slide 6: 
+usage léger ça parle pas
+maitrise de l'état de l'art 
+d'un usage léger à la maitrise de l'état de l'art
+d'usagers qui débutent sur l'IA à une maîtrise avancée 
+
+Anonymiser les équipes et les noms, on s'en fiche et ça rendra les slides adaptées à tous les contextes 
+
+same slide 7
+
+slide 9 :
+bizarre de lire qu'on compare des roles et des entités...
++ le en place et à venir à challenger, on est tous dans du à venir si ce n'est qu'on a LiteLLM
+
+slide 10 -> une conclusion à tout ce qui a été montré
+
+
+la slide 8 ferait une conclusion, mais il faut la refaire pour qu'elle soit plus compréhensible et moins chargée
+montrée d'où on part, où on arrive, rendre ça visuel pour avoir une idée de la quantité d'effort nécessaire pour les différentes équipes
+
+
+____
+
+
+La DNUM se dévoile 
+
+on a compris que c'était bien
+qu'aujourd'hui ils avaient pas accès 
+et là on leur donne accès et comment on s'y prend 
+___
+
+initier au sujet de l'usine agentique -> une slide à faire sur le 27
+

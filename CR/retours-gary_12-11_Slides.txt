@@ -1,0 +1,8 @@
+Adrien:
+- trouve que c'est clair
+
+Gary:
+- Tenter de raconter une histoire, moins citer Mathilda
+- Être plus percutant sur les messages
+- Framework à utiliser: quel pb, contexte, comment on l'adresse, pourquoi on le fait ainsi, quel résultat
+- Ajouter des slides qui montrent comment on maitrise les usages, via notre api gateway

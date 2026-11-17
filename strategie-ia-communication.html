@@ -114,6 +114,8 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .split__title{margin-top:20px;font-size:76px;line-height:1.06;letter-spacing:-.025em;text-wrap:balance}
 .split__title span{color:var(--bf)}
 .split__lead{margin-top:24px;font-size:38px;line-height:1.3;color:var(--ink-2);text-wrap:balance}
+.split__def{margin-top:22px;padding-left:20px;border-left:6px solid var(--bf);font-size:34px;line-height:1.3;color:var(--ink-2)}   /* définition du mot-clé du deck */
+.split__def strong{color:var(--bf)}
 .split__foot{flex:none;margin-top:auto;height:60px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);font-size:24px;color:var(--ink-3)}
 .split__foot strong{color:var(--ink)}
 .split__aside{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:64px;background:var(--bf);color:#fff}
@@ -448,12 +450,13 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <div class="split__heading">
       <p class="kicker">L’opportunité</p>
       <h2 class="split__title" id="t2">Avec l’IA, une montée en vélocité est <span>à notre portée</span></h2>
+      <p class="split__def"><strong>La vélocité</strong>&nbsp;: le rythme auquel une équipe livre.</p>
       <p class="split__lead">L’IA enchaîne seule les étapes d’un travail, l’équipe pilote et valide.</p>
     </div>
     <ul class="facts">
       <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Une équipe de développement</strong> travaille déjà ainsi</span></li>
       <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Deux autres</strong> démarrent</span></li>
-      <li class="is-next"><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg><span>Vélocité mesurée <strong>avant le 27&nbsp;novembre</strong></span></li>
+      <li class="is-next"><svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg><span>Prochaine étape&nbsp;: <strong>mesurer la vélocité</strong></span></li>
     </ul>
     <p class="split__foot"><span><strong>Stratégie IA</strong> · 19 novembre 2026</span><span class="s-foot__page" data-page></span></p>
   </div>
@@ -481,9 +484,9 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   </div>
   <aside class="notes">
     <ul>
-      <li>L’opportunité de l’IA, c’est une montée en vélocité&nbsp;: l’IA enchaîne seule les étapes d’un travail, l’équipe fixe le cap, pilote et valide.</li>
+      <li>L’opportunité de l’IA, c’est une montée en vélocité, c’est-à-dire du rythme auquel une équipe livre&nbsp;: l’IA enchaîne seule les étapes d’un travail, l’équipe fixe le cap, pilote et valide.</li>
       <li>C’est déjà le quotidien d’une équipe de développement&nbsp;: elle a éprouvé ce fonctionnement pendant plusieurs semaines et en est à l’optimiser. Deux autres équipes démarrent.</li>
-      <li>Pas de chiffre à l’écran tant que la vélocité n’est pas mesurée&nbsp;: la mesure est prévue avant le 27 novembre, dans les trois équipes. Si la question vient&nbsp;: dans la première équipe, les développeurs perçoivent une vélocité plus que triplée en un mois.</li>
+      <li>Pas de chiffre à l’écran tant que la vélocité n’est pas mesurée&nbsp;: la mesure est à venir, dans les trois équipes de développement. Si la question vient&nbsp;: dans la première équipe, les développeurs perçoivent une vélocité plus que triplée en un mois.</li>
       <li>L’opportunité vaut pour toutes les fonctions, pas seulement pour le code&nbsp;: le besoin, la maquette, l’architecture (slide 10).</li>
     </ul>
   </aside>
@@ -493,7 +496,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
 <section class="slide" data-title="Les risques" aria-labelledby="t3">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">Les risques</p></header>
   <div class="s-head">
-    <h2 class="title" id="t3">Sans cadre, cette vitesse expose à trois risques</h2>
+    <h2 class="title" id="t3">Saisie sans cadre, l’opportunité expose à trois risques</h2>
   </div>
   <div class="s-body">
     <ul class="risks">
@@ -536,28 +539,28 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   </div>
   <div class="s-body">
     <div class="streams">
-      <div class="streams__head" aria-hidden="true"><span class="tag tag--how">Le volet, et ce qu’il fait gagner</span><span class="tag tag--how tag--ico"><svg class="ico"><use href="#i-shield"/></svg>Au passage, le risque traité</span></div>
+      <div class="streams__head" aria-hidden="true"><span class="tag tag--how">Le volet, et ce qu’il fait gagner</span><span class="tag tag--how tag--ico"><svg class="ico"><use href="#i-shield"/></svg>Au passage, le risque pris en charge</span></div>
       <h3 class="sr">Les quatre volets, menés de front&nbsp;: ce que chacun fait gagner, et le risque qu’il traite au passage</h3>
       <ol class="lanes">
         <li class="lane">
           <span class="lane__num">01</span>
           <p class="lane__what"><strong class="lane__verb">Outiller</strong><span class="lane__gain">Une IA souveraine sur les PC du ministère</span></p>
-          <p class="lane__risk"><span class="sr">Risques traités au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg>Shadow IA</span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
+          <p class="lane__risk"><span class="sr">Risques pris en charge au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg>Shadow IA</span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
         </li>
         <li class="lane">
           <span class="lane__num">02</span>
           <p class="lane__what"><strong class="lane__verb">Former</strong><span class="lane__gain">Des agents qui maîtrisent l’IA, <span class="nw">quel que soit le fournisseur</span></span></p>
-          <p class="lane__risk"><span class="sr">Risque traité au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
+          <p class="lane__risk"><span class="sr">Risque pris en charge au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
         </li>
         <li class="lane">
           <span class="lane__num">03</span>
-          <p class="lane__what"><strong class="lane__verb">Étendre à toutes les fonctions</strong><span class="lane__gain">Toute la chaîne progresse, du besoin au code</span></p>
-          <p class="lane__risk"><span class="sr">Risque traité au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg><span>Désorganisation<small>entre fonctions</small></span></span></p>
+          <p class="lane__what"><strong class="lane__verb">Étendre à toutes les fonctions</strong><span class="lane__gain">Développeurs, architectes, designers, chefs de projet</span></p>
+          <p class="lane__risk"><span class="sr">Risque pris en charge au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg><span>Désorganisation<small>entre fonctions</small></span></span></p>
         </li>
         <li class="lane">
           <span class="lane__num">04</span>
           <p class="lane__what"><strong class="lane__verb">Harmoniser</strong><span class="lane__gain">Le progrès d’une équipe profite à toutes</span></p>
-          <p class="lane__risk"><span class="sr">Risque traité au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg><span>Désorganisation<small>entre équipes</small></span></span></p>
+          <p class="lane__risk"><span class="sr">Risque pris en charge au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg><span>Désorganisation<small>entre équipes</small></span></span></p>
         </li>
       </ol>
       <p class="dest"><svg class="ico" aria-hidden="true"><use href="#i-flashlight"/></svg><span class="dest__name">Montée<br>en vélocité</span><span class="dest__sub">dans toutes<br>les fonctions</span></p>
@@ -858,7 +861,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <li>Chefs de projet&nbsp;: trois chefs de projet et leur référente formés. La référente est désormais accompagnée pour suivre les chefs de projet dans le temps&nbsp;: l’enjeu est l’adoption. La suite&nbsp;: livrer des cas d’usage à forte valeur ajoutée et les mettre à disposition des utilisateurs.</li>
       <li>Designers&nbsp;: des prototypes en quelques demandes à l’IA, des maquettes Figma conformes au DSFR. Deux designers formés, un référent accompagné. La suite&nbsp;: poursuivre la formation des designers.</li>
       <li>Architectes&nbsp;: l’outil accélère l’analyse de cohérence des dossiers d’architecture, et peut en générer. La suite&nbsp;: développer de nouveaux cas d’usage.</li>
-      <li>Développeurs&nbsp;: une équipe a éprouvé pendant plusieurs semaines l’enchaînement des étapes par l’IA (l’orchestration) et en est à l’optimiser. Deux autres équipes démarrent. La vélocité des trois équipes sera mesurée avant le 27 novembre.</li>
+      <li>Développeurs&nbsp;: une équipe a éprouvé pendant plusieurs semaines l’enchaînement des étapes par l’IA (l’orchestration) et en est à l’optimiser. Deux autres équipes démarrent. La vélocité des trois équipes reste à mesurer.</li>
     </ul>
   </aside>
 </section>
@@ -983,7 +986,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <ul class="beats">
       <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-flashlight"/></svg></span><span><strong>Une montée en vélocité</strong><span>Dans une équipe, l’IA enchaîne déjà seule les étapes</span></span></li>
       <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span><span><strong>Quatre volets menés de front</strong><span>4 fonctions acculturées, 3 équipes accompagnées, une IA souveraine en place</span></span></li>
-      <li class="is-risk"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span><span><strong>Trois risques traités au passage</strong><span>Shadow IA, dépendance, désorganisation</span></span></li>
+      <li class="is-risk"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span><span><strong>Trois risques pris en charge au passage</strong><span>Shadow IA, dépendance, désorganisation</span></span></li>
     </ul>
     <p class="split__foot"><span><strong>Stratégie IA</strong> · 19 novembre 2026</span><span class="s-foot__page" data-page></span></p>
   </div>
@@ -991,7 +994,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <p class="label">La suite</p>
     <ol class="next">
       <li>
-        <p class="next__when"><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg>Avant le 27&nbsp;novembre</p>
+        <p class="next__when"><svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg>Prochaine étape</p>
         <p class="next__what">Mesurer la vélocité</p>
         <p class="next__sub">Dans 3 équipes de développement</p>
       </li>
@@ -1012,7 +1015,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <li>En résumé&nbsp;: l’IA est une opportunité de vélocité, déjà visible dans une équipe où l’IA enchaîne seule les étapes.</li>
       <li>Nous la saisissons sur quatre volets menés de front&nbsp;: quatre fonctions acculturées, trois équipes de développement accompagnées, une IA souveraine en place sur les PC du ministère, le socle (API Gateway LiteLLM) en place.</li>
       <li>Au passage, chaque volet traite un risque&nbsp;: shadow IA, dépendance, désorganisation entre fonctions et entre équipes.</li>
-      <li>La suite&nbsp;: une date arrêtée, la mesure de la vélocité dans les trois équipes de développement avant le 27 novembre&#8239;; une validation attendue, l’ambition d’un outil IA maison&#8239;; et, dans la durée, l’adoption dans toutes les fonctions, portée par les référents.</li>
+      <li>La suite&nbsp;: la mesure de la vélocité dans les trois équipes de développement&#8239;; une validation attendue, l’ambition d’un outil IA maison&#8239;; et, dans la durée, l’adoption dans toutes les fonctions, portée par les référents.</li>
       <li>Par volet&nbsp;: intégrer les outils au centre logiciel&#8239;; faire des tech leads des référents IA et lancer les webinaires&#8239;; avec les chefs de projet, livrer des cas d’usage à forte valeur ajoutée et suivre leur adoption&#8239;; fournir les méthodes de travail communes à l’API Gateway.</li>
     </ul>
   </aside>
