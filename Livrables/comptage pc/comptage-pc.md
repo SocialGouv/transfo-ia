@@ -62,7 +62,7 @@ Source : organigramme de la Sous-Direction des produits et communs numériques (
 | Delphine DELAVENNE | Directrice de projet numérique | Studio produits et communs (SPC) | Interne | Windows |
 | Olivier TOUMSY | Responsable des opérations produit (ProductOps) | Studio produits et communs (SPC) | Interne | Windows |
 | Norman WOZNIAK | Responsable du Design - Chief Design Officer | Studio produits et communs (SPC) | Interne | Windows |
-| Raphaël BAILLY | Designer | Studio produits et communs (SPC) | Externe | Windows |
+| Raphaël BAILLY | Designer | Studio produits et communs (SPC) | Externe | A REMPLIR |
 | Pierre BONNIER | Recherche utilisateur | Studio produits et communs (SPC) | Externe | Windows |
 | Margot CHAZALVIEL | Designer | Studio produits et communs (SPC) | Externe | Windows |
 | Arnaud COATRINE | Recherche utilisateur | Studio produits et communs (SPC) | Externe | Windows |
@@ -77,7 +77,7 @@ Source : organigramme de la Sous-Direction des produits et communs numériques (
 | Teodora STANKIEWICZ | Designer | Studio produits et communs (SPC) | Externe | Windows |
 | Charlotte TYRODE | Recherche utilisateur | Studio produits et communs (SPC) | Externe | Windows |
 | Lucie VIDAL | Designer | Studio produits et communs (SPC) | Externe | Windows |
-| Adrien CHAUVE | Chef de studio | Studio technique (ST) | Interne | Windows |
+| Adrien CHAUVE | Chef de studio | Studio technique (ST) | Interne | Mac |
 | Gary VAN WOERKENS | Adjoint | Studio technique (ST) | Interne | Mac |
 | Nathan JANVIER | Développeur (apprenti) | Studio technique (ST) | Interne | Windows |
 | Sylvain BLANCHE | Développeur | Studio technique (ST) | Interne | Linux |
@@ -85,7 +85,7 @@ Source : organigramme de la Sous-Direction des produits et communs numériques (
 | Benjamin PINARD | Développeur | Studio technique (ST) | Interne | Linux |
 | Olivier RABOT | Développeur | Studio technique (ST) | Interne | Mac |
 | Laurent SCHERER | Développeur | Studio technique (ST) | Interne | Linux |
-| Sami TLILI | Développeur | Studio technique (ST) | Interne | Windows |
+| Sami TLILI | Développeur | Studio technique (ST) | Interne | Mac |
 | Rémi FRESKO | Responsable architecture des solutions et de l'accompagnement technique | Studio technique (ST) | Interne | Windows |
 | Katia LOGGER | Cheffe de projet technique | Studio technique (ST) | Interne | Windows |
 | Guy-Pierre ZAMBRZYCKI | Ingénieur DevSecOps | Studio technique (ST) | Interne | Windows |
