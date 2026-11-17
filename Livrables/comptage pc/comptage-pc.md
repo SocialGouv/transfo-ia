@@ -60,9 +60,9 @@ Source : organigramme de la Sous-Direction des produits et communs numériques (
 | Dominique BOUTEILLER | Responsable accessibilité numérique | Studio produits et communs (SPC) | Interne | Windows |
 | Nina COULON | Responsable de la recherche utilisateurs | Studio produits et communs (SPC) | Interne | Windows |
 | Delphine DELAVENNE | Directrice de projet numérique | Studio produits et communs (SPC) | Interne | Windows |
-| Olivier TOUMSY | Responsable des opérations produit (ProductOps) | Studio produits et communs (SPC) | Interne | Windows |
-| Norman WOZNIAK | Responsable du Design - Chief Design Officer | Studio produits et communs (SPC) | Interne | Windows |
-| Raphaël BAILLY | Designer | Studio produits et communs (SPC) | Externe | A REMPLIR |
+| Olivier TOUMSY | Responsable des opérations produit (ProductOps) | Studio produits et communs (SPC) | Interne | A REMPLIR |
+| Norman WOZNIAK | Responsable du Design - Chief Design Officer | Studio produits et communs (SPC) | Interne | A REMPLIR |
+| Raphaël BAILLY | Designer | Studio produits et communs (SPC) | Externe | Windows |
 | Pierre BONNIER | Recherche utilisateur | Studio produits et communs (SPC) | Externe | Windows |
 | Margot CHAZALVIEL | Designer | Studio produits et communs (SPC) | Externe | Windows |
 | Arnaud COATRINE | Recherche utilisateur | Studio produits et communs (SPC) | Externe | Windows |
