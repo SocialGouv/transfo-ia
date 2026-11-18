@@ -130,7 +130,9 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .facts{margin-top:40px;display:flex;flex-direction:column;gap:14px}
 .facts li{display:flex;align-items:center;gap:18px;font-size:36px;line-height:1.25;color:var(--ink)}
 .facts .ico{font-size:44px;color:var(--ok)}
-.facts li.is-next .ico{color:var(--todo)}
+.facts__lead{margin-top:40px;font-size:36px;line-height:1.25;color:var(--ink-2)}   /* ce que ce fonctionnement demande, avant la liste */
+.facts__lead + .facts{margin-top:16px}
+.facts--how li::before{content:"";flex:none;width:14px;height:14px;margin:0 6px;background:var(--bf)}
 .fv{display:flex;flex-direction:column;gap:20px}
 .fv + .fv{margin-top:60px;padding-top:60px;border-top:2px solid var(--bf-525)}
 .fv__name{font-size:42px;line-height:1.1;font-weight:700;color:#fff}
@@ -172,13 +174,13 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .streams{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 290px;grid-template-rows:auto minmax(0,1fr);column-gap:10px}
 .streams__head{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1fr) 706px;padding:0 0 12px}   /* 706 = colonne des risques + pointe + destination */
 .streams__head .tag{font-size:26px}
-.lanes{grid-column:1;grid-row:2;min-height:0;display:flex;flex-direction:column;gap:12px}
-.lane{flex:1;min-height:0;display:grid;grid-template-columns:112px minmax(0,1fr) 330px;align-items:center;padding-right:76px;background:var(--bf-950);clip-path:polygon(0 0,calc(100% - 48px) 0,100% 50%,calc(100% - 48px) 100%,0 100%)}
+.lanes{grid-column:1;grid-row:2;min-height:0;display:flex;flex-direction:column;gap:8px}
+.lane{flex:1 0 auto;display:grid;grid-template-columns:112px minmax(0,1fr) 330px;align-items:center;padding-right:76px;background:var(--bf-950);clip-path:polygon(0 0,calc(100% - 48px) 0,100% 50%,calc(100% - 48px) 100%,0 100%)}
 .lane__num{align-self:stretch;display:grid;place-items:center;background:var(--bf);color:#fff;font-size:44px;font-weight:700;font-variant-numeric:tabular-nums}
-.lane__what{min-width:0;padding:0 28px}
+.lane__what{min-width:0;padding:4px 28px}
 .lane__verb{display:block;font-size:38px;line-height:1.1;letter-spacing:-.01em;color:var(--ink)}
-.lane__gain{display:block;margin-top:1px;font-size:28px;line-height:1.22;color:var(--ink-2);white-space:nowrap}
-.lane__state{display:flex;gap:10px;margin-top:8px}   /* où nous en sommes : vert = en place, pointillé bleu = à venir ou à valider */
+.lane__gain{display:block;margin-top:1px;font-size:28px;line-height:1.18;color:var(--ink-2);text-wrap:balance}   /* une phrase, sur deux lignes au plus */
+.lane__state{display:flex;gap:10px;margin-top:6px}   /* où nous en sommes : vert = en place, pointillé bleu = à venir ou à valider */
 .st{display:inline-flex;align-items:center;gap:8px;padding:3px 14px 3px 10px;border-radius:4px;background:var(--ok-bg);color:var(--ok);font-size:24px;line-height:1.3;font-weight:700;white-space:nowrap}
 .st .ico{font-size:26px}
 .st--next{padding-left:14px;background:#fff;color:var(--todo);border:2px dashed var(--todo)}
@@ -207,6 +209,10 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .board .pop__ico .ico{font-size:40px}
 .cell{display:flex;align-items:center;justify-content:center;gap:12px;min-width:0;padding:6px 18px;font-size:28px;line-height:1.2;font-weight:500;text-wrap:balance}
 .cell--from{justify-content:flex-start;background:var(--alt);color:var(--ink-2);font-weight:400}
+.board__from{grid-column:2;grid-row:2 / 7}   /* point de départ commun : une seule case sur les cinq lignes */
+.board__head{grid-row:1}
+.board__row:nth-child(1){grid-row:2} .board__row:nth-child(2){grid-row:3} .board__row:nth-child(3){grid-row:4} .board__row:nth-child(4){grid-row:5} .board__row:nth-child(5){grid-row:6}
+.board__row .pop + .cell{grid-column:3}   /* la colonne 2 est occupée par la case commune */
 .cell--ok{background:var(--ok);color:#fff}
 .cell--ok .ico{font-size:44px}
 .cell--here{justify-content:flex-start;font-weight:700}
@@ -222,13 +228,16 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .beats .is-risk .pop__ico{background:var(--warn)}
 .beats strong{display:block;font-size:38px;line-height:1.15;letter-spacing:-.01em}
 .beats span span{display:block;margin-top:2px;font-size:30px;line-height:1.25;color:var(--ink-2)}
-.next{margin-top:26px;display:flex;flex-direction:column}
-.next li{padding:26px 0}
-.next li + li{border-top:2px solid var(--bf-525)}
-.next__when{display:flex;align-items:center;gap:12px;font-size:26px;line-height:1.2;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bf-850)}
-.next__when .ico{font-size:34px}
-.next__what{margin-top:8px;font-size:46px;line-height:1.1;font-weight:700;letter-spacing:-.015em;color:#fff}
-.next__sub{margin-top:6px;font-size:32px;line-height:1.25;color:var(--bf-925)}
+.said{margin-top:20px;display:flex;flex-direction:column}   /* verbatims : qui parle, puis ses mots ; les gains ressortent en blanc */
+.said li{padding:20px 0}
+.said li:first-child{padding-top:0}
+.said li:last-child{padding-bottom:0}
+.said li + li{border-top:2px solid var(--bf-525)}
+.said__who{display:flex;align-items:center;gap:12px;font-size:24px;line-height:1.25;color:var(--bf-850)}
+.said__who .ico{flex:none;font-size:30px}
+.said__who strong{color:#fff}
+.said__q{margin-top:8px;font-size:30px;line-height:1.27;color:var(--bf-925)}
+.said__q strong{color:#fff}
 
 /* ---------- Notes, aide, progression (hors slides) ---------- */
 .notes{display:none}
@@ -298,7 +307,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <aside class="notes">
     <ul>
       <li>Le message&nbsp;: l’IA est une opportunité, celle d’une montée en vélocité. Nous la saisissons, et au passage nous traitons les risques.</li>
-      <li>Le fil&nbsp;: l’opportunité, les risques, notre réponse en quatre volets menés de front, puis le chemin parcouru par chaque fonction et la suite.</li>
+      <li>Le fil&nbsp;: l’opportunité, les risques, notre réponse en quatre volets menés de front, puis le chemin parcouru par chaque fonction et, en conclusion, la vélocité telle que les agents la décrivent.</li>
     </ul>
   </aside>
 </section>
@@ -313,10 +322,10 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <p class="split__def"><strong>La vélocité</strong>&nbsp;: le rythme auquel une équipe livre.</p>
       <p class="split__lead">L’IA enchaîne seule les étapes d’un travail, l’équipe pilote et valide.</p>
     </div>
-    <ul class="facts">
-      <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Trois équipes de développement</strong> travaillent déjà ainsi</span></li>
-      <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Une autre</strong> démarre</span></li>
-      <li class="is-next"><svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg><span>Prochaine étape&nbsp;: <strong>mesurer la vélocité</strong></span></li>
+    <p class="facts__lead">Pour que l’IA travaille ainsi, il nous faut&nbsp;:</p>
+    <ul class="facts facts--how">
+      <li><span><strong>Décrire les étapes</strong> que nous suivons</span></li>
+      <li><span><strong>Identifier nos indicateurs</strong> de qualité</span></li>
     </ul>
     <p class="split__foot"><span><strong>Stratégie IA</strong> · 19 novembre 2026</span><span class="s-foot__page" data-page></span></p>
   </div>
@@ -345,8 +354,9 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <aside class="notes">
     <ul>
       <li>L’opportunité de l’IA, c’est une montée en vélocité, c’est-à-dire du rythme auquel une équipe livre&nbsp;: l’IA enchaîne seule les étapes d’un travail, l’équipe fixe le cap, pilote et valide.</li>
-      <li>C’est déjà le quotidien de trois équipes de développement&nbsp;: elles ont éprouvé ce fonctionnement pendant plusieurs semaines et en sont à l’optimiser. Une quatrième équipe démarre.</li>
-      <li>Pas de chiffre à l’écran tant que la vélocité n’est pas mesurée&nbsp;: la mesure est à venir, dans les quatre équipes de développement. Si la question vient&nbsp;: dans la première équipe, les développeurs perçoivent une vélocité plus que triplée en un mois.</li>
+      <li>Ce fonctionnement demande un travail de l’équipe sur elle-même&nbsp;: décrire les étapes qu’elle suit et identifier ses indicateurs de qualité (ce qui permet de dire qu’un travail est bon). D’où l’accompagnement.</li>
+      <li>À l’oral si utile, ce n’est plus à l’écran&nbsp;: c’est déjà le quotidien de trois équipes de développement&nbsp;: elles ont éprouvé ce fonctionnement pendant plusieurs semaines et en sont à l’optimiser. Une quatrième équipe démarre.</li>
+      <li>Pas de chiffre mesuré à ce stade&nbsp;: la mesure est à venir, dans les quatre équipes de développement. Les gains perçus sont en conclusion, en verbatims. Si la question vient&nbsp;: dans la première équipe, les développeurs perçoivent une vélocité plus que triplée en un mois.</li>
       <li>L’opportunité vaut pour toutes les fonctions, pas seulement pour le code&nbsp;: le besoin, la maquette, l’architecture (slide 5).</li>
     </ul>
   </aside>
@@ -419,15 +429,15 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         <li class="lane">
           <span class="lane__num">01</span>
           <div class="lane__what">
-            <p><strong class="lane__verb">Outiller</strong><span class="lane__gain">Une IA souveraine sur les PC du ministère</span></p>
-            <p class="lane__state"><span class="sr">Où nous en sommes&nbsp;: </span><span class="st"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>En place</span><span class="st st--next">À valider&nbsp;: un outil IA maison</span></p>
+            <p><strong class="lane__verb">Outiller</strong><span class="lane__gain">Nous mettons à disposition des alternatives souveraines performantes, qui fonctionnent sur les PC du ministère</span></p>
+            <p class="lane__state"><span class="sr">Où nous en sommes&nbsp;: </span><span class="st"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>En place</span></p>
           </div>
           <p class="lane__risk"><span class="sr">Risques pris en charge&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg>Shadow IA</span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
         </li>
         <li class="lane">
           <span class="lane__num">02</span>
           <div class="lane__what">
-            <p><strong class="lane__verb">Former</strong><span class="lane__gain">Des agents performants, quel que soit le fournisseur</span></p>
+            <p><strong class="lane__verb">Former</strong><span class="lane__gain">Les agents deviennent performants quel que soit le fournisseur&nbsp;: l’IA n’est plus une boîte noire</span></p>
             <p class="lane__state"><span class="sr">Où nous en sommes&nbsp;: </span><span class="st"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>4 fonctions acculturées</span><span class="st"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>4 équipes accompagnées</span></p>
           </div>
           <p class="lane__risk"><span class="sr">Risque pris en charge&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
@@ -443,7 +453,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         <li class="lane">
           <span class="lane__num">04</span>
           <div class="lane__what">
-            <p><strong class="lane__verb">Harmoniser</strong><span class="lane__gain">Le progrès d’une équipe profite à toutes</span></p>
+            <p><strong class="lane__verb">Harmoniser</strong><span class="lane__gain">Le progrès d’une équipe va profiter à toutes, par le partage des méthodes qui ont fonctionné pour elle</span></p>
             <p class="lane__state"><span class="sr">Où nous en sommes&nbsp;: </span><span class="st"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Socle&nbsp;: API Gateway LiteLLM</span><span class="st st--next">À venir&nbsp;: méthodes communes</span></p>
           </div>
           <p class="lane__risk"><span class="sr">Risque pris en charge&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg><span>Désorganisation<small>entre équipes</small></span></span></p>
@@ -475,38 +485,34 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <div class="board">
       <div class="board__head" aria-hidden="true"><span class="board__h"></span><span class="board__h board__h--from"><small>Au départ</small></span><span class="board__h"><small>Étape 1</small>Comprendre l’IA</span><span class="board__h"><small>Étape 2</small>Des usages concrets</span><span class="board__h"><small>Étape 3</small>Maîtrise avancée</span></div>
       <h3 class="sr">Fonction par fonction&nbsp;: le point de départ, puis les trois étapes (comprendre l’IA, des usages concrets, maîtrise avancée)</h3>
+      <p class="cell cell--from board__from"><span class="sr">Au départ, pour toutes les fonctions&nbsp;: </span>Des internes qui débutent sur l’IA</p>
       <ol class="board__rows">
         <li class="board__row">
           <p class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span><span>Développeurs<small>3 équipes</small></span></p>
-          <p class="cell cell--from"><span class="sr">Au départ&nbsp;: </span>Découverte de l’IA</p>
           <p class="cell cell--ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span class="sr">Étape 1 franchie</span></p>
           <p class="cell cell--ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span class="sr">Étape 2 franchie</span></p>
           <p class="cell cell--ok cell--here"><span class="sr">Étape 3, en place&nbsp;: </span>L’IA enchaîne seule les étapes</p>
         </li>
         <li class="board__row">
           <p class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span><span>Développeurs<small>1 équipe</small></span></p>
-          <p class="cell cell--from"><span class="sr">Au départ&nbsp;: </span>Découverte de l’IA</p>
           <p class="cell cell--ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span class="sr">Étape 1 franchie</span></p>
           <p class="cell cell--ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span class="sr">Étape 2 franchie</span></p>
           <p class="cell cell--todo"><span class="sr">Étape 3, en cours&nbsp;: </span>Démarre à son tour</p>
         </li>
         <li class="board__row">
           <p class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg></span><span>Designers</span></p>
-          <p class="cell cell--from"><span class="sr">Au départ&nbsp;: </span>«&nbsp;Peu de valeur pour nous&nbsp;»</p>
           <p class="cell cell--ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span class="sr">Étape 1 franchie</span></p>
           <p class="cell cell--ok cell--here"><span class="sr">Étape 2, en place&nbsp;: </span>Prototypes en quelques demandes à l’IA</p>
           <p class="cell cell--next"><span class="sr">Étape 3, à venir</span></p>
         </li>
         <li class="board__row">
           <p class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg></span><span>Architectes</span></p>
-          <p class="cell cell--from"><span class="sr">Au départ&nbsp;: </span>Aucun intérêt exprimé</p>
           <p class="cell cell--ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span class="sr">Étape 1 franchie</span></p>
           <p class="cell cell--todo"><span class="sr">Étape 2, en cours&nbsp;: </span>L’analyse des dossiers d’architecture s’accélère</p>
           <p class="cell cell--next"><span class="sr">Étape 3, à venir</span></p>
         </li>
         <li class="board__row">
           <p class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-roadmap"/></svg></span><span>Chefs de projet</span></p>
-          <p class="cell cell--from"><span class="sr">Au départ&nbsp;: </span>Une boîte noire</p>
           <p class="cell cell--ok cell--here"><span class="sr">Étape 1, en place&nbsp;: </span>3 chefs de projet et leur référente formés</p>
           <p class="cell cell--todo"><span class="sr">Étape 2, en cours&nbsp;: </span>Le refinement et la génération du ticket s’automatisent</p>
           <p class="cell cell--next"><span class="sr">Étape 3, à venir</span></p>
@@ -517,11 +523,11 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <footer class="s-foot"><span><strong>Stratégie IA</strong> · 19 novembre 2026</span><span class="s-foot__page" data-page></span></footer>
   <aside class="notes">
     <ul>
-      <li>Lecture&nbsp;: une ligne par fonction. À gauche, d’où elle part. Puis trois étapes&nbsp;: comprendre l’IA, en avoir des usages concrets, atteindre une maîtrise avancée (l’IA enchaîne seule les étapes, l’équipe pilote et valide).</li>
+      <li>Lecture&nbsp;: une ligne par fonction. À gauche, le point de départ, le même pour toutes&nbsp;: des internes qui débutent sur l’IA. Puis trois étapes&nbsp;: comprendre l’IA, en avoir des usages concrets, atteindre une maîtrise avancée (l’IA enchaîne seule les étapes, l’équipe pilote et valide).</li>
       <li>En vert, ce qui est en place&nbsp;: c’est le chemin parcouru avec l’accompagnement. En bleu, ce qui est en cours. En pointillé, l’effort qui reste.</li>
       <li>Les quatre fonctions ont franchi la première étape&nbsp;: elles sont acculturées.</li>
       <li>Développeurs&nbsp;: trois équipes sont à la maîtrise avancée, une quatrième démarre à son tour. Designers&nbsp;: des usages concrets, la formation des autres designers se poursuit. Architectes&nbsp;: l’outil d’analyse des dossiers d’architecture est en cours de diffusion. Chefs de projet&nbsp;: formés, et leurs premiers usages arrivent, le refinement et la génération du ticket s’automatisent. L’adoption reste l’enjeu, et c’est là que l’effort restant est le plus grand.</li>
-      <li>Ce n’est pas une note des équipes&nbsp;: chaque fonction est partie d’un point différent, et à un moment différent.</li>
+      <li>Ce n’est pas une note des équipes&nbsp;: chaque fonction a démarré à un moment différent.</li>
     </ul>
   </aside>
 </section>
@@ -535,38 +541,41 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <h2 class="split__title" id="t6">Nous saisissons l’opportunité, <span>en maîtrisant les risques</span></h2>
     </div>
     <ul class="beats">
-      <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-flashlight"/></svg></span><span><strong>Une montée en vélocité</strong><span>Dans une équipe, l’IA enchaîne déjà seule les étapes</span></span></li>
+      <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-flashlight"/></svg></span><span><strong>Une montée en vélocité</strong><span>Dans trois équipes, l’IA enchaîne déjà seule les étapes</span></span></li>
       <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span><span><strong>Quatre volets menés de front</strong><span>4 fonctions acculturées, 4 équipes accompagnées, une IA souveraine en place</span></span></li>
       <li class="is-risk"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span><span><strong>Trois risques pris en charge</strong><span>Shadow IA, dépendance, désorganisation</span></span></li>
     </ul>
     <p class="split__foot"><span><strong>Stratégie IA</strong> · 19 novembre 2026</span><span class="s-foot__page" data-page></span></p>
   </div>
   <div class="split__aside">
-    <p class="label">La suite</p>
-    <ol class="next">
+    <p class="label">Vélocité&nbsp;: ce qu’ils en disent</p>
+    <ul class="said">
       <li>
-        <p class="next__when"><svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg>Prochaine étape</p>
-        <p class="next__what">Mesurer la vélocité</p>
-        <p class="next__sub">Dans 4 équipes de développement</p>
+        <p class="said__who"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg><span><strong>Designer</strong> · maîtrise avancée</span></p>
+        <p class="said__q">«&nbsp;L’exploration va <strong>deux fois plus vite</strong>, et le prototypage est <strong>instantané</strong> quand il prenait <strong>2&nbsp;jours</strong> auparavant…&nbsp;»</p>
       </li>
       <li>
-        <p class="next__when"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>À valider</p>
-        <p class="next__what">L’ambition d’un outil IA maison</p>
-        <p class="next__sub">Un outil open source existant, adapté à nos besoins</p>
+        <p class="said__who"><svg class="ico" aria-hidden="true"><use href="#i-palette"/></svg><span><strong>Designer</strong> · quelques cas d’usage maîtrisés</span></p>
+        <p class="said__q">«&nbsp;Je dirais que cela me fait gagner <strong>20&nbsp;% de mon temps de travail</strong>, notamment sur la partie idéation/exploration&nbsp;»</p>
       </li>
       <li>
-        <p class="next__when"><svg class="ico" aria-hidden="true"><use href="#i-team"/></svg>Dans la durée</p>
-        <p class="next__what">Faire adopter l’IA</p>
-        <p class="next__sub">Dans toutes les fonctions, avec les référents</p>
+        <p class="said__who"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><span><strong>Développeur</strong> · maîtrise avancée depuis un mois</span></p>
+        <p class="said__q">«&nbsp;J’ai accompli une tâche qui me prendrait <strong>2&nbsp;semaines en 2&nbsp;jours</strong>, avec un haut niveau de qualité&nbsp;»</p>
       </li>
-    </ol>
+      <li>
+        <p class="said__who"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg><span><strong>Développeur</strong> · maîtrise avancée toute récente</span></p>
+        <p class="said__q">«&nbsp;Une tâche qui m’aurait pris <strong>3&nbsp;jours</strong> m’a pris <strong>une demi-journée</strong>&nbsp;»</p>
+      </li>
+    </ul>
   </div>
   <aside class="notes">
     <ul>
-      <li>En résumé&nbsp;: l’IA est une opportunité de vélocité, déjà visible dans une équipe où l’IA enchaîne seule les étapes.</li>
+      <li>En résumé&nbsp;: l’IA est une opportunité de vélocité, déjà visible dans trois équipes où l’IA enchaîne seule les étapes.</li>
       <li>Nous la saisissons sur quatre volets menés de front&nbsp;: quatre fonctions acculturées, quatre équipes de développement accompagnées, une IA souveraine en place sur les PC du ministère, le socle (API Gateway LiteLLM) en place.</li>
       <li>Au passage, chaque volet traite un risque&nbsp;: shadow IA, dépendance, désorganisation entre fonctions et entre équipes.</li>
-      <li>La suite&nbsp;: la mesure de la vélocité dans les quatre équipes de développement&#8239;; une validation attendue, l’ambition d’un outil IA maison&#8239;; et, dans la durée, l’adoption dans toutes les fonctions, portée par les référents.</li>
+      <li>À droite, la vélocité telle que les agents la décrivent&nbsp;: un designer en maîtrise avancée, un designer qui maîtrise quelques cas d’usage, un développeur en maîtrise avancée depuis un mois, un développeur qui vient de l’atteindre. Le gain grandit avec la maîtrise&nbsp;: 20&nbsp;% avec quelques cas d’usage, bien davantage en maîtrise avancée.</li>
+      <li>Ce sont des gains perçus, sur des tâches précises, pas une mesure&nbsp;: la mesure de la vélocité reste à venir.</li>
+      <li>La suite (à l’oral, elle n’est plus à l’écran)&nbsp;: la mesure de la vélocité dans les quatre équipes de développement&#8239;; une validation attendue, l’ambition d’un outil IA maison&#8239;; et, dans la durée, l’adoption dans toutes les fonctions, portée par les référents.</li>
       <li>Par volet&nbsp;: intégrer les outils au centre logiciel&#8239;; faire des tech leads des référents IA et lancer les webinaires&#8239;; avec les chefs de projet, livrer des cas d’usage à forte valeur ajoutée et suivre leur adoption&#8239;; fournir les méthodes de travail communes à l’API Gateway.</li>
     </ul>
   </aside>
