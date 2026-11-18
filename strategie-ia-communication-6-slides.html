@@ -162,6 +162,11 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .risk--wide .risk__what{margin-top:20px;font-size:42px}
 .risk--wide .risk__then{margin-top:22px;padding-top:22px}
 .risk__then li + li{margin-top:18px}   /* la désorganisation a deux faces : entre fonctions, entre équipes */
+.risk--wide .risk__then > li + li{margin-top:26px}
+.risk__then > li > b{display:block;margin-bottom:8px;color:var(--ink)}   /* intitulé d’une face du risque, au-dessus de ses points */
+.risk__pts li{position:relative;padding-left:30px}   /* points courts : une idée par ligne */
+.risk__pts li::before{content:"";position:absolute;left:2px;top:.46em;width:12px;height:12px;background:var(--orange-645)}
+.risk__pts li + li{margin-top:8px}
 
 /* ---------- 4 · Notre réponse : quatre volets menés de front, où nous en sommes, et le risque pris en charge au passage ---------- */
 .streams{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 290px;grid-template-rows:auto minmax(0,1fr);column-gap:10px}
@@ -358,19 +363,33 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <li class="risk">
         <p class="risk__head"><span class="risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg></span><strong class="risk__name">Shadow IA</strong></p>
         <p class="risk__what">Des IA <span class="nw">grand public</span> utilisées hors du cadre</p>
-        <p class="risk__then">Faute d’outil officiel attrayant, et sur des PC Windows très restreints, où l’on n’installe pas tout ce que l’on souhaite</p>
+        <ul class="risk__then risk__pts">
+          <li>Pas d’outil officiel attrayant</li>
+          <li>Des PC Windows très restreints</li>
+        </ul>
       </li>
       <li class="risk">
         <p class="risk__head"><span class="risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg></span><strong class="risk__name">Dépendance</strong></p>
         <p class="risk__what">«&nbsp;Ça ne marche que sur Claude&nbsp;»<small>Claude, une IA américaine</small></p>
-        <p class="risk__then">Si une puissance étrangère nous contraint à en changer, on repart de zéro</p>
+        <ul class="risk__then risk__pts">
+          <li>Contraints d’en changer, on repart de zéro</li>
+        </ul>
       </li>
       <li class="risk risk--wide">
         <p class="risk__head"><span class="risk__ico"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg></span><strong class="risk__name">Désorganisation</strong></p>
         <p class="risk__what">Avec l’IA, les écarts peuvent se creuser</p>
         <ul class="risk__then">
-          <li><b>Entre fonctions</b>&nbsp;: les développeurs produisent si vite qu’un besoin flou est codé au lieu d’être questionné. Ce décalage de rythme peut aussi pousser les autres fonctions à moins bien préparer le terrain.</li>
-          <li><b>Entre équipes</b>&nbsp;: sans méthodes communes de travail avec l’IA, les écarts entre les pratiques se creuseront davantage.</li>
+          <li><b>Entre fonctions</b>
+            <ul class="risk__pts">
+              <li>Les développeurs ne disent plus non&nbsp;: l’exigence de qualité peut baisser côté métier et design</li>
+              <li>Les développeurs vont trop vite&nbsp;: le métier et le design sont sous pression</li>
+            </ul>
+          </li>
+          <li><b>Entre équipes</b>
+            <ul class="risk__pts">
+              <li>Sans méthodes communes, les pratiques divergent davantage</li>
+            </ul>
+          </li>
         </ul>
       </li>
     </ul>
@@ -381,7 +400,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <li>Nos agents utiliseront l’IA de toute façon. Saisie sans cadre, l’opportunité a un prix&nbsp;: trois risques.</li>
       <li>Shadow IA&nbsp;: l’usage d’IA grand public hors du cadre, faute d’outil officiel attrayant. Les PC Windows du ministère sont très restreints&nbsp;: ils ne permettent pas d’installer tout ce que l’on souhaite, ce qui peut conduire au shadow IA.</li>
       <li>Dépendance&nbsp;: pour des résultats modérément viables, on peut passer par les outils américains clés en main et se reposer sur nos lauriers. C’est ainsi que commence le «&nbsp;ça ne marche que sur Claude&nbsp;». Si une puissance étrangère nous contraint à en changer, on repart de zéro.</li>
-      <li>Désorganisation&nbsp;: avec l’IA, les écarts peuvent se creuser, de deux façons. Entre fonctions&nbsp;: les développeurs s’approprient l’IA plus vite que les autres fonctions, même si, sans coaching, ils ne la maîtrisent pas parfaitement. Ils produisent si vite qu’ils ne jouent plus leur rôle de garde-fou sur la clarté des besoins&nbsp;: un besoin flou est codé au lieu d’être questionné. Ce décalage de rythme peut aussi pousser les autres fonctions à moins bien préparer le terrain&nbsp;: le produit fait deux pas en avant, un en arrière, et le chef de projet devient le goulot d’étranglement. Entre équipes&nbsp;: sans méthodes communes de travail avec l’IA, chaque équipe développe des pratiques encore plus différentes.</li>
+      <li>Désorganisation&nbsp;: avec l’IA, les écarts peuvent se creuser, de deux façons. Entre fonctions&nbsp;: les développeurs s’approprient l’IA plus vite que les autres fonctions, même si, sans coaching, ils ne la maîtrisent pas parfaitement. Premier effet&nbsp;: ils ne disent plus non. Ils produisent si vite qu’ils ne jouent plus leur rôle de garde-fou sur la clarté des besoins&nbsp;: un besoin flou est codé au lieu d’être questionné, et l’exigence de qualité peut baisser côté métier et design. Second effet&nbsp;: ils vont trop vite pour les autres fonctions. Ce décalage de rythme met le métier et le design sous pression et les pousse à moins bien préparer le terrain&nbsp;: le produit fait deux pas en avant, un en arrière, et le chef de projet devient le goulot d’étranglement. Entre équipes&nbsp;: sans méthodes communes de travail avec l’IA, chaque équipe développe des pratiques encore plus différentes.</li>
     </ul>
   </aside>
 </section>
@@ -390,12 +409,12 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
 <section class="slide" data-title="Notre réponse" aria-labelledby="t4">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">Notre réponse</p></header>
   <div class="s-head">
-    <h2 class="title" id="t4">Quatre volets pour saisir l’opportunité,<br>et chacun traite un risque au passage</h2>
+    <h2 class="title" id="t4">Quatre volets pour saisir l’opportunité,<br>et chacun traite un risque</h2>
   </div>
   <div class="s-body">
     <div class="streams">
-      <div class="streams__head" aria-hidden="true"><span class="tag tag--how">Le volet, et où nous en sommes</span><span class="tag tag--how tag--ico"><svg class="ico"><use href="#i-shield"/></svg>Au passage, le risque pris en charge</span></div>
-      <h3 class="sr">Les quatre volets, menés de front&nbsp;: ce que chacun fait gagner, où nous en sommes, et le risque pris en charge au passage</h3>
+      <div class="streams__head" aria-hidden="true"><span class="tag tag--how">Le volet, et où nous en sommes</span><span class="tag tag--how tag--ico"><svg class="ico"><use href="#i-shield"/></svg>Le risque pris en charge</span></div>
+      <h3 class="sr">Les quatre volets, menés de front&nbsp;: ce que chacun fait gagner, où nous en sommes, et le risque pris en charge</h3>
       <ol class="lanes">
         <li class="lane">
           <span class="lane__num">01</span>
@@ -403,7 +422,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
             <p><strong class="lane__verb">Outiller</strong><span class="lane__gain">Une IA souveraine sur les PC du ministère</span></p>
             <p class="lane__state"><span class="sr">Où nous en sommes&nbsp;: </span><span class="st"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>En place</span><span class="st st--next">À valider&nbsp;: un outil IA maison</span></p>
           </div>
-          <p class="lane__risk"><span class="sr">Risques pris en charge au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg>Shadow IA</span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
+          <p class="lane__risk"><span class="sr">Risques pris en charge&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg>Shadow IA</span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
         </li>
         <li class="lane">
           <span class="lane__num">02</span>
@@ -411,7 +430,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
             <p><strong class="lane__verb">Former</strong><span class="lane__gain">Des agents performants, quel que soit le fournisseur</span></p>
             <p class="lane__state"><span class="sr">Où nous en sommes&nbsp;: </span><span class="st"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>4 fonctions acculturées</span><span class="st"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>4 équipes accompagnées</span></p>
           </div>
-          <p class="lane__risk"><span class="sr">Risque pris en charge au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
+          <p class="lane__risk"><span class="sr">Risque pris en charge&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p>
         </li>
         <li class="lane">
           <span class="lane__num">03</span>
@@ -419,7 +438,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
             <p><strong class="lane__verb">Étendre à toutes les fonctions</strong><span class="lane__gain">Développeurs, architectes, designers, chefs de projet</span></p>
             <p class="lane__state"><span class="sr">Où nous en sommes&nbsp;: </span><span class="st"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Chaque fonction a progressé</span></p>
           </div>
-          <p class="lane__risk"><span class="sr">Risque pris en charge au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg><span>Désorganisation<small>entre fonctions</small></span></span></p>
+          <p class="lane__risk"><span class="sr">Risque pris en charge&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg><span>Désorganisation<small>entre fonctions</small></span></span></p>
         </li>
         <li class="lane">
           <span class="lane__num">04</span>
@@ -427,7 +446,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
             <p><strong class="lane__verb">Harmoniser</strong><span class="lane__gain">Le progrès d’une équipe profite à toutes</span></p>
             <p class="lane__state"><span class="sr">Où nous en sommes&nbsp;: </span><span class="st"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Socle&nbsp;: API Gateway LiteLLM</span><span class="st st--next">À venir&nbsp;: méthodes communes</span></p>
           </div>
-          <p class="lane__risk"><span class="sr">Risque pris en charge au passage&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg><span>Désorganisation<small>entre équipes</small></span></span></p>
+          <p class="lane__risk"><span class="sr">Risque pris en charge&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg><span>Désorganisation<small>entre équipes</small></span></span></p>
         </li>
       </ol>
       <p class="dest"><svg class="ico" aria-hidden="true"><use href="#i-flashlight"/></svg><span class="dest__name">Montée<br>en vélocité</span><span class="dest__sub">dans toutes<br>les fonctions</span></p>
@@ -518,7 +537,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <ul class="beats">
       <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-flashlight"/></svg></span><span><strong>Une montée en vélocité</strong><span>Dans une équipe, l’IA enchaîne déjà seule les étapes</span></span></li>
       <li><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span><span><strong>Quatre volets menés de front</strong><span>4 fonctions acculturées, 4 équipes accompagnées, une IA souveraine en place</span></span></li>
-      <li class="is-risk"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span><span><strong>Trois risques pris en charge au passage</strong><span>Shadow IA, dépendance, désorganisation</span></span></li>
+      <li class="is-risk"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span><span><strong>Trois risques pris en charge</strong><span>Shadow IA, dépendance, désorganisation</span></span></li>
     </ul>
     <p class="split__foot"><span><strong>Stratégie IA</strong> · 19 novembre 2026</span><span class="s-foot__page" data-page></span></p>
   </div>
