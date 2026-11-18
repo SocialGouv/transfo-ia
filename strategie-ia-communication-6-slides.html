@@ -179,7 +179,7 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .lane__num{align-self:stretch;display:grid;place-items:center;background:var(--bf);color:#fff;font-size:44px;font-weight:700;font-variant-numeric:tabular-nums}
 .lane__what{min-width:0;padding:4px 28px}
 .lane__verb{display:block;font-size:38px;line-height:1.1;letter-spacing:-.01em;color:var(--ink)}
-.lane__gain{display:block;margin-top:1px;font-size:28px;line-height:1.18;color:var(--ink-2);text-wrap:balance}   /* une phrase, sur deux lignes au plus */
+.lane__gain{display:block;margin-top:1px;font-size:26px;line-height:1.2;color:var(--ink-2);text-wrap:balance}   /* une phrase, sur deux lignes au plus */
 .lane__state{display:flex;gap:10px;margin-top:6px}   /* où nous en sommes : vert = en place, pointillé bleu = à venir ou à valider */
 .st{display:inline-flex;align-items:center;gap:8px;padding:3px 14px 3px 10px;border-radius:4px;background:var(--ok-bg);color:var(--ok);font-size:24px;line-height:1.3;font-weight:700;white-space:nowrap}
 .st .ico{font-size:26px}
@@ -216,6 +216,12 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .cell--ok{background:var(--ok);color:#fff}
 .cell--ok .ico{font-size:44px}
 .cell--here{justify-content:flex-start;font-weight:700}
+/* chemin parcouru : les étapes franchies forment une seule flèche verte, dont la pointe marque l’étape atteinte */
+.cell--ok + .cell--ok{margin-left:-10px;padding-left:28px;box-shadow:inset 3px 0 0 rgba(255,255,255,.4)}
+.cell--here.cell--ok,.cell--tip{padding-right:46px;clip-path:polygon(0 0,calc(100% - 34px) 0,100% 50%,calc(100% - 34px) 100%,0 100%)}
+.s-lead{margin-top:12px;font-size:32px;line-height:1.25;color:var(--ink-2)}   /* une phrase sous le titre */
+.s-body:has(.board){margin:24px 0 20px}   /* le tableau reprend la hauteur prise par la phrase sous le titre */
+.s-body:has(.streams){margin:22px 0 18px}   /* les volets tiennent sur deux lignes de texte */
 .cell--todo{justify-content:flex-start;background:var(--todo-bg);box-shadow:inset 0 0 0 3px var(--todo);color:var(--ink);font-weight:700}
 .cell--next{justify-content:flex-start;border:3px dashed var(--bf-525);color:var(--todo)}
 
@@ -480,6 +486,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">Le bilan</p><ul class="legend" aria-label="Légende"><li class="is-ok"><i></i>En place</li><li class="is-todo"><i></i>En cours</li><li class="is-next"><i></i>À venir</li></ul></header>
   <div class="s-head">
     <h2 class="title" id="t5">Le chemin parcouru, et l’effort qui reste</h2>
+    <p class="s-lead">À chaque étape, l’IA aide les agents à se concentrer <strong>là où ils apportent réellement de la valeur</strong></p>
   </div>
   <div class="s-body">
     <div class="board">
@@ -496,7 +503,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         <li class="board__row">
           <p class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span><span>Développeurs<small>1 équipe</small></span></p>
           <p class="cell cell--ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span class="sr">Étape 1 franchie</span></p>
-          <p class="cell cell--ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span class="sr">Étape 2 franchie</span></p>
+          <p class="cell cell--ok cell--tip"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span class="sr">Étape 2 franchie</span></p>
           <p class="cell cell--todo"><span class="sr">Étape 3, en cours&nbsp;: </span>Démarre à son tour</p>
         </li>
         <li class="board__row">
@@ -507,7 +514,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         </li>
         <li class="board__row">
           <p class="pop"><span class="pop__ico"><svg class="ico" aria-hidden="true"><use href="#i-compasses"/></svg></span><span>Architectes</span></p>
-          <p class="cell cell--ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span class="sr">Étape 1 franchie</span></p>
+          <p class="cell cell--ok cell--tip"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span class="sr">Étape 1 franchie</span></p>
           <p class="cell cell--todo"><span class="sr">Étape 2, en cours&nbsp;: </span>L’analyse des dossiers d’architecture s’accélère</p>
           <p class="cell cell--next"><span class="sr">Étape 3, à venir</span></p>
         </li>
