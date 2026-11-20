@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="author" content="Selim Boukhari">
+<meta name="description" content="La cible en diaporama : le cycle produit augmenté par l&#x27;IA, skill par skill, avec un exemple d&#x27;orchestration pour chacun.">
+<title>La cible : le cycle produit augmenté par l&#x27;IA (diaporama)</title>
+<style>
+/* ==========================================================================
+   La cible : le cycle produit augmenté par l'IA, version diaporama.
+   Scène 1920 × 1080, mise à l'échelle de la fenêtre.
+   Clavier : flèches ou espace pour avancer · F plein écran · Z agrandir un schéma ·
+   N description du schéma · P imprimer.
+   Une couleur garde le même sens partout, comme dans les schémas : bleu = l'agent,
+   vert = la règle, ambre = l'humain, bleu nuit = l'artefact qui sort.
+   Fichier généré par Livrables/Strategie-Deploiement/build/generate_cible_slides.py.
+   ========================================================================== */
+:root{
+  --ink:#17181c; --sec:#4f5560; --line:#e3e6eb; --line-strong:#cfd4dc; --soft:#f3f4f6; --neutral:#e8eaee;
+  --navy:#0d366b; --blue:#1c5cab; --blue-soft:#eaf1fc;
+  --green:#0f6b0f; --green-soft:#e8f4e8;
+  --amber:#9a5a00; --amber-soft:#fff3df;
+  --red:#b42323;
+  --pad:72px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#1b1f2a;overflow:hidden}
+body{font-family:-apple-system,"Segoe UI",system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;color:var(--ink)}
+.nw{white-space:nowrap}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* ---------- Scène ---------- */
+.deck{position:fixed;inset:0}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;background:#fff;border-top:10px solid var(--navy);font-size:36px;line-height:1.25;overflow:hidden;display:none;flex-direction:column;padding:20px var(--pad) 30px}
+.slide.is-active{display:flex}
+.slide :where(h1,h2,h3,p,ul,ol,li,table,figure){margin:0;padding:0;font-size:inherit;line-height:inherit;font-weight:inherit}
+.slide :where(ul,ol){list-style:none}
+.slide :where(b,strong){font-weight:650}
+.slide a{color:var(--blue);text-decoration:underline;text-underline-offset:.16em}
+.slide a:focus-visible{outline:4px solid var(--blue);outline-offset:4px;border-radius:4px}
+
+/* ---------- Bandeau du haut : où l'on est dans le cycle, le métier, la page ---------- */
+.s-top{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:48px;font-size:24px;line-height:1.2;color:var(--sec)}
+.s-kicker{font-size:24px;line-height:1.2;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--sec)}
+.s-right{display:flex;align-items:center;gap:22px;flex:none}
+.s-page{font-variant-numeric:tabular-nums}
+.role{background:var(--navy);color:#fff;border-radius:8px;padding:6px 16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.rail{display:flex;gap:8px}
+.rail li{padding:6px 18px;border-radius:999px;background:var(--soft);color:var(--sec);font-weight:600}
+.rail li.is-on{background:var(--blue);color:#fff}
+
+.slide h2{margin-top:12px;font-size:48px;line-height:1.16;font-weight:700;letter-spacing:-.015em}
+.slide h2 .cmd{color:var(--blue)}
+.slide h2 .tag{display:inline-block;vertical-align:.14em;margin-right:6px;padding:3px 14px;border:3px solid var(--navy);border-radius:8px;color:var(--navy);font-size:26px;line-height:1.2;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.lead{margin-top:8px;font-size:28px;line-height:1.3;color:var(--sec)}
+
+/* ---------- Lignes « libellé · contenu » : la colonne d'un skill, mise à plat ---------- */
+.rows{flex:1;min-height:0;display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.row{flex:1 1 auto;display:grid;grid-template-columns:var(--labw,240px) 1fr;gap:12px}
+.lab{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border-radius:14px;padding:10px 12px;font-size:32px;line-height:1.15;font-weight:650}
+.lab small{margin-top:4px;font-size:24px;font-weight:400}
+.cell{display:flex;align-items:center;border-radius:14px;padding:14px 30px;background:#fff;border:2px solid var(--line)}
+.row--agent .lab{background:var(--blue);color:#fff}
+.row--agent .cell{background:var(--blue-soft);border-color:transparent}
+.row--human .lab{background:var(--amber);color:#fff}
+.row--human .cell{background:var(--amber-soft);border-color:transparent}
+.row--rule .lab{background:var(--green);color:#fff}
+.row--rule .cell{background:var(--green-soft);border-color:transparent}
+.row--neutral .lab{background:var(--neutral)}
+.row--out .lab{background:var(--navy);color:#fff}
+.row--out .cell{padding:0;border:0;gap:26px}
+.cell ul{display:flex;flex-direction:column;gap:6px}
+.cell li{position:relative;padding-left:30px}
+.cell li::before{content:"";position:absolute;left:4px;top:.5em;width:10px;height:10px;border-radius:50%;background:var(--sec)}
+.pill{display:inline-block;margin-right:14px;padding:3px 26px;border:3px solid var(--blue);border-radius:999px;background:#fff;color:var(--blue);font-weight:650}
+.chev{flex:1;align-self:stretch;display:flex;align-items:center;padding:14px 64px 14px 30px;background:var(--blue);color:#fff;font-weight:650;border-radius:14px 0 0 14px;clip-path:polygon(0 0,calc(100% - 36px) 0,100% 50%,calc(100% - 36px) 100%,0 100%)}
+.next{flex:none;font-size:30px;color:var(--sec)}
+.next b{color:var(--blue)}
+
+/* ---------- Couverture ---------- */
+.cover{justify-content:center;padding-bottom:60px}
+.cover h1{margin-top:18px;max-width:1500px;font-size:88px;line-height:1.08;font-weight:700;letter-spacing:-.025em}
+.cover-lead{margin-top:30px;max-width:1500px;font-size:38px;line-height:1.32;color:var(--sec)}
+.chain{display:flex;margin-top:52px}
+.chain li{flex:1;display:flex;align-items:center;justify-content:center;height:92px;margin-right:-14px;padding:0 20px 0 34px;background:var(--blue);color:#fff;font-size:36px;font-weight:650;clip-path:polygon(0 0,calc(100% - 30px) 0,100% 50%,calc(100% - 30px) 100%,0 100%,30px 50%)}
+.chain li:first-child{clip-path:polygon(0 0,calc(100% - 30px) 0,100% 50%,calc(100% - 30px) 100%,0 100%);border-radius:14px 0 0 14px}
+.chain li:last-child{margin-right:0;background:var(--navy)}
+.mantra{display:flex;gap:16px;margin-top:30px}
+.mantra li{padding:12px 30px;border-radius:14px;font-size:36px;color:#fff}
+.m-agent{background:var(--blue)}
+.m-rule{background:var(--green)}
+.m-human{background:var(--amber)}
+.cover-foot{position:absolute;left:var(--pad);bottom:36px;font-size:26px;color:var(--sec)}
+
+/* ---------- Vue d'ensemble : la matrice du cycle, en court ---------- */
+table.ov{width:calc(100% + 20px);margin:12px -10px 0;table-layout:fixed;border-collapse:separate;border-spacing:10px;font-size:28px;line-height:1.28}
+table.ov col.c0{width:186px}
+table.ov th,table.ov td{padding:0;text-align:left;vertical-align:top;font-weight:400}
+table.ov th.role{background:var(--navy);color:#fff;border-radius:8px;padding:6px 4px;text-align:center;font-size:26px;font-weight:600;letter-spacing:0;text-transform:none}
+table.ov th.skill{padding:0 4px}
+table.ov th.skill b{display:block;font-size:34px;font-weight:700;letter-spacing:-.015em;color:var(--blue)}
+table.ov th.skill i{display:block;font-style:normal;font-size:25px;color:var(--sec)}
+table.ov th.tl{border-radius:12px;padding:10px 6px;text-align:center;vertical-align:middle;font-size:28px;line-height:1.15;font-weight:650;color:#fff}
+table.ov th.tl small{display:block;margin-top:3px;font-size:24px;font-weight:400}
+table.ov th.tl.agent{background:var(--blue)}
+table.ov th.tl.human{background:var(--amber)}
+table.ov th.tl.out{background:var(--navy)}
+table.ov td.c{border-radius:12px;padding:12px 16px}
+table.ov td.c.agent{background:var(--blue-soft)}
+table.ov td.c.human{background:var(--amber-soft)}
+table.ov td.chev{display:table-cell;vertical-align:middle;padding:14px 26px 14px 34px;border-radius:0;background:var(--blue);color:#fff;font-weight:650;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%,18px 50%)}
+table.ov td.chev.first{padding-left:18px;border-radius:12px 0 0 12px;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%)}
+.fnotes{margin-top:auto;font-size:24px;line-height:1.32;color:var(--sec)}
+.fnotes li + li{margin-top:4px}
+.fnotes b{color:var(--ink)}
+
+/* ---------- Soutiens à la production ---------- */
+.rows--wide{--labw:400px;gap:6px}
+.then{flex:none;display:flex;align-items:center;justify-content:center;gap:10px;width:var(--labw);font-size:26px;font-weight:650;color:var(--green)}
+.then svg{width:30px;height:30px}
+.callout{margin-top:18px;padding:16px 26px;border-left:8px solid var(--navy);border-radius:0 12px 12px 0;background:var(--soft);font-size:28px;line-height:1.3}
+
+/* ---------- Lire un schéma ---------- */
+.how{margin-top:14px;font-size:32px;font-weight:650}
+.read .rows{flex:none;margin-top:14px}
+.read .row{--labw:300px}
+.read .cell{font-size:30px}
+.legend{flex:1;display:grid;grid-template-columns:1fr 1fr;align-content:space-evenly;gap:8px 48px;margin-top:10px;font-size:28px;line-height:1.25}
+.legend li{display:flex;align-items:center;gap:20px}
+.legend svg{flex:none;width:84px;height:40px}
+
+/* ---------- Un exemple d'orchestration ---------- */
+.orch-body{flex:1;min-height:0;display:flex;gap:28px;margin-top:12px}
+.fit{flex:1;min-width:0;min-height:0;container-type:size;display:flex;align-items:center;justify-content:center}
+.zoom{position:relative;overflow:hidden;width:min(100cqw,calc(100cqh * var(--r)));height:min(100cqh,calc(100cqw / var(--r)));border:2px solid var(--line-strong);border-radius:16px;background:#fcfcfb;cursor:zoom-in}
+.zoom.is-zoomed{cursor:zoom-out}
+.zoom__in{position:absolute;inset:0;overflow:hidden;transform-origin:var(--ox,50%) var(--oy,50%);transition:transform .28s ease}
+.zoom.is-zoomed .zoom__in{transform:scale(var(--z,2))}
+.zoom img{display:block;max-width:none;height:auto}
+.side{flex:0 0 780px;min-height:0;display:flex;flex-direction:column;gap:12px}
+.steps{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between;font-size:27px;line-height:1.2}
+.steps li{display:flex;align-items:center;gap:14px}
+.steps .n{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--navy);color:#fff;font-size:24px;font-weight:700}
+.steps .t{font-weight:600}
+.steps .who{margin-left:auto;padding-left:10px;font-size:24px;white-space:nowrap}
+.who--agent{color:var(--blue)}
+.who--rule{color:var(--green)}
+.who--human{color:var(--amber)}
+.who--out{color:var(--navy)}
+.orch-foot{display:flex;justify-content:space-between;gap:24px;margin-top:10px;font-size:24px;line-height:1.3;color:var(--sec)}
+.chips{font-size:24px;line-height:1.3;color:var(--sec)}
+.chips b{display:inline-block;margin-right:8px;padding:0 14px;border:2px solid var(--blue);border-radius:999px;color:var(--blue);font-size:24px;letter-spacing:.06em;text-transform:uppercase}
+
+/* ---------- Règles communes ---------- */
+.rules{flex:1;display:flex;flex-direction:column;margin-top:20px}
+.rules li{flex:1;display:grid;grid-template-columns:60px 1fr;gap:26px;align-items:center;border-top:2px solid var(--line)}
+.rules .n{display:grid;place-items:center;width:60px;height:60px;border-radius:50%;background:var(--navy);color:#fff;font-size:32px;font-weight:700}
+.rules b{display:block}
+.rules p span{display:block;margin-top:2px;font-size:29px;line-height:1.28;color:var(--sec)}
+
+/* ---------- Des exemples, pas un standard ---------- */
+.end .rows--wide{--labw:540px;gap:12px}
+.close{margin-top:20px;padding:26px 40px;border-radius:16px;background:var(--navy);color:#fff;font-size:42px;line-height:1.25;font-weight:650}
+.links{margin-top:22px;font-size:28px;color:var(--sec)}
+
+/* ---------- Description, aide, progression (hors slides) ---------- */
+.notes{display:none}
+.notes-panel{position:fixed;left:0;right:0;bottom:0;height:30vh;overflow:auto;background:#fff;border-top:4px solid var(--navy);padding:14px 28px 18px;font:17px/1.5 -apple-system,"Segoe UI",system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink);z-index:5}
+.notes-panel[hidden]{display:none}
+.notes-panel h2{margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+.notes-panel p{margin:4px 0}
+.notes-panel ol{margin:4px 0;padding-left:24px}
+body.with-notes .stage{top:35vh}
+.deck-hint{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);padding:8px 16px;border-radius:6px;background:rgba(23,24,28,.88);color:#fff;font:500 14px/1.4 -apple-system,"Segoe UI",system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;pointer-events:none;opacity:0;transition:opacity .4s;z-index:6}
+.deck-hint.is-visible{opacity:1}
+body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
+.deck-progress{position:fixed;left:0;bottom:0;height:4px;background:#5b9be6;transition:width .25s;z-index:6}
+@media (prefers-reduced-motion:reduce){.deck-hint,.deck-progress,.zoom__in{transition:none}}
+
+/* ---------- Impression et PDF : une slide par page ---------- */
+@page{size:1920px 1080px;margin:0}
+@media print{
+  html,body{height:auto;overflow:visible;background:#fff}
+  .deck{position:static}
+  .stage{position:static;transform:none!important;width:auto;height:auto}
+  .slide{position:relative;display:flex!important;break-after:page;page-break-after:always}
+  .slide:last-child{break-after:auto;page-break-after:auto}
+  .zoom__in{transform:none!important}
+  .deck-hint,.deck-progress,.notes-panel,#annonce{display:none!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<!-- Généré par Livrables/Strategie-Deploiement/build/generate_cible_slides.py, ne pas éditer à la main -->
+<main class="deck" aria-roledescription="diaporama" aria-label="La cible : le cycle produit augmenté par l&#x27;IA">
+<div class="stage">
+
+<!-- ======================= 1 · Couverture ======================= -->
+<section class="slide cover" data-title="Couverture" aria-labelledby="t1">
+<p class="s-kicker">Ministères sociaux · Transformation IA</p>
+<h1 id="t1">La cible : le cycle produit augmenté par l&#x27;IA</h1>
+<p class="cover-lead">Cinq skills, du besoin au code livré. Chacun part des standards de l&#x27;équipe (le contexte), parle aux outils par MCP et produit l&#x27;artefact qui alimente le suivant.</p>
+<ol class="chain" aria-label="Les cinq skills, dans l'ordre du cycle"><li>/plan</li><li>/prototype</li><li>/maquette</li><li>/plan-tech</li><li>/implementation</li></ol>
+<ul class="mantra"><li class="m-agent"><b>L&#x27;agent</b> propose</li><li class="m-rule"><b>La règle</b> prouve</li><li class="m-human"><b>L&#x27;humain</b> décide</li></ul>
+<p class="cover-foot">Selim Boukhari · <a href="cible.html">La même cible en page</a></p>
+</section>
+
+<!-- ======================= 2 · Vue d'ensemble ======================= -->
+<section class="slide overview" data-title="Vue d&#x27;ensemble" aria-labelledby="t2">
+<div class="s-top"><p class="s-kicker">Vue d&#x27;ensemble</p><span class="s-right"><span class="s-page" data-page></span></span></div>
+<h2 id="t2">Cinq skills, trois métiers : chaque skill produit l&#x27;artefact qui alimente le suivant</h2>
+<table class="ov">
+<caption class="sr">Les cinq skills du cycle, par métier : ce que fait l'agent, ce que décide l'humain, l'artefact produit</caption>
+<colgroup><col class="c0"><col span="5"></colgroup>
+<thead>
+<tr><td></td><th scope="colgroup" colspan="1" class="role">Responsable produit</th><th scope="colgroup" colspan="2" class="role">Designer</th><th scope="colgroup" colspan="2" class="role">Développeur</th></tr>
+<tr><td></td><th scope="col" class="skill"><b>/plan</b><i>refinement du ticket</i></th><th scope="col" class="skill"><b>/prototype</b><i>du ticket au prototype</i></th><th scope="col" class="skill"><b>/maquette</b><i>du prototype validé à Figma</i></th><th scope="col" class="skill"><b>/plan-tech</b><i>plan et revue d&#x27;impact</i></th><th scope="col" class="skill"><b>/implementation</b><i>code et tests</i></th></tr>
+</thead><tbody>
+<tr><th scope="row" class="tl agent">L&#x27;agent<small>propose</small></th><td class="c agent">Challenge le besoin, rédige le ticket au standard de l&#x27;équipe, propose les critères d&#x27;acceptation</td><td class="c agent">Génère un prototype selon les standards UX et UI, en composants DSFR</td><td class="c agent">Pousse le prototype dans Figma, génère les maquettes en composants DSFR officiels</td><td class="c agent">Lit le ticket et le code, écrit le plan d&#x27;implémentation, évalue l&#x27;impact prévu sur le code</td><td class="c agent">Phase par phase, codeur et testeur séparés, code et tests ; stop si un test casse sans l&#x27;avoir prévu</td></tr>
+<tr><th scope="row" class="tl human">L&#x27;humain<small>décide</small></th><td class="c human">Répond, valide le ticket</td><td class="c human">Le montre aux utilisateurs</td><td class="c human">Valide les maquettes</td><td class="c human">Tranche, valide le plan</td><td class="c human">Relit et commite</td></tr>
+<tr><th scope="row" class="tl out">Sortie<small>l&#x27;artefact</small></th><td class="chev first">Ticket Jira</td><td class="chev">Prototype validé</td><td class="chev">Maquettes Figma</td><td class="chev">Plan + impact prévu</td><td class="chev">Code + tests</td></tr>
+</tbody></table>
+<ul class="fnotes"><li><b>Skill</b> : commande (<span class="nw">/plan</span>, <span class="nw">/prototype</span>…) lancée dans le harness de l&#x27;équipe, OpenCode Desktop + Albert ou Claude Code + Bedrock</li><li><b>MCP</b> : connecteur standard entre l&#x27;agent et un outil (Jira, Figma, DSFR, Playwright)</li><li><b>Le ticket Jira est le fil conducteur</b> : produit par <span class="nw">/plan</span>, lu par <span class="nw">/prototype</span>, <span class="nw">/plan-tech</span> et <span class="nw">/implementation</span></li></ul>
+</section>
+
+<!-- ======================= 3 · /plan ======================= -->
+<section class="slide skill" data-title="/plan" aria-labelledby="t3">
+<div class="s-top"><ol class="rail" aria-label="Les cinq skills du cycle"><li class="is-on" aria-current="step">/plan</li><li>/prototype</li><li>/maquette</li><li>/plan-tech</li><li>/implementation</li></ol><span class="s-right"><span class="role">Responsable produit</span><span class="s-page" data-page></span></span></div>
+<h2 id="t3"><span class="cmd">/plan</span> Du besoin au ticket Jira précis, au standard de l&#x27;équipe</h2>
+<div class="rows">
+<div class="row row--agent"><h3 class="lab">L&#x27;agent<small>propose</small></h3><div class="cell"><ul><li>Challenge la précision du besoin, pose ses questions</li><li>Rédige le ticket au standard de l&#x27;équipe</li><li>Propose et complète les critères d&#x27;acceptation</li></ul></div></div>
+<div class="row row--human"><h3 class="lab">L&#x27;humain<small>décide</small></h3><div class="cell"><ul><li>Répond aux questions de l&#x27;agent</li><li>Valide le ticket et ses critères d&#x27;acceptation</li></ul></div></div>
+<div class="row row--neutral"><h3 class="lab">Contexte<small>les standards</small></h3><div class="cell"><ul><li>Skill de challenge des imprécisions</li><li>Standard de ticket de l&#x27;équipe</li><li>Règles de rédaction des critères d&#x27;acceptation</li></ul></div></div>
+<div class="row row--neutral"><h3 class="lab">MCP<small>outils branchés</small></h3><div class="cell"><p class="pills"><span class="pill">Jira</span></p></div></div>
+<div class="row row--out"><h3 class="lab">Sortie<small>l&#x27;artefact</small></h3><div class="cell"><p class="chev">Ticket Jira précis, au standard, avec ses critères d&#x27;acceptation</p><p class="next">puis <b>/prototype</b></p></div></div>
+</div>
+</section>
+
+<!-- ======================= 4 · /prototype ======================= -->
+<section class="slide skill" data-title="/prototype" aria-labelledby="t4">
+<div class="s-top"><ol class="rail" aria-label="Les cinq skills du cycle"><li>/plan</li><li class="is-on" aria-current="step">/prototype</li><li>/maquette</li><li>/plan-tech</li><li>/implementation</li></ol><span class="s-right"><span class="role">Designer</span><span class="s-page" data-page></span></span></div>
+<h2 id="t4"><span class="cmd">/prototype</span> Du ticket au prototype DSFR, montré aux utilisateurs</h2>
+<div class="rows">
+<div class="row row--agent"><h3 class="lab">L&#x27;agent<small>propose</small></h3><div class="cell"><ul><li>Lit le ticket</li><li>Génère un prototype selon les standards UX et UI, en composants DSFR</li></ul></div></div>
+<div class="row row--human"><h3 class="lab">L&#x27;humain<small>décide</small></h3><div class="cell"><ul><li>Montre le prototype aux utilisateurs</li><li>Recueille leurs retours, itère</li></ul></div></div>
+<div class="row row--neutral"><h3 class="lab">Contexte<small>les standards</small></h3><div class="cell"><ul><li>Standards UX et UI</li></ul></div></div>
+<div class="row row--neutral"><h3 class="lab">MCP<small>outils branchés</small></h3><div class="cell"><p class="pills"><span class="pill">DSFR</span></p></div></div>
+<div class="row row--out"><h3 class="lab">Sortie<small>l&#x27;artefact</small></h3><div class="cell"><p class="chev">Prototype DSFR, montré aux utilisateurs</p><p class="next">puis <b>/maquette</b></p></div></div>
+</div>
+</section>
+
+<!-- ======================= 5 · /maquette ======================= -->
+<section class="slide skill" data-title="/maquette" aria-labelledby="t5">
+<div class="s-top"><ol class="rail" aria-label="Les cinq skills du cycle"><li>/plan</li><li>/prototype</li><li class="is-on" aria-current="step">/maquette</li><li>/plan-tech</li><li>/implementation</li></ol><span class="s-right"><span class="role">Designer</span><span class="s-page" data-page></span></span></div>
+<h2 id="t5"><span class="cmd">/maquette</span> Du prototype validé aux maquettes Figma, conformes DSFR</h2>
+<div class="rows">
+<div class="row row--agent"><h3 class="lab">L&#x27;agent<small>propose</small></h3><div class="cell"><ul><li>Pousse le prototype dans Figma</li><li>Génère les maquettes selon les standards UI, en composants DSFR officiels</li><li>Respect strict du design system</li></ul></div></div>
+<div class="row row--human"><h3 class="lab">L&#x27;humain<small>décide</small></h3><div class="cell"><ul><li>Valide les maquettes</li></ul></div></div>
+<div class="row row--neutral"><h3 class="lab">Contexte<small>les standards</small></h3><div class="cell"><ul><li>Consigne : récupérer les composants DSFR officiels dans les maquettes</li></ul></div></div>
+<div class="row row--neutral"><h3 class="lab">MCP<small>outils branchés</small></h3><div class="cell"><p class="pills"><span class="pill">Figma</span></p></div></div>
+<div class="row row--out"><h3 class="lab">Sortie<small>l&#x27;artefact</small></h3><div class="cell"><p class="chev">Maquettes Figma du prototype validé, conformes DSFR</p><p class="next">puis <b>/plan-tech</b></p></div></div>
+</div>
+</section>
+
+<!-- ======================= 6 · /plan-tech ======================= -->
+<section class="slide skill" data-title="/plan-tech" aria-labelledby="t6">
+<div class="s-top"><ol class="rail" aria-label="Les cinq skills du cycle"><li>/plan</li><li>/prototype</li><li>/maquette</li><li class="is-on" aria-current="step">/plan-tech</li><li>/implementation</li></ol><span class="s-right"><span class="role">Développeur</span><span class="s-page" data-page></span></span></div>
+<h2 id="t6"><span class="cmd">/plan-tech</span> Du ticket au plan d&#x27;implémentation, avec sa revue d&#x27;impact</h2>
+<div class="rows">
+<div class="row row--agent"><h3 class="lab">L&#x27;agent<small>propose</small></h3><div class="cell"><ul><li>Lit le ticket et, au besoin, les maquettes dans Figma</li><li>Lit le code, écrit le plan d&#x27;implémentation aux standards de l&#x27;équipe</li><li>Évalue l&#x27;impact prévu sur le code</li></ul></div></div>
+<div class="row row--human"><h3 class="lab">L&#x27;humain<small>décide</small></h3><div class="cell"><ul><li>Tranche les choix techniques quand l&#x27;agent le demande</li><li>Valide le plan</li></ul></div></div>
+<div class="row row--neutral"><h3 class="lab">Contexte<small>les standards</small></h3><div class="cell"><ul><li>Standards de développement</li><li>Lecture du code</li><li>Standards de sécurité (au besoin)</li></ul></div></div>
+<div class="row row--neutral"><h3 class="lab">MCP<small>outils branchés</small></h3><div class="cell"><p class="pills"><span class="pill">Jira</span><span class="pill">Figma</span><span class="pill">DSFR</span></p></div></div>
+<div class="row row--out"><h3 class="lab">Sortie<small>l&#x27;artefact</small></h3><div class="cell"><p class="chev">Revue d&#x27;impact prévu sur le code + plan d&#x27;implémentation</p><p class="next">puis <b>/implementation</b></p></div></div>
+</div>
+</section>
+
+<!-- ======================= 7 · /implementation ======================= -->
+<section class="slide skill" data-title="/implementation" aria-labelledby="t7">
+<div class="s-top"><ol class="rail" aria-label="Les cinq skills du cycle"><li>/plan</li><li>/prototype</li><li>/maquette</li><li>/plan-tech</li><li class="is-on" aria-current="step">/implementation</li></ol><span class="s-right"><span class="role">Développeur</span><span class="s-page" data-page></span></span></div>
+<h2 id="t7"><span class="cmd">/implementation</span> Du plan au code et aux tests, phase par phase</h2>
+<div class="rows">
+<div class="row row--agent"><h3 class="lab">L&#x27;agent<small>propose</small></h3><div class="cell"><ul><li>Implémente phase par phase</li><li>Agents codeur et testeur séparés</li><li>Pose le code et les tests : unitaires, intégration, e2e</li><li>S&#x27;arrête si un test casse sans l&#x27;avoir prévu dans la revue d&#x27;impact</li><li>Passe la quality gate avant commit</li></ul></div></div>
+<div class="row row--human"><h3 class="lab">L&#x27;humain<small>décide</small></h3><div class="cell"><ul><li>Choisit l&#x27;approche (test first, acceptance first, code first)</li><li>Relit avant de commiter</li></ul></div></div>
+<div class="row row--neutral"><h3 class="lab">Contexte<small>les standards</small></h3><div class="cell"><ul><li>Revue d&#x27;impact prévu sur le code</li><li>Plan d&#x27;implémentation</li><li>Maquette au besoin</li></ul></div></div>
+<div class="row row--neutral"><h3 class="lab">MCP<small>outils branchés</small></h3><div class="cell"><p class="pills"><span class="pill">Jira</span><span class="pill">Figma</span><span class="pill">DSFR</span><span class="pill">Playwright</span></p></div></div>
+<div class="row row--out"><h3 class="lab">Sortie<small>l&#x27;artefact</small></h3><div class="cell"><p class="chev">Code et tests, prêts pour la CI</p></div></div>
+</div>
+</section>
+
+<!-- ======================= 8 · Soutiens à la production ======================= -->
+<section class="slide supports" data-title="Soutiens à la production" aria-labelledby="t8">
+<div class="s-top"><ol class="rail" aria-label="Les cinq skills du cycle"><li>/plan</li><li>/prototype</li><li>/maquette</li><li>/plan-tech</li><li class="is-on" aria-current="step">/implementation</li></ol><span class="s-right"><span class="role">Développeur</span><span class="s-page" data-page></span></span></div>
+<h2 id="t8">Sous <span class="nw">/implementation</span>, trois soutiens à la production vérifient le code</h2>
+<div class="rows rows--wide">
+<div class="row row--rule"><h3 class="lab">Pendant <span class="nw">/implementation</span></h3><div class="cell"><ul><li>IDE : ESLint</li><li>Quality gate avant commit : RGAA, standards de qualité, build sans erreur</li></ul></div></div>
+<p class="then"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v14m-7-6 7 7 7-7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>commit, puis push</p>
+<div class="row row--rule"><h3 class="lab">À chaque push<small>en boucle</small></h3><div class="cell"><ul><li>CI/CD : revue de code par un bot IA, puis Sonar</li><li>Rejet du bot ou issue Sonar : la correction repart dans <span class="nw">/implementation</span></li></ul></div></div>
+<p class="then"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v14m-7-6 7 7 7-7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>la nuit</p>
+<div class="row row--rule"><h3 class="lab">Chaque nuit<small>hors boucle</small></h3><div class="cell"><ul><li>Pré-audit RGAA poussé, analyse de sécurité</li><li>Chaque écart ouvre un ticket, corrigé dans un prochain <span class="nw">/plan</span></li></ul></div></div>
+</div>
+<p class="callout"><b>Cible</b> : des soutiens à la production aussi pour le produit (Definition of Ready outillée) et le design (audit DSFR / RGAA), paliers 2 et 3 de la checklist de déploiement</p>
+<div class="notes"><p>Le bot de revue IA en CI fait partie des mécanismes proposés, à confirmer avec les équipes (palier 4 de la checklist de déploiement).</p></div>
+</section>
+
+<!-- ======================= 9 · Lire un schéma ======================= -->
+<section class="slide read" data-title="Lire un schéma" aria-labelledby="t9">
+<div class="s-top"><p class="s-kicker">Exemples d&#x27;orchestration</p><span class="s-right"><span class="s-page" data-page></span></span></div>
+<h2 id="t9">Skill par skill, un exemple d&#x27;orchestration</h2>
+<p class="lead">Cinq exemples, un par skill, pour se représenter une orchestration : les agents, le contexte qu&#x27;on leur donne, où l&#x27;humain intervient, les boucles et les retours. Des illustrations, pas des modèles à copier : chaque équipe compose la sienne.</p>
+<p class="how">Un schéma se lit de gauche à droite, dans l&#x27;ordre des numéros.</p>
+<div class="rows">
+<div class="row row--agent"><h3 class="lab">L&#x27;agent<small>propose</small></h3><div class="cell"><p>Contexte vierge, il ne reçoit que ce qui le concerne ; un second agent qui relit = boucle IA</p></div></div>
+<div class="row row--rule"><h3 class="lab">La règle<small>prouve · déterministe</small></h3><div class="cell"><p>Boucle déterministe : test, lint, contrôle ; vert ou rouge, sans discussion</p></div></div>
+<div class="row row--human"><h3 class="lab">L&#x27;humain<small>décide</small></h3><div class="cell"><p>Lance, répond, tranche, valide, reprend la main</p></div></div>
+</div>
+<ul class="legend"><li><svg viewBox="0 0 84 40" aria-hidden="true"><circle cx="24" cy="20" r="17" fill="var(--navy)"/><text x="24" y="28" text-anchor="middle" font-size="22" font-weight="700" fill="#fff">1</text></svg><span>1, 2, 3… l&#x27;ordre des étapes quand tout se passe bien</span></li><li><svg viewBox="0 0 84 40" aria-hidden="true"><path d="M6 4H62L76 14V36H6z" fill="#fff" stroke="var(--sec)" stroke-width="2.5" stroke-dasharray="7 5"/></svg><span>Ce qui entre</span></li><li><svg viewBox="0 0 84 40" aria-hidden="true"><path d="M4 20H66" stroke="var(--green)" stroke-width="4"/><path d="M62 9 82 20 62 31z" fill="var(--green)"/></svg><span>Ça passe</span></li><li><svg viewBox="0 0 84 40" aria-hidden="true"><path d="M4 4H62L80 20 62 36H4z" fill="var(--navy)"/></svg><span>Ce qui sort</span></li><li><svg viewBox="0 0 84 40" aria-hidden="true"><path d="M4 20H66" stroke="var(--red)" stroke-width="4" stroke-dasharray="11 8"/><path d="M62 9 82 20 62 31z" fill="var(--red)"/></svg><span>Pas conforme : le motif repart à l&#x27;agent, 3 essais au plus, puis l&#x27;humain reprend la main</span></li><li><svg viewBox="0 0 84 40" aria-hidden="true"><path d="M4 20H66" stroke="var(--amber)" stroke-width="4" stroke-dasharray="11 8"/><path d="M62 9 82 20 62 31z" fill="var(--amber)"/></svg><span>Un « non » ou des retours : l&#x27;agent reprend, rien n&#x27;est perdu</span></li></ul>
+</section>
+
+<!-- ======================= 10 · Exemple /plan ======================= -->
+<section class="slide orch" data-title="Exemple /plan" aria-labelledby="t10">
+<div class="s-top"><ol class="rail" aria-label="Les cinq skills du cycle"><li class="is-on" aria-current="step">/plan</li><li>/prototype</li><li>/maquette</li><li>/plan-tech</li><li>/implementation</li></ol><span class="s-right"><span class="role">Responsable produit</span><span class="s-page" data-page></span></span></div>
+<h2 id="t10"><span class="tag">Exemple</span> <span class="cmd">/plan</span> Du besoin brut au ticket publié</h2>
+<p class="lead">Un agent questionne, un autre rédige, la règle contrôle la forme, un troisième relit à froid, le responsable produit valide.</p>
+<div class="orch-body"><div class="fit"><div class="zoom" data-zoom style="--r:1.8493;--z:1.85"><div class="zoom__in"><img src="Livrables/Strategie-Deploiement/assets/orchestration-plan-light.svg" alt="Exemple d&#x27;orchestration pour /plan : refinement du ticket. Schéma en trois couloirs, l&#x27;agent propose, la règle prouve, l&#x27;humain décide. Description textuelle : touche N." aria-describedby="desc-plan" style="width:102.564%;margin:-5.861% 0 0 -1.282%"></div></div></div></div>
+<p class="orch-foot"><span>Un exemple, pas un standard : un déroulé possible parmi d&#x27;autres.</span><span>Clic sur le schéma ou touche Z : agrandir · <a href="Livrables/Strategie-Deploiement/assets/orchestration-plan-light.svg" target="_blank" rel="noopener">Ouvrir le schéma seul</a></span></p>
+<div class="notes" id="desc-plan"><p>Ce qui entre : Le besoin, tel qu'il arrive : quelques lignes, un mail, un compte rendu.</p><ol><li>l'humain · Apporte le besoin : et lance /plan</li><li>l'agent · Agent challenge : Relève les imprécisions et les contradictions ; Pose ses questions, une à la fois. Contexte : skill de challenge, standard de ticket. MCP : Jira</li><li>l'humain · Répond aux questions : jusqu'à ce qu'il n'en reste aucune de bloquante</li><li>l'agent · Agent rédacteur : Rédige le ticket au standard de l'équipe ; Propose et complète les critères d'acceptation. Contexte : standard de ticket, règles de rédaction des critères</li><li>la règle · Contrôle de forme : Sections obligatoires présentes ; Chaque critère d'acceptation suit le gabarit de l'équipe ; Aucun champ vide</li><li>l'agent · Agent relecteur : Relit le ticket seul : testable ? complet ? sans ambiguïté ?. Contexte : le ticket, pas la conversation</li><li>l'humain · Valide le ticket : oui : il est publié ; non : sa remarque repart à l'agent</li><li>sortie · Ticket Jira publié : au standard, avec ses critères d'acceptation. MCP : Jira</li></ol><p>Boucles : refusé : le motif repart au rédacteur · 3 essais au plus ; non : sa remarque repart à l'agent rédacteur, le brouillon reste. Chaque règle renvoie son motif à l'agent, 3 essais au plus, puis l'humain reprend la main.</p></div>
+</section>
+
+<!-- ======================= 11 · Exemple /prototype ======================= -->
+<section class="slide orch" data-title="Exemple /prototype" aria-labelledby="t11">
+<div class="s-top"><ol class="rail" aria-label="Les cinq skills du cycle"><li>/plan</li><li class="is-on" aria-current="step">/prototype</li><li>/maquette</li><li>/plan-tech</li><li>/implementation</li></ol><span class="s-right"><span class="role">Designer</span><span class="s-page" data-page></span></span></div>
+<h2 id="t11"><span class="tag">Exemple</span> <span class="cmd">/prototype</span> Du ticket au prototype validé par les utilisateurs</h2>
+<p class="lead">L&#x27;agent génère en composants DSFR, la règle vérifie les composants, un second agent relit, le designer montre et itère.</p>
+<div class="orch-body"><div class="fit"><div class="zoom" data-zoom style="--r:1.8811;--z:1.81"><div class="zoom__in"><img src="Livrables/Strategie-Deploiement/assets/orchestration-prototype-light.svg" alt="Exemple d&#x27;orchestration pour /prototype : du ticket au prototype. Schéma en trois couloirs, l&#x27;agent propose, la règle prouve, l&#x27;humain décide. Description textuelle : touche N." aria-describedby="desc-prototype" style="width:102.564%;margin:-7.418% 0 0 -1.282%"></div></div></div></div>
+<p class="orch-foot"><span>Un exemple, pas un standard : un déroulé possible parmi d&#x27;autres.</span><span>Clic sur le schéma ou touche Z : agrandir · <a href="Livrables/Strategie-Deploiement/assets/orchestration-prototype-light.svg" target="_blank" rel="noopener">Ouvrir le schéma seul</a></span></p>
+<div class="notes" id="desc-prototype"><p>Ce qui entre : Le ticket, validé par /plan, avec ses critères d'acceptation.</p><ol><li>l'humain · Lance /prototype : sur le ticket</li><li>l'agent · Agent prototypeur : Lit le ticket ; Génère le prototype en composants DSFR. Contexte : standards UX et UI. MCP : DSFR</li><li>la règle · Gardes-fous : Chaque composant existe dans le DSFR ; Les fichiers annoncés sont bien produits ; La page s'affiche sans erreur</li><li>l'agent · Agent vérificateur : Le prototype couvre-t-il le ticket ? ; Standards UX respectés ?. Contexte : le ticket et le prototype</li><li>l'humain · Montre le prototype aux utilisateurs : retours : l'agent reprend, autant de fois qu'il faut ; OK : prototype validé</li><li>sortie · Prototype DSFR validé : par les utilisateurs, prêt pour /maquette</li></ol><p>Boucles : refusé : le motif repart au prototypeur · 3 essais au plus ; retours des utilisateurs : l'agent reprend le prototype, autant de fois que nécessaire. Chaque règle renvoie son motif à l'agent, 3 essais au plus, puis l'humain reprend la main.</p></div>
+</section>
+
+<!-- ======================= 12 · Exemple /maquette ======================= -->
+<section class="slide orch" data-title="Exemple /maquette" aria-labelledby="t12">
+<div class="s-top"><ol class="rail" aria-label="Les cinq skills du cycle"><li>/plan</li><li>/prototype</li><li class="is-on" aria-current="step">/maquette</li><li>/plan-tech</li><li>/implementation</li></ol><span class="s-right"><span class="role">Designer</span><span class="s-page" data-page></span></span></div>
+<h2 id="t12"><span class="tag">Exemple</span> <span class="cmd">/maquette</span> Du prototype validé aux maquettes Figma</h2>
+<p class="lead">L&#x27;agent pousse le prototype dans Figma, la règle vérifie que chaque composant vient de la bibliothèque DSFR officielle, un second agent contrôle la fidélité, le designer valide.</p>
+<div class="orch-body"><div class="fit"><div class="zoom" data-zoom style="--r:1.8430;--z:1.85"><div class="zoom__in"><img src="Livrables/Strategie-Deploiement/assets/orchestration-maquette-light.svg" alt="Exemple d&#x27;orchestration pour /maquette : du prototype validé à Figma. Schéma en trois couloirs, l&#x27;agent propose, la règle prouve, l&#x27;humain décide. Description textuelle : touche N." aria-describedby="desc-maquette" style="width:102.564%;margin:-7.418% 0 0 -1.282%"></div></div></div></div>
+<p class="orch-foot"><span>Un exemple, pas un standard : un déroulé possible parmi d&#x27;autres.</span><span>Clic sur le schéma ou touche Z : agrandir · <a href="Livrables/Strategie-Deploiement/assets/orchestration-maquette-light.svg" target="_blank" rel="noopener">Ouvrir le schéma seul</a></span></p>
+<div class="notes" id="desc-maquette"><p>Ce qui entre : Le prototype validé, par les utilisateurs.</p><ol><li>l'humain · Lance /maquette : sur le prototype</li><li>l'agent · Agent maquetteur : Pousse le prototype dans Figma ; Génère les maquettes en composants DSFR officiels. Contexte : consigne : composants DSFR officiels. MCP : Figma</li><li>la règle · Gardes-fous : Chaque composant vient de la bibliothèque DSFR officielle, rien de redessiné ; Chaque écran du prototype a sa maquette</li><li>l'agent · Agent vérificateur : Les maquettes sont-elles fidèles au prototype ? ; Design system respecté à la lettre ?. Contexte : le prototype et les maquettes</li><li>l'humain · Valide les maquettes : oui : transmises au développeur ; non : sa remarque repart à l'agent</li><li>sortie · Maquettes Figma validées : conformes DSFR, lues par /plan-tech. MCP : Figma</li></ol><p>Boucles : refusé : le motif repart au maquetteur · 3 essais au plus ; non : sa remarque repart à l'agent maquetteur, la version précédente reste. Chaque règle renvoie son motif à l'agent, 3 essais au plus, puis l'humain reprend la main.</p></div>
+</section>
+
+<!-- ======================= 13 · Exemple /plan-tech ======================= -->
+<section class="slide orch" data-title="Exemple /plan-tech" aria-labelledby="t13">
+<div class="s-top"><ol class="rail" aria-label="Les cinq skills du cycle"><li>/plan</li><li>/prototype</li><li>/maquette</li><li class="is-on" aria-current="step">/plan-tech</li><li>/implementation</li></ol><span class="s-right"><span class="role">Développeur</span><span class="s-page" data-page></span></span></div>
+<h2 id="t13"><span class="tag">Exemple</span> <span class="cmd">/plan-tech</span> Du ticket au plan d&#x27;implémentation</h2>
+<p class="lead">L&#x27;agent architecte lit le ticket, les maquettes et le code, la règle vérifie que le plan est complet, un second agent mesure l&#x27;impact sur l&#x27;existant, le développeur tranche et valide.</p>
+<div class="orch-body"><div class="fit"><div class="zoom" data-zoom style="--r:1.6865;--z:2.02"><div class="zoom__in"><img src="Livrables/Strategie-Deploiement/assets/orchestration-plan-tech-light.svg" alt="Exemple d&#x27;orchestration pour /plan-tech : plan et revue d&#x27;impact. Schéma en trois couloirs, l&#x27;agent propose, la règle prouve, l&#x27;humain décide. Description textuelle : touche N." aria-describedby="desc-plan-tech" style="width:102.564%;margin:-7.418% 0 0 -1.282%"></div></div></div></div>
+<p class="orch-foot"><span>Un exemple, pas un standard : un déroulé possible parmi d&#x27;autres.</span><span>Clic sur le schéma ou touche Z : agrandir · <a href="Livrables/Strategie-Deploiement/assets/orchestration-plan-tech-light.svg" target="_blank" rel="noopener">Ouvrir le schéma seul</a></span></p>
+<div class="notes" id="desc-plan-tech"><p>Ce qui entre : Le ticket et les maquettes, ticket Jira, maquettes Figma.</p><ol><li>l'humain · Lance /plan-tech : sur le ticket</li><li>l'agent · Agent architecte : Lit le ticket, les maquettes, le code ; Écrit le plan d'implémentation, phase par phase. Contexte : standards de développement, sécurité au besoin. MCP : Jira, Figma, DSFR</li><li>l'humain · Tranche les choix techniques : quand l'agent le demande</li><li>la règle · Contrôle du plan : Chaque phase dit quels fichiers elle touche et comment vérifier qu'elle est finie ; Rien d'ambigu pour les agents qui suivront</li><li>l'agent · Agent revue d'impact : Croise le plan et le code existant ; Liste ce qui va casser : comportements, tests. Contexte : le plan, le code</li><li>l'humain · Valide le plan et les casses annoncées : oui : la revue d'impact fait foi pour /implementation ; non : le plan est corrigé, à la main ou par l'agent</li><li>sortie · Plan + revue d'impact approuvés : prêts pour /implementation, back et front</li></ol><p>Boucles : plan incomplet : le motif repart à l'architecte · 3 essais au plus ; non : la remarque repart à l'architecte, le plan reste éditable. Chaque règle renvoie son motif à l'agent, 3 essais au plus, puis l'humain reprend la main.</p></div>
+</section>
+
+<!-- ======================= 14 · Exemple /implementation ======================= -->
+<section class="slide orch" data-title="Exemple /implementation" aria-labelledby="t14">
+<div class="s-top"><ol class="rail" aria-label="Les cinq skills du cycle"><li>/plan</li><li>/prototype</li><li>/maquette</li><li>/plan-tech</li><li class="is-on" aria-current="step">/implementation</li></ol><span class="s-right"><span class="role">Développeur</span><span class="s-page" data-page></span></span></div>
+<h2 id="t14"><span class="tag">Exemple</span> <span class="cmd">/implementation</span> Du plan approuvé au code mergé, phase par phase</h2>
+<p class="lead">Le testeur pose les tests, le codeur les fait passer, les gardes-fous et un vérificateur tranchent, le développeur relit chaque phase avant de la commiter. Après le push, la CI/CD boucle avec la phase ; les contrôles de nuit, eux, ouvrent des tickets.</p>
+<div class="orch-body"><div class="fit"><div class="zoom" data-zoom style="--r:1.2409;--z:2.80"><div class="zoom__in"><img src="Livrables/Strategie-Deploiement/assets/orchestration-implementation-light.svg" alt="Exemple d&#x27;orchestration pour /implementation : code et tests. Schéma en trois couloirs, l&#x27;agent propose, la règle prouve, l&#x27;humain décide. Description textuelle : touche N." aria-describedby="desc-implementation" style="width:102.564%;margin:-7.418% 0 0 -1.282%"></div></div></div><div class="side"><p class="chips"><b>Back</b><b>Front</b>une orchestration par périmètre, même déroulé</p><ol class="steps" aria-label="Les 15 étapes, dans l'ordre"><li><span class="n" aria-hidden="true">1</span><span class="t">Lance la phase</span><span class="who who--human">l&#x27;humain</span></li><li><span class="n" aria-hidden="true">2</span><span class="t">Agent testeur</span><span class="who who--agent">l&#x27;agent</span></li><li><span class="n" aria-hidden="true">3</span><span class="t">Les tests échouent encore ?</span><span class="who who--rule">la règle</span></li><li><span class="n" aria-hidden="true">4</span><span class="t">Agent codeur</span><span class="who who--agent">l&#x27;agent</span></li><li><span class="n" aria-hidden="true">5</span><span class="t">Gardes-fous</span><span class="who who--rule">la règle</span></li><li><span class="n" aria-hidden="true">6</span><span class="t">Agent vérificateur</span><span class="who who--agent">l&#x27;agent</span></li><li><span class="n" aria-hidden="true">7</span><span class="t">Relit la phase, commite ?</span><span class="who who--human">l&#x27;humain</span></li><li><span class="n" aria-hidden="true">8</span><span class="t">Point de sauvegarde</span><span class="who who--rule">la règle</span></li><li><span class="n" aria-hidden="true">9</span><span class="t">Code + tests poussés</span><span class="who who--out">sortie</span></li><li><span class="n" aria-hidden="true">10</span><span class="t">Bot de revue IA</span><span class="who who--agent">l&#x27;agent</span></li><li><span class="n" aria-hidden="true">11</span><span class="t">La PR peut-elle passer ?</span><span class="who who--rule">la règle</span></li><li><span class="n" aria-hidden="true">12</span><span class="t">Valide et merge</span><span class="who who--human">l&#x27;humain</span></li><li><span class="n" aria-hidden="true">13</span><span class="t">Code mergé</span><span class="who who--out">sortie</span></li><li><span class="n" aria-hidden="true">14</span><span class="t">Chaque nuit, hors boucle</span><span class="who who--rule">la règle</span></li><li><span class="n" aria-hidden="true">15</span><span class="t">Les écarts ouvrent des tickets</span><span class="who who--human">l&#x27;humain</span></li></ol></div></div>
+<p class="orch-foot"><span>Un exemple, pas un standard : un déroulé possible parmi d&#x27;autres.</span><span>Clic sur le schéma ou touche Z : agrandir · <a href="Livrables/Strategie-Deploiement/assets/orchestration-implementation-light.svg" target="_blank" rel="noopener">Ouvrir le schéma seul</a></span></p>
+<div class="notes" id="desc-implementation"><p>Ce qui entre : Plan + revue d'impact, du périmètre (back ou front) · phase N.</p><ol><li>l'humain · Lance la phase : /implementation, approche : test first (ici), acceptance first ou code first</li><li>l'agent · Agent testeur : Écrit les tests de la phase : unitaires, intégration, bout en bout. Contexte : plan, critères d'acceptation, standards de test. MCP : Playwright</li><li>la règle · Les tests échouent encore : Un test qui passe déjà ne teste rien ; Puis les tests sont gelés : le codeur ne pourra pas les modifier</li><li>l'agent · Agent codeur : Écrit le code de la phase pour faire passer les tests. Contexte : plan, revue d'impact, maquette au besoin, standards de développement. MCP : Figma, DSFR</li><li>la règle · Gardes-fous : Tests gelés intacts, sinon restaurés ; Fichiers annoncés bien touchés ; Lint, build, tests verts ; Quality gate : RGAA, standards</li><li>l'agent · Agent vérificateur : La phase livre-t-elle tout ce que le plan annonçait ?. Contexte : le plan de la phase, le code produit</li><li>l'humain · Relit la phase, commite : oui : commit · non : sa remarque repart au codeur ; après la dernière phase : pousse</li><li>la règle · Point de sauvegarde : Le commit de la phase ; Si la suite casse, on revient ici</li><li>sortie · Code + tests poussés : la CI/CD prend le relais</li><li>l'agent · Bot de revue IA : Relit la diff : standards, lisibilité, régressions ; Approuve ou demande des changements. Contexte : standards de développement, le plan de la phase</li><li>la règle · La PR peut-elle passer : Revue du bot IA approuvée ; Sonar vert : couverture, duplication, vulnérabilités ; Lint, build et tests rejoués</li><li>l'humain · Valide et merge : arbitre les remarques du bot, puis merge</li><li>sortie · Code mergé : la fonctionnalité part en recette</li><li>la règle · Chaque nuit, hors boucle : Pré-audit RGAA poussé ; Analyse de sécurité : dépendances, code ; Trop long pour tourner à chaque push</li><li>l'humain · Les écarts ouvrent des tickets : corrigés dans un prochain ticket, pas dans la phase en cours</li></ol><p>Boucles : refusé : le motif repart au codeur · 3 essais au plus ; non : sa remarque repart au codeur ; phase suivante : le testeur reprend avec la phase N+1 ; revue rejetée ou issue Sonar : la correction rejoint le plan de la phase, le codeur reprend. Chaque règle renvoie son motif à l'agent, 3 essais au plus, puis l'humain reprend la main.</p></div>
+</section>
+
+<!-- ======================= 15 · Règles communes ======================= -->
+<section class="slide rules-slide" data-title="Règles communes" aria-labelledby="t15">
+<div class="s-top"><p class="s-kicker">Exemples d&#x27;orchestration</p><span class="s-right"><span class="s-page" data-page></span></span></div>
+<h2 id="t15">Cinq règles valent pour les cinq orchestrations</h2>
+<ol class="rules"><li><span class="n" aria-hidden="true">1</span><p><b>Trois essais au plus par agent</b><span>Au-delà, l&#x27;orchestration s&#x27;arrête proprement et l&#x27;humain reprend la main. Jamais de boucle sans fin, un coût borné.</span></p></li><li><span class="n" aria-hidden="true">2</span><p><b>Un « non » à une validation ne détruit rien</b><span>Le brouillon, le plan ou la version précédente restent, la remarque repart à l&#x27;agent.</span></p></li><li><span class="n" aria-hidden="true">3</span><p><b>Chaque étape validée est un point de sauvegarde</b><span>Si la suite casse, on y revient au lieu de tout refaire.</span></p></li><li><span class="n" aria-hidden="true">4</span><p><b>Chaque agent démarre avec un contexte vierge et ne reçoit que ce qui le concerne</b><span>Le relecteur lit le ticket, pas la conversation qui l&#x27;a produit.</span></p></li><li><span class="n" aria-hidden="true">5</span><p><b>La règle avant l&#x27;agent</b><span>Quand un test, un lint ou un contrôle peut trancher (boucle déterministe), c&#x27;est lui qui tranche ; un second agent relit ce qu&#x27;aucune règle ne sait prouver (boucle IA).</span></p></li></ol>
+</section>
+
+<!-- ======================= 16 · Des exemples, pas un standard ======================= -->
+<section class="slide end" data-title="Des exemples, pas un standard" aria-labelledby="t16">
+<div class="s-top"><p class="s-kicker">Exemples d&#x27;orchestration</p><span class="s-right"><span class="s-page" data-page></span></span></div>
+<h2 id="t16">Des exemples, pas un standard</h2>
+<div class="rows rows--wide">
+<div class="row row--neutral"><h3 class="lab"><span class="nw">/implementation</span> s&#x27;inspire de ce qui tourne<small>chez Egapro et DACCORD</small></h3><div class="cell"><p>Codeur et testeur séparés, front et back</p></div></div>
+<div class="row row--neutral"><h3 class="lab">Et y ajoute des mécanismes proposés<small>à confirmer avec les équipes</small></h3><div class="cell"><ul><li>Tests gelés</li><li>Agent vérificateur</li><li>Point de sauvegarde par phase</li><li>Bot de revue IA en CI (palier 4)</li></ul></div></div>
+<div class="row row--neutral"><h3 class="lab">Les quatre autres schémas</h3><div class="cell"><p>Ce qu&#x27;une orchestration pourrait être sur ces skills</p></div></div>
+</div>
+<p class="close">Chaque équipe compose son orchestration au palier 3 de la checklist de déploiement, qui décline cette cible en quatre paliers.</p>
+<p class="links"><a href="https://github.com/SocialGouv/transfo-ia/blob/main/Livrables/Strategie-Deploiement/Checklist-IA-par-equipe.md">Checklist de déploiement</a> · <a href="cible.html">La cible en page</a> · <a href="https://github.com/SocialGouv/transfo-ia/tree/main/Livrables/Strategie-Deploiement/assets">Dossier des schémas</a></p>
+</section>
+
+</div>
+<p class="sr" id="annonce" aria-live="polite"></p>
+</main>
+<div class="notes-panel" id="notes-panel" role="complementary" aria-label="Description de la slide" tabindex="0" hidden aria-live="polite"></div>
+<script>
+/* Navigation : flèches, espace, Début, Fin, chiffres · F plein écran · Z agrandir le schéma ·
+   N description du schéma · P imprimer */
+(() => {
+  const TITLE = document.title;
+  const stage = document.querySelector('.stage');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  const panel = document.getElementById('notes-panel');
+  const annonce = document.getElementById('annonce');
+  const shot = new URLSearchParams(location.search).has('shot');
+  let cur = -1;
+
+  slides.forEach((s, i) => s.querySelectorAll('[data-page]').forEach(el => { el.textContent = `${i + 1} / ${total}`; }));
+
+  const hint = document.createElement('div');
+  hint.className = 'deck-hint';
+  hint.textContent = '← → pour naviguer · F plein écran · Z ou clic : agrandir un schéma · N description · P imprimer';
+  hint.setAttribute('role', 'complementary');
+  hint.setAttribute('aria-label', 'Raccourcis clavier');
+  const progress = document.createElement('div');
+  progress.className = 'deck-progress';
+  progress.setAttribute('aria-hidden', 'true');
+  if (!shot) document.body.append(hint, progress);
+
+  function fit() {
+    const h = window.innerHeight * (document.body.classList.contains('with-notes') ? 0.7 : 1);
+    stage.style.setProperty('--scale', Math.min(window.innerWidth / 1920, h / 1080));
+  }
+  function renderNotes() {
+    const n = slides[cur].querySelector('.notes');
+    panel.innerHTML = '<h2>' + (slides[cur].dataset.title || '') + '</h2>' + (n ? n.innerHTML : '<p>Pas de description pour cette slide.</p>');
+  }
+
+  /* Loupe : le schéma grossit autour du pointeur, et suit ses déplacements */
+  const zooms = Array.from(document.querySelectorAll('[data-zoom]'));
+  function aim(box, e) {
+    const r = box.getBoundingClientRect();
+    const pc = (v, a, b) => Math.max(0, Math.min(100, (v - a) / b * 100)) + '%';
+    box.style.setProperty('--ox', pc(e.clientX, r.left, r.width));
+    box.style.setProperty('--oy', pc(e.clientY, r.top, r.height));
+  }
+  function unzoom() { zooms.forEach(b => b.classList.remove('is-zoomed')); }
+  zooms.forEach(box => {
+    box.addEventListener('click', e => {
+      e.stopPropagation();
+      if (!box.classList.contains('is-zoomed')) aim(box, e);
+      box.classList.toggle('is-zoomed');
+    });
+    box.addEventListener('mousemove', e => { if (box.classList.contains('is-zoomed')) aim(box, e); });
+  });
+  /* ?zoom et ?notes dans l'adresse : ouvrir agrandi ou avec la description, pour une capture */
+  const params = new URLSearchParams(location.search);
+  if (params.has('zoom')) zooms.forEach(b => b.classList.add('is-zoomed'));
+
+  function go(n) {
+    n = Math.max(0, Math.min(total - 1, n));
+    if (n === cur) return;
+    if (cur >= 0) { slides[cur].classList.remove('is-active'); unzoom(); }
+    slides[n].classList.add('is-active');
+    cur = n;
+    progress.style.width = `${total > 1 ? (cur / (total - 1)) * 100 : 100}%`;
+    if (location.hash !== `#${cur + 1}`) history.replaceState(null, '', `#${cur + 1}`);
+    const t = slides[cur].dataset.title || '';
+    document.title = `${t} · ${TITLE}`;
+    annonce.textContent = `Diapositive ${cur + 1} sur ${total} : ${t}`;
+    if (!panel.hidden) renderNotes();
+  }
+  function fromHash() { const n = parseInt(location.hash.slice(1), 10); return Number.isFinite(n) ? n - 1 : 0; }
+  function toggleNotes() {
+    panel.hidden = !panel.hidden;
+    document.body.classList.toggle('with-notes', !panel.hidden);
+    if (!panel.hidden) renderNotes();
+    fit();
+  }
+
+  window.addEventListener('resize', fit);
+  window.addEventListener('hashchange', () => go(fromHash()));
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = e.key;
+    const onControl = e.target.closest && e.target.closest('a,button');   // un lien garde Entrée et Espace
+    if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(k) || (!onControl && [' ', 'Enter'].includes(k))) { e.preventDefault(); go(cur + 1); }
+    else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(k)) { e.preventDefault(); go(cur - 1); }
+    else if (k === 'Home') go(0);
+    else if (k === 'End') go(total - 1);
+    else if (/^[1-9]$/.test(k)) go(Number(k) - 1);
+    else if (k === 'f' || k === 'F') { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen?.(); }
+    else if (k === 'z' || k === 'Z') { const b = slides[cur].querySelector('[data-zoom]'); if (b) b.classList.toggle('is-zoomed'); }
+    else if (k === 'Escape') unzoom();
+    else if (k === 'n' || k === 'N') toggleNotes();
+    else if (k === 'p' || k === 'P') window.print();
+    else if (k === '?' || k === 'h' || k === 'H') { hint.classList.add('is-visible'); setTimeout(() => hint.classList.remove('is-visible'), 3200); }
+  });
+  document.querySelector('.deck').addEventListener('click', e => {
+    if (e.target.closest('a,button')) return;
+    if (e.clientX < window.innerWidth / 3) go(cur - 1); else go(cur + 1);
+  });
+  let x0 = null;
+  document.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+  window.addEventListener('beforeprint', unzoom);
+
+  fit();
+  go(fromHash());
+  if (params.has('notes')) toggleNotes();
+  if (!shot) { hint.classList.add('is-visible'); setTimeout(() => hint.classList.remove('is-visible'), 3600); }
+})();
+</script>
+</body>
+</html>

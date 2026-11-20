@@ -267,7 +267,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   .stage{position:static;transform:none!important;width:auto;height:auto}
   .slide{position:relative;display:flex!important;break-after:page;page-break-after:always}
   .slide:last-child{break-after:auto;page-break-after:auto}
-  .split{display:grid!important}
+  .split{display:grid!important;grid-template-columns:minmax(0,1fr) var(--aside,760px)}   /* colonnes aussi pour les slides non affichées */
   .deck-hint,.deck-progress,.notes-panel,#annonce{display:none!important}   /* #annonce : sinon une page vide en fin de PDF */
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }

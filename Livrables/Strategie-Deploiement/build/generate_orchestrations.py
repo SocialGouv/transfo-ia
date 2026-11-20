@@ -564,18 +564,22 @@ def draw_edge(t, key, e, P, y_top, y_bot, bad):
 # Légende
 # ============================================================================
 
+# Légende : (genre, texte). Reprise telle quelle par generate_cible_slides.py (slide « Lire un schéma »).
+LEGEND = [
+    ("num", "1, 2, 3… l'ordre des étapes quand tout se passe bien"),
+    ("agent", "l'agent propose : contexte vierge, il ne reçoit que ce qui le concerne ; un second agent qui relit = boucle IA"),
+    ("rule", "la règle prouve = boucle déterministe : test, lint, contrôle ; vert ou rouge, sans discussion"),
+    ("human", "l'humain décide : lance, répond, tranche, valide, reprend la main"),
+    ("ok", "ça passe"),
+    ("ko", "pas conforme : le motif repart à l'agent, 3 essais au plus, puis l'humain reprend la main"),
+    ("amb", "un « non » ou des retours : l'agent reprend, rien n'est perdu"),
+    ("art", "ce qui entre"),
+    ("out", "ce qui sort"),
+]
+
+
 def legend(t, key, y, bad, W=W):
-    items = [
-        ("num", "1, 2, 3… l'ordre des étapes quand tout se passe bien"),
-        ("agent", "l'agent propose : contexte vierge, il ne reçoit que ce qui le concerne ; un second agent qui relit = boucle IA"),
-        ("rule", "la règle prouve = boucle déterministe : test, lint, contrôle ; vert ou rouge, sans discussion"),
-        ("human", "l'humain décide : lance, répond, tranche, valide, reprend la main"),
-        ("ok", "ça passe"),
-        ("ko", "pas conforme : le motif repart à l'agent, 3 essais au plus, puis l'humain reprend la main"),
-        ("amb", "un « non » ou des retours : l'agent reprend, rien n'est perdu"),
-        ("art", "ce qui entre"),
-        ("out", "ce qui sort"),
-    ]
+    items = LEGEND
     s, x, yy = "", X_LABEL, y
     for kind, text in items:
         w = 30 + 6 + text_w(text, 11) + 22
@@ -647,6 +651,9 @@ def render(o, t, mode):
     y_end_lanes = y - ILG
     y_bot = y_end_lanes + 24                     # premier canal bas
     y_leg = y_bot + n_bot * CHAN + 16
+    # bande des couloirs (canaux de retour compris), sans le titre ni la légende : generate_cible_slides.py
+    # y recadre le schéma pour l'afficher plus grand sur une slide
+    o["_band"] = (y_head + 2, (y_leg - 2) if n_bot else (y_end_lanes + 20))
 
     # positions des nœuds (centrés dans leur couloir)
     P = {}
@@ -681,6 +688,7 @@ def render(o, t, mode):
     s += leg
     s += itxt(X_LABEL, y_fin + 12, EXAMPLE_NOTE, 11, t["sec"])
     H = y_fin + 30
+    o["_size"] = (W, float(f"{H:.0f}"))
 
     # en-tête : titre, rôle, sous-titre, pastilles back/front
     head = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H:.0f}" viewBox="0 0 {W} {H:.0f}" '
