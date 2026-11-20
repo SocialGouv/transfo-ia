@@ -125,15 +125,15 @@ Statut : 70 internes, 30 externes.
 
 Regroupement des intitulés de l'organigramme en neuf fonctions. Les tech leads sont comptés avec les développeurs.
 
-| Fonction | Personnes | Intitulés regroupés |
-|---|---|---|
-| Direction et encadrement | 15 | Sous-directrice, chefs et cheffes de département, chefs de studio, adjoints et adjointes |
-| Chefs de projet | 35 | Chefs et cheffes de projet numérique, directeurs et directrices de projet, responsables de portefeuille, cheffe de projet technique, PMO |
-| Produit | 7 | Chefs et cheffes de produit, product managers, ProductOps |
-| Designers | 11 | Designers (dont une stagiaire), Chief Design Officer, responsable accessibilité numérique |
-| Recherche utilisateurs | 7 | Recherche utilisateur, responsable de la recherche utilisateurs |
-| Architectes | 3 | Architectes, responsable architecture des solutions |
-| Devops et SRE | 6 | Devops, lead devops, ingénieur DevSecOps, SRE |
-| Développeurs | 13 | Développeurs (dont un apprenti), tech leads |
-| Chargés de mission et expertise | 3 | Chargés de mission, expert IA |
-| **Total** | **100** | |
+| Fonction | Personnes | Internes | Externes | Intitulés regroupés |
+|---|---|---|---|---|
+| Direction et encadrement | 15 | 15 | 0 | Sous-directrice, chefs et cheffes de département, chefs de studio, adjoints et adjointes |
+| Chefs de projet | 35 | 34 | 1 | Chefs et cheffes de projet numérique, directeurs et directrices de projet, responsables de portefeuille, cheffe de projet technique, PMO |
+| Produit | 7 | 7 | 0 | Chefs et cheffes de produit, product managers, ProductOps |
+| Designers | 11 | 2 | 9 | Designers (dont une stagiaire), Chief Design Officer, responsable accessibilité numérique |
+| Recherche utilisateurs | 7 | 1 | 6 | Recherche utilisateur, responsable de la recherche utilisateurs |
+| Architectes | 3 | 1 | 2 | Architectes, responsable architecture des solutions |
+| Devops et SRE | 6 | 1 | 5 | Devops, lead devops, ingénieur DevSecOps, SRE |
+| Développeurs | 13 | 7 | 6 | Développeurs (dont un apprenti), tech leads |
+| Chargés de mission et expertise | 3 | 2 | 1 | Chargés de mission, expert IA |
+| **Total** | **100** | **70** | **30** | |

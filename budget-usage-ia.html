@@ -8,7 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap">
 <style>
-/* Layout : une colonne centrée. Synthèse chiffrée en tête, puis paramètre global et tableau des fonctions (saisie et résultat sur la même ligne). */
+/* Layout : une colonne centrée. Synthèse chiffrée en tête, puis paramètres communs et trois onglets
+   (hypothèses saisies, fourchette haute, fourchette basse) sur le même tableau de fonctions. */
 :root{
   --bg:#F2F5F7;
   --surface:#FFFFFF;
@@ -53,7 +54,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 .page{
-  max-width:1100px;
+  max-width:1180px;
   margin:0 auto;
   padding-left:max(16px, env(safe-area-inset-left, 0px));
   padding-right:max(16px, env(safe-area-inset-right, 0px));
@@ -93,6 +94,7 @@ h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:20px;line-
 .facts div{display:flex;flex-direction:column;gap:4px;padding-left:16px;border-left:1px solid var(--line);min-width:0}
 .facts dt{font-size:13px;color:var(--muted)}
 .facts dd{margin:0;font-family:var(--font-display);font-weight:500;font-size:22px;line-height:1.2;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.fact-note{display:block;margin-top:2px;font-family:var(--font-body);font-size:12px;font-weight:400;line-height:1.35;color:var(--muted)}
 
 /* Calcul */
 .calc{
@@ -149,10 +151,26 @@ h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:20px;line-
 }
 .btn:hover{filter:brightness(1.08)}
 .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.btn-ghost:hover{background:var(--accent-soft);filter:none}
 .btn-toggle[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .btn-toggle[aria-pressed="true"]:hover{filter:brightness(1.08)}
-.btn-ghost:hover{background:var(--accent-soft);filter:none}
 .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Onglets */
+.tabs{display:flex;flex-wrap:wrap;gap:2px;border-bottom:1px solid var(--line-strong)}
+.tab{
+  font:inherit;font-size:15px;font-weight:500;
+  background:transparent;border:0;border-bottom:2px solid transparent;
+  color:var(--ink-2);padding:10px 14px;margin-bottom:-1px;cursor:pointer;
+  border-radius:6px 6px 0 0;
+}
+.tab:hover{color:var(--ink);background:var(--accent-soft)}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+.tab:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.panel{display:flex;flex-direction:column;gap:16px;min-width:0}
+.panel:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:4px}
+.panel-head{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+.panel-note{margin:0;font-size:13px;color:var(--muted);max-width:75ch}
 
 .table-wrap{min-width:0;overflow-x:auto}
 table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
@@ -163,16 +181,24 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
 }
 .grid thead th.num{text-align:right}
 .thsub{display:block;font-weight:400;letter-spacing:0;text-transform:none}
-.grid tbody th,.grid tbody td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.grid tbody th,.grid tbody td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
 .grid tbody th{font-weight:500;text-align:left;white-space:nowrap}
+.grid tbody tr.group-start>*{border-top:1px solid var(--line);padding-top:12px}
+.grid tbody tr.cont>*{border-bottom:1px solid var(--line)}
+.grid tbody tr.cont th,.grid tbody tr.cont td{padding-top:4px}
+.grid tbody tr.group-start:first-child>*{border-top:0}
 .grid th:first-child,.grid td:first-child{padding-left:0}
 .grid th:last-child,.grid td:last-child{padding-right:0}
 .grid td.num{text-align:right;white-space:nowrap}
 .grid td.total{font-weight:600}
+.grid td.ro{color:var(--ink-2)}
+.status-cell{font-size:13px;color:var(--muted);white-space:nowrap}
 .formula-row{display:block;font-size:12px;font-weight:400;color:var(--muted)}
 .grid tfoot th,.grid tfoot td{padding:14px 12px 0;font-weight:600;text-align:left}
 .grid tfoot td.num{text-align:right}
 .grid tfoot .pct-total{color:var(--ink-2);font-weight:500;padding-left:12px}
+.foot-note{display:block;font-size:12px;font-weight:400;color:var(--muted)}
+.cont .fn-name{display:none}
 
 .share-cell{display:flex;align-items:center;gap:10px;min-width:150px}
 .bar{flex:1;height:8px;border-radius:4px;background:var(--accent-soft);overflow:hidden}
@@ -193,19 +219,22 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
 
 @media (prefers-reduced-motion: reduce){.fill{transition:none}}
 
-@media (max-width:760px){
+@media (max-width:860px){
   .page{padding-block:28px 40px}
   .summary{grid-template-columns:1fr;padding:20px}
   .facts{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
   .facts div{padding-left:12px}
   .facts dd{font-size:19px}
   .calc{padding:20px}
+  .tab{padding:10px 10px;font-size:14px}
 
   .grid thead{display:none}
   .grid,.grid tbody,.grid tfoot{display:block}
   .grid tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;padding:16px 0;border-bottom:1px solid var(--line)}
   .grid tbody th,.grid tbody td,.grid tfoot th,.grid tfoot td{padding:0;border:0}
-  .grid th[scope="row"]{grid-column:1/-1;font-family:var(--font-display);font-size:17px;font-weight:600}
+  .grid tbody tr.group-start>*,.grid tbody tr.cont>*{border:0;padding-top:0}
+  .grid th[scope="row"]{grid-column:1/-1;font-family:var(--font-display);font-size:17px;font-weight:600;white-space:normal}
+  .cont .fn-name{display:inline}
   .grid td{display:flex;flex-direction:column;gap:4px;min-width:0}
   .grid td.num,.grid tfoot td.num{text-align:left;white-space:normal}
   .grid td::before{content:attr(data-label);font-size:12px;font-weight:500;color:var(--muted)}
@@ -213,36 +242,37 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   .grid tfoot tr{border-bottom:0}
   .grid tfoot .pct-total{padding-left:0}
   .share-cell{min-width:0}
+  .status-cell{color:var(--ink-2)}
 }
 </style>
 
 <div class="page">
   <header class="head">
-    <p class="eyebrow">Estimation annuelle</p>
+    <p class="eyebrow" id="eyebrow">Estimation annuelle</p>
     <h1>Budget usage IA</h1>
-    <ul class="formula" aria-label="Formule de calcul par fonction">
+    <ul class="formula" aria-label="Formule de calcul par fonction et par statut">
       <li class="term">Jours travaillés</li>
       <li class="op" aria-hidden="true">×</li>
       <li class="term">Coût d'usage moyen par jour</li>
       <li class="op" aria-hidden="true">×</li>
       <li class="term">Personnes</li>
       <li class="op" aria-hidden="true">=</li>
-      <li class="result">Budget de la fonction</li>
+      <li class="result">Budget de la ligne</li>
     </ul>
   </header>
 
   <section class="summary" aria-labelledby="sum-title">
     <h2 id="sum-title" hidden>Synthèse</h2>
     <div class="hero">
-      <span class="k">Budget annuel</span>
-      <output id="total" class="big" for="days">30 000 €</output>
-      <span class="sub" id="monthly">soit 2 500 € par mois, sur 200 jours travaillés</span>
+      <span class="k" id="hero-k">Budget annuel</span>
+      <output id="total" class="big" for="days">0 €</output>
+      <span class="sub" id="monthly"></span>
       <span class="sub-2" id="uplift" hidden></span>
     </div>
     <dl class="facts">
-      <div><dt>Personnes</dt><dd id="headcount">5</dd></div>
-      <div><dt>Par personne et par an</dt><dd id="perPerson">6 000 €</dd></div>
-      <div><dt>Coût moyen pondéré</dt><dd id="avgDay">30 € / jour</dd></div>
+      <div><dt>Personnes</dt><dd id="headcount">0<span class="fact-note" id="split"></span></dd></div>
+      <div><dt>Par personne et par an</dt><dd id="perPerson">0 €</dd></div>
+      <div><dt>Coût moyen pondéré</dt><dd id="avgDay">0 € / jour</dd></div>
     </dl>
   </section>
 
@@ -253,8 +283,15 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
       <div class="global">
         <label for="days">Jours travaillés par an</label>
         <div class="global-row">
-          <span class="field"><input id="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="200"><span class="unit">jours</span></span>
-          <span class="hint">Commun à toutes les fonctions</span>
+          <span class="field"><input id="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="212"><span class="unit">jours</span></span>
+          <span class="hint">Commun aux trois onglets</span>
+        </div>
+      </div>
+      <div class="global">
+        <span class="global-label" id="scope-label">Périmètre</span>
+        <div class="global-row" role="group" aria-labelledby="scope-label">
+          <button type="button" class="btn btn-ghost btn-toggle" data-scope="all" aria-pressed="true">SDPC complète</button>
+          <button type="button" class="btn btn-ghost btn-toggle" data-scope="tech" aria-pressed="false">Studio tech</button>
         </div>
       </div>
       <div class="global">
@@ -265,36 +302,116 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
         </div>
       </div>
       <div class="actions">
-        <button type="button" id="sdpc" class="btn btn-ghost">Effectif SDPC</button>
         <button type="button" id="copy" class="btn">Copier le tableau</button>
         <button type="button" id="reset" class="btn btn-ghost">Rétablir les valeurs par défaut</button>
       </div>
     </div>
 
-    <div class="table-wrap">
-      <table class="grid">
-        <thead>
-          <tr>
-            <th scope="col">Fonction</th>
-            <th scope="col">Personnes</th>
-            <th scope="col">Coût d'usage moyen<span class="thsub">€ / jour / personne</span></th>
-            <th scope="col" class="num">Par personne<span class="thsub">par an</span></th>
-            <th scope="col" class="num">Total annuel</th>
-            <th scope="col">Part du budget</th>
-          </tr>
-        </thead>
-        <tbody id="rows"></tbody>
-        <tfoot>
-          <tr>
-            <th scope="row">Total</th>
-            <td data-label="Personnes" id="f-people"></td>
-            <td data-label="Coût moyen pondéré" id="f-avg"></td>
-            <td data-label="Par personne et par an" class="num" id="f-per"></td>
-            <td data-label="Total annuel" class="num" id="f-total"></td>
-            <td data-label="Part du budget" class="pct-total" id="f-pct"></td>
-          </tr>
-        </tfoot>
-      </table>
+    <div class="tabs" role="tablist" aria-label="Jeux d'hypothèses">
+      <button type="button" class="tab" role="tab" id="tab-work" aria-controls="panel-work" aria-selected="true">Hypothèses de travail</button>
+      <button type="button" class="tab" role="tab" id="tab-high" aria-controls="panel-high" aria-selected="false" tabindex="-1">Fourchette haute</button>
+      <button type="button" class="tab" role="tab" id="tab-low" aria-controls="panel-low" aria-selected="false" tabindex="-1">Fourchette basse</button>
+    </div>
+
+    <div class="panel" role="tabpanel" id="panel-work" aria-labelledby="tab-work" tabindex="0">
+      <div class="panel-head">
+        <p class="panel-note">Effectifs et coûts modifiables. Les effectifs saisis ici servent aussi aux deux onglets de fourchette.</p>
+        <div class="actions">
+          <button type="button" id="sdpc" class="btn btn-ghost">Effectif SDPC</button>
+          <button type="button" id="fill-high" class="btn btn-ghost">Coûts fourchette haute</button>
+          <button type="button" id="fill-low" class="btn btn-ghost">Coûts fourchette basse</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="grid" id="grid-work">
+          <caption class="sr-only" hidden>Hypothèses de travail</caption>
+          <thead>
+            <tr>
+              <th scope="col">Fonction</th>
+              <th scope="col">Statut</th>
+              <th scope="col">Personnes</th>
+              <th scope="col">Coût d'usage moyen<span class="thsub">€ / jour / personne</span></th>
+              <th scope="col" class="num">Par personne<span class="thsub">par an</span></th>
+              <th scope="col" class="num">Total annuel</th>
+              <th scope="col">Part du budget</th>
+            </tr>
+          </thead>
+          <tbody data-rows="work"></tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">Total</th>
+              <td data-label="Statut" class="status-cell">Toutes lignes</td>
+              <td data-label="Personnes" data-foot="people"></td>
+              <td data-label="Coût moyen pondéré" data-foot="avg"></td>
+              <td data-label="Par personne et par an" class="num" data-foot="per"></td>
+              <td data-label="Total annuel" class="num" data-foot="total"></td>
+              <td data-label="Part du budget" class="pct-total" data-foot="pct"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="panel-high" aria-labelledby="tab-high" tabindex="0" hidden>
+      <p class="panel-note" id="note-high"></p>
+      <div class="table-wrap">
+        <table class="grid" id="grid-high">
+          <thead>
+            <tr>
+              <th scope="col">Fonction</th>
+              <th scope="col">Statut</th>
+              <th scope="col">Personnes</th>
+              <th scope="col">Coût d'usage moyen<span class="thsub">€ / jour / personne</span></th>
+              <th scope="col" class="num">Par personne<span class="thsub">par an</span></th>
+              <th scope="col" class="num">Total annuel</th>
+              <th scope="col">Part du budget</th>
+            </tr>
+          </thead>
+          <tbody data-rows="high"></tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">Total</th>
+              <td data-label="Statut" class="status-cell">Toutes lignes</td>
+              <td data-label="Personnes" data-foot="people"></td>
+              <td data-label="Coût moyen pondéré" data-foot="avg"></td>
+              <td data-label="Par personne et par an" class="num" data-foot="per"></td>
+              <td data-label="Total annuel" class="num" data-foot="total"></td>
+              <td data-label="Part du budget" class="pct-total" data-foot="pct"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="panel-low" aria-labelledby="tab-low" tabindex="0" hidden>
+      <p class="panel-note" id="note-low"></p>
+      <div class="table-wrap">
+        <table class="grid" id="grid-low">
+          <thead>
+            <tr>
+              <th scope="col">Fonction</th>
+              <th scope="col">Statut</th>
+              <th scope="col">Personnes</th>
+              <th scope="col">Coût d'usage moyen<span class="thsub">€ / jour / personne</span></th>
+              <th scope="col" class="num">Par personne<span class="thsub">par an</span></th>
+              <th scope="col" class="num">Total annuel</th>
+              <th scope="col">Part du budget</th>
+            </tr>
+          </thead>
+          <tbody data-rows="low"></tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">Total</th>
+              <td data-label="Statut" class="status-cell">Toutes lignes</td>
+              <td data-label="Personnes" data-foot="people"></td>
+              <td data-label="Coût moyen pondéré" data-foot="avg"></td>
+              <td data-label="Par personne et par an" class="num" data-foot="per"></td>
+              <td data-label="Total annuel" class="num" data-foot="total"></td>
+              <td data-label="Part du budget" class="pct-total" data-foot="pct"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
 
     <p id="status" class="status" role="status"></p>
@@ -305,8 +422,10 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   </section>
 
   <footer class="note">
-    <p>Pour chaque fonction : jours travaillés × coût d'usage moyen par jour et par personne × nombre de personnes. Le budget mensuel est le budget annuel divisé par 12. Les montants suivent la convention de vos hypothèses (HT ou TTC).</p>
-    <p>Les effectifs par défaut sont ceux de la SDPC (organigramme de novembre 2026, 100 personnes) ; le bouton « Effectif SDPC » les rétablit sans toucher aux autres réglages. Une majoration SecNumCloud s'applique à l'ensemble des montants : +10 % en Business Partner, +20 % en Enterprise, les deux calculés sur le budget hors majoration.</p>
+    <p>Pour chaque ligne : jours travaillés × coût d'usage moyen par jour et par personne × nombre de personnes. Le budget mensuel est le budget annuel divisé par 12. Les montants suivent la convention de vos hypothèses (HT ou TTC).</p>
+    <p>Les effectifs par défaut sont ceux de la SDPC (organigramme de novembre 2026, 100 personnes dont 70 internes et 30 externes). Une ligne « externes » n'apparaît que pour les fonctions qui en comptent. Les fourchettes haute et basse reprennent les coûts du tableur de référence ; elles utilisent les effectifs de l'onglet « Hypothèses de travail », les jours travaillés et la majoration SecNumCloud communs aux trois onglets.</p>
+    <p>Le périmètre « Studio tech » ne retient que les architectes, les devops et SRE, les développeurs et les chargés de mission et expertise ; il s'applique aux trois onglets et retire les autres fonctions du calcul comme des totaux.</p>
+    <p>La majoration SecNumCloud s'applique à l'ensemble des montants : +10 % en Business Partner, +20 % en Enterprise, les deux calculés sur le budget hors majoration.</p>
     <p>Vos saisies restent dans ce navigateur.</p>
   </footer>
 </div>
@@ -315,24 +434,35 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
 (function () {
   document.documentElement.lang = 'fr';
 
-  // Effectifs : organigramme SDPC (DNUM), novembre 2026. Les tech leads sont comptés avec les développeurs.
-  var ROLES = [
-    { id: 'dir', name: 'Direction et encadrement', n: 15, c: 30 },
-    { id: 'cdp', name: 'Chefs de projet', n: 35, c: 30 },
-    { id: 'produit', name: 'Produit', n: 7, c: 30 },
-    { id: 'design', name: 'Designers', n: 11, c: 30 },
-    { id: 'research', name: 'Recherche utilisateurs', n: 7, c: 30 },
-    { id: 'archi', name: 'Architectes', n: 3, c: 30 },
-    { id: 'devops', name: 'Devops et SRE', n: 6, c: 30 },
-    { id: 'dev', name: 'Développeurs', n: 13, c: 60 },
-    { id: 'mission', name: 'Chargés de mission et expertise', n: 3, c: 30 }
+  // Effectifs : organigramme SDPC (DNUM), novembre 2026 ; tech leads comptés avec les développeurs.
+  // Coûts high / low : tableur fourchettes.ods.
+  var FUNCS = [
+    { id: 'dir',      name: 'Direction et encadrement',         staff: { in: 15, ext: 0 }, cost: 30, high: 10, low: 10, tech: false },
+    { id: 'cdp',      name: 'Chefs de projet',                  staff: { in: 34, ext: 1 }, cost: 30, high: 20, low: 12, tech: false },
+    { id: 'produit',  name: 'Produit',                          staff: { in: 7,  ext: 0 }, cost: 30, high: 20, low: 12, tech: false },
+    { id: 'design',   name: 'Designers',                        staff: { in: 2,  ext: 9 }, cost: 30, high: 30, low: 25, tech: false },
+    { id: 'research', name: 'Recherche utilisateurs',           staff: { in: 1,  ext: 6 }, cost: 30, high: 20, low: 12, tech: false },
+    { id: 'archi',    name: 'Architectes',                      staff: { in: 1,  ext: 2 }, cost: 30, high: 30, low: 20, tech: true },
+    { id: 'devops',   name: 'Devops et SRE',                    staff: { in: 1,  ext: 5 }, cost: 30, high: 60, low: 30, tech: true },
+    { id: 'dev',      name: 'Développeurs',                     staff: { in: 7,  ext: 6 }, cost: 60, high: 60, low: 50, tech: true },
+    { id: 'mission',  name: 'Chargés de mission et expertise',  staff: { in: 2,  ext: 1 }, cost: 30, high: 10, low: 10, tech: true }
   ];
-  var DEFAULT_DAYS = 200;
+  var SCOPES = {
+    all:  { label: 'SDPC complète' },
+    tech: { label: 'Studio tech' }
+  };
+  var DEFAULT_DAYS = 212;
   var OFFERS = [
-    { id: 'bp', name: 'SecNumCloud Business Partner', rate: 0.10 },
-    { id: 'ent', name: 'SecNumCloud Enterprise', rate: 0.20 }
+    { id: 'bp',  name: 'SecNumCloud Business Partner', rate: 0.10 },
+    { id: 'ent', name: 'SecNumCloud Enterprise',       rate: 0.20 }
   ];
-  var STORE_KEY = 'budget-usage-ia:v2';
+  var VIEWS = {
+    work: { tab: 'tab-work', panel: 'panel-work', label: 'Hypothèses de travail' },
+    high: { tab: 'tab-high', panel: 'panel-high', label: 'Fourchette haute' },
+    low:  { tab: 'tab-low',  panel: 'panel-low',  label: 'Fourchette basse' }
+  };
+  var VIEW_IDS = ['work', 'high', 'low'];
+  var STORE_KEY = 'budget-usage-ia:v3';
 
   var eur0 = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 });
   var eur2 = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 2 });
@@ -343,34 +473,67 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   function $(id) { return document.getElementById(id); }
 
   var daysEl = $('days');
-  var tbody = $('rows');
   var statusEl = $('status');
   var upliftEl = $('uplift');
   var fallback = $('copy-fallback');
   var fallbackText = $('copy-text');
+  var tabEls = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
   var offerBtns = Array.prototype.slice.call(document.querySelectorAll('[data-offer]'));
+  var scopeBtns = Array.prototype.slice.call(document.querySelectorAll('[data-scope]'));
   var offerId = null;
+  var view = 'work';
+  var scope = 'all';
+
+  // Une ligne par couple fonction / statut. La ligne « externes » n'existe que si la fonction en compte.
+  var LINES = [];
+  FUNCS.forEach(function (fn) {
+    LINES.push({ fn: fn, status: 'in', label: 'Internes', first: true, n: fn.staff.in });
+    if (fn.staff.ext > 0) LINES.push({ fn: fn, status: 'ext', label: 'Externes', first: false, n: fn.staff.ext });
+  });
 
   function offer() {
     for (var i = 0; i < OFFERS.length; i++) { if (OFFERS[i].id === offerId) return OFFERS[i]; }
     return null;
   }
   function rate() { var o = offer(); return o ? o.rate : 0; }
+  function inScope(line) { return scope === 'all' || line.fn.tech; }
 
-  ROLES.forEach(function (role) {
-    var tr = document.createElement('tr');
-    tr.innerHTML =
-      '<th scope="row">' + role.name + '</th>' +
-      '<td data-label="Personnes"><span class="field"><input id="n-' + role.id + '" type="number" inputmode="decimal" min="0" step="1" aria-label="Nombre de personnes, ' + role.name + '"><span class="unit">pers.</span></span></td>' +
-      '<td data-label="Coût moyen (€ / jour / personne)"><span class="field"><input id="c-' + role.id + '" type="number" inputmode="decimal" min="0" step="0.5" aria-label="Coût d\'usage moyen par jour et par personne, ' + role.name + '"><span class="unit">€ / j</span></span></td>' +
+  function cellsHtml(line, editable) {
+    var key = line.fn.id + '-' + line.status;
+    var who = line.fn.name + ', ' + line.label.toLowerCase();
+    var people = editable
+      ? '<span class="field"><input id="n-' + key + '" type="number" inputmode="decimal" min="0" step="1" aria-label="Nombre de personnes, ' + who + '"><span class="unit">pers.</span></span>'
+      : '<span data-out="n"></span>';
+    var cost = editable
+      ? '<span class="field"><input id="c-' + key + '" type="number" inputmode="decimal" min="0" step="0.5" aria-label="Coût d\'usage moyen par jour et par personne, ' + who + '"><span class="unit">€ / j</span></span>'
+      : '<span data-out="c"></span>';
+    return '<th scope="row"><span class="fn-name">' + line.fn.name + '</span></th>' +
+      '<td data-label="Statut" class="status-cell">' + line.label + '</td>' +
+      '<td data-label="Personnes"' + (editable ? '' : ' class="ro"') + '>' + people + '</td>' +
+      '<td data-label="Coût moyen (€ / jour / personne)"' + (editable ? '' : ' class="ro"') + '>' + cost + '</td>' +
       '<td data-label="Par personne et par an" class="num" data-out="per"></td>' +
       '<td data-label="Total annuel" class="num total"><span data-out="total"></span><span class="formula-row" data-out="formula"></span></td>' +
       '<td data-label="Part du budget" class="share"><div class="share-cell"><span class="bar" aria-hidden="true"><span class="fill" data-out="fill"></span></span><span class="pct" data-out="pct"></span></div></td>';
-    tbody.appendChild(tr);
-    role.nEl = tr.querySelector('#n-' + role.id);
-    role.cEl = tr.querySelector('#c-' + role.id);
-    role.out = {};
-    tr.querySelectorAll('[data-out]').forEach(function (el) { role.out[el.dataset.out] = el; });
+  }
+
+  VIEW_IDS.forEach(function (id) {
+    var v = VIEWS[id];
+    v.tbody = document.querySelector('[data-rows="' + id + '"]');
+    v.foot = {};
+    document.querySelectorAll('#' + v.panel + ' [data-foot]').forEach(function (el) { v.foot[el.dataset.foot] = el; });
+    v.cells = LINES.map(function (line) {
+      var tr = document.createElement('tr');
+      tr.className = line.first ? 'group-start' : 'cont';
+      tr.innerHTML = cellsHtml(line, id === 'work');
+      v.tbody.appendChild(tr);
+      var out = { tr: tr };
+      tr.querySelectorAll('[data-out]').forEach(function (el) { out[el.dataset.out] = el; });
+      if (id === 'work') {
+        line.nEl = tr.querySelector('input[id^="n-"]');
+        line.cEl = tr.querySelector('input[id^="c-"]');
+      }
+      return out;
+    });
   });
 
   function read(el) {
@@ -381,18 +544,43 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   }
 
   function applyHeadcount() {
-    ROLES.forEach(function (r) { r.nEl.value = r.n; r.cEl.value = r.c; });
+    LINES.forEach(function (l) { l.nEl.value = l.n; });
   }
-
+  function applyCosts(which) {
+    LINES.forEach(function (l) { l.cEl.value = which === 'cost' ? l.fn.cost : l.fn[which]; });
+  }
   function applyDefaults() {
     daysEl.value = DEFAULT_DAYS;
     applyHeadcount();
+    applyCosts('cost');
     setOfferId(null);
+    setScope('all');
+    setView('work');
+  }
+
+  function setScope(id) {
+    scope = SCOPES[id] ? id : 'all';
+    scopeBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.scope === scope ? 'true' : 'false'); });
+    VIEW_IDS.forEach(function (k) {
+      VIEWS[k].cells.forEach(function (out, i) { out.tr.hidden = !inScope(LINES[i]); });
+    });
   }
 
   function setOfferId(id) {
     offerId = id;
     offerBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.offer === id ? 'true' : 'false'); });
+  }
+
+  function setView(id, focus) {
+    view = VIEWS[id] ? id : 'work';
+    VIEW_IDS.forEach(function (k) {
+      var selected = k === view;
+      var tab = $(VIEWS[k].tab);
+      tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+      tab.tabIndex = selected ? 0 : -1;
+      $(VIEWS[k].panel).hidden = !selected;
+      if (selected && focus) tab.focus();
+    });
   }
 
   function load() {
@@ -404,8 +592,8 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
 
   function save() {
     try {
-      var s = { days: daysEl.value, offer: offerId, roles: {} };
-      ROLES.forEach(function (r) { s.roles[r.id] = { n: r.nEl.value, c: r.cEl.value }; });
+      var s = { days: daysEl.value, offer: offerId, view: view, scope: scope, lines: {} };
+      LINES.forEach(function (l) { s.lines[l.fn.id + '-' + l.status] = { n: l.nEl.value, c: l.cEl.value }; });
       localStorage.setItem(STORE_KEY, JSON.stringify(s));
     } catch (e) { /* stockage indisponible : la page fonctionne sans */ }
   }
@@ -414,43 +602,53 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     applyDefaults();
     if (!s || typeof s !== 'object') return;
     if (typeof s.days === 'string') daysEl.value = s.days;
-    if (typeof s.offer === 'string') {
-      OFFERS.forEach(function (o) { if (o.id === s.offer) setOfferId(o.id); });
-    }
-    if (s.roles && typeof s.roles === 'object') {
-      ROLES.forEach(function (r) {
-        var v = s.roles[r.id];
+    if (typeof s.offer === 'string') OFFERS.forEach(function (o) { if (o.id === s.offer) setOfferId(o.id); });
+    if (typeof s.scope === 'string' && SCOPES[s.scope]) setScope(s.scope);
+    if (typeof s.view === 'string' && VIEWS[s.view]) setView(s.view);
+    if (s.lines && typeof s.lines === 'object') {
+      LINES.forEach(function (l) {
+        var v = s.lines[l.fn.id + '-' + l.status];
         if (!v) return;
-        if (typeof v.n === 'string') r.nEl.value = v.n;
-        if (typeof v.c === 'string') r.cEl.value = v.c;
+        if (typeof v.n === 'string') l.nEl.value = v.n;
+        if (typeof v.c === 'string') l.cEl.value = v.c;
       });
     }
   }
 
-  var last = null;
+  var last = {};
 
-  function compute() {
+  function computeView(id) {
+    var v = VIEWS[id];
     var days = read(daysEl);
     var o = offer();
     var r = rate();
     var factor = 1 + r;
-    var base = 0, people = 0;
-    var rows = ROLES.map(function (role) {
-      var n = read(role.nEl), c = read(role.cEl);
+    var base = 0, people = 0, inPeople = 0, extPeople = 0;
+
+    var all = LINES.map(function (line) {
+      var n = read(line.nEl);
+      var c = id === 'work' ? read(line.cEl) : line.fn[id];
       var perBase = days * c;
       var tBase = perBase * n;
-      base += tBase;
-      people += n;
-      return { r: role, n: n, c: c, per: perBase * factor, t: tBase * factor };
+      if (inScope(line)) {
+        base += tBase;
+        people += n;
+        if (line.status === 'ext') extPeople += n; else inPeople += n;
+      }
+      return { line: line, n: n, c: c, per: perBase * factor, t: tBase * factor };
     });
+    var rows = all.filter(function (row) { return inScope(row.line); });
+
     var total = base * factor;
     var extra = total - base;
     var perPerson = people > 0 ? total / people : 0;
     var avgDay = people > 0 && days > 0 ? total / (people * days) : 0;
 
-    rows.forEach(function (row) {
-      var out = row.r.out;
+    all.forEach(function (row, i) {
+      var out = v.cells[i];
       var share = total > 0 ? row.t / total : 0;
+      if (out.n) out.n.textContent = num.format(row.n) + ' pers.';
+      if (out.c) out.c.textContent = eur2.format(row.c) + ' / j';
       out.per.textContent = eur0.format(row.per);
       out.total.textContent = eur0.format(row.t);
       out.formula.textContent = num.format(days) + ' j × ' + eur2.format(row.c) + ' × ' + num.format(row.n) + ' pers.' + (r > 0 ? ' + ' + pct0.format(r) : '');
@@ -458,26 +656,43 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
       out.pct.textContent = total > 0 ? pct.format(share) : '–';
     });
 
-    $('total').textContent = eur0.format(total);
-    $('monthly').textContent = 'soit ' + eur0.format(total / 12) + ' par mois, sur ' + num.format(days) + ' jours travaillés';
-    if (o && extra > 0) {
-      upliftEl.textContent = 'dont ' + eur0.format(extra) + ' de majoration ' + o.name + ' (+' + pct0.format(o.rate) + '), sur une base de ' + eur0.format(base);
+    v.foot.people.innerHTML = num.format(people) + ' pers.<span class="foot-note">' + num.format(inPeople) + ' internes · ' + num.format(extPeople) + ' externes</span>';
+    v.foot.avg.textContent = eur2.format(avgDay) + ' / j (moyenne)';
+    v.foot.per.textContent = eur0.format(perPerson);
+    v.foot.total.textContent = eur0.format(total);
+    v.foot.pct.textContent = total > 0 ? '100 %' : '–';
+
+    last[id] = {
+      id: id, label: v.label, scope: SCOPES[scope].label, days: days, base: base, extra: extra, total: total,
+      offer: o, people: people, inPeople: inPeople, extPeople: extPeople,
+      perPerson: perPerson, avgDay: avgDay, rows: rows
+    };
+    return last[id];
+  }
+
+  function compute() {
+    VIEW_IDS.forEach(computeView);
+    var d = last[view];
+    var o = d.offer;
+
+    $('eyebrow').textContent = 'Estimation annuelle · ' + d.scope;
+    $('hero-k').textContent = 'Budget annuel — ' + d.label;
+    $('total').textContent = eur0.format(d.total);
+    $('monthly').textContent = 'soit ' + eur0.format(d.total / 12) + ' par mois, sur ' + num.format(d.days) + ' jours travaillés';
+    if (o && d.extra > 0) {
+      upliftEl.textContent = 'dont ' + eur0.format(d.extra) + ' de majoration ' + o.name + ' (+' + pct0.format(o.rate) + '), sur une base de ' + eur0.format(d.base);
       upliftEl.hidden = false;
     } else {
       upliftEl.textContent = '';
       upliftEl.hidden = true;
     }
-    $('headcount').textContent = num.format(people);
-    $('perPerson').textContent = eur0.format(perPerson);
-    $('avgDay').textContent = eur2.format(avgDay) + ' / jour';
+    $('headcount').firstChild.nodeValue = num.format(d.people);
+    $('split').textContent = num.format(d.inPeople) + ' internes · ' + num.format(d.extPeople) + ' externes';
+    $('perPerson').textContent = eur0.format(d.perPerson);
+    $('avgDay').textContent = eur2.format(d.avgDay) + ' / jour';
 
-    $('f-people').textContent = num.format(people) + ' pers.';
-    $('f-avg').textContent = eur2.format(avgDay) + ' / j (moyenne)';
-    $('f-per').textContent = eur0.format(perPerson);
-    $('f-total').textContent = eur0.format(total);
-    $('f-pct').textContent = total > 0 ? '100 %' : '–';
-
-    last = { days: days, base: base, extra: extra, total: total, offer: o, people: people, perPerson: perPerson, avgDay: avgDay, rows: rows };
+    $('note-high').textContent = 'Coûts hauts du tableur de référence, appliqués aux effectifs de l\'onglet « Hypothèses de travail » sur ' + num.format(d.days) + ' jours travaillés. Lecture seule : total ' + eur0.format(last.high.total) + '.';
+    $('note-low').textContent = 'Coûts bas du tableur de référence, appliqués aux effectifs de l\'onglet « Hypothèses de travail » sur ' + num.format(d.days) + ' jours travaillés. Lecture seule : total ' + eur0.format(last.low.total) + '.';
   }
 
   function plain(v) {
@@ -485,15 +700,19 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   }
 
   function toTsv() {
-    var d = last;
+    var d = last[view];
     var lines = [];
-    lines.push(['Fonction', 'Personnes', 'Coût moyen (€ / jour / personne)', 'Coût par personne et par an (€)', 'Total annuel (€)', 'Part du budget (%)'].join('\t'));
+    lines.push([d.label, d.scope].join('\t'));
+    lines.push(['Fonction', 'Statut', 'Personnes', 'Coût moyen (€ / jour / personne)', 'Coût par personne et par an (€)', 'Total annuel (€)', 'Part du budget (%)'].join('\t'));
     d.rows.forEach(function (row) {
-      lines.push([row.r.name, plain(row.n), plain(row.c), plain(row.per), plain(row.t), plain(d.total > 0 ? row.t / d.total * 100 : 0)].join('\t'));
+      lines.push([row.line.fn.name, row.line.label, plain(row.n), plain(row.c), plain(row.per), plain(row.t), plain(d.total > 0 ? row.t / d.total * 100 : 0)].join('\t'));
     });
-    lines.push(['Total', plain(d.people), plain(d.avgDay), plain(d.perPerson), plain(d.total), d.total > 0 ? '100' : '0'].join('\t'));
+    lines.push(['Total', 'Toutes lignes', plain(d.people), plain(d.avgDay), plain(d.perPerson), plain(d.total), d.total > 0 ? '100' : '0'].join('\t'));
     lines.push('');
+    lines.push(['Périmètre', d.scope].join('\t'));
     lines.push(['Jours travaillés par an', plain(d.days)].join('\t'));
+    lines.push(['Internes', plain(d.inPeople)].join('\t'));
+    lines.push(['Externes', plain(d.extPeople)].join('\t'));
     lines.push(['Budget hors majoration (€)', plain(d.base)].join('\t'));
     lines.push(['Majoration SecNumCloud', d.offer ? d.offer.name + ' (+' + plain(d.offer.rate * 100) + ' %)' : 'aucune'].join('\t'));
     lines.push(['Montant de la majoration (€)', plain(d.extra)].join('\t'));
@@ -512,7 +731,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   $('copy').addEventListener('click', function () {
     var text = toTsv();
     fallback.hidden = true;
-    function ok() { say('Tableau copié. Collez-le dans un tableur ou un e-mail.'); }
+    function ok() { say('Onglet « ' + VIEWS[view].label + ' » copié. Collez-le dans un tableur ou un e-mail.'); }
     function ko() {
       fallbackText.value = text;
       fallback.hidden = false;
@@ -531,7 +750,23 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     compute();
     save();
     fallback.hidden = true;
-    say('Effectif SDPC rétabli : 100 personnes, 60 € par jour pour les développeurs, 30 € pour les autres fonctions.');
+    say('Effectif SDPC rétabli : 100 personnes, 70 internes et 30 externes.');
+  });
+
+  $('fill-high').addEventListener('click', function () {
+    applyCosts('high');
+    compute();
+    save();
+    fallback.hidden = true;
+    say('Coûts de la fourchette haute repris dans les hypothèses de travail.');
+  });
+
+  $('fill-low').addEventListener('click', function () {
+    applyCosts('low');
+    compute();
+    save();
+    fallback.hidden = true;
+    say('Coûts de la fourchette basse repris dans les hypothèses de travail.');
   });
 
   $('reset').addEventListener('click', function () {
@@ -539,7 +774,18 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     compute();
     save();
     fallback.hidden = true;
-    say('Valeurs par défaut rétablies : effectif SDPC, ' + DEFAULT_DAYS + ' jours travaillés, aucune majoration SecNumCloud.');
+    say('Valeurs par défaut rétablies : SDPC complète, effectif de l\'organigramme, ' + DEFAULT_DAYS + ' jours travaillés, aucune majoration SecNumCloud.');
+  });
+
+  scopeBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      setScope(btn.dataset.scope);
+      compute();
+      save();
+      say(scope === 'tech'
+        ? 'Périmètre Studio tech : architectes, devops et SRE, développeurs, chargés de mission et expertise. Les autres fonctions sont retirées du calcul.'
+        : 'Périmètre SDPC complète : les neuf fonctions sont prises en compte.');
+    });
   });
 
   offerBtns.forEach(function (btn) {
@@ -549,7 +795,27 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
       compute();
       save();
       var o = offer();
-      say(o ? 'Majoration ' + o.name + ' appliquée : +' + pct0.format(o.rate) + ' sur le budget.' : 'Majoration SecNumCloud retirée.');
+      say(o ? 'Majoration ' + o.name + ' appliquée : +' + pct0.format(o.rate) + ' sur les trois onglets.' : 'Majoration SecNumCloud retirée.');
+    });
+  });
+
+  tabEls.forEach(function (tab, i) {
+    tab.addEventListener('click', function () {
+      setView(tab.id.replace('tab-', ''));
+      compute();
+      save();
+    });
+    tab.addEventListener('keydown', function (e) {
+      var delta = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      var next = null;
+      if (delta) next = tabEls[(i + delta + tabEls.length) % tabEls.length];
+      else if (e.key === 'Home') next = tabEls[0];
+      else if (e.key === 'End') next = tabEls[tabEls.length - 1];
+      if (!next) return;
+      e.preventDefault();
+      setView(next.id.replace('tab-', ''), true);
+      compute();
+      save();
     });
   });
 
