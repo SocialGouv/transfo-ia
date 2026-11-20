@@ -120,3 +120,20 @@ Source : organigramme de la Sous-Direction des produits et communs numériques (
 | **Total** | **100** |
 
 Statut : 70 internes, 30 externes.
+
+## Répartition par fonction
+
+Regroupement des intitulés de l'organigramme en neuf fonctions. Les tech leads sont comptés avec les développeurs.
+
+| Fonction | Personnes | Intitulés regroupés |
+|---|---|---|
+| Direction et encadrement | 15 | Sous-directrice, chefs et cheffes de département, chefs de studio, adjoints et adjointes |
+| Chefs de projet | 35 | Chefs et cheffes de projet numérique, directeurs et directrices de projet, responsables de portefeuille, cheffe de projet technique, PMO |
+| Produit | 7 | Chefs et cheffes de produit, product managers, ProductOps |
+| Designers | 11 | Designers (dont une stagiaire), Chief Design Officer, responsable accessibilité numérique |
+| Recherche utilisateurs | 7 | Recherche utilisateur, responsable de la recherche utilisateurs |
+| Architectes | 3 | Architectes, responsable architecture des solutions |
+| Devops et SRE | 6 | Devops, lead devops, ingénieur DevSecOps, SRE |
+| Développeurs | 13 | Développeurs (dont un apprenti), tech leads |
+| Chargés de mission et expertise | 3 | Chargés de mission, expert IA |
+| **Total** | **100** | |

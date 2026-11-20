@@ -11,3 +11,6 @@ _dbg_*.png
 
 # Sorties du MCP Playwright (instantanés, journaux, exports)
 .playwright-mcp/
+
+# docs d'atelier data
+*Atelier-Donnees-Fictives/

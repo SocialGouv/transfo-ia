@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap">
 <style>
-/* Layout : une colonne centrée. Synthèse chiffrée en tête, puis paramètre global et tableau des métiers (saisie et résultat sur la même ligne). */
+/* Layout : une colonne centrée. Synthèse chiffrée en tête, puis paramètre global et tableau des fonctions (saisie et résultat sur la même ligne). */
 :root{
   --bg:#F2F5F7;
   --surface:#FFFFFF;
@@ -88,6 +88,7 @@ h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:20px;line-
 .k{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .big{font-family:var(--font-display);font-weight:600;font-size:clamp(36px,6vw,54px);line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--ink);overflow-wrap:anywhere}
 .sub{color:var(--ink-2);font-variant-numeric:tabular-nums}
+.sub-2{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .facts{margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .facts div{display:flex;flex-direction:column;gap:4px;padding-left:16px;border-left:1px solid var(--line);min-width:0}
 .facts dt{font-size:13px;color:var(--muted)}
@@ -106,7 +107,7 @@ h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:20px;line-
 }
 .calc-head{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-end;justify-content:space-between}
 .global{display:flex;flex-direction:column;gap:6px}
-.global label{font-weight:500}
+.global label,.global-label{font-weight:500}
 .global-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
 .hint{font-size:13px;color:var(--muted)}
 .actions{display:flex;flex-wrap:wrap;gap:8px}
@@ -148,6 +149,8 @@ h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:20px;line-
 }
 .btn:hover{filter:brightness(1.08)}
 .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.btn-toggle[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn-toggle[aria-pressed="true"]:hover{filter:brightness(1.08)}
 .btn-ghost:hover{background:var(--accent-soft);filter:none}
 .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
@@ -217,14 +220,14 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   <header class="head">
     <p class="eyebrow">Estimation annuelle</p>
     <h1>Budget usage IA</h1>
-    <ul class="formula" aria-label="Formule de calcul par métier">
+    <ul class="formula" aria-label="Formule de calcul par fonction">
       <li class="term">Jours travaillés</li>
       <li class="op" aria-hidden="true">×</li>
       <li class="term">Coût d'usage moyen par jour</li>
       <li class="op" aria-hidden="true">×</li>
       <li class="term">Personnes</li>
       <li class="op" aria-hidden="true">=</li>
-      <li class="result">Budget du métier</li>
+      <li class="result">Budget de la fonction</li>
     </ul>
   </header>
 
@@ -234,6 +237,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
       <span class="k">Budget annuel</span>
       <output id="total" class="big" for="days">30 000 €</output>
       <span class="sub" id="monthly">soit 2 500 € par mois, sur 200 jours travaillés</span>
+      <span class="sub-2" id="uplift" hidden></span>
     </div>
     <dl class="facts">
       <div><dt>Personnes</dt><dd id="headcount">5</dd></div>
@@ -243,19 +247,27 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   </section>
 
   <section class="calc" aria-labelledby="calc-title">
-    <h2 id="calc-title">Hypothèses par métier</h2>
+    <h2 id="calc-title">Hypothèses par fonction</h2>
 
     <div class="calc-head">
       <div class="global">
         <label for="days">Jours travaillés par an</label>
         <div class="global-row">
           <span class="field"><input id="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="200"><span class="unit">jours</span></span>
-          <span class="hint">Commun à tous les métiers</span>
+          <span class="hint">Commun à toutes les fonctions</span>
+        </div>
+      </div>
+      <div class="global">
+        <span class="global-label" id="scc-label">Hébergement SecNumCloud</span>
+        <div class="global-row" role="group" aria-labelledby="scc-label">
+          <button type="button" class="btn btn-ghost btn-toggle" data-offer="bp" aria-pressed="false">Business Partner +10 %</button>
+          <button type="button" class="btn btn-ghost btn-toggle" data-offer="ent" aria-pressed="false">Enterprise +20 %</button>
         </div>
       </div>
       <div class="actions">
+        <button type="button" id="sdpc" class="btn btn-ghost">Effectif SDPC</button>
         <button type="button" id="copy" class="btn">Copier le tableau</button>
-        <button type="button" id="reset" class="btn btn-ghost">Valeurs par défaut</button>
+        <button type="button" id="reset" class="btn btn-ghost">Rétablir les valeurs par défaut</button>
       </div>
     </div>
 
@@ -263,7 +275,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
       <table class="grid">
         <thead>
           <tr>
-            <th scope="col">Métier</th>
+            <th scope="col">Fonction</th>
             <th scope="col">Personnes</th>
             <th scope="col">Coût d'usage moyen<span class="thsub">€ / jour / personne</span></th>
             <th scope="col" class="num">Par personne<span class="thsub">par an</span></th>
@@ -293,7 +305,8 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   </section>
 
   <footer class="note">
-    <p>Pour chaque métier : jours travaillés × coût d'usage moyen par jour et par personne × nombre de personnes. Le budget mensuel est le budget annuel divisé par 12. Les montants suivent la convention de vos hypothèses (HT ou TTC).</p>
+    <p>Pour chaque fonction : jours travaillés × coût d'usage moyen par jour et par personne × nombre de personnes. Le budget mensuel est le budget annuel divisé par 12. Les montants suivent la convention de vos hypothèses (HT ou TTC).</p>
+    <p>Les effectifs par défaut sont ceux de la SDPC (organigramme de novembre 2026, 100 personnes) ; le bouton « Effectif SDPC » les rétablit sans toucher aux autres réglages. Une majoration SecNumCloud s'applique à l'ensemble des montants : +10 % en Business Partner, +20 % en Enterprise, les deux calculés sur le budget hors majoration.</p>
     <p>Vos saisies restent dans ce navigateur.</p>
   </footer>
 </div>
@@ -302,28 +315,47 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
 (function () {
   document.documentElement.lang = 'fr';
 
+  // Effectifs : organigramme SDPC (DNUM), novembre 2026. Les tech leads sont comptés avec les développeurs.
   var ROLES = [
-    { id: 'cdp', name: 'Chefs de projet' },
-    { id: 'design', name: 'Designers' },
-    { id: 'archi', name: 'Architectes' },
-    { id: 'devops', name: 'Devops' },
-    { id: 'dev', name: 'Développeurs' }
+    { id: 'dir', name: 'Direction et encadrement', n: 15, c: 30 },
+    { id: 'cdp', name: 'Chefs de projet', n: 35, c: 30 },
+    { id: 'produit', name: 'Produit', n: 7, c: 30 },
+    { id: 'design', name: 'Designers', n: 11, c: 30 },
+    { id: 'research', name: 'Recherche utilisateurs', n: 7, c: 30 },
+    { id: 'archi', name: 'Architectes', n: 3, c: 30 },
+    { id: 'devops', name: 'Devops et SRE', n: 6, c: 30 },
+    { id: 'dev', name: 'Développeurs', n: 13, c: 60 },
+    { id: 'mission', name: 'Chargés de mission et expertise', n: 3, c: 30 }
   ];
-  var DEFAULTS = { days: 200, cost: 30, people: 1 };
-  var STORE_KEY = 'budget-usage-ia:v1';
+  var DEFAULT_DAYS = 200;
+  var OFFERS = [
+    { id: 'bp', name: 'SecNumCloud Business Partner', rate: 0.10 },
+    { id: 'ent', name: 'SecNumCloud Enterprise', rate: 0.20 }
+  ];
+  var STORE_KEY = 'budget-usage-ia:v2';
 
   var eur0 = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 });
   var eur2 = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 2 });
   var num = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 2 });
   var pct = new Intl.NumberFormat('fr-FR', { style: 'percent', minimumFractionDigits: 0, maximumFractionDigits: 1 });
+  var pct0 = new Intl.NumberFormat('fr-FR', { style: 'percent', maximumFractionDigits: 0 });
 
   function $(id) { return document.getElementById(id); }
 
   var daysEl = $('days');
   var tbody = $('rows');
   var statusEl = $('status');
+  var upliftEl = $('uplift');
   var fallback = $('copy-fallback');
   var fallbackText = $('copy-text');
+  var offerBtns = Array.prototype.slice.call(document.querySelectorAll('[data-offer]'));
+  var offerId = null;
+
+  function offer() {
+    for (var i = 0; i < OFFERS.length; i++) { if (OFFERS[i].id === offerId) return OFFERS[i]; }
+    return null;
+  }
+  function rate() { var o = offer(); return o ? o.rate : 0; }
 
   ROLES.forEach(function (role) {
     var tr = document.createElement('tr');
@@ -348,9 +380,19 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     return Number.isFinite(v) && v > 0 ? v : 0;
   }
 
+  function applyHeadcount() {
+    ROLES.forEach(function (r) { r.nEl.value = r.n; r.cEl.value = r.c; });
+  }
+
   function applyDefaults() {
-    daysEl.value = DEFAULTS.days;
-    ROLES.forEach(function (r) { r.nEl.value = DEFAULTS.people; r.cEl.value = DEFAULTS.cost; });
+    daysEl.value = DEFAULT_DAYS;
+    applyHeadcount();
+    setOfferId(null);
+  }
+
+  function setOfferId(id) {
+    offerId = id;
+    offerBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.offer === id ? 'true' : 'false'); });
   }
 
   function load() {
@@ -362,7 +404,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
 
   function save() {
     try {
-      var s = { days: daysEl.value, roles: {} };
+      var s = { days: daysEl.value, offer: offerId, roles: {} };
       ROLES.forEach(function (r) { s.roles[r.id] = { n: r.nEl.value, c: r.cEl.value }; });
       localStorage.setItem(STORE_KEY, JSON.stringify(s));
     } catch (e) { /* stockage indisponible : la page fonctionne sans */ }
@@ -372,6 +414,9 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     applyDefaults();
     if (!s || typeof s !== 'object') return;
     if (typeof s.days === 'string') daysEl.value = s.days;
+    if (typeof s.offer === 'string') {
+      OFFERS.forEach(function (o) { if (o.id === s.offer) setOfferId(o.id); });
+    }
     if (s.roles && typeof s.roles === 'object') {
       ROLES.forEach(function (r) {
         var v = s.roles[r.id];
@@ -386,30 +431,42 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
 
   function compute() {
     var days = read(daysEl);
-    var total = 0, people = 0;
-    var rows = ROLES.map(function (r) {
-      var n = read(r.nEl), c = read(r.cEl);
-      var per = days * c;
-      var t = per * n;
-      total += t;
+    var o = offer();
+    var r = rate();
+    var factor = 1 + r;
+    var base = 0, people = 0;
+    var rows = ROLES.map(function (role) {
+      var n = read(role.nEl), c = read(role.cEl);
+      var perBase = days * c;
+      var tBase = perBase * n;
+      base += tBase;
       people += n;
-      return { r: r, n: n, c: c, per: per, t: t };
+      return { r: role, n: n, c: c, per: perBase * factor, t: tBase * factor };
     });
+    var total = base * factor;
+    var extra = total - base;
     var perPerson = people > 0 ? total / people : 0;
     var avgDay = people > 0 && days > 0 ? total / (people * days) : 0;
 
     rows.forEach(function (row) {
-      var o = row.r.out;
+      var out = row.r.out;
       var share = total > 0 ? row.t / total : 0;
-      o.per.textContent = eur0.format(row.per);
-      o.total.textContent = eur0.format(row.t);
-      o.formula.textContent = num.format(days) + ' j × ' + eur2.format(row.c) + ' × ' + num.format(row.n) + ' pers.';
-      o.fill.style.width = (share * 100).toFixed(2) + '%';
-      o.pct.textContent = total > 0 ? pct.format(share) : '–';
+      out.per.textContent = eur0.format(row.per);
+      out.total.textContent = eur0.format(row.t);
+      out.formula.textContent = num.format(days) + ' j × ' + eur2.format(row.c) + ' × ' + num.format(row.n) + ' pers.' + (r > 0 ? ' + ' + pct0.format(r) : '');
+      out.fill.style.width = (share * 100).toFixed(2) + '%';
+      out.pct.textContent = total > 0 ? pct.format(share) : '–';
     });
 
     $('total').textContent = eur0.format(total);
     $('monthly').textContent = 'soit ' + eur0.format(total / 12) + ' par mois, sur ' + num.format(days) + ' jours travaillés';
+    if (o && extra > 0) {
+      upliftEl.textContent = 'dont ' + eur0.format(extra) + ' de majoration ' + o.name + ' (+' + pct0.format(o.rate) + '), sur une base de ' + eur0.format(base);
+      upliftEl.hidden = false;
+    } else {
+      upliftEl.textContent = '';
+      upliftEl.hidden = true;
+    }
     $('headcount').textContent = num.format(people);
     $('perPerson').textContent = eur0.format(perPerson);
     $('avgDay').textContent = eur2.format(avgDay) + ' / jour';
@@ -420,7 +477,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     $('f-total').textContent = eur0.format(total);
     $('f-pct').textContent = total > 0 ? '100 %' : '–';
 
-    last = { days: days, total: total, people: people, perPerson: perPerson, avgDay: avgDay, rows: rows };
+    last = { days: days, base: base, extra: extra, total: total, offer: o, people: people, perPerson: perPerson, avgDay: avgDay, rows: rows };
   }
 
   function plain(v) {
@@ -430,13 +487,17 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   function toTsv() {
     var d = last;
     var lines = [];
-    lines.push(['Métier', 'Personnes', 'Coût moyen (€ / jour / personne)', 'Coût par personne et par an (€)', 'Total annuel (€)', 'Part du budget (%)'].join('\t'));
+    lines.push(['Fonction', 'Personnes', 'Coût moyen (€ / jour / personne)', 'Coût par personne et par an (€)', 'Total annuel (€)', 'Part du budget (%)'].join('\t'));
     d.rows.forEach(function (row) {
       lines.push([row.r.name, plain(row.n), plain(row.c), plain(row.per), plain(row.t), plain(d.total > 0 ? row.t / d.total * 100 : 0)].join('\t'));
     });
     lines.push(['Total', plain(d.people), plain(d.avgDay), plain(d.perPerson), plain(d.total), d.total > 0 ? '100' : '0'].join('\t'));
     lines.push('');
     lines.push(['Jours travaillés par an', plain(d.days)].join('\t'));
+    lines.push(['Budget hors majoration (€)', plain(d.base)].join('\t'));
+    lines.push(['Majoration SecNumCloud', d.offer ? d.offer.name + ' (+' + plain(d.offer.rate * 100) + ' %)' : 'aucune'].join('\t'));
+    lines.push(['Montant de la majoration (€)', plain(d.extra)].join('\t'));
+    lines.push(['Budget annuel (€)', plain(d.total)].join('\t'));
     lines.push(['Budget mensuel moyen (€)', plain(d.total / 12)].join('\t'));
     return lines.join('\n');
   }
@@ -465,12 +526,31 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     } catch (e) { ko(); }
   });
 
+  $('sdpc').addEventListener('click', function () {
+    applyHeadcount();
+    compute();
+    save();
+    fallback.hidden = true;
+    say('Effectif SDPC rétabli : 100 personnes, 60 € par jour pour les développeurs, 30 € pour les autres fonctions.');
+  });
+
   $('reset').addEventListener('click', function () {
     applyDefaults();
     compute();
     save();
     fallback.hidden = true;
-    say('Valeurs par défaut rétablies : ' + DEFAULTS.days + ' jours, ' + DEFAULTS.cost + ' € par jour, ' + DEFAULTS.people + ' personne par métier.');
+    say('Valeurs par défaut rétablies : effectif SDPC, ' + DEFAULT_DAYS + ' jours travaillés, aucune majoration SecNumCloud.');
+  });
+
+  offerBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var id = btn.dataset.offer;
+      setOfferId(offerId === id ? null : id);
+      compute();
+      save();
+      var o = offer();
+      say(o ? 'Majoration ' + o.name + ' appliquée : +' + pct0.format(o.rate) + ' sur le budget.' : 'Majoration SecNumCloud retirée.');
+    });
   });
 
   document.querySelector('.calc').addEventListener('input', function (e) {
