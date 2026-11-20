@@ -171,6 +171,13 @@ h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:20px;line-
 .panel:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:4px}
 .panel-head{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
 .panel-note{margin:0;font-size:13px;color:var(--muted);max-width:75ch}
+.assumptions{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.assumptions>div{display:flex;flex-direction:column;gap:3px;min-width:0;padding:12px 14px;background:var(--bg);border:1px solid var(--line);border-radius:8px}
+.assumptions dt{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.assumptions dd{margin:0;font-size:14px;color:var(--ink);overflow-wrap:anywhere}
+.band{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;padding:2px 9px;border-radius:999px;border:1px solid var(--line-strong);color:var(--ink-2);white-space:nowrap}
+.band.high{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.big.range{font-size:clamp(26px,3.6vw,36px)}
 
 .table-wrap{min-width:0;overflow-x:auto}
 table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
@@ -284,7 +291,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
         <label for="days">Jours travaillés par an</label>
         <div class="global-row">
           <span class="field"><input id="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="212"><span class="unit">jours</span></span>
-          <span class="hint">Commun aux trois onglets</span>
+          <span class="hint">Commun à tous les onglets</span>
         </div>
       </div>
       <div class="global">
@@ -318,6 +325,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
       <button type="button" class="tab" role="tab" id="tab-work" aria-controls="panel-work" aria-selected="true">Hypothèses de travail</button>
       <button type="button" class="tab" role="tab" id="tab-high" aria-controls="panel-high" aria-selected="false" tabindex="-1">Fourchette haute</button>
       <button type="button" class="tab" role="tab" id="tab-low" aria-controls="panel-low" aria-selected="false" tabindex="-1">Fourchette basse</button>
+      <button type="button" class="tab" role="tab" id="tab-summary" aria-controls="panel-summary" aria-selected="false" tabindex="-1">Résumé</button>
     </div>
 
     <div class="panel" role="tabpanel" id="panel-work" aria-labelledby="tab-work" tabindex="0">
@@ -421,6 +429,29 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
       </div>
     </div>
 
+    <div class="panel" role="tabpanel" id="panel-summary" aria-labelledby="tab-summary" tabindex="0" hidden>
+      <p class="panel-note">Les huit scénarios : deux périmètres, deux statuts, deux fourchettes de coût. Les jours travaillés et la majoration SecNumCloud ci-dessus s'appliquent à tous ; les boutons Périmètre et Statut, non, puisque cet onglet les énumère.</p>
+      <dl class="assumptions" id="assumptions"></dl>
+      <div class="table-wrap">
+        <table class="grid" id="grid-summary">
+          <thead>
+            <tr>
+              <th scope="col">Scénario</th>
+              <th scope="col">Fourchette</th>
+              <th scope="col">Personnes</th>
+              <th scope="col" class="num">Coût moyen pondéré<span class="thsub">€ / jour / personne</span></th>
+              <th scope="col" class="num">Par personne<span class="thsub">par an</span></th>
+              <th scope="col" class="num">Total annuel</th>
+              <th scope="col" class="num">Par mois</th>
+              <th scope="col">Poids relatif</th>
+            </tr>
+          </thead>
+          <tbody id="rows-summary"></tbody>
+        </table>
+      </div>
+      <p class="panel-note" id="summary-note"></p>
+    </div>
+
     <p id="status" class="status" role="status"></p>
     <div id="copy-fallback" class="copy-fallback" hidden>
       <label for="copy-text" class="hint">Tableau au format tableur (colonnes séparées par des tabulations)</label>
@@ -430,7 +461,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
 
   <footer class="note">
     <p>Pour chaque ligne : jours travaillés × coût d'usage moyen par jour et par personne × nombre de personnes. Le budget mensuel est le budget annuel divisé par 12. Les montants suivent la convention de vos hypothèses (HT ou TTC).</p>
-    <p>Les effectifs par défaut sont ceux de la SDPC (organigramme de novembre 2026, 100 personnes dont 70 internes et 30 externes). Une ligne « externes » n'apparaît que pour les fonctions qui en comptent. Les fourchettes haute et basse reprennent les coûts du tableur de référence ; elles utilisent les effectifs de l'onglet « Hypothèses de travail », les jours travaillés et la majoration SecNumCloud communs aux trois onglets.</p>
+    <p>Les effectifs par défaut sont ceux de la SDPC (organigramme de novembre 2026, 100 personnes dont 70 internes et 30 externes). Une ligne « externes » n'apparaît que pour les fonctions qui en comptent. Les fourchettes haute et basse reprennent les coûts du tableur de référence ; elles utilisent les effectifs de l'onglet « Hypothèses de travail », les jours travaillés et la majoration SecNumCloud communs à tous les onglets. L'onglet « Résumé » compare les huit scénarios possibles : deux périmètres, deux statuts, deux fourchettes.</p>
     <p>Le filtre de statut « Internes seulement » retire les lignes d'externes du calcul et des totaux ; il se combine avec le périmètre.</p>
     <p>Le périmètre « Studio tech » ne retient que les architectes, les devops et SRE, les développeurs et les chargés de mission et expertise ; il s'applique aux trois onglets et retire les autres fonctions du calcul comme des totaux.</p>
     <p>La majoration SecNumCloud s'applique à l'ensemble des montants : +10 % en Business Partner, +20 % en Enterprise, les deux calculés sur le budget hors majoration.</p>
@@ -469,11 +500,22 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     { id: 'ent', name: 'SecNumCloud Enterprise',       rate: 0.20 }
   ];
   var VIEWS = {
-    work: { tab: 'tab-work', panel: 'panel-work', label: 'Hypothèses de travail' },
-    high: { tab: 'tab-high', panel: 'panel-high', label: 'Fourchette haute' },
-    low:  { tab: 'tab-low',  panel: 'panel-low',  label: 'Fourchette basse' }
+    work:    { tab: 'tab-work',    panel: 'panel-work',    label: 'Hypothèses de travail' },
+    high:    { tab: 'tab-high',    panel: 'panel-high',    label: 'Fourchette haute' },
+    low:     { tab: 'tab-low',     panel: 'panel-low',     label: 'Fourchette basse' },
+    summary: { tab: 'tab-summary', panel: 'panel-summary', label: 'Résumé' }
   };
   var VIEW_IDS = ['work', 'high', 'low'];
+  var TAB_IDS = ['work', 'high', 'low', 'summary'];
+  // Les huit scénarios du résumé, dans l'ordre : périmètre, puis statut, puis fourchette.
+  var SCENARIOS = [];
+  ['all', 'tech'].forEach(function (sc) {
+    ['all', 'in'].forEach(function (st) {
+      ['high', 'low'].forEach(function (band, i) {
+        SCENARIOS.push({ scope: sc, staff: st, band: band, first: i === 0 });
+      });
+    });
+  });
   var STORE_KEY = 'budget-usage-ia:v3';
 
   var eur0 = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 });
@@ -555,6 +597,28 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     });
   });
 
+  function scenarioName(sc) {
+    return (sc.scope === 'all' ? 'SDPC complète' : 'Studio tech') + ' · ' + (sc.staff === 'all' ? 'tous statuts' : 'internes seulement');
+  }
+
+  var summaryCells = SCENARIOS.map(function (sc) {
+    var tr = document.createElement('tr');
+    tr.className = sc.first ? 'group-start' : 'cont';
+    tr.innerHTML =
+      '<th scope="row"><span class="fn-name">' + scenarioName(sc) + '</span></th>' +
+      '<td data-label="Fourchette"><span class="band' + (sc.band === 'high' ? ' high' : '') + '">' + (sc.band === 'high' ? 'Haute' : 'Basse') + '</span></td>' +
+      '<td data-label="Personnes" class="ro" data-out="people"></td>' +
+      '<td data-label="Coût moyen pondéré (€ / jour / personne)" class="num" data-out="avg"></td>' +
+      '<td data-label="Par personne et par an" class="num" data-out="per"></td>' +
+      '<td data-label="Total annuel" class="num total" data-out="total"></td>' +
+      '<td data-label="Par mois" class="num" data-out="month"></td>' +
+      '<td data-label="Poids relatif" class="share"><div class="share-cell"><span class="bar" aria-hidden="true"><span class="fill" data-out="fill"></span></span><span class="pct" data-out="pct"></span></div></td>';
+    document.getElementById('rows-summary').appendChild(tr);
+    var out = {};
+    tr.querySelectorAll('[data-out]').forEach(function (el) { out[el.dataset.out] = el; });
+    return out;
+  });
+
   function read(el) {
     var v = el.valueAsNumber;
     var bad = el.validity.badInput || (Number.isFinite(v) && v < 0);
@@ -603,7 +667,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
 
   function setView(id, focus) {
     view = VIEWS[id] ? id : 'work';
-    VIEW_IDS.forEach(function (k) {
+    TAB_IDS.forEach(function (k) {
       var selected = k === view;
       var tab = $(VIEWS[k].tab);
       tab.setAttribute('aria-selected', selected ? 'true' : 'false');
@@ -647,6 +711,60 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   }
 
   var last = {};
+
+  // Total d'un scénario, indépendamment des filtres actifs à l'écran.
+  function tally(sc) {
+    var days = read(daysEl);
+    var factor = 1 + rate();
+    var base = 0, people = 0, inP = 0, extP = 0;
+    LINES.forEach(function (line) {
+      if (sc.scope === 'tech' && !line.fn.tech) return;
+      if (sc.staff === 'in' && line.status !== 'in') return;
+      var n = read(line.nEl);
+      var c = sc.band === 'work' ? read(line.cEl) : line.fn[sc.band];
+      base += days * c * n;
+      people += n;
+      if (line.status === 'ext') extP += n; else inP += n;
+    });
+    var total = base * factor;
+    return {
+      sc: sc, days: days, base: base, total: total, extra: total - base,
+      people: people, inPeople: inP, extPeople: extP,
+      perPerson: people > 0 ? total / people : 0,
+      avgDay: people > 0 && days > 0 ? total / (people * days) : 0
+    };
+  }
+
+  function renderSummary() {
+    var days = read(daysEl);
+    var o = offer();
+    var data = SCENARIOS.map(tally);
+    var max = data.reduce(function (m, t) { return Math.max(m, t.total); }, 0);
+
+    data.forEach(function (t, i) {
+      var out = summaryCells[i];
+      out.people.textContent = num.format(t.people) + ' pers.';
+      out.avg.textContent = eur2.format(t.avgDay);
+      out.per.textContent = eur0.format(t.perPerson);
+      out.total.textContent = eur0.format(t.total);
+      out.month.textContent = eur0.format(t.total / 12);
+      out.fill.style.width = (max > 0 ? t.total / max * 100 : 0).toFixed(2) + '%';
+      out.pct.textContent = max > 0 ? pct.format(t.total / max) : '–';
+    });
+
+    $('assumptions').innerHTML = [
+      ['Jours travaillés', num.format(days) + ' jours par an'],
+      ['Effectifs', 'Organigramme SDPC de novembre 2026 : 100 personnes, 70 internes et 30 externes'],
+      ['Coûts d\'usage', 'Fourchettes par fonction du tableur de référence, de 10 à 60 € par jour et par personne'],
+      ['Majoration SecNumCloud', o ? o.name + ' (+' + pct0.format(o.rate) + ')' : 'Aucune'],
+      ['Périmètre Studio tech', 'Architectes, devops et SRE, développeurs, chargés de mission et expertise']
+    ].map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join('');
+
+    var high = data[0], low = data[1];
+    $('summary-note').textContent = 'Le poids relatif compare chaque scénario au plus large, « SDPC complète · tous statuts » en fourchette haute (' + eur0.format(max) + '). Entre le scénario le plus étroit et le plus large, le budget annuel va de ' + eur0.format(data[7].total) + ' à ' + eur0.format(max) + '.';
+
+    last.summary = { id: 'summary', label: 'Résumé', scope: 'huit scénarios', days: days, offer: o, rows: data, max: max, high: high, low: low };
+  }
 
   function computeView(id) {
     var v = VIEWS[id];
@@ -703,24 +821,41 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
 
   function compute() {
     VIEW_IDS.forEach(computeView);
+    renderSummary();
     var d = last[view];
     var o = d.offer;
+    var isSummary = view === 'summary';
+    var hi = last.summary.high, lo = last.summary.low;
 
-    $('eyebrow').textContent = 'Estimation annuelle · ' + d.scope;
-    $('hero-k').textContent = 'Budget annuel — ' + d.label;
-    $('total').textContent = eur0.format(d.total);
-    $('monthly').textContent = 'soit ' + eur0.format(d.total / 12) + ' par mois, sur ' + num.format(d.days) + ' jours travaillés';
-    if (o && d.extra > 0) {
+    $('total').classList.toggle('range', isSummary);
+    $('eyebrow').textContent = isSummary ? 'Estimation annuelle · huit scénarios' : 'Estimation annuelle · ' + d.scope;
+    $('hero-k').textContent = isSummary ? 'Budget annuel — SDPC complète, tous statuts' : 'Budget annuel — ' + d.label;
+    $('total').textContent = isSummary
+      ? eur0.format(lo.total) + ' à ' + eur0.format(hi.total)
+      : eur0.format(d.total);
+    $('monthly').textContent = isSummary
+      ? 'soit ' + eur0.format(lo.total / 12) + ' à ' + eur0.format(hi.total / 12) + ' par mois, sur ' + num.format(d.days) + ' jours travaillés'
+      : 'soit ' + eur0.format(d.total / 12) + ' par mois, sur ' + num.format(d.days) + ' jours travaillés';
+    if (o && isSummary) {
+      upliftEl.textContent = 'majoration ' + o.name + ' (+' + pct0.format(o.rate) + ') comprise, sur une base de ' + eur0.format(lo.base) + ' à ' + eur0.format(hi.base);
+      upliftEl.hidden = false;
+    } else if (o && d.extra > 0) {
       upliftEl.textContent = 'dont ' + eur0.format(d.extra) + ' de majoration ' + o.name + ' (+' + pct0.format(o.rate) + '), sur une base de ' + eur0.format(d.base);
       upliftEl.hidden = false;
     } else {
       upliftEl.textContent = '';
       upliftEl.hidden = true;
     }
-    $('headcount').firstChild.nodeValue = num.format(d.people);
-    $('split').textContent = num.format(d.inPeople) + ' internes · ' + num.format(d.extPeople) + ' externes';
-    $('perPerson').textContent = eur0.format(d.perPerson);
-    $('avgDay').textContent = eur2.format(d.avgDay) + ' / jour';
+    $('headcount').firstChild.nodeValue = num.format(isSummary ? hi.people : d.people);
+    $('split').textContent = isSummary
+      ? num.format(hi.inPeople) + ' internes · ' + num.format(hi.extPeople) + ' externes'
+      : num.format(d.inPeople) + ' internes · ' + num.format(d.extPeople) + ' externes';
+    $('perPerson').textContent = isSummary
+      ? eur0.format(lo.perPerson) + ' à ' + eur0.format(hi.perPerson)
+      : eur0.format(d.perPerson);
+    $('avgDay').textContent = isSummary
+      ? eur2.format(lo.avgDay) + ' à ' + eur2.format(hi.avgDay) + ' / jour'
+      : eur2.format(d.avgDay) + ' / jour';
 
     $('note-high').textContent = 'Coûts hauts du tableur de référence, appliqués aux effectifs de l\'onglet « Hypothèses de travail » sur ' + num.format(d.days) + ' jours travaillés. Lecture seule : total ' + eur0.format(last.high.total) + '.';
     $('note-low').textContent = 'Coûts bas du tableur de référence, appliqués aux effectifs de l\'onglet « Hypothèses de travail » sur ' + num.format(d.days) + ' jours travaillés. Lecture seule : total ' + eur0.format(last.low.total) + '.';
@@ -730,7 +865,30 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     return String(Math.round(v * 100) / 100).replace('.', ',');
   }
 
+  function summaryTsv() {
+    var d = last.summary;
+    var lines = [];
+    lines.push(['Résumé : huit scénarios'].join('\t'));
+    lines.push(['Périmètre', 'Statut', 'Fourchette', 'Personnes', 'Internes', 'Externes', 'Coût moyen pondéré (€ / jour / personne)', 'Coût par personne et par an (€)', 'Total annuel (€)', 'Budget mensuel moyen (€)'].join('\t'));
+    d.rows.forEach(function (t) {
+      lines.push([
+        t.sc.scope === 'all' ? 'SDPC complète' : 'Studio tech',
+        t.sc.staff === 'all' ? 'tous statuts' : 'internes seulement',
+        t.sc.band === 'high' ? 'haute' : 'basse',
+        plain(t.people), plain(t.inPeople), plain(t.extPeople),
+        plain(t.avgDay), plain(t.perPerson), plain(t.total), plain(t.total / 12)
+      ].join('\t'));
+    });
+    lines.push('');
+    lines.push(['Jours travaillés par an', plain(d.days)].join('\t'));
+    lines.push(['Majoration SecNumCloud', d.offer ? d.offer.name + ' (+' + plain(d.offer.rate * 100) + ' %)' : 'aucune'].join('\t'));
+    lines.push(['Effectifs', 'organigramme SDPC de novembre 2026 : 100 personnes, 70 internes et 30 externes'].join('\t'));
+    lines.push(['Coûts d\'usage', 'fourchettes par fonction du tableur de référence'].join('\t'));
+    return lines.join('\n');
+  }
+
   function toTsv() {
+    if (view === 'summary') return summaryTsv();
     var d = last[view];
     var lines = [];
     lines.push([d.label, d.scope].join('\t'));
