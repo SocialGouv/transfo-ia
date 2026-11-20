@@ -295,6 +295,13 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
         </div>
       </div>
       <div class="global">
+        <span class="global-label" id="staff-label">Statut</span>
+        <div class="global-row" role="group" aria-labelledby="staff-label">
+          <button type="button" class="btn btn-ghost btn-toggle" data-staff="all" aria-pressed="true">Tout</button>
+          <button type="button" class="btn btn-ghost btn-toggle" data-staff="in" aria-pressed="false">Internes seulement</button>
+        </div>
+      </div>
+      <div class="global">
         <span class="global-label" id="scc-label">Hébergement SecNumCloud</span>
         <div class="global-row" role="group" aria-labelledby="scc-label">
           <button type="button" class="btn btn-ghost btn-toggle" data-offer="bp" aria-pressed="false">Business Partner +10 %</button>
@@ -424,6 +431,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   <footer class="note">
     <p>Pour chaque ligne : jours travaillés × coût d'usage moyen par jour et par personne × nombre de personnes. Le budget mensuel est le budget annuel divisé par 12. Les montants suivent la convention de vos hypothèses (HT ou TTC).</p>
     <p>Les effectifs par défaut sont ceux de la SDPC (organigramme de novembre 2026, 100 personnes dont 70 internes et 30 externes). Une ligne « externes » n'apparaît que pour les fonctions qui en comptent. Les fourchettes haute et basse reprennent les coûts du tableur de référence ; elles utilisent les effectifs de l'onglet « Hypothèses de travail », les jours travaillés et la majoration SecNumCloud communs aux trois onglets.</p>
+    <p>Le filtre de statut « Internes seulement » retire les lignes d'externes du calcul et des totaux ; il se combine avec le périmètre.</p>
     <p>Le périmètre « Studio tech » ne retient que les architectes, les devops et SRE, les développeurs et les chargés de mission et expertise ; il s'applique aux trois onglets et retire les autres fonctions du calcul comme des totaux.</p>
     <p>La majoration SecNumCloud s'applique à l'ensemble des montants : +10 % en Business Partner, +20 % en Enterprise, les deux calculés sur le budget hors majoration.</p>
     <p>Vos saisies restent dans ce navigateur.</p>
@@ -450,6 +458,10 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   var SCOPES = {
     all:  { label: 'SDPC complète' },
     tech: { label: 'Studio tech' }
+  };
+  var STAFFS = {
+    all: { label: 'tous statuts' },
+    in:  { label: 'internes seulement' }
   };
   var DEFAULT_DAYS = 212;
   var OFFERS = [
@@ -480,9 +492,11 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
   var tabEls = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
   var offerBtns = Array.prototype.slice.call(document.querySelectorAll('[data-offer]'));
   var scopeBtns = Array.prototype.slice.call(document.querySelectorAll('[data-scope]'));
+  var staffBtns = Array.prototype.slice.call(document.querySelectorAll('[data-staff]'));
   var offerId = null;
   var view = 'work';
   var scope = 'all';
+  var staff = 'all';
 
   // Une ligne par couple fonction / statut. La ligne « externes » n'existe que si la fonction en compte.
   var LINES = [];
@@ -496,7 +510,12 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     return null;
   }
   function rate() { var o = offer(); return o ? o.rate : 0; }
-  function inScope(line) { return scope === 'all' || line.fn.tech; }
+  function inScope(line) {
+    return (scope === 'all' || line.fn.tech) && (staff === 'all' || line.status === 'in');
+  }
+  function scopeLabel() {
+    return SCOPES[scope].label + (staff === 'in' ? ' · ' + STAFFS.in.label : '');
+  }
 
   function cellsHtml(line, editable) {
     var key = line.fn.id + '-' + line.status;
@@ -555,15 +574,26 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     applyCosts('cost');
     setOfferId(null);
     setScope('all');
+    setStaff('all');
     setView('work');
+  }
+
+  function applyFilters() {
+    scopeBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.scope === scope ? 'true' : 'false'); });
+    staffBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.staff === staff ? 'true' : 'false'); });
+    VIEW_IDS.forEach(function (k) {
+      VIEWS[k].cells.forEach(function (out, i) { out.tr.hidden = !inScope(LINES[i]); });
+    });
   }
 
   function setScope(id) {
     scope = SCOPES[id] ? id : 'all';
-    scopeBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.scope === scope ? 'true' : 'false'); });
-    VIEW_IDS.forEach(function (k) {
-      VIEWS[k].cells.forEach(function (out, i) { out.tr.hidden = !inScope(LINES[i]); });
-    });
+    applyFilters();
+  }
+
+  function setStaff(id) {
+    staff = STAFFS[id] ? id : 'all';
+    applyFilters();
   }
 
   function setOfferId(id) {
@@ -592,7 +622,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
 
   function save() {
     try {
-      var s = { days: daysEl.value, offer: offerId, view: view, scope: scope, lines: {} };
+      var s = { days: daysEl.value, offer: offerId, view: view, scope: scope, staff: staff, lines: {} };
       LINES.forEach(function (l) { s.lines[l.fn.id + '-' + l.status] = { n: l.nEl.value, c: l.cEl.value }; });
       localStorage.setItem(STORE_KEY, JSON.stringify(s));
     } catch (e) { /* stockage indisponible : la page fonctionne sans */ }
@@ -604,6 +634,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     if (typeof s.days === 'string') daysEl.value = s.days;
     if (typeof s.offer === 'string') OFFERS.forEach(function (o) { if (o.id === s.offer) setOfferId(o.id); });
     if (typeof s.scope === 'string' && SCOPES[s.scope]) setScope(s.scope);
+    if (typeof s.staff === 'string' && STAFFS[s.staff]) setStaff(s.staff);
     if (typeof s.view === 'string' && VIEWS[s.view]) setView(s.view);
     if (s.lines && typeof s.lines === 'object') {
       LINES.forEach(function (l) {
@@ -663,7 +694,7 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     v.foot.pct.textContent = total > 0 ? '100 %' : '–';
 
     last[id] = {
-      id: id, label: v.label, scope: SCOPES[scope].label, days: days, base: base, extra: extra, total: total,
+      id: id, label: v.label, scope: scopeLabel(), days: days, base: base, extra: extra, total: total,
       offer: o, people: people, inPeople: inPeople, extPeople: extPeople,
       perPerson: perPerson, avgDay: avgDay, rows: rows
     };
@@ -774,7 +805,18 @@ table.grid{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums
     compute();
     save();
     fallback.hidden = true;
-    say('Valeurs par défaut rétablies : SDPC complète, effectif de l\'organigramme, ' + DEFAULT_DAYS + ' jours travaillés, aucune majoration SecNumCloud.');
+    say('Valeurs par défaut rétablies : SDPC complète, tous statuts, effectif de l\'organigramme, ' + DEFAULT_DAYS + ' jours travaillés, aucune majoration SecNumCloud.');
+  });
+
+  staffBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      setStaff(btn.dataset.staff);
+      compute();
+      save();
+      say(staff === 'in'
+        ? 'Statut : internes seulement. Les 30 externes sont retirés du calcul.'
+        : 'Statut : internes et externes.');
+    });
   });
 
   scopeBtns.forEach(function (btn) {
