@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orchestrateur de slides : la chaîne retenue</title>
+<style>
+/* Une colonne : le schéma à couloirs (acteurs en lignes, étapes en colonnes), puis ce que chaque agent charge. */
+:root{
+  --bg:#f3f5f7; --surface:#ffffff; --ink:#17212b; --muted:#55626f; --line:#cfd6dd; --band:#e9edf1;
+  --human:#8a4b06; --human-soft:#fbeed8;
+  --accent:#0d6e6a; --accent-soft:#dcefed;
+  --orch-bg:#17212b; --orch-fg:#f3f5f7;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#11161c; --surface:#19212a; --ink:#e7ecf1; --muted:#9ba8b5; --line:#33404d; --band:#151c24;
+    --human:#f2b765; --human-soft:#3a2b12;
+    --accent:#63cbc4; --accent-soft:#12383a;
+    --orch-bg:#e7ecf1; --orch-fg:#11161c;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 var(--font)}
+.page{max-width:1240px;margin:0 auto;padding:40px 16px 72px;display:flex;flex-direction:column;gap:52px}
+h1,h2,h3{margin:0;line-height:1.15;text-wrap:balance}
+h1{font-size:2.1rem}
+h2{font-size:1.5rem}
+h3{font-size:1.02rem}
+p{margin:0}
+a{color:var(--accent)}
+code{font-family:var(--mono);font-size:.88em}
+.lede{max-width:72ch;font-size:1.06rem;margin-top:14px}
+.tag{display:block;font:600 .76rem var(--font);letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+section{display:flex;flex-direction:column;gap:18px;min-width:0}
+.legend{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:.84rem;color:var(--muted)}
+.legend li{display:flex;align-items:center;gap:7px}
+.sw{width:18px;height:13px;border-radius:3px;border:1.5px solid var(--ink);background:var(--surface)}
+.sw.human{background:var(--human-soft);border-color:var(--human)}
+.sw.orch{background:var(--orch-bg);border-color:var(--orch-bg)}
+figure{margin:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+figcaption,.note{font-size:.9rem;color:var(--muted);max-width:88ch}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.swim{border-collapse:collapse;table-layout:fixed;width:100%;min-width:1100px;font-size:12.5px;line-height:1.32}
+.swim col.actor{width:272px}
+.swim thead th{background:var(--band);border-bottom:1px solid var(--line);padding:9px 4px 8px;text-align:center;font:600 11px var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.swim thead th.corner{text-align:left;padding-left:14px;vertical-align:bottom}
+.swim thead .n{display:block;font:700 19px var(--font);letter-spacing:0;color:var(--ink)}
+.swim tbody th{background:var(--band);border-top:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top;font-weight:400}
+.swim tbody td{border-top:1px solid var(--line);padding:16px 5px;vertical-align:middle;background-image:linear-gradient(90deg,var(--line) 50%,transparent 50%);background-size:8px 1px;background-position:0 50%;background-repeat:repeat-x}
+.swim tbody tr:first-child th,.swim tbody tr:first-child td{border-top:0}
+.who{font:700 15px var(--font)}
+.kind{font:600 10px var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-left:6px}
+.goal{display:block;color:var(--muted);margin:4px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font:500 10.5px var(--mono);padding:2px 6px;border:1px solid var(--line);border-radius:3px;background:var(--surface);white-space:nowrap}
+.chip.new{border-color:var(--accent);color:var(--accent)}
+.load{display:block;margin-top:7px;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.load b{color:var(--ink)}
+.node{display:block;border:1.5px solid var(--ink);border-radius:5px;background:var(--surface);padding:7px}
+.node b{display:block}
+.node code{display:block;margin-top:3px;font-size:10.5px;color:var(--muted);overflow-wrap:anywhere}
+.human .node{background:var(--human-soft);border-color:var(--human)}
+.orch .node{background:var(--orch-bg);border-color:var(--orch-bg);color:var(--orch-fg)}
+.orch .node code{color:var(--orch-fg);opacity:.78}
+.swim tfoot td,.swim tfoot th{border:0;padding:0 5px 12px;background:var(--surface)}
+.swim tfoot th{background:var(--band)}
+.loop i{display:block;height:9px;margin:0 22px;border:1.5px solid var(--muted);border-top:0;border-radius:0 0 6px 6px}
+.loop span{display:block;text-align:center;margin-top:4px;font-size:11.5px;color:var(--muted)}
+.two{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:28px 44px;align-items:start}
+.two > div{display:flex;flex-direction:column;gap:14px;min-width:0}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.data{border-collapse:collapse;width:100%;min-width:480px;font-size:.87rem}
+.data th,.data td{padding:9px 12px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
+.data thead th{border-top:0;background:var(--band);font:600 11px var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.data .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.data small{display:block;color:var(--muted)}
+ol.rules,ul.rules{margin:0;padding-left:1.25em;display:flex;flex-direction:column;gap:8px}
+.planche{display:block;max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px}
+@media (max-width:860px){.two{grid-template-columns:minmax(0,1fr)} h1{font-size:1.8rem}}
+</style>
+</head>
+<body>
+<main class="page">
+
+<header>
+  <h1>Orchestrateur de slides : la chaîne retenue</h1>
+  <p class="lede">Trois sous-agents, un seul par rôle, et 350 lignes de skills au plus par agent. L'utilisateur est questionné par séries, valide l'histoire avant la première slide, puis reçoit un deck dont la mise en page vient d'un gabarit et dont les longueurs sont contrôlées par script.</p>
+  <ul class="legend" aria-label="Légende du schéma">
+    <li><span class="sw human"></span>utilisateur</li>
+    <li><span class="sw orch"></span>orchestrateur</li>
+    <li><span class="sw"></span>sous-agent</li>
+    <li><code class="chip new">skill</code>skill que l'agent lit</li>
+  </ul>
+</header>
+
+<section>
+  <h2><span class="tag">Le déroulé</span>Sept étapes, un point d'arrêt sur l'histoire</h2>
+  <figure>
+    <div class="scroll">
+      <table class="swim">
+        <colgroup><col class="actor"><col><col><col><col><col><col><col></colgroup>
+        <thead>
+          <tr>
+            <th class="corner" scope="col">Acteur, objectif, skills, charge</th>
+            <th scope="col"><span class="n">1</span>Cadrage</th>
+            <th scope="col"><span class="n">2</span>Histoire</th>
+            <th scope="col"><span class="n">3</span>Revue du fond</th>
+            <th scope="col"><span class="n">4</span>Accord</th>
+            <th scope="col"><span class="n">5</span>Slides</th>
+            <th scope="col"><span class="n">6</span>Revue de la forme</th>
+            <th scope="col"><span class="n">7</span>Livraison</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="human">
+            <th scope="row"><span class="who">Utilisateur</span><span class="kind">humain</span>
+              <span class="goal">Il peut dire « stop » à tout moment : les réponses par défaut s'appliquent.</span></th>
+            <td><span class="node"><b>répond par séries de 5 questions, 20 au plus</b></span></td>
+            <td></td><td></td>
+            <td><span class="node"><b>valide l'histoire, ou dit quoi changer</b></span></td>
+            <td></td><td></td>
+            <td><span class="node"><b>reçoit le deck et les réserves</b></span></td>
+          </tr>
+          <tr class="orch">
+            <th scope="row"><span class="who">Orchestrateur</span><span class="kind">skill</span>
+              <span class="goal">Dans la conversation : challenger le besoin, passer les relais, tenir le point d'arrêt.</span>
+              <span class="chips"><code class="chip new">orchestrateur-slides</code></span>
+              <span class="load">lit <b>122 lignes</b> de skills, sur 350 admises</span></th>
+            <td><span class="node"><b>cadre et challenge</b><code>brief.md</code></span></td>
+            <td></td><td></td>
+            <td><span class="node"><b>présente le fil rouge et les titres</b></span></td>
+            <td></td><td></td>
+            <td><span class="node"><b>livre, en 3 lignes de réserves</b></span></td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="who">Planificateur</span><span class="kind">sous-agent</span>
+              <span class="goal">Décider l'histoire : le fil rouge, un message par slide, la demande finale.</span>
+              <span class="chips"><code class="chip new">histoire-slides</code></span>
+              <span class="load">lit <b>152 lignes</b> de skills</span></th>
+            <td></td>
+            <td><span class="node"><b>écrit la carte des messages, contrôlée par script</b><code>carte.md</code></span></td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="who">Travailleur</span><span class="kind">sous-agent</span>
+              <span class="goal">Donner sa forme à chaque message, sans toucher au fond.</span>
+              <span class="chips"><code class="chip new">charte-dsfr</code></span>
+              <span class="load">lit <b>332 lignes</b> de skills au plus</span></th>
+            <td></td><td></td><td></td><td></td>
+            <td><span class="node"><b>remplit le gabarit, 4 slides par appel, puis contrôle</b><code>deck/deck.html</code></span></td>
+            <td></td><td></td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="who">Vérificateur</span><span class="kind">sous-agent, 2 passages</span>
+              <span class="goal">Juger sur pièces, à la place de l'auditoire : le fond, puis la forme.</span>
+              <span class="chips"><code class="chip new">histoire-slides</code><code class="chip new">charte-dsfr</code></span>
+              <span class="load">lit <b>179 lignes</b> de skills sur le fond, <b>157 lignes</b> sur la forme</span></th>
+            <td></td><td></td>
+            <td><span class="node"><b>script, puis 10 contrôles sur la carte</b><code>revue-fond.md</code></span></td>
+            <td></td><td></td>
+            <td><span class="node"><b>script, fidélité à la carte, planche</b><code>revue-forme.md</code></span></td>
+            <td></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th></th><td></td>
+            <td colspan="2" class="loop"><i></i><span>↺ 2 allers-retours au plus</span></td>
+            <td></td>
+            <td colspan="2" class="loop"><i></i><span>↺ 2 allers-retours au plus</span></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <figcaption>Chaque relais est un fichier du dossier de travail. Un sous-agent reçoit un message de cinq lignes (son fichier de rôle, le dossier, ses skills, la tâche, le rendu attendu) et rend dix lignes au plus. Les lignes de skills comptent ce que l'agent lit pour savoir faire : son rôle, le skill qui le sert, ses références, le gabarit.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="tag">La charge</span>Aucun agent ne lit plus de 350 lignes de skills</h2>
+  <div class="two">
+    <div>
+      <div class="tbl">
+        <table class="data">
+          <thead><tr><th scope="col">Agent</th><th scope="col" class="num">Skills</th><th scope="col" class="num">Marge</th><th scope="col" class="num">Tout compris</th></tr></thead>
+          <tbody>
+            <tr><td>Orchestrateur<small>son skill ; puis le brief, la carte, les comptes rendus</small></td><td class="num">122</td><td class="num">228</td><td class="num">322 lignes, 3 %</td></tr>
+            <tr><td>Planificateur<small>son rôle, histoire-slides ; puis le brief, la carte</small></td><td class="num">152</td><td class="num">198</td><td class="num">292 lignes, 2 %</td></tr>
+            <tr><td>Vérificateur, fond<small>son rôle, histoire-slides ; puis le brief, la carte, sa revue</small></td><td class="num">179</td><td class="num">171</td><td class="num">359 lignes, 3 %</td></tr>
+            <tr><td>Travailleur<small>son rôle, la charte, le gabarit, les compositions de son deck (dix au plus) ; puis la carte, le deck</small></td><td class="num">332</td><td class="num">18</td><td class="num">612 lignes, 5 %</td></tr>
+            <tr><td>Vérificateur, forme<small>son rôle, la charte ; puis la carte, le deck, sa revue</small></td><td class="num">157</td><td class="num">193</td><td class="num">437 lignes, 4 %</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note"><strong>Skills</strong> : lignes des fichiers de skills lus, mesurées par <code>outils/budget_contexte.py</code>, qui échoue si un agent dépasse 350 lignes, ou 35 000 caractères pour qu'une ligne très longue ne contourne pas le plafond. <strong>Tout compris</strong> : avec les fichiers de travail d'un deck de 12 slides (brief, carte, deck, revue), estimés, et la part d'un contexte de 256 000 tokens, à 3,3 caractères par token. La matière source que lit le planificateur s'ajoute : son rôle la plafonne à 3 000 lignes. Le travailleur ne lit que les compositions de son deck, dix au plus sur seize : 332 lignes est son pire cas. Sans sous-agents, un seul agent tient tous les rôles et lit 662 lignes : le plafond ne vaut qu'avec des sous-agents.</p>
+    </div>
+    <div>
+      <h3>Quatre règles tiennent chaque réponse sous 32 000 tokens</h3>
+      <ol class="rules">
+        <li>Les relais passent par des fichiers ; un sous-agent rend dix lignes au plus.</li>
+        <li>Quatre slides au plus par appel d'écriture, soit environ 3 200 caractères.</li>
+        <li>Une correction modifie la slide visée, jamais le fichier entier.</li>
+        <li>Le dossier <code>charte/</code> ne se lit pas : 64 667 caractères de styles et de script, épargnés à chaque agent. Les polices sont des fichiers binaires, qu'un agent ne peut pas charger par erreur.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="tag">La forme</span>Le gabarit décide de la mise en page à la place du modèle</h2>
+  <div class="two">
+    <div>
+      <ul class="rules">
+        <li><strong>Seize compositions fermées.</strong> Le travailleur en choisit une par slide et n'écrit que les textes, dans des emplacements nommés. Ni style, ni classe, ni balise d'habillage : le gabarit construit la mise en page.</li>
+        <li><strong>Frises, schémas, graphiques dessinés par le gabarit.</strong> Pour une frise, des barres, une courbe, un schéma de flux ou à couloirs, le modèle écrit des libellés et des nombres ; le gabarit trace le dessin, depuis zéro pour les graphiques.</li>
+        <li><strong>Des limites mesurées.</strong> Chaque emplacement a une longueur maximale, vérifiée à l'écran sur un deck rempli à ses limites : aucune des seize slides ne déborde.</li>
+        <li><strong>Un script qui refuse.</strong> <code>controle_deck.py</code> signale un texte trop long, un texte hors emplacement, une composition inconnue, une icône inventée, un nombre mal écrit dans un graphique, un style ajouté, une balise mal fermée, un texte d'exemple resté en place. <code>controle_carte.py</code> fait de même pour l'histoire : titres trop longs, nature inconnue, temps sans slide.</li>
+        <li><strong>Une planche pour voir.</strong> <code>deck.html?planche</code> montre toutes les slides sur une page et encadre en rouge celle qui déborde.</li>
+      </ul>
+      <p class="note">Le catalogue ci-contre est un vrai deck produit avec le gabarit : <a href="exemple/catalogue/deck.html">l'ouvrir</a> (flèches pour avancer), ou <a href="exemple/catalogue/deck.html?planche">voir sa planche</a>.</p>
+    </div>
+    <div>
+      <a href="exemple/catalogue/deck.html?planche"><img class="planche" src="exemple/catalogue-planche.png" alt="Planche du deck catalogue : seize slides à la charte de l'État, une par composition (couverture, énoncé, contraste, section, étapes, cartes, couloirs, flux, tableau, chiffres, barres, courbe, frise, liste, citation, conclusion)." loading="lazy"></a>
+    </div>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

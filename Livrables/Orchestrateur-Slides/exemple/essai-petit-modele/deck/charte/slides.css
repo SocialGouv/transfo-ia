@@ -1,0 +1,310 @@
+/* ==========================================================================
+   Charte des slides : jetons du Système de design de l’État (DSFR), scène 1920 × 1080.
+   Fichier technique. Pour faire un deck, on ne le lit pas et on ne le modifie pas :
+   tout se règle dans deck.html, avec les compositions qu'affiche scripts/reference.py.
+   Une couleur garde le même sens partout : bleu France = notre action ou le point à
+   retenir, vert = acquis, orange = risque, gris = contexte ou point de départ.
+   ========================================================================== */
+:root{
+  --bf:#000091; --bf-975:#f5f5fe; --bf-950:#ececfe; --bf-925:#e3e3fd; --bf-850:#cacafb; --bf-525:#6a6af4;
+  --ink:#161616; --ink-2:#3a3a3a; --ink-3:#666666;
+  --line:#dddddd; --alt:#f6f6f6;
+  --ok:#18753c; --ok-bg:#b8fec9; --ok-975:#dffee6;
+  --todo:#0063cb; --todo-bg:#e8edff;
+  --warn:#b34000; --warn-bg:#ffe9e6;
+  --orange-975:#fef4f2; --orange-850:#fcc0b0; --orange-645:#e4794a;
+  --retrait:#cecece;   /* ce qui n'est pas à retenir, dans un graphique */
+  --pad:120px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#22232b;overflow:hidden}
+body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;color:var(--ink-2)}
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+
+/* ---------- Scène ---------- */
+.deck{position:fixed;inset:0}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;background:#fff;font-size:36px;line-height:1.3;overflow:hidden;display:none;flex-direction:column;padding:36px var(--pad) 0}
+.slide.is-active{display:flex}
+.stage>section:not(.slide){display:none}   /* avant le dépliage par deck.js */
+.slide :where(h1,h2,h3,h4,p,ul,ol,li,figure,blockquote){margin:0;padding:0;font-size:inherit;line-height:inherit}
+.slide :where(ul,ol){list-style:none}
+.slide :where(h1,h2,h3,h4){color:var(--ink);font-weight:700}
+.slide :where(strong,b){font-weight:700;color:var(--ink)}
+.slide :where(em){font-style:normal;color:var(--bf)}   /* <em> = le mot à retenir, en bleu France */
+.ico{width:1em;height:1em;fill:currentColor;flex:none}
+
+/* ---------- Bloc-marque (règles du DSFR, mises à l’échelle par --u) ---------- */
+.bm{--u:16px;display:inline-block;margin:0;color:var(--ink);font-size:calc(1.05 * var(--u));font-weight:700;letter-spacing:-.01em;line-height:1.0317460317em;text-indent:-.1em;text-transform:uppercase}
+.bm::before{content:"";display:block;width:calc(2.75 * var(--u));height:var(--u);margin-bottom:calc(.3333333333 * var(--u));background-image:var(--bm-marianne),linear-gradient(90deg,#000091,#000091 50%,#e1000f 0,#e1000f),linear-gradient(90deg,#000,#000);background-repeat:no-repeat;background-position:0 calc(-.0625 * var(--u)),0 0,0 0;background-size:calc(2.75 * var(--u)) calc(1.125 * var(--u)),calc(2.75 * var(--u)) var(--u),0;forced-color-adjust:none}
+.bm::after{content:"";display:block;min-width:calc(2.625 * var(--u));padding-top:calc(2.2083333333 * var(--u));background-image:var(--bm-devise);background-repeat:no-repeat;background-position:0 calc(100% + 1.875 * var(--u));background-size:calc(5.25 * var(--u)) calc(3.75 * var(--u))}
+
+/* ---------- Cadre des slides de contenu (posé par deck.js) ---------- */
+.s-top{flex:none;height:72px;display:flex;align-items:center;gap:28px;min-width:0}
+.s-top .bm{--u:12px;flex:none}
+.s-top__sep{flex:none;width:1px;height:50px;background:var(--line)}
+.kicker{display:flex;align-items:center;gap:14px;font-size:26px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bf);white-space:nowrap}
+.kicker--warn{color:var(--warn)}
+.kicker--done{color:var(--ok)}
+.s-head{flex:none;margin-top:26px}
+.title{font-size:64px;line-height:1.1;letter-spacing:-.018em;text-wrap:balance}
+.s-lead{margin-top:12px;font-size:32px;line-height:1.25;color:var(--ink-2)}
+.s-body{flex:1 1 auto;min-height:0;margin:30px 0 26px;display:flex;flex-direction:column}
+.s-body > *{flex:1 1 auto;min-height:0}
+.s-foot{flex:none;height:60px;margin:0 calc(-1 * var(--pad));padding:0 var(--pad);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:24px;color:var(--ink-3)}
+.s-foot strong{color:var(--ink)}
+.s-foot__page{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.label{font-size:24px;line-height:1.3;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.tag{display:flex;align-items:center;gap:10px;font-size:24px;line-height:1.2;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+/* Le fil de l’histoire, rappelé en haut à droite de chaque slide de contenu */
+.fil{margin-left:auto;display:flex;gap:6px;font-size:24px;line-height:1;font-weight:700;color:var(--ink-3)}
+.fil li{display:flex;align-items:center;gap:10px;padding:11px 16px;background:var(--alt);white-space:nowrap}
+.fil b{color:inherit;font-variant-numeric:tabular-nums}
+.fil .is-on{background:var(--bf);color:#fff}
+/* Pastille carrée : une icône sur un fond plein */
+.sq{display:grid;place-items:center;flex:none;width:72px;height:72px;background:var(--bf);color:#fff}
+.sq .ico{font-size:42px}
+
+/* ---------- Slides en deux volets : couverture, conclusion ---------- */
+.split{padding:0}
+.split.is-active{display:grid;grid-template-columns:minmax(0,1fr) var(--aside,760px)}
+.split__main{display:flex;flex-direction:column;min-width:0;min-height:0;padding:64px 72px 0 var(--pad)}
+.split__main .bm{--u:16px;align-self:flex-start}
+.split__heading{margin-top:52px}
+.split__title{margin-top:20px;font-size:76px;line-height:1.06;letter-spacing:-.025em;text-wrap:balance}
+.split__foot{flex:none;margin-top:auto;height:60px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);font-size:24px;color:var(--ink-3)}
+.split__foot strong{color:var(--ink)}
+.split__aside{display:flex;flex-direction:column;justify-content:center;min-width:0;min-height:0;padding:64px;background:var(--bf);color:#fff}
+.split__aside .label{color:var(--bf-850)}
+
+/* couverture */
+.cover{--aside:760px}
+.cover__main{display:flex;flex-direction:column;min-width:0;min-height:0;padding:72px 80px 76px var(--pad)}
+.cover .bm{--u:22px;align-self:flex-start}
+.cover__heading{margin-top:auto}
+.cover__kicker{font-size:26px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bf)}
+.cover__title{margin-top:24px;font-size:124px;line-height:.98;letter-spacing:-.035em;text-wrap:balance}
+.cover__lead{margin-top:32px;font-size:38px;line-height:1.3;color:var(--ink-2)}
+.cover__rule{width:96px;height:6px;background:var(--bf);margin:52px 0 28px}
+.cover__name{font-size:38px;font-weight:700;color:var(--ink);line-height:1.2}
+.cover__role{margin-top:4px;font-size:30px;color:var(--ink-2)}
+.cover__aside{background:var(--bf);display:flex;flex-direction:column;justify-content:center;gap:30px;min-width:0;min-height:0;padding:80px 72px}
+.cover__aside .label{color:var(--bf-850)}
+.plan{display:flex;flex-direction:column;gap:20px;counter-reset:plan}
+.plan li{counter-increment:plan;display:grid;grid-template-columns:92px minmax(0,1fr);align-items:center;background:#fff}
+.plan li::before{content:counter(plan);align-self:stretch;display:grid;place-items:center;background:var(--bf-925);color:var(--bf);font-size:50px;font-weight:700}
+.plan li > div{padding:24px 28px;min-width:0}
+.plan strong{display:block;font-size:40px;line-height:1.1;letter-spacing:-.01em}
+.plan p{margin-top:6px;font-size:30px;line-height:1.2;color:var(--ink-2)}
+
+/* conclusion */
+.end{--aside:780px}
+.beats{margin-top:40px;display:flex;flex-direction:column;gap:22px}
+.beats li{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:24px;align-items:center}
+.beats strong{display:block;font-size:40px;line-height:1.15;letter-spacing:-.01em}
+.beats p{margin-top:2px;font-size:28px;line-height:1.25;color:var(--ink-2)}
+.ask{margin-top:26px;display:flex;flex-direction:column;gap:22px}
+.ask li{padding:30px 34px;background:#fff}
+.ask__when{display:block;font-size:24px;line-height:1.2;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bf)}
+.ask strong{display:block;margin-top:10px;font-size:46px;line-height:1.14;letter-spacing:-.015em;text-wrap:balance;color:var(--bf)}
+.ask li + li{background:none;border:3px dashed var(--bf-850)}
+.ask li + li .ask__when{color:var(--bf-850)}
+.ask li + li strong{font-size:38px;color:#fff}
+
+/* ---------- Compositions de contenu ---------- */
+/* énoncé seul : une phrase, en grand */
+.c-enonce{justify-content:center;gap:36px}
+.c-enonce > *{flex:none}
+.c-enonce h2{max-width:1600px;font-size:104px;line-height:1.04;letter-spacing:-.03em;text-wrap:balance}
+.c-enonce p{max-width:1400px;font-size:40px;line-height:1.3;color:var(--ink-2)}
+
+/* section : ouvre un temps de l’histoire */
+.c-section{flex-direction:row;align-items:stretch;gap:64px;margin-top:44px}
+.c-section > *{flex:none}
+.c-section__n{width:420px;display:grid;place-items:center;background:var(--bf);color:#fff;font-size:300px;font-weight:700;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.c-section > div{flex:1 1 0;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.c-section h2{font-size:96px;line-height:1.04;letter-spacing:-.03em;text-wrap:balance}
+.c-section > div p{margin-top:28px;font-size:40px;line-height:1.3;color:var(--ink-2)}
+
+/* chiffres : un à trois chiffres clés */
+.c-chiffres{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);grid-template-rows:1fr auto auto auto 1fr;column-gap:24px}
+.c-chiffres li{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;min-width:0;padding:28px 40px;background:var(--bf-975);border-top:8px solid var(--bf)}
+.c-chiffres__val{grid-row:2;font-size:112px;line-height:1;font-weight:700;letter-spacing:-.035em;color:var(--bf);white-space:nowrap}
+.c-chiffres__lib{grid-row:3;margin-top:18px;font-size:38px;line-height:1.18;font-weight:700;color:var(--ink)}
+.c-chiffres__det{grid-row:4;margin-top:10px;font-size:30px;line-height:1.25;color:var(--ink-2)}
+/* un seul chiffre : il occupe la slide, donc il s'affiche en très grand */
+.c-chiffres li:only-child{padding:28px 72px}
+.c-chiffres li:only-child .c-chiffres__val{font-size:232px}
+.c-chiffres li:only-child .c-chiffres__lib{margin-top:30px;font-size:52px}
+.c-chiffres li:only-child .c-chiffres__det{margin-top:14px;font-size:36px}
+.c-chiffres li[data-ton="acquis"]{background:var(--ok-975);border-top-color:var(--ok)}
+.c-chiffres li[data-ton="acquis"] .c-chiffres__val{color:var(--ok)}
+.c-chiffres li[data-ton="risque"]{background:var(--orange-975);border-top-color:var(--orange-645)}
+.c-chiffres li[data-ton="risque"] .c-chiffres__val{color:var(--warn)}
+
+/* cartes : deux à quatre idées de même rang */
+.c-cartes{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);grid-template-rows:1fr auto auto auto 1fr;column-gap:24px}
+.c-cartes li{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;min-width:0;padding:32px 32px 28px;background:var(--alt);border-top:8px solid var(--bf)}
+.c-cartes .sq{grid-row:2}
+.c-cartes h3{grid-row:3;margin-top:24px;font-size:38px;line-height:1.14;letter-spacing:-.012em;hyphens:auto;hyphenate-limit-chars:12 4 4}
+.c-cartes p{grid-row:4;margin-top:12px;font-size:30px;line-height:1.27;color:var(--ink-2);hyphens:auto;hyphenate-limit-chars:12 4 4}
+
+/* contraste : avant et après, problème et réponse */
+.c-contraste{display:grid;grid-template-columns:minmax(0,1fr) 72px minmax(0,1fr);align-items:stretch}
+.c-contraste__cote{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:36px 48px}
+.c-contraste__cote:first-child{background:var(--alt);border-left:8px solid var(--ink-3)}
+.c-contraste__cote:last-child{background:var(--bf);color:var(--bf-925)}
+.c-contraste__cote:last-child .tag{color:var(--bf-850)}
+.c-contraste__cote h3{margin-top:14px;font-size:46px;line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
+.c-contraste__cote:last-child h3{color:#fff}
+.c-contraste__cote ul{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+.c-contraste__cote li{position:relative;padding-left:34px;font-size:32px;line-height:1.28}
+.c-contraste__cote li::before{content:"";position:absolute;left:0;top:.5em;width:14px;height:14px;background:currentColor}
+.c-contraste__fleche{display:grid;place-items:center;font-size:52px;color:var(--ink-3)}
+
+/* étapes : trois à cinq étapes, la dernière est l’arrivée */
+.c-etapes{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);grid-template-rows:1fr auto auto auto 1fr;column-gap:8px;counter-reset:etape}
+.c-etapes li{counter-increment:etape;grid-row:1 / -1;display:grid;grid-template-rows:subgrid;min-width:0;padding:28px 66px 28px 30px;background:var(--bf-950);clip-path:polygon(0 0,calc(100% - 40px) 0,100% 50%,calc(100% - 40px) 100%,0 100%)}
+.c-etapes li::before{content:counter(etape);grid-row:2;display:grid;place-items:center;width:64px;height:64px;background:var(--bf);color:#fff;font-size:36px;font-weight:700;font-variant-numeric:tabular-nums}
+.c-etapes h3{grid-row:3;margin-top:20px;font-size:34px;line-height:1.14;hyphens:auto;hyphenate-limit-chars:12 4 4}
+.c-etapes p{grid-row:4;margin-top:10px;font-size:26px;line-height:1.27;color:var(--ink-2);hyphens:auto;hyphenate-limit-chars:12 4 4}
+.c-etapes li:last-child{background:var(--bf);clip-path:none;padding-right:30px}
+.c-etapes li:last-child::before{background:#fff;color:var(--bf)}
+.c-etapes li:last-child h3{color:#fff}
+.c-etapes li:last-child p{color:var(--bf-925)}
+
+/* liste : trois à cinq points, un par ligne */
+.c-liste{display:grid;grid-auto-rows:minmax(0,1fr);gap:14px}
+.c-liste li{display:grid;grid-template-columns:104px minmax(0,1fr);align-items:center;column-gap:32px;min-width:0;padding-right:32px;background:var(--alt)}
+.c-liste__ico{align-self:stretch;display:grid;place-items:center;background:var(--bf);color:#fff}
+.c-liste__ico .ico{font-size:52px}
+.c-liste li > div{min-width:0}
+.c-liste strong{display:block;font-size:40px;line-height:1.14;letter-spacing:-.012em}
+.c-liste p{margin-top:4px;font-size:30px;line-height:1.25;color:var(--ink-2)}
+
+/* tableau : quatre colonnes et cinq lignes au plus */
+.c-tableau{display:flex;flex-direction:column;justify-content:center}
+.c-tableau table{width:100%;border-collapse:collapse;table-layout:fixed}
+.c-tableau th,.c-tableau td{padding:16px 22px;text-align:left;vertical-align:middle;font-size:28px;line-height:1.25;font-weight:400;color:var(--ink-2);hyphens:auto;hyphenate-limit-chars:12 4 4}
+.c-tableau thead th{padding-top:0;vertical-align:bottom;border-bottom:3px solid var(--bf);font-size:24px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--bf)}
+.c-tableau tbody tr:nth-child(odd){background:var(--alt)}
+.c-tableau tbody th{font-weight:700;color:var(--ink)}
+
+/* citation : la parole de quelqu’un, mot pour mot */
+.c-citation{display:flex;flex-direction:column;justify-content:center;padding-left:56px;border-left:12px solid var(--bf)}
+.c-citation blockquote p{max-width:1560px;font-size:64px;line-height:1.2;font-weight:500;letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.c-citation figcaption{margin-top:36px;font-size:32px;line-height:1.3;color:var(--ink-2)}
+.c-citation figcaption strong{display:block;font-size:36px}
+
+/* source d’un graphique, en petit sous le dessin */
+.s-body > .c-source{flex:none;margin-top:10px;padding-bottom:4px;font-size:24px;line-height:1.5;color:var(--ink-3)}
+
+/* frise : trois à six jalons datés, sur un axe */
+.c-frise{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);grid-template-rows:1fr auto auto auto auto 1.2fr}
+.c-frise li{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;min-width:0;padding-right:32px}
+.c-frise__date{grid-row:2;font-size:36px;line-height:1.15;font-weight:700;letter-spacing:-.01em;color:var(--bf)}
+.c-frise__pt{grid-row:3;position:relative;height:40px;margin:24px -32px 28px 0;background:linear-gradient(var(--bf-850),var(--bf-850)) left center/100% 4px no-repeat}
+.c-frise__pt::after{content:"";position:absolute;left:0;top:0;width:40px;height:40px;background:#fff;border:6px solid var(--bf)}
+.c-frise h3{grid-row:4;font-size:34px;line-height:1.16;letter-spacing:-.01em;hyphens:auto;hyphenate-limit-chars:12 4 4}
+.c-frise__txt{grid-row:5;margin-top:10px;font-size:28px;line-height:1.26;color:var(--ink-2);hyphens:auto;hyphenate-limit-chars:12 4 4}
+.c-frise li[data-retenir] .c-frise__pt::after{background:var(--bf)}
+.c-frise li[data-ton="acquis"] .c-frise__date{color:var(--ok)}
+.c-frise li[data-ton="acquis"] .c-frise__pt::after{background:var(--ok);border-color:var(--ok)}
+.c-frise li[data-ton="risque"] .c-frise__date{color:var(--warn)}
+.c-frise li[data-ton="risque"] .c-frise__pt::after{background:var(--orange-645);border-color:var(--orange-645)}
+
+/* barres : deux à six grandeurs à comparer, tracées depuis zéro */
+.c-barres{display:flex;flex-direction:column;justify-content:center;gap:16px}
+.c-barres li{flex:0 1 112px;min-height:0;display:grid;grid-template-columns:420px minmax(0,1fr);align-items:center;column-gap:28px;min-width:0}
+.c-barres__lib{font-size:32px;line-height:1.16;font-weight:700;color:var(--ink);text-align:right;hyphens:auto;hyphenate-limit-chars:12 4 4}
+.c-barres__piste{align-self:stretch;display:flex;align-items:center;gap:22px;min-width:0;border-left:3px solid var(--ink-3)}
+.c-barres__barre{flex:none;width:calc(var(--v) * .78);min-width:6px;height:64%;max-height:72px;background:var(--bf)}
+.c-barres__val{flex:none;font-size:40px;line-height:1;font-weight:700;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.c-barres.is-accent .c-barres__barre{background:var(--retrait)}
+.c-barres.is-accent .c-barres__val{color:var(--ink-3)}
+.c-barres li[data-retenir] .c-barres__barre{background:var(--bf)}
+.c-barres li[data-retenir] .c-barres__val{color:var(--bf)}
+.c-barres li[data-ton="acquis"] .c-barres__barre{background:var(--ok)}
+.c-barres li[data-ton="acquis"] .c-barres__val{color:var(--ok)}
+.c-barres li[data-ton="risque"] .c-barres__barre{background:var(--orange-645)}
+.c-barres li[data-ton="risque"] .c-barres__val{color:var(--warn)}
+
+/* courbe : trois à huit points, tracés depuis zéro */
+.c-courbe{position:relative;--bas:70px;--haut:104px}
+.c-courbe::before{content:"";position:absolute;left:0;right:0;bottom:var(--bas);height:3px;background:var(--ink-3)}
+.c-courbe svg{position:absolute;left:0;top:var(--haut);width:100%;height:calc(100% - var(--haut) - var(--bas));overflow:visible}
+.c-courbe polyline{fill:none;stroke:var(--bf);stroke-width:6;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.c-courbe ol{position:absolute;inset:0;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
+.c-courbe li{position:relative;min-width:0;--y:calc(var(--bas) + (100% - var(--haut) - var(--bas)) * var(--f))}
+.c-courbe__pt{position:absolute;left:50%;bottom:var(--y);width:26px;height:26px;margin:0 0 -13px -13px;background:#fff;border:6px solid var(--bf)}
+.c-courbe__val{position:absolute;left:50%;bottom:calc(var(--y) + 26px);transform:translateX(-50%);padding:2px 10px;background:#fff;font-size:36px;line-height:1;font-weight:700;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.c-courbe__lib{position:absolute;left:0;right:0;bottom:10px;height:calc(var(--bas) - 24px);display:grid;place-items:end center;font-size:28px;line-height:1.3;color:var(--ink-2);text-align:center}
+.c-courbe li[data-retenir] .c-courbe__pt{width:38px;height:38px;margin:0 0 -19px -19px;background:var(--bf)}
+.c-courbe li[data-retenir] .c-courbe__val{bottom:calc(var(--y) + 32px);font-size:46px;color:var(--bf)}
+.c-courbe li[data-retenir] .c-courbe__lib{font-weight:700;color:var(--ink)}
+
+/* flux : deux à quatre blocs, et ce que chacun passe au suivant */
+.c-flux{display:flex;align-items:stretch}
+.c-flux > li[data-item]{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:32px 28px;background:var(--alt);border-top:8px solid var(--bf)}
+.c-flux h3{margin-top:24px;font-size:36px;line-height:1.14;letter-spacing:-.012em;hyphens:auto;hyphenate-limit-chars:12 4 4}
+.c-flux p{margin-top:12px;font-size:28px;line-height:1.27;color:var(--ink-2);hyphens:auto;hyphenate-limit-chars:12 4 4}
+.c-flux__lien{flex:none;width:176px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:0 12px;color:var(--bf);text-align:center}
+.c-flux__lien span{font-size:24px;line-height:1.2;font-weight:700;overflow-wrap:anywhere}
+.c-flux__lien .ico{font-size:60px}
+.c-flux > li[data-retenir]{background:var(--bf)}
+.c-flux > li[data-retenir] h3{color:#fff}
+.c-flux > li[data-retenir] p{color:var(--bf-925)}
+.c-flux > li[data-retenir] .sq{background:#fff;color:var(--bf)}
+
+/* couloirs : qui fait quoi à chaque étape (--n : nombre d’étapes, posé par deck.js) */
+.c-couloirs{display:grid;grid-template-columns:250px repeat(var(--n,4),minmax(0,1fr));grid-template-rows:auto;grid-auto-rows:minmax(0,1fr);counter-reset:etape}
+.c-couloirs > div{grid-column:1 / -1;display:grid;grid-template-columns:subgrid;min-height:0}
+.c-couloirs__tete > [role="columnheader"]{counter-increment:etape;padding:0 8px 14px;align-self:end;text-align:center;font-size:24px;line-height:1.15;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--bf)}
+.c-couloirs__tete > [role="columnheader"]::before{content:counter(etape);display:block;margin-bottom:4px;font-size:34px;letter-spacing:0;color:var(--ink);font-variant-numeric:tabular-nums}
+.c-couloirs__rang{border-top:2px solid var(--line)}
+.c-couloirs__nom{display:flex;align-items:center;min-width:0;padding:12px 20px;background:var(--alt);font-size:30px;line-height:1.15;font-weight:700;color:var(--ink);hyphens:auto;hyphenate-limit-chars:12 4 4}
+.c-couloirs__case{display:flex;align-items:center;min-width:0;padding:10px 8px;background:linear-gradient(var(--bf-850),var(--bf-850)) center/100% 2px no-repeat}
+.c-couloirs__noeud{flex:1 1 auto;min-width:0;padding:12px 10px;background:#fff;border:3px solid var(--bf);text-align:center;font-size:24px;line-height:1.2;font-weight:700;color:var(--ink);hyphens:auto;hyphenate-limit-chars:12 4 4}
+.c-couloirs__rang[data-retenir] .c-couloirs__noeud{background:var(--bf);color:#fff}
+
+/* le mot à retenir sur un fond bleu France : en blanc, souligné, sinon il disparaît */
+.c-contraste__cote:last-child em,.c-etapes li:last-child em,.c-flux > li[data-retenir] em,.c-couloirs__rang[data-retenir] .c-couloirs__noeud em,.c-section__n em,.ask li + li em{color:#fff;text-decoration:underline;text-decoration-thickness:.07em;text-underline-offset:.16em}
+
+/* ---------- Notes, aide, progression (hors slides) ---------- */
+.notes{display:none}
+.notes-panel{position:fixed;left:0;right:0;bottom:0;height:30vh;overflow:auto;background:#fff;border-top:4px solid var(--bf);padding:14px 28px 18px;font:17px/1.5 Marianne,arial,sans-serif;color:var(--ink);z-index:5}
+.notes-panel[hidden]{display:none}
+.notes-panel h2{margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--bf)}
+.notes-panel ul{margin:0;padding-left:20px}
+.notes-panel li + li{margin-top:4px}
+body.with-notes .stage{top:35vh}
+.deck-hint{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);padding:8px 16px;border-radius:4px;background:rgba(22,22,22,.86);color:#fff;font:500 14px/1.4 Marianne,arial,sans-serif;pointer-events:none;opacity:0;transition:opacity .4s;z-index:6}
+.deck-hint.is-visible{opacity:1}
+body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
+.deck-progress{position:fixed;left:0;bottom:0;height:4px;background:var(--bf-525);transition:width .25s;z-index:6}
+@media (prefers-reduced-motion:reduce){.deck-hint,.deck-progress{transition:none}}
+
+/* ---------- Planche (deck.html?planche) : toutes les slides sur une page, pour contrôler le rendu ---------- */
+html.mode-planche,html.mode-planche body{height:auto;overflow:auto}
+.mode-planche .deck{position:static}
+.mode-planche .stage{position:static;transform:none;width:auto;height:auto;display:grid;grid-template-columns:repeat(2,960px);gap:54px 24px;justify-content:center;padding:54px 24px 24px}
+.vignette{position:relative;width:960px;height:540px}
+.vignette::before{content:"slide " attr(data-n) " · " attr(data-c);position:absolute;left:0;top:-32px;font:700 20px/1 Marianne,arial,sans-serif;color:#fff}
+.vignette[data-debordement]::before{content:"slide " attr(data-n) " · " attr(data-c) " · DÉBORDEMENT : " attr(data-debordement);color:#ff8a80}
+.mode-planche .slide{display:flex;transform:scale(.5);transform-origin:0 0}
+.mode-planche .split{display:grid;grid-template-columns:minmax(0,1fr) var(--aside,760px)}
+.slide[data-debordement]{outline:14px solid #ce0500;outline-offset:-14px}
+
+/* ---------- Impression et PDF : une slide par page ---------- */
+@page{size:1920px 1080px;margin:0}
+@media print{
+  html,body{height:auto;overflow:visible;background:#fff}
+  .deck{position:static}
+  .stage{position:static;transform:none!important;width:auto;height:auto}
+  .slide{position:relative;display:flex!important;break-after:page;page-break-after:always;outline:0!important}
+  .slide:last-child{break-after:auto;page-break-after:auto}
+  .split{display:grid!important;grid-template-columns:minmax(0,1fr) var(--aside,760px)}
+  .deck-hint,.deck-progress,.notes-panel,#annonce{display:none!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}

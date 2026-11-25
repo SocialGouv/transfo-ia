@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<!-- RÉGLAGES DU DECK : remplacer les quatre valeurs entre accolades, ne rien ajouter d'autre dans cet en-tête. -->
+<title>Raccourcir le délai des aides</title>
+<meta name="deck-marque" content="République / Française">
+<meta name="deck-pied" content="Exemple fictif · Données inventées pour l’essai">
+<meta name="deck-fil" content="Constat | Réponse | Résultat">
+<link rel="stylesheet" href="charte/bloc-marque.css">
+<link rel="stylesheet" href="charte/slides.css">
+</head>
+<body>
+<main class="deck" aria-roledescription="diaporama">
+<div class="stage">
+<!-- DÉBUT DES SLIDES : une balise section par slide, recopiée de la référence (scripts/reference.py) -->
+
+<section data-composition="couverture">
+<p data-slot="surtitre">Téléservice des aides, bilan du pilote</p>
+<h2 data-slot="titre">Raccourcir le délai des aides</h2>
+<p data-slot="accroche">Le pilote ramène le délai de 33 à 19 jours : étendons-le à dix départements.</p>
+<p data-slot="auteur">[à fournir : service porteur]</p>
+<p data-slot="plan-intitule">Trois temps pour l’histoire</p>
+<div data-item="temps"><p data-slot="temps-titre">Constat</p><p data-slot="temps-texte">L’instruction prend 20 jours sur 33</p></div>
+<div data-item="temps"><p data-slot="temps-titre">Réponse</p><p data-slot="temps-texte">Le pilote fait passer l’instruction de 20 à 7 jours</p></div>
+<div data-item="temps"><p data-slot="temps-titre">Résultat</p><p data-slot="temps-texte">Une demande en 19 jours, contre 33 hors pilote</p></div>
+</section>
+
+<section data-composition="courbe" data-rubrique="Constat" data-temps="1">
+<h2 data-slot="titre">Le délai est passé de 41 à 33 jours depuis 2022, un jour par an depuis 2024</h2>
+<p data-slot="chapo">Délai de traitement, en jours. 2026 est hors pilote.</p>
+<div data-item="point" data-valeur="41"><p data-slot="point-libelle">2022</p><p data-slot="point-valeur">41</p></div>
+<div data-item="point" data-valeur="38"><p data-slot="point-libelle">2023</p><p data-slot="point-valeur">38</p></div>
+<div data-item="point" data-valeur="35"><p data-slot="point-libelle">2024</p><p data-slot="point-valeur">35</p></div>
+<div data-item="point" data-valeur="34"><p data-slot="point-libelle">2025</p><p data-slot="point-valeur">34</p></div>
+<div data-item="point" data-valeur="33" data-retenir><p data-slot="point-libelle">2026</p><p data-slot="point-valeur">33</p></div>
+<p data-slot="source">Source : tableau de bord du téléservice, extraction de février 2027</p>
+<p data-note>2026 est hors pilote. [à fournir : périmètre, national ou hors pilote, des années 2022 à 2025]</p>
+</section>
+
+<section data-composition="barres" data-rubrique="Constat" data-temps="1">
+<h2 data-slot="titre">L’instruction prend 20 des 33 jours, plus de la moitié du délai</h2>
+<p data-slot="chapo">Hors pilote, en 2026, en jours.</p>
+<div data-item="barre" data-valeur="4"><p data-slot="barre-libelle">Dépôt et vérification</p><p data-slot="barre-valeur">4</p></div>
+<div data-item="barre" data-valeur="20" data-retenir><p data-slot="barre-libelle">Instruction</p><p data-slot="barre-valeur">20</p></div>
+<div data-item="barre" data-valeur="7"><p data-slot="barre-libelle">Validation</p><p data-slot="barre-valeur">7</p></div>
+<div data-item="barre" data-valeur="2"><p data-slot="barre-libelle">Notification et paiement</p><p data-slot="barre-valeur">2</p></div>
+<p data-slot="source">Source : tableau de bord du téléservice, extraction de février 2027</p>
+<p data-note>La validation (7 jours) n’apparaît pas dans le circuit d’une demande (slide 5). [à fournir : qui valide, et à quelle étape]</p>
+</section>
+
+<section data-composition="contraste" data-rubrique="Réponse" data-temps="2">
+<h2 data-slot="titre">Dans le pilote, l’instruction passe de 20 à 7 jours</h2>
+<div data-item="cote">
+<p data-slot="etiquette">Hors pilote</p>
+<p data-slot="cote-titre">L’instruction dure 20 jours</p>
+<p data-slot="point">Elle prend plus de la moitié du délai de 33 jours</p>
+</div>
+<div data-item="cote">
+<p data-slot="etiquette">Dans le pilote</p>
+<p data-slot="cote-titre">L’instruction dure 7 jours</p>
+<p data-slot="point">L’assistant prépare le dossier avant l’instructeur</p>
+<p data-slot="point">L’instructeur relit, corrige et décide</p>
+</div>
+<p data-note>Source : ce que fait le pilote.</p>
+<p data-note>Le pilote agit sur l’étape qui pèse le plus. La baisse de l’étape est de 13 jours, soit 65 %.</p>
+</section>
+
+<section data-composition="couloirs" data-rubrique="Réponse" data-temps="2">
+<h2 data-slot="titre">L’assistant prépare le dossier, et l’instructeur décide toujours</h2>
+<p data-slot="chapo">Le circuit d’une demande, avec l’assistant du pilote.</p>
+<p data-slot="etape-nom">Dépôt</p><p data-slot="etape-nom">Préparation</p><p data-slot="etape-nom">Décision</p><p data-slot="etape-nom">Paiement</p>
+<div data-item="couloir"><p data-slot="couloir-nom">Usager</p><p data-slot="case">dépose sa demande</p><p data-slot="case"></p><p data-slot="case"></p><p data-slot="case"></p></div>
+<div data-item="couloir"><p data-slot="couloir-nom">Assistant pilote</p><p data-slot="case"></p><p data-slot="case">signale les pièces manquantes</p><p data-slot="case">propose un projet de décision</p><p data-slot="case"></p></div>
+<div data-item="couloir"><p data-slot="couloir-nom">Instructeur</p><p data-slot="case"></p><p data-slot="case"></p><p data-slot="case">relit, corrige et décide</p><p data-slot="case"></p></div>
+<div data-item="couloir"><p data-slot="couloir-nom">Comptabilité</p><p data-slot="case"></p><p data-slot="case"></p><p data-slot="case"></p><p data-slot="case">paie et notifie l’usager</p></div>
+<p data-note>Source : le circuit d’une demande.</p>
+<p data-note>Le guichet numérique vérifie que le dossier est complet et le transmet. L’assistant rapproche les pièces avant de signaler celles qui manquent.</p>
+<p data-note>Aucune décision n’est prise sans l’instructeur.</p>
+<p data-note>[à fournir : place de la validation, absente de ce circuit]</p>
+</section>
+
+<section data-composition="chiffres" data-rubrique="Résultat" data-temps="3">
+<h2 data-slot="titre">Dans le pilote, une demande se traite en 19 jours, contre 33 hors pilote</h2>
+<p data-slot="chapo">Délai moyen de traitement en 2026, en jours.</p>
+<div data-item="chiffre"><p data-slot="valeur"><em>19</em> jours</p><p data-slot="libelle">dans les trois départements du pilote</p></div>
+<div data-item="chiffre"><p data-slot="valeur">33 jours</p><p data-slot="libelle">hors pilote, en 2026</p></div>
+<div data-item="chiffre"><p data-slot="valeur">42 %</p><p data-slot="libelle">de baisse, soit 14 jours de moins</p></div>
+<p data-note>Le résultat porte sur trois départements en 2026 : l’extension le testera sur dix.</p>
+<p data-note>Source : délai moyen de traitement, en jours.</p>
+</section>
+
+<section data-composition="cartes" data-rubrique="Résultat" data-temps="3">
+<h2 data-slot="titre">Deux points restent ouverts : le coût et la charge des instructeurs</h2>
+<div data-item="carte" data-icone="i-scales"><p data-slot="carte-titre">Le coût de l’extension</p><p data-slot="carte-texte">Non chiffré : [à fournir : chiffrage]</p></div>
+<div data-item="carte" data-icone="i-team"><p data-slot="carte-titre">La charge des instructeurs</p><p data-slot="carte-texte">Non mesurée : une enquête est prévue pendant l’extension</p></div>
+<p data-note>Si le chiffrage existe, le donner ici ; sinon, dire qu’il n’est pas établi à cette date.</p>
+<p data-note>Source : ce qui n’est pas connu.</p>
+</section>
+
+<section data-composition="frise" data-rubrique="Résultat" data-temps="3">
+<h2 data-slot="titre">La généralisation de janvier 2028 dépendra du bilan de novembre 2027</h2>
+<div data-item="jalon"><p data-slot="jalon-date">Mars 2027</p><p data-slot="jalon-titre">Décision du comité</p></div>
+<div data-item="jalon"><p data-slot="jalon-date">Juin 2027</p><p data-slot="jalon-titre">Extension à dix départements</p></div>
+<div data-item="jalon"><p data-slot="jalon-date">Novembre 2027</p><p data-slot="jalon-titre">Bilan de l’extension</p></div>
+<div data-item="jalon"><p data-slot="jalon-date">Janvier 2028</p><p data-slot="jalon-titre">Généralisation</p><p data-slot="jalon-texte">Si le bilan le confirme</p></div>
+<p data-note>Source : calendrier proposé.</p>
+<p data-note>La généralisation n’est pas acquise : elle suit le bilan de novembre 2027.</p>
+</section>
+
+<section data-composition="conclusion">
+<p data-slot="surtitre">En résumé</p>
+<h2 data-slot="titre">Étendons le pilote à dix départements</h2>
+<div data-item="gain" data-icone="i-award"><p data-slot="gain-titre">Le délai tombe de 33 à 19 jours</p><p data-slot="gain-texte">Résultat de 2026, dans trois départements</p></div>
+<div data-item="gain" data-icone="i-settings"><p data-slot="gain-titre">L’instruction passe de 20 à 7 jours</p><p data-slot="gain-texte">L’assistant prépare le dossier</p></div>
+<div data-item="gain" data-icone="i-shield"><p data-slot="gain-titre">L’instructeur reste celui qui décide</p><p data-slot="gain-texte">Aucune décision n’est prise sans lui</p></div>
+<p data-slot="demande-intitule">Ce que nous demandons au comité</p>
+<div data-item="demande"><p data-slot="demande-quand">Juin 2027</p><p data-slot="demande-texte">Accord pour étendre le pilote à dix départements</p></div>
+<p data-note>Hors pilote, le délai est de 33 jours, et l’instruction en prend 20.</p>
+</section>
+
+<!-- FIN DES SLIDES : insérer chaque nouveau lot juste au-dessus de cette ligne -->
+</div>
+</main>
+<script src="charte/deck.js"></script>
+</body>
+</html>

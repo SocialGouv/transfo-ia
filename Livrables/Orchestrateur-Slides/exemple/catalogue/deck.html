@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<!-- RÉGLAGES DU DECK : remplacer les quatre valeurs entre accolades, ne rien ajouter d'autre dans cet en-tête. -->
+<title>Un deck, trois agents</title>
+<meta name="deck-marque" content="République / Française">
+<meta name="deck-pied" content="Orchestrateur de slides · Catalogue des compositions">
+<meta name="deck-fil" content="Le problème | La chaîne | Garde-fous">
+<link rel="stylesheet" href="charte/bloc-marque.css">
+<link rel="stylesheet" href="charte/slides.css">
+</head>
+<body>
+<main class="deck" aria-roledescription="diaporama">
+<div class="stage">
+<!-- DÉBUT DES SLIDES : une balise section par slide, recopiée de la référence (scripts/reference.py) -->
+
+<section data-composition="couverture">
+<p data-slot="surtitre">Orchestrateur de slides · Mode d’emploi</p>
+<h2 data-slot="titre">Un deck, <em>trois agents</em></h2>
+<p data-slot="accroche">Une histoire validée avant la première slide, un gabarit qui tient la mise en page.</p>
+<p data-slot="auteur">L’équipe transformation IA</p>
+<p data-slot="fonction">Catalogue des seize compositions du gabarit</p>
+<p data-slot="plan-intitule">L’histoire, en trois temps</p>
+<div data-item="temps"><p data-slot="temps-titre">Le problème</p><p data-slot="temps-texte">Ce qu’un modèle fait mal sur un deck</p></div>
+<div data-item="temps"><p data-slot="temps-titre">La chaîne</p><p data-slot="temps-texte">Qui fait quoi, dans quel ordre</p></div>
+<div data-item="temps"><p data-slot="temps-titre">Les garde-fous</p><p data-slot="temps-texte">Ce qui tient sans dépendre du modèle</p></div>
+<p data-note>Ce deck sert de catalogue : une slide par composition du gabarit.</p>
+</section>
+
+<section data-composition="enonce" data-rubrique="Le problème" data-temps="1" data-ton="risque">
+<h2 data-slot="titre">Un modèle écrit vite des slides. Il raconte rarement <em>une histoire</em>.</h2>
+<p data-slot="appui">Et il juge mal une mise en page : texte qui déborde, slide saturée, couleurs sans règle.</p>
+<p data-note>Le mot en bleu est le mot à retenir : un seul par slide, balisé avec em.</p>
+</section>
+
+<section data-composition="contraste" data-rubrique="Le problème" data-temps="1">
+<h2 data-slot="titre">On retire au modèle ce qu’il fait mal, on lui laisse ce qu’il fait bien</h2>
+<div data-item="cote">
+<p data-slot="etiquette">Sans la chaîne</p>
+<p data-slot="cote-titre">Le modèle décide de tout, d’un seul jet</p>
+<p data-slot="point">L’histoire se découvre quand le deck est fini</p>
+<p data-slot="point">La mise en page est réinventée à chaque slide</p>
+<p data-slot="point">Rien ne mesure si le texte tient dans sa zone</p>
+</div>
+<div data-item="cote">
+<p data-slot="etiquette">Avec la chaîne</p>
+<p data-slot="cote-titre">Le modèle écrit, le gabarit tient la mise en page</p>
+<p data-slot="point">L’histoire est validée avant la première slide</p>
+<p data-slot="point">Seize compositions fermées, aucun style à écrire</p>
+<p data-slot="point">Un script refuse tout texte trop long</p>
+</div>
+</section>
+
+<section data-composition="section" data-rubrique="La chaîne" data-temps="2">
+<p data-slot="numero">2</p>
+<h2 data-slot="titre">La chaîne : qui fait quoi</h2>
+<p data-slot="chapo">Quatre rôles, une histoire validée par l’utilisateur avant toute production.</p>
+</section>
+
+<section data-composition="etapes" data-rubrique="La chaîne" data-temps="2">
+<h2 data-slot="titre">L’histoire est validée avant que la première slide existe</h2>
+<div data-item="etape"><p data-slot="etape-titre">Cadrage</p><p data-slot="etape-texte">Des questions par séries de cinq, vingt au plus</p></div>
+<div data-item="etape"><p data-slot="etape-titre">Histoire</p><p data-slot="etape-texte">La carte des messages, un titre par slide</p></div>
+<div data-item="etape"><p data-slot="etape-titre">Accord</p><p data-slot="etape-texte">L’utilisateur valide ou corrige l’histoire</p></div>
+<div data-item="etape"><p data-slot="etape-titre">Slides</p><p data-slot="etape-texte">Le gabarit rempli par lots de quatre slides</p></div>
+<div data-item="etape"><p data-slot="etape-titre">Deck livré</p><p data-slot="etape-texte">Contrôlé par script, puis relu sur la planche</p></div>
+</section>
+
+<section data-composition="cartes" data-rubrique="La chaîne" data-temps="2">
+<h2 data-slot="titre">Quatre rôles, un seul agent par rôle</h2>
+<div data-item="carte" data-icone="i-user"><p data-slot="carte-titre">Orchestrateur</p><p data-slot="carte-texte">Il questionne le besoin, passe les relais et tient le point d’arrêt.</p></div>
+<div data-item="carte" data-icone="i-roadmap"><p data-slot="carte-titre">Planificateur</p><p data-slot="carte-texte">Il décide l’histoire : le fil, un message par slide, la demande finale.</p></div>
+<div data-item="carte" data-icone="i-palette"><p data-slot="carte-titre">Travailleur</p><p data-slot="carte-texte">Il donne sa forme à chaque message, avec les compositions du gabarit.</p></div>
+<div data-item="carte" data-icone="i-scales"><p data-slot="carte-titre">Vérificateur</p><p data-slot="carte-texte">Il juge sur pièces : le fond d’abord, la forme ensuite.</p></div>
+</section>
+
+<section data-composition="couloirs" data-rubrique="La chaîne" data-temps="2">
+<h2 data-slot="titre">L’utilisateur intervient trois fois, les agents font le reste</h2>
+<p data-slot="etape-nom">Cadrage</p><p data-slot="etape-nom">Histoire</p><p data-slot="etape-nom">Accord</p><p data-slot="etape-nom">Slides</p><p data-slot="etape-nom">Livraison</p>
+<div data-item="couloir" data-retenir><p data-slot="couloir-nom">Utilisateur</p><p data-slot="case">répond aux questions</p><p data-slot="case"></p><p data-slot="case">valide l’histoire</p><p data-slot="case"></p><p data-slot="case">reçoit le deck</p></div>
+<div data-item="couloir"><p data-slot="couloir-nom">Orchestrateur</p><p data-slot="case">cadre et challenge</p><p data-slot="case"></p><p data-slot="case">présente les titres</p><p data-slot="case"></p><p data-slot="case">livre, avec ses réserves</p></div>
+<div data-item="couloir"><p data-slot="couloir-nom">Sous-agents</p><p data-slot="case"></p><p data-slot="case">écrivent et relisent la carte</p><p data-slot="case"></p><p data-slot="case">font et contrôlent le deck</p><p data-slot="case"></p></div>
+</section>
+
+<section data-composition="flux" data-rubrique="La chaîne" data-temps="2">
+<h2 data-slot="titre">Chaque agent rend un fichier, que le suivant relit</h2>
+<div data-item="bloc" data-icone="i-roadmap"><p data-slot="bloc-titre">Planificateur</p><p data-slot="bloc-texte">Il décide l’histoire, un message par slide.</p><p data-slot="bloc-vers">carte.md</p></div>
+<div data-item="bloc" data-icone="i-palette"><p data-slot="bloc-titre">Travailleur</p><p data-slot="bloc-texte">Il remplit le gabarit, quatre slides par appel.</p><p data-slot="bloc-vers">deck.html</p></div>
+<div data-item="bloc" data-icone="i-scales"><p data-slot="bloc-titre">Vérificateur</p><p data-slot="bloc-texte">Il juge sur pièces et rend une revue.</p></div>
+</section>
+
+<section data-composition="tableau" data-rubrique="La chaîne" data-temps="2">
+<h2 data-slot="titre">Chaque rôle ne charge que ce qui lui sert</h2>
+<p data-slot="entete">Rôle</p><p data-slot="entete">Il lit</p><p data-slot="entete">Il écrit</p><p data-slot="entete">Son skill</p>
+<div data-item="rangee"><p data-slot="cellule">Orchestrateur</p><p data-slot="cellule">La demande, les comptes rendus</p><p data-slot="cellule">Le brief</p><p data-slot="cellule">orchestrateur-slides</p></div>
+<div data-item="rangee"><p data-slot="cellule">Planificateur</p><p data-slot="cellule">Le brief, la matière source</p><p data-slot="cellule">La carte des messages</p><p data-slot="cellule">histoire-slides</p></div>
+<div data-item="rangee"><p data-slot="cellule">Travailleur</p><p data-slot="cellule">La carte, les compositions</p><p data-slot="cellule">Le deck</p><p data-slot="cellule">charte-dsfr</p></div>
+<div data-item="rangee"><p data-slot="cellule">Vérificateur</p><p data-slot="cellule">La carte, puis le deck</p><p data-slot="cellule">Deux revues</p><p data-slot="cellule">histoire-slides, charte-dsfr</p></div>
+</section>
+
+<section data-composition="chiffres" data-rubrique="Les garde-fous" data-temps="3">
+<h2 data-slot="titre">Trois limites dessinent le système</h2>
+<p data-slot="chapo">Elles valent pour chaque agent de la chaîne, quel que soit le modèle.</p>
+<div data-item="chiffre"><p data-slot="valeur">350</p><p data-slot="libelle">lignes de skills par agent, au plus</p><p data-slot="detail">Chaque agent ne lit que son rôle et le skill qui le sert.</p></div>
+<div data-item="chiffre" data-ton="risque"><p data-slot="valeur">32 000</p><p data-slot="libelle">tokens par réponse</p><p data-slot="detail">Un deck entier écrit d’un coup dépasse ce plafond.</p></div>
+<div data-item="chiffre" data-ton="acquis"><p data-slot="valeur">4</p><p data-slot="libelle">slides par appel d’écriture</p><p data-slot="detail">Chaque lot reste loin du plafond.</p></div>
+</section>
+
+<section data-composition="barres" data-rubrique="Les garde-fous" data-temps="3">
+<h2 data-slot="titre">En version 0.1, deux agents lisaient plus de 550 lignes de skills</h2>
+<div data-item="barre" data-valeur="119"><p data-slot="barre-libelle">Orchestrateur</p><p data-slot="barre-valeur">119</p></div>
+<div data-item="barre" data-valeur="318"><p data-slot="barre-libelle">Planificateur</p><p data-slot="barre-valeur">318</p></div>
+<div data-item="barre" data-valeur="258"><p data-slot="barre-libelle">Vérificateur, sur le fond</p><p data-slot="barre-valeur">258</p></div>
+<div data-item="barre" data-valeur="555" data-ton="risque"><p data-slot="barre-libelle">Travailleur</p><p data-slot="barre-valeur">555</p></div>
+<div data-item="barre" data-valeur="552" data-ton="risque"><p data-slot="barre-libelle">Vérificateur, sur la forme</p><p data-slot="barre-valeur">552</p></div>
+<p data-slot="source">Source : outils/budget_contexte.py, mesure du 25 novembre 2026</p>
+</section>
+
+<section data-composition="courbe" data-rubrique="Les garde-fous" data-temps="3">
+<h2 data-slot="titre">La référence des compositions lue par le travailleur a fondu de moitié</h2>
+<div data-item="point" data-valeur="370"><p data-slot="point-libelle">Version 0.1</p><p data-slot="point-valeur">370</p></div>
+<div data-item="point" data-valeur="177"><p data-slot="point-libelle">Version 0.2</p><p data-slot="point-valeur">177</p></div>
+<div data-item="point" data-valeur="170" data-retenir><p data-slot="point-libelle">Version 0.3</p><p data-slot="point-valeur">170</p></div>
+<p data-slot="source">Source : outils/budget_contexte.py, lignes lues au plus, 25 novembre 2026</p>
+</section>
+
+<section data-composition="frise" data-rubrique="Les garde-fous" data-temps="3">
+<h2 data-slot="titre">Trois versions sont livrées, l’essai avec les modèles visés reste à faire</h2>
+<div data-item="jalon" data-ton="acquis"><p data-slot="jalon-date">Version 0.1</p><p data-slot="jalon-titre">La chaîne et le gabarit</p><p data-slot="jalon-texte">Quatre rôles, onze compositions</p></div>
+<div data-item="jalon" data-ton="acquis"><p data-slot="jalon-date">Version 0.2</p><p data-slot="jalon-titre">350 lignes par agent</p><p data-slot="jalon-texte">Écriture courte, skill d’histoire</p></div>
+<div data-item="jalon" data-ton="acquis"><p data-slot="jalon-date">Version 0.3</p><p data-slot="jalon-titre">Frises, schémas, graphiques</p><p data-slot="jalon-texte">Cinq compositions dessinées par le gabarit</p></div>
+<div data-item="jalon" data-retenir><p data-slot="jalon-date">Ensuite</p><p data-slot="jalon-titre">Essai avec les modèles visés</p><p data-slot="jalon-texte">256 000 tokens, faibles sur les visuels</p></div>
+</section>
+
+<section data-composition="liste" data-rubrique="Les garde-fous" data-temps="3">
+<h2 data-slot="titre">Quatre règles gardent chaque réponse sous le plafond</h2>
+<div data-item="ligne" data-icone="i-palette"><p data-slot="ligne-titre">Le gabarit est copié, jamais réécrit</p><p data-slot="ligne-texte">Styles, polices et bloc-marque ne coûtent aucun token de sortie.</p></div>
+<div data-item="ligne" data-icone="i-code"><p data-slot="ligne-titre">Quatre slides au plus par appel d’écriture</p><p data-slot="ligne-texte">Le deck se construit lot après lot, dans le même fichier.</p></div>
+<div data-item="ligne" data-icone="i-links"><p data-slot="ligne-titre">Les relais passent par des fichiers</p><p data-slot="ligne-texte">Un sous-agent rend dix lignes : le chemin, le statut, les blocages.</p></div>
+<div data-item="ligne" data-icone="i-check"><p data-slot="ligne-titre">Une correction modifie la slide visée</p><p data-slot="ligne-texte">Le fichier entier n’est jamais réécrit.</p></div>
+</section>
+
+<section data-composition="citation" data-rubrique="Les garde-fous" data-temps="3">
+<h2 data-slot="titre">La charte de l’État se réserve aux productions de l’État</h2>
+<p data-slot="citation">«&nbsp;Utilisation interdite en dehors des sites Internet de l’État&nbsp;»</p>
+<p data-slot="auteur">Dépôt officiel du DSFR</p>
+<p data-slot="contexte">README, section «&nbsp;Licence et droit d’utilisation&nbsp;»</p>
+</section>
+
+<section data-composition="conclusion">
+<p data-slot="surtitre">En résumé</p>
+<h2 data-slot="titre">Ce que la chaîne <em>garantit</em></h2>
+<div data-item="gain" data-icone="i-roadmap"><p data-slot="gain-titre">L’histoire validée avant de produire</p><p data-slot="gain-texte">Le fil se lit dans les seuls titres</p></div>
+<div data-item="gain" data-icone="i-palette"><p data-slot="gain-titre">Une mise en page tenue par le gabarit</p><p data-slot="gain-texte">Seize compositions, des limites mesurées</p></div>
+<div data-item="gain" data-icone="i-shield"><p data-slot="gain-titre">Des réponses sous le plafond de sortie</p><p data-slot="gain-texte">Quatre slides par appel, relais par fichiers</p></div>
+<p data-slot="demande-intitule">Ce que nous vous demandons</p>
+<div data-item="demande"><p data-slot="demande-quand">Aujourd’hui</p><p data-slot="demande-texte">Valider cette version de la chaîne</p></div>
+<div data-item="demande"><p data-slot="demande-quand">Ensuite</p><p data-slot="demande-texte">L’essayer sur un vrai deck, avec les modèles visés</p></div>
+</section>
+
+<!-- FIN DES SLIDES : insérer chaque nouveau lot juste au-dessus de cette ligne -->
+</div>
+</main>
+<script src="charte/deck.js"></script>
+</body>
+</html>
