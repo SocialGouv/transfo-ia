@@ -4,6 +4,7 @@ Pages HTML du dépôt, servies par GitHub Pages depuis la branche `main` : <http
 
 | Page | Contenu | Mise à jour |
 |---|---|---|
+| [Max output des LLM : de 32K à 128K](https://socialgouv.github.io/transfo-ia/Max_Output.html) | Note de veille : le max output que publient Anthropic, OpenAI, Mistral et Outscale, ce que change un plafond à 128K, et les cas d'usage qu'il débloque. | 25/11/2026 |
 | [Stratégie IA : bilan 2026, ambition 2027](https://socialgouv.github.io/transfo-ia/strategie-ia-2027-court.html) | Présentation pour la direction en 12 slides : l'opportunité et les trois risques, le temps déjà gagné en 2026, les quatre volets et le chemin parcouru, puis cinq chantiers pour 2027 (usine logicielle, conformité continue, agent augmenté, souveraineté, mesure) et ce que nous y gagnons. Le détail reste dans les notes d'orateur (touche N). | 25/11/2026 |
 | [La cible : le cycle produit augmenté par l'IA](https://socialgouv.github.io/transfo-ia/cible.html) | Le cycle produit cible, skill par skill, avec un exemple d'orchestration pour chacun. | 28/10/2026 |
 | [La cible : le cycle produit augmenté par l'IA (diaporama)](https://socialgouv.github.io/transfo-ia/cible-slides.html) | La même cible en 16 slides, pour un partage d'écran : vue d'ensemble, une slide par skill, puis un exemple d'orchestration par skill. Un clic sur un schéma (ou la touche Z) l'agrandit ; la touche N affiche sa description textuelle. | 19/11/2026 |
