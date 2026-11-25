@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="author" content="Selim Boukhari">
-<meta name="description" content="Stratégie IA, point pour la direction, version courte : une opportunité et trois risques, ce que nous en avons fait en 2026, puis cinq chantiers pour aller plus loin en 2027 et ce que nous y gagnons. 12 slides, environ 12 minutes.">
-<title>Stratégie IA : bilan 2026, ambition 2027 (version courte)</title>
+<meta name="description" content="Stratégie IA, point pour la direction : une opportunité et trois risques, ce que nous en avons fait en 2026, puis cinq chantiers pour étendre ces gains et aller plus loin en 2027. 11 slides, environ 12 minutes.">
+<title>Stratégie IA : bilan 2026, ambition 2027</title>
 <style>
 /* ==========================================================================
-   Stratégie IA · bilan 2026, ambition 2027 · version courte (12 slides, environ 12 minutes)
+   Stratégie IA · bilan 2026, ambition 2027 (11 slides, environ 12 minutes)
    Diaporama 1920 × 1080, mis à l’échelle de la fenêtre.
    Clavier : flèches ou espace pour avancer · F plein écran · N notes · P imprimer
    Couleurs et typographie : jetons du Système de design de l’État (DSFR).
@@ -18,11 +18,13 @@
    Le fil du deck, en trois temps :
    1. le constat : une opportunité, trois risques (shadow IA, dépendance, désorganisation) ;
    2. en 2026 : le temps gagné, notre réponse en quatre volets, le chemin parcouru ;
-   3. en 2027 : aller plus loin, cinq besoins, cinq chantiers, ce que nous y gagnons.
+   3. en 2027 : étendre ces gains et aller plus loin. Cinq chantiers, du plus prouvé au plus
+      ambitieux (agent augmenté, conformité continue, usine logicielle), puis deux garanties
+      sur une même slide (souveraineté, mesure), et la demande.
    Les slides 4 et 5 (quatre volets, chemin parcouru) viennent du deck présenté le
    19 novembre 2026, strategie-ia-communication-6-slides.html.
    Chaque chantier se lit de haut en bas : le besoin d’aujourd’hui, notre
-   proposition, ce que nous y gagnons. Les coûts ne sont pas à l’écran (ils sont
+   proposition (avec, en vert, ce qui est déjà prouvé en 2026), ce que nous y gagnons. Les coûts ne sont pas à l’écran (ils sont
    dans les notes) : le chiffrage vient ensuite.
    Une couleur garde le même sens partout : orange = risque, vert = en place ou gagné
    en 2026, bleu France = notre action (volets de 2026, chantiers de 2027), bleu clair =
@@ -242,7 +244,7 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .need__num{font-size:24px;line-height:1.2;font-weight:700;color:var(--bf-850);font-variant-numeric:tabular-nums;white-space:nowrap}   /* le numéro, puis « nouveau » ou « suite de 2026 » */
 .need__name{margin-top:2px;font-size:36px;line-height:1.1;font-weight:700;letter-spacing:-.01em;color:#fff}
 
-/* ---------- 7 à 11 · Un chantier, en trois lignes : le besoin, notre proposition, ce que nous y gagnons ---------- */
+/* ---------- 7 à 9 · Un chantier, en trois lignes : le besoin, notre proposition, ce que nous y gagnons ---------- */
 .case{flex:1;min-height:0;display:grid;grid-template-rows:minmax(172px,auto) minmax(172px,auto) minmax(0,1fr);gap:14px}
 .step{display:grid;grid-template-columns:440px minmax(0,1fr);align-items:center;column-gap:36px;min-width:0;padding:16px 40px 16px 0}
 .step--now{background:var(--alt);border-left:8px solid var(--ink-3)}
@@ -267,7 +269,29 @@ body{font-family:Marianne,arial,sans-serif;-webkit-font-smoothing:antialiased;te
 .won li span{margin-top:10px;font-size:31px;line-height:1.25;color:var(--bf-925);text-wrap:balance}
 .won--num strong{font-size:68px}   /* gains chiffrés */
 
-/* ---------- 12 · Conclusion : ce que nous y gagnons à gauche, la demande à droite ---------- */
+/* Preuve de 2026 : une pastille verte sous la proposition (vert = en place ou gagné en 2026) */
+.proof{margin-top:14px;display:inline-flex;align-items:center;gap:10px;padding:6px 16px 6px 12px;background:var(--ok-975);color:var(--ok);font-size:26px;line-height:1.25;font-weight:700}
+.proof .ico{font-size:28px}
+.proof b{color:inherit}
+
+/* ---------- 10 · Deux garanties, côte à côte : le risque pris en charge, notre proposition, ce que nous y gagnons ---------- */
+.guards{flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.guard{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:10px;min-width:0}
+.guard__risk{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:76px;padding:12px 28px 12px 24px;background:var(--alt);border-left:8px solid var(--ink-3)}
+.guard__risk .tag{white-space:nowrap}
+.guard__chips{display:flex;gap:10px}
+.guard__chips .rchip{font-size:26px}
+.guard__chips .rchip .ico{font-size:28px}
+.guard__do{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-width:0;padding:18px 32px 18px 24px;background:var(--bf-950);border-left:8px solid var(--bf)}
+.guard__name{font-size:44px;line-height:1.1;letter-spacing:-.015em}
+.guard__name small{display:block;margin-bottom:4px;font-size:24px;line-height:1.2;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bf)}
+.guard__t{margin-top:14px;font-size:38px;line-height:1.2;font-weight:700;letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.guard__won{padding:20px 32px 22px;background:var(--bf)}
+.guard__won .tag{color:var(--bf-850)}
+.guard__won strong{display:block;margin-top:10px;font-size:50px;line-height:1.08;letter-spacing:-.02em;color:#fff}
+.guard__won p span{display:block;margin-top:8px;font-size:31px;line-height:1.25;color:var(--bf-925);text-wrap:balance}
+
+/* ---------- 11 · Conclusion : ce que nous y gagnons à gauche, la demande à droite ---------- */
 .end{--aside:780px}
 .beats{margin-top:40px;display:flex;flex-direction:column;gap:24px}
 .beats li{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:24px;align-items:center}
@@ -324,7 +348,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
 <svg class="sprite" aria-hidden="true" focusable="false"><symbol id="i-alert" viewBox="0 0 24 24"><path d="m12.866 3 9.526 16.5a1 1 0 0 1-.866 1.5H2.474a1 1 0 0 1-.866-1.5L11.134 3a1 1 0 0 1 1.732 0Zm-8.66 16h15.588L12 5.5 4.206 19ZM11 16h2v2h-2v-2Zm0-7h2v5h-2V9Z"/></symbol><symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="m13 16.172 5.364-5.364 1.414 1.414L12 20l-7.778-7.778 1.414-1.414L11 16.172V4h2v12.172Z"/></symbol><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="m16.172 11-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2h12.172Z"/></symbol><symbol id="i-award" viewBox="0 0 24 24"><path d="M12 1.001a8 8 0 0 1 5 14.245v6.871a.5.5 0 0 1-.757.429L12 20l-4.243 2.546a.5.5 0 0 1-.757-.43v-6.87a8 8 0 0 1 5-14.245Zm3 15.417A7.978 7.978 0 0 1 12 17a7.978 7.978 0 0 1-3-.582v3.05l3-1.8 3 1.8v-3.05ZM12 3a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="m10 15.172 9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414 4.95 4.95Z"/></symbol><symbol id="i-cloud-off" viewBox="0 0 24 24"><path d="M3.51472 2.10051L22.6066 21.1924L21.1924 22.6066L19.1782 20.5924C18.503 20.8556 17.7684 21 17 21H7C3.68629 21 1 18.3137 1 15C1 12.3846 2.67346 10.16 5.00804 9.33857C5.0027 9.22639 5 9.11351 5 9C5 8.22228 5.12683 7.47418 5.36094 6.77527L2.10051 3.51472L3.51472 2.10051ZM7 9C7 9.08147 7.00193 9.16263 7.00578 9.24344L7.07662 10.7309L5.67183 11.2252C4.0844 11.7837 3 13.2889 3 15C3 17.2091 4.79086 19 7 19H17C17.1858 19 17.3687 18.9873 17.5478 18.9628L7.03043 8.44519C7.01032 8.62736 7 8.81247 7 9ZM12 2C15.866 2 19 5.13401 19 9C19 9.11351 18.9973 9.22639 18.992 9.33857C21.3265 10.16 23 12.3846 23 15C23 16.0883 22.7103 17.1089 22.2037 17.9889L20.7111 16.4955C20.8974 16.0335 21 15.5287 21 15C21 12.79 19.21 11 17 11C16.4711 11 15.9661 11.1027 15.5039 11.2892L14.0111 9.7964C14.8912 9.28978 15.9118 9 17 9C17 6.23858 14.7614 4 12 4C10.9295 4 9.93766 4.33639 9.12428 4.90922L7.69418 3.48056C8.88169 2.55284 10.3763 2 12 2Z"/></symbol><symbol id="i-code" viewBox="0 0 24 24"><path d="m24 12-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12ZM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12Zm6.96 9H7.66l6.552-18h2.128L9.788 21Z"/></symbol><symbol id="i-compasses" viewBox="0 0 24 24">
 <path d="M16.3303 13.4969C17.9562 12.215 19 10.2277 19 7.99658H21C21 10.9686 19.5595 13.6042 17.3385 15.2431L19.8661 19.621C20.4183 20.5775 20.0906 21.8007 19.134 22.353L15.6073 16.2446C14.5029 16.7282 13.2828 16.9966 12 16.9966C10.7172 16.9966 9.49712 16.7282 8.39278 16.2446L4.86606 22.353C3.90947 21.8007 3.58172 20.5775 4.13401 19.621L9.19751 10.8507C8.45844 10.1249 8.00003 9.11427 8.00003 7.99658C8.00003 6.13274 9.2748 4.56664 11 4.1226V1.99658H13V4.1226C14.7253 4.56664 16 6.13274 16 7.99658C16 9.11427 15.5416 10.1249 14.8025 10.8507L16.3303 13.4969ZM14.599 14.4982L13.071 11.8516C12.7302 11.9461 12.371 11.9966 12 11.9966C11.6291 11.9966 11.2699 11.9461 10.929 11.8516L9.40101 14.4982C10.2046 14.8197 11.0817 14.9966 12 14.9966C12.9184 14.9966 13.7955 14.8197 14.599 14.4982ZM12 9.99658C13.1046 9.99658 14 9.10115 14 7.99658C14 6.89201 13.1046 5.99658 12 5.99658C10.8955 5.99658 10 6.89201 10 7.99658C10 9.10115 10.8955 9.99658 12 9.99658Z"/>
 </symbol><symbol id="i-computer" viewBox="0 0 24 24"><path d="M21.008 3c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13v2h4v2H7v-2h4v-2H2.992A.998.998 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016ZM20 5H4v11h16V5Z"/></symbol><symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M17.882 19.297A10.949 10.949 0 0 1 12 21c-5.392 0-9.878-3.88-10.819-9a10.982 10.982 0 0 1 3.34-6.066L1.392 2.808l1.415-1.415 19.799 19.8-1.415 1.414-3.31-3.31h.001ZM5.935 7.35A8.965 8.965 0 0 0 3.223 12a9.005 9.005 0 0 0 13.201 5.838l-2.028-2.028A4.5 4.5 0 0 1 8.19 9.604L5.935 7.35Zm6.979 6.978-3.242-3.242a2.5 2.5 0 0 0 3.241 3.241l.001.001Zm7.893 2.264-1.431-1.43A8.935 8.935 0 0 0 20.777 12 9.005 9.005 0 0 0 9.552 5.338L7.974 3.76C9.221 3.27 10.58 3 12 3c5.392 0 9.878 3.88 10.819 9a10.947 10.947 0 0 1-2.012 4.592Zm-9.084-9.084a4.5 4.5 0 0 1 4.769 4.769l-4.77-4.769h.001Z"/></symbol><symbol id="i-flashlight" viewBox="0 0 24 24"><path d="M13 0v9h8L11 24v-9H4l9-15Zm-2 7.22L7.532 13H13v4.394L17.263 11H11V7.22Z"/></symbol><symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 2c5.522 0 10 3.978 10 8.889a5.558 5.558 0 0 1-5.556 5.555h-1.966c-.922 0-1.667.745-1.667 1.667 0 .422.167.811.422 1.1.267.3.434.689.434 1.122C13.667 21.256 12.9 22 12 22 6.478 22 2 17.522 2 12S6.478 2 12 2Zm0 2a8 8 0 0 0-.676 15.972 3.648 3.648 0 0 1-.513-1.86v-.001a3.664 3.664 0 0 1 3.667-3.667h1.966A3.558 3.558 0 0 0 20 10.89C20 7.139 16.468 4 12 4ZM7.5 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm9 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M5.46 4.43a10 10 0 0 1 14.73 13.3L17 12.01h3A8 8 0 0 0 6.46 6.23l-1-1.8zm13.08 15.14A10 10 0 0 1 3.8 6.27L7 11.99H4a8 8 0 0 0 13.54 5.77l1 1.8z"/></symbol><symbol id="i-scales" viewBox="0 0 24 24"><path d="M13 2v1.278l5 1.668 3.632-1.21.633 1.896-3.032 1.011 3.096 8.512A5.986 5.986 0 0 1 18 17a5.985 5.985 0 0 1-4.329-1.845l3.094-8.512L13 5.387V19h4v2H7v-2h4V5.387L7.232 6.643l3.096 8.512A5.982 5.982 0 0 1 6 17a5.985 5.985 0 0 1-4.329-1.845l3.094-8.512-3.03-1.01.633-1.898L6 4.945l5-1.667V2h2Zm5 7.103-1.958 5.386A3.975 3.975 0 0 0 18 15c.7 0 1.37-.18 1.958-.51L18 9.102v.001Zm-12 0-1.958 5.386A3.975 3.975 0 0 0 6 15c.7 0 1.37-.18 1.958-.51L6 9.102v.001Z"/></symbol><symbol id="i-server" viewBox="0 0 24 24"><path d="M20 3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h16Zm-1 10H5v6h14v-6Zm-9 2v2H7v-2h3Zm9-10H5v6h14V5Zm-9 2v2H7V7h3Z"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M14.06 2.213c-.13 1.11.237 2.08 1.001 2.396.765.317 1.71-.108 2.403-.986a9.945 9.945 0 0 1 2.913 2.913c-.877.692-1.303 1.638-.986 2.403.317.765 1.286 1.132 2.396 1.001a9.945 9.945 0 0 1 0 4.12c-1.11-.13-2.08.237-2.396 1.001-.317.765.108 1.71.986 2.403a9.945 9.945 0 0 1-2.913 2.913c-.692-.877-1.638-1.303-2.403-.986-.765.317-1.132 1.286-1.001 2.396a9.945 9.945 0 0 1-4.12 0c.13-1.11-.237-2.08-1.001-2.396-.765-.317-1.71.108-2.403.986a9.945 9.945 0 0 1-2.913-2.913c.877-.692 1.303-1.638.986-2.403-.317-.765-1.286-1.132-2.396-1.001a9.945 9.945 0 0 1 0-4.12c1.11.13 2.08-.237 2.396-1.001.317-.765-.108-1.71-.986-2.403a9.945 9.945 0 0 1 2.913-2.913c.692.877 1.638 1.303 2.403.986.765-.317 1.132-1.286 1.001-2.396a9.945 9.945 0 0 1 4.12 0ZM11.79 4c-.305 1.1-1.002 2.007-2.086 2.457-1.085.449-2.22.3-3.212-.262a6.932 6.932 0 0 0-.297.297c.562.993.71 2.127.262 3.212C6.007 10.788 5.1 11.485 4 11.79c-.004.14-.004.28 0 .42 1.1.305 2.007 1.002 2.457 2.086.449 1.085.3 2.22-.262 3.212.096.102.195.201.297.297.993-.562 2.127-.71 3.212-.262 1.084.45 1.781 1.357 2.086 2.457.14.004.28.004.42 0 .305-1.1 1.002-2.007 2.086-2.457 1.085-.449 2.22-.3 3.212.262.102-.096.201-.195.297-.297-.562-.993-.71-2.127-.262-3.212.45-1.084 1.357-1.781 2.457-2.086.004-.14.004-.28 0-.42-1.1-.305-2.007-1.002-2.457-2.086-.449-1.085-.3-2.22.262-3.212a7.935 7.935 0 0 0-.297-.297c-.993.562-2.127.71-3.212.262C13.212 6.007 12.515 5.1 12.21 4a7.935 7.935 0 0 0-.42 0ZM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 1 8.217 1.826a1 1 0 0 1 .783.976v9.987a6 6 0 0 1-2.672 4.992L12 23l-6.328-4.219A6 6 0 0 1 3 13.79V3.802a1 1 0 0 1 .783-.976L12 1Zm0 2.05L5 4.604v9.185a4 4 0 0 0 1.781 3.328L12 20.597l5.219-3.48A4 4 0 0 0 19 13.79V4.604L12 3.05Z"/></symbol><symbol id="i-team" viewBox="0 0 24 24"><path d="M12 11a5 5 0 0 1 5 5v6h-2v-6a3 3 0 0 0-2.824-2.995L12 13a3 3 0 0 0-2.995 2.824L9 16v6H7v-6a5 5 0 0 1 5-5Zm-6.5 3c.279 0 .55.033.81.094a5.947 5.947 0 0 0-.301 1.575L6 16v.086a1.492 1.492 0 0 0-.356-.08L5.5 16a1.5 1.5 0 0 0-1.493 1.356L4 17.5V22H2v-4.5A3.5 3.5 0 0 1 5.5 14Zm13 0a3.5 3.5 0 0 1 3.5 3.5V22h-2v-4.5a1.5 1.5 0 0 0-1.356-1.493L18.5 16c-.175 0-.343.03-.5.085V16c0-.666-.108-1.306-.309-1.904A3.42 3.42 0 0 1 18.5 14Zm-13-6a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm-13 2a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Zm13 0a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1ZM12 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M12 14a8 8 0 0 1 8 8h-2a6 6 0 1 0-12 0H4a8 8 0 0 1 8-8Zm0-13c3.315 0 6 2.685 6 6s-2.685 6-6 6-6-2.685-6-6 2.685-6 6-6Zm0 2C9.79 3 8 4.79 8 7s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4Z"/></symbol><symbol id="i-links" viewBox="0 0 24 24"><path d="m12.89 7.939 1.414 1.415a7 7 0 0 1 0 9.9l-.354.353a7 7 0 0 1-9.9-9.9l1.415 1.415a5 5 0 1 0 7.071 7.07l.354-.353a5 5 0 0 0 0-7.07l-1.415-1.415L12.89 7.94v-.001Zm6.717 6.01-1.414-1.413a5 5 0 1 0-7.07-7.071l-.355.354a5 5 0 0 0 0 7.07l1.415 1.415-1.415 1.414-1.414-1.414a7 7 0 0 1 0-9.9l.354-.353a7 7 0 1 1 9.9 9.9v-.001Z"/></symbol><symbol id="i-go-back" viewBox="0 0 24 24"><path d="m5.828 7 2.536 2.536L6.95 10.95 2 6l4.95-4.95 1.414 1.414L5.828 5H13a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H5.828Z"/></symbol><symbol id="i-roadmap" viewBox="0 0 24 24"><path d="M21.775 4.341A.5.5 0 0 1 22 4.76V19l-7 3-6-3-6.303 2.701a.5.5 0 0 1-.697-.46V7l2-.857v12.824l5.065-2.17 6 3L20 17.68V4.857l1.303-.558a.5.5 0 0 1 .472.042Zm-5.532-1.583a6 6 0 0 1 0 8.485L12 15.485l-4.243-4.242a6 6 0 0 1 8.486-8.485ZM12 2.999a4 4 0 0 0-2.828 6.829L12 12.657l2.828-2.829A4 4 0 0 0 12 2.999Z"/></symbol><symbol id="i-line-chart" viewBox="0 0 24 24"><path d="M5 3v16h16v2H3V3h2Zm15.293 3.293 1.414 1.414L16 13.414l-3-2.999-4.293 4.292-1.414-1.414L13 7.586l3 2.999 4.293-4.292Z"/></symbol></svg>
-<main class="deck" aria-roledescription="diaporama" aria-label="Stratégie IA : bilan 2026, ambition 2027 (version courte)">
+<main class="deck" aria-roledescription="diaporama" aria-label="Stratégie IA : bilan 2026, ambition 2027">
 <div class="stage">
 
 <!-- ======================= 1 · COUVERTURE ======================= -->
@@ -567,13 +591,13 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   </aside>
 </section>
 
-<!-- ======================= 6 · EN 2027 : ALLER PLUS LOIN ======================= -->
-<section class="slide" data-title="En 2027 : aller plus loin" aria-labelledby="t6">
+<!-- ======================= 6 · EN 2027 : ÉTENDRE CES GAINS, ET ALLER PLUS LOIN ======================= -->
+<section class="slide" data-title="En 2027 : étendre ces gains, et aller plus loin" aria-labelledby="t6">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">Aller plus loin</p>
     <ol class="fil" aria-label="Le fil de la présentation"><li><b>1</b>Le constat</li><li><b>2</b>En 2026</li><li class="is-on" aria-current="step"><b>3</b>En 2027</li></ol></header>
   <div class="s-head">
-    <h2 class="title" id="t6">Nous pouvons aller plus loin&nbsp;:<br>cinq besoins attendent encore une réponse</h2>
-    <p class="s-lead">Pour chaque besoin, un chantier en 2027&nbsp;: trois prolongent 2026, deux sont nouveaux.</p>
+    <h2 class="title" id="t6">En 2027&nbsp;: étendre ces gains à toutes les équipes, et aller plus loin</h2>
+    <p class="s-lead">Si nous nous arrêtons là, les gains restent ceux de quatre équipes, et l’écart se creuse avec les autres.</p>
   </div>
   <div class="s-body">
     <div class="needs">
@@ -581,9 +605,9 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       <p class="tag tag--warn needs__h needs__h--risk" aria-hidden="true"><svg class="ico"><use href="#i-shield"/></svg>En maîtrisant les risques</p>
       <ol class="needs__list">
       <li class="need">
-        <div class="need__what"><p><span class="sr">Saisir davantage l’opportunité. Le besoin&nbsp;: </span>Voir une idée fonctionner sans mobiliser une équipe technique</p></div>
+        <div class="need__what"><p><span class="sr">Saisir davantage l’opportunité. Le besoin&nbsp;: </span>Étendre le temps gagné à toutes les fonctions, dans toutes les équipes</p></div>
         <svg class="ico need__go" aria-hidden="true"><use href="#i-arrow-down"/></svg>
-        <p class="need__by"><span class="need__num"><span aria-hidden="true">01 · </span>Nouveau</span><span class="need__name"><span class="sr">Le chantier&nbsp;: </span>Usine logicielle</span></p>
+        <p class="need__by"><span class="need__num"><span aria-hidden="true">01 · </span>Suite de 2026</span><span class="need__name"><span class="sr">Le chantier&nbsp;: </span>Agent augmenté</span></p>
       </li>
       <li class="need">
         <div class="need__what"><p><span class="sr">Saisir davantage l’opportunité. Le besoin&nbsp;: </span>Garder nos applications conformes, sans y consacrer le temps des équipes</p></div>
@@ -591,9 +615,9 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         <p class="need__by"><span class="need__num"><span aria-hidden="true">02 · </span>Suite de 2026</span><span class="need__name"><span class="sr">Le chantier&nbsp;: </span>Conformité continue</span></p>
       </li>
       <li class="need">
-        <div class="need__what"><p><span class="sr">Saisir davantage l’opportunité. Le besoin&nbsp;: </span>Étendre le temps gagné à toutes les fonctions</p></div>
+        <div class="need__what"><p><span class="sr">Saisir davantage l’opportunité. Le besoin&nbsp;: </span>Voir une idée fonctionner sans mobiliser une équipe technique</p></div>
         <svg class="ico need__go" aria-hidden="true"><use href="#i-arrow-down"/></svg>
-        <p class="need__by"><span class="need__num"><span aria-hidden="true">03 · </span>Suite de 2026</span><span class="need__name"><span class="sr">Le chantier&nbsp;: </span>Agent augmenté</span></p>
+        <p class="need__by"><span class="need__num"><span aria-hidden="true">03 · </span>Nouveau</span><span class="need__name"><span class="sr">Le chantier&nbsp;: </span>Usine logicielle</span></p>
       </li>
       <li class="need">
         <div class="need__what"><p><span class="sr">En maîtrisant les risques. Le besoin&nbsp;: </span>Garder la main sur une IA qui fera de plus en plus de travail</p>
@@ -602,7 +626,7 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
         <p class="need__by"><span class="need__num"><span aria-hidden="true">04 · </span>Suite de 2026</span><span class="need__name"><span class="sr">Le chantier&nbsp;: </span>Souveraineté</span></p>
       </li>
       <li class="need">
-        <div class="need__what"><p><span class="sr">En maîtrisant les risques. Le besoin&nbsp;: </span>Voir si les écarts se creusent, entre fonctions et entre équipes</p>
+        <div class="need__what"><p><span class="sr">En maîtrisant les risques. Le besoin&nbsp;: </span>Prouver les gains, et voir si des écarts se creusent</p>
           <p class="need__risks"><span class="sr">Risque pris en charge&nbsp;: </span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg>Désorganisation</span></p></div>
         <svg class="ico need__go" aria-hidden="true"><use href="#i-arrow-down"/></svg>
         <p class="need__by"><span class="need__num"><span aria-hidden="true">05 · </span>Nouveau</span><span class="need__name"><span class="sr">Le chantier&nbsp;: </span>Mesure</span></p>
@@ -613,108 +637,24 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <footer class="s-foot"><span><strong>Stratégie IA</strong> · Bilan 2026, ambition 2027</span><span class="s-foot__page" data-page></span></footer>
   <aside class="notes">
     <ul>
-      <li>Durée&nbsp;: 1 minute. C’est la slide charnière&nbsp;: 2026 a montré que cela fonctionne, sur les équipes accompagnées. Nous pouvons aller plus loin.</li>
-      <li>Cinq besoins restent sans réponse aujourd’hui. À chacun répond un chantier. Trois chantiers poussent l’opportunité plus loin, deux gardent la maîtrise des risques.</li>
-      <li>Trois chantiers prolongent ce qui a été lancé en 2026&nbsp;: la conformité continue (suite de l’accessibilité semi-automatique), l’agent augmenté (suite des formations), la souveraineté (suite des outils en place). Deux sont nouveaux&nbsp;: l’usine logicielle et la mesure.</li>
+      <li>Durée&nbsp;: 1 minute. C’est la slide charnière. Le message&nbsp;: 2026 a fait la preuve sur quatre équipes accompagnées&#8239;; 2027 étend ces gains à toutes, et va plus loin.</li>
+      <li>Ce qui se passe si nous nous arrêtons là&nbsp;: les gains restent ceux de quatre équipes, les autres continuent sans méthode commune, et l’écart entre équipes se creuse. C’est le troisième risque du constat, la désorganisation. [À valider&nbsp;: cet argument est déduit des risques de la slide 2.]</li>
+      <li>[À compléter&nbsp;: le nombre d’équipes et d’agents hors des équipes accompagnées, pour dire la taille de ce qui reste à gagner.]</li>
+      <li>Cinq chantiers. Trois poussent l’opportunité plus loin, deux gardent la maîtrise des risques.</li>
+      <li>L’ordre va du plus prouvé au plus ambitieux&nbsp;: d’abord ce qui marche déjà, étendu à tous (agent augmenté, la suite des formations)&#8239;; puis la conformité continue (la suite de l’accessibilité semi-automatique)&#8239;; enfin l’usine logicielle, le chantier nouveau.</li>
+      <li>Les deux derniers, souveraineté (la suite des outils en place) et mesure (nouveau), rendent les trois premiers sûrs.</li>
       <li>Si la question vient, «&nbsp;que deviennent les quatre volets&nbsp;?&nbsp;»&nbsp;: [à valider] ils continuent, ces chantiers s’y ajoutent ou les prolongent.</li>
-      <li>Voir une idée fonctionner sans mobiliser une équipe technique&nbsp;: l’usine logicielle, le chantier nouveau.</li>
-      <li>Garder nos applications conformes sans y consacrer le temps des équipes&nbsp;: la conformité continue, la suite de l’accessibilité semi-automatique.</li>
-      <li>Étendre le temps gagné à toutes les fonctions&nbsp;: l’agent augmenté, la suite des formations.</li>
-      <li>Garder la main sur une IA qui fera de plus en plus de travail&nbsp;: la souveraineté, face au shadow IA et à la dépendance.</li>
-      <li>Voir si les écarts se creusent&nbsp;: la mesure, face à la désorganisation.</li>
-      <li>Les cinq slides suivantes se lisent de la même façon&nbsp;: le besoin d’aujourd’hui, notre proposition, ce que nous y gagnons.</li>
+      <li>Les slides suivantes se lisent de la même façon&nbsp;: le besoin d’aujourd’hui, notre proposition, ce que nous y gagnons. En vert, ce qui est déjà prouvé en 2026.</li>
     </ul>
   </aside>
 </section>
 
-<!-- ======================= 7 · 01 USINE LOGICIELLE ======================= -->
-<section class="slide" data-title="01 Usine logicielle" aria-labelledby="t7">
+<!-- ======================= 7 · 01 AGENT AUGMENTÉ ======================= -->
+<section class="slide" data-title="01 Agent augmenté" aria-labelledby="t7">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">En 2027</p>
-    <ol class="rail" aria-label="Les cinq chantiers"><li class="is-on" aria-current="true"><b>01</b>Usine logicielle</li><li><b>02</b>Conformité</li><li><b>03</b>Agent augmenté</li><li><b>04</b>Souveraineté</li><li><b>05</b>Mesure</li></ol></header>
+    <ol class="rail" aria-label="Les cinq chantiers"><li class="is-on" aria-current="true"><b>01</b>Agent augmenté</li><li><b>02</b>Conformité</li><li><b>03</b>Usine logicielle</li><li><b>04</b>Souveraineté</li><li><b>05</b>Mesure</li></ol></header>
   <div class="s-head">
-    <h2 class="title" id="t7">L’usine logicielle&nbsp;: de l’idée au prototype, sans mobiliser une équipe technique</h2>
-  </div>
-  <div class="s-body">
-    <div class="case">
-      <div class="step step--now">
-        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-team"/></svg></span><span><small>Aujourd’hui</small><b>Le besoin</b></span></h3>
-        <div><p class="step__t">Pour tester une idée, il faut d’abord mobiliser une équipe technique.</p></div>
-      </div>
-      <div class="step step--next">
-        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-settings"/></svg></span><span><small>En 2027</small><b>Notre proposition</b></span></h3>
-        <div><p class="step__t">Vous décrivez le besoin. L’usine développe l’application, la teste et la met en ligne.</p></div>
-      </div>
-      <div class="won">
-        <h3 class="tag"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg>Ce que nous y gagnons</h3>
-        <ul>
-          <li><strong>Aller vite</strong><span>Un prototype dès les premières phases d’un projet</span></li>
-          <li><strong>Rester dans le cadre</strong><span>Les règles techniques du ministère s’appliquent d’office</span></li>
-          <li><strong>Décider plus tôt</strong><span>Une idée se juge sur un prototype, avant d’engager une équipe</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Bilan 2026, ambition 2027</span><span class="s-foot__page" data-page></span></footer>
-  <aside class="notes">
-    <ul>
-      <li>Durée&nbsp;: 1 minute 30. C’est le chantier nouveau, et le plus ambitieux.</li>
-      <li>Le besoin&nbsp;: aujourd’hui, dès les premières phases d’un projet, il faut un dispositif technique pour voir fonctionner une idée.</li>
-      <li>La proposition&nbsp;: une spécification en entrée (le besoin, décrit par écrit), une application en sortie. L’application est un prototype qui fonctionne, accessible à une adresse web. L’image à retenir&nbsp;: vous sortez de réunion, et vous avez l’adresse de votre prototype.</li>
-      <li>Comment, si la question vient&nbsp;: des enchaînements automatisés d’étapes de développement (des workflows), créés et lancés à la demande. Un outil les contient et s’appuie sur nos outils de test et de mise en ligne (la CI/CD). Il est accessible à tous, depuis les assistants IA des agents (OpenCode, Claude Code, Codex…) ou depuis un site web hébergé sur notre cloud, Atlas.</li>
-      <li>Aller vite&nbsp;: développer une application sans dispositif technique dès les premières phases. Rester dans le cadre&nbsp;: les phases de développement étant automatisées, le cadre de cohérence technique s’applique d’office. Décider plus tôt&nbsp;: une idée se juge sur un prototype qui fonctionne, avant d’engager un dispositif technique. Si la question du coût vient&nbsp;: une partie du temps de développement devient de l’usage d’IA, payé à la consommation (les tokens).</li>
-      <li>Ce que ça coûte, en nature&nbsp;: la R&amp;D, l’hébergement sur Atlas, la formation des utilisateurs. Le chiffrage vient ensuite.</li>
-    </ul>
-  </aside>
-</section>
-
-<!-- ======================= 8 · 02 CONFORMITÉ CONTINUE ======================= -->
-<section class="slide" data-title="02 Conformité continue" aria-labelledby="t8">
-  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">En 2027</p>
-    <ol class="rail" aria-label="Les cinq chantiers"><li><b>01</b>Usine logicielle</li><li class="is-on" aria-current="true"><b>02</b>Conformité</li><li><b>03</b>Agent augmenté</li><li><b>04</b>Souveraineté</li><li><b>05</b>Mesure</li></ol></header>
-  <div class="s-head">
-    <h2 class="title" id="t8">La conformité continue&nbsp;: nos applications sont contrôlées jour après jour</h2>
-  </div>
-  <div class="s-body">
-    <div class="case">
-      <div class="step step--now">
-        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-scales"/></svg></span><span><small>Aujourd’hui</small><b>Le besoin</b></span></h3>
-        <div><p class="step__t">Chaque application doit respecter quatre référentiels de l’État, en permanence.</p>
-          <ul class="chips"><li><b>RGAA</b>Accessibilité</li><li><b>RGS</b>Sécurité</li><li><b>DSFR</b>Design de l’État</li><li><b>RGESN</b>Écoconception</li></ul>
-        </div>
-      </div>
-      <div class="step step--next">
-        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-refresh"/></svg></span><span><small>En 2027</small><b>Notre proposition</b></span></h3>
-        <div><p class="step__t">Un robot par référentiel teste le code régulièrement et propose les corrections aux développeurs.</p></div>
-      </div>
-      <div class="won">
-        <h3 class="tag"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg>Ce que nous y gagnons</h3>
-        <ul>
-          <li><strong>Quatre référentiels</strong><span>contrôlés par l’IA, contre un seul en partie aujourd’hui</span></li>
-          <li><strong>Contrôles réguliers</strong><span>Les défauts sont repérés au fil des développements</span></li>
-          <li><strong>Corrections prêtes</strong><span>Le développeur relit et valide</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Bilan 2026, ambition 2027</span><span class="s-foot__page" data-page></span></footer>
-  <aside class="notes">
-    <ul>
-      <li>Durée&nbsp;: 1 minute.</li>
-      <li>Le besoin&nbsp;: quatre référentiels s’appliquent à nos applications. RGAA&nbsp;: Référentiel général d’amélioration de l’accessibilité. RGS&nbsp;: Référentiel général de sécurité. DSFR&nbsp;: Système de design de l’État. RGESN&nbsp;: Référentiel général d’écoconception de services numériques.</li>
-      <li>La proposition&nbsp;: l’IA vérifie le code et le met en conformité. Un robot pour chaque sujet de conformité&nbsp;; il teste le code régulièrement et propose aux développeurs les changements à faire.</li>
-      <li>À dire si la question vient&nbsp;: les robots repèrent les défauts et proposent les corrections. Ils ne remplacent ni l’audit de conformité RGAA, dont la plupart des tests demandent une vérification humaine, ni l’homologation de sécurité prévue par le RGS.</li>
-      <li>Le lien avec 2026&nbsp;: c’est la suite de l’accessibilité semi-automatique (RGAA), étendue à trois autres référentiels.</li>
-      <li>Ce que ça coûte, en nature&nbsp;: l’usage de l’IA (les tokens consommés par les robots), le développement des robots, et leur mise en place sur les dépôts de code (là où le code de chaque application est conservé). Le chiffrage vient ensuite.</li>
-    </ul>
-  </aside>
-</section>
-
-<!-- ======================= 9 · 03 AGENT AUGMENTÉ ======================= -->
-<section class="slide" data-title="03 Agent augmenté" aria-labelledby="t9">
-  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">En 2027</p>
-    <ol class="rail" aria-label="Les cinq chantiers"><li><b>01</b>Usine logicielle</li><li><b>02</b>Conformité</li><li class="is-on" aria-current="true"><b>03</b>Agent augmenté</li><li><b>04</b>Souveraineté</li><li><b>05</b>Mesure</li></ol></header>
-  <div class="s-head">
-    <h2 class="title" id="t9">L’agent augmenté&nbsp;: le temps gagné s’étend à toutes les fonctions</h2>
+    <h2 class="title" id="t7">L’agent augmenté&nbsp;: le temps gagné s’étend à toutes les fonctions</h2>
   </div>
   <div class="s-body">
     <div class="case">
@@ -724,7 +664,9 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
       </div>
       <div class="step step--next">
         <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-compasses"/></svg></span><span><small>En 2027</small><b>Notre proposition</b></span></h3>
-        <div><p class="step__t">Dans chaque fonction, l’agent transmet sa méthode à l’IA, la pilote et contrôle la qualité.</p></div>
+        <div><p class="step__t">Dans chaque fonction, l’agent transmet sa méthode à l’IA, la pilote et contrôle la qualité.</p>
+          <p class="proof"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><b>Déjà en 2026</b> · une tâche de 2&nbsp;semaines faite en 2&nbsp;jours</span></p>
+        </div>
       </div>
       <div class="won won--num">
         <h3 class="tag"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg>Ce que nous y gagnons · estimations</h3>
@@ -739,80 +681,45 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <footer class="s-foot"><span><strong>Stratégie IA</strong> · Bilan 2026, ambition 2027</span><span class="s-foot__page" data-page></span></footer>
   <aside class="notes">
     <ul>
-      <li>Durée&nbsp;: 1 minute 15. C’est ce que nous faisons aujourd’hui avec les formations, et nous n’allons pas nous arrêter.</li>
+      <li>Durée&nbsp;: 1 minute 15. C’est ce que nous faisons aujourd’hui avec les formations, et nous n’allons pas nous arrêter. Premier chantier, parce que c’est le plus prouvé.</li>
       <li>Le besoin&nbsp;: les gains de 2026 sont ceux des équipes accompagnées. Les autres fonctions et les autres équipes n’en profitent pas encore.</li>
       <li>La proposition&nbsp;: passer d’un agent qui réalise les tâches à un agent qui pilote l’IA pour les réaliser, et qui contrôle la qualité. L’agent transmet sa méthode de travail à l’IA&nbsp;; l’IA affine le livrable par des boucles de vérification&nbsp;; l’agent valide une version déjà retravaillée.</li>
+      <li>La pastille verte&nbsp;: les estimations recoupent les témoignages de la slide 3. Deux semaines ramenées à deux jours, c’est cinq fois plus vite.</li>
       <li>Les gains sont des estimations. Développeurs&nbsp;: des livrables cinq fois plus rapidement, avec le même niveau de qualité, voire plus. Chefs de projet&nbsp;: 30 à 60&nbsp;% de temps gagné, selon les estimations d’un cabinet de conseil. Designers&nbsp;: 25 à 50&nbsp;% du temps de travail.</li>
-      <li>Ces estimations recoupent les témoignages de la slide 3&nbsp;: deux semaines ramenées à deux jours, c’est cinq fois plus vite.</li>
+      <li>Ce que devient le temps gagné&nbsp;: en plus d’aller plus vite, plus de temps est alloué à ce qui fait la valeur du livrable (slide 5). [À valider&nbsp;: la position à tenir si la question «&nbsp;donc moins de développeurs ou de prestataires&nbsp;?&nbsp;» vient.]</li>
       <li>Ce que ça coûte, si la question vient&nbsp;: l’usage de l’IA, estimé par jour et par personne. Chefs de projet&nbsp;: 12 à 25&nbsp;€. Designers&nbsp;: 25 à 30&nbsp;€. Développeurs&nbsp;: 50 à 60&nbsp;€. Architectes&nbsp;: 20 à 30&nbsp;€. DevOps&nbsp;: 30 à 60&nbsp;€. Le budget d’ensemble fait partie du chiffrage à venir.</li>
+      <li>[À valider avec le coût réel d’une journée&nbsp;: à 50 ou 60&nbsp;€ d’IA par jour, l’usage est remboursé dès qu’un développeur gagne environ une heure par jour. Calcul fait avec une journée à 450 ou 500&nbsp;€. C’est l’argument le plus solide&nbsp;: il tient même si le gain réel est très inférieur aux estimations.]</li>
     </ul>
   </aside>
 </section>
 
-<!-- ======================= 10 · 04 SOUVERAINETÉ ======================= -->
-<section class="slide" data-title="04 Souveraineté" aria-labelledby="t10">
+<!-- ======================= 8 · 02 CONFORMITÉ CONTINUE ======================= -->
+<section class="slide" data-title="02 Conformité continue" aria-labelledby="t8">
   <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">En 2027</p>
-    <ol class="rail" aria-label="Les cinq chantiers"><li><b>01</b>Usine logicielle</li><li><b>02</b>Conformité</li><li><b>03</b>Agent augmenté</li><li class="is-on" aria-current="true"><b>04</b>Souveraineté</li><li><b>05</b>Mesure</li></ol></header>
+    <ol class="rail" aria-label="Les cinq chantiers"><li><b>01</b>Agent augmenté</li><li class="is-on" aria-current="true"><b>02</b>Conformité</li><li><b>03</b>Usine logicielle</li><li><b>04</b>Souveraineté</li><li><b>05</b>Mesure</li></ol></header>
   <div class="s-head">
-    <h2 class="title" id="t10">La souveraineté&nbsp;: garder la main sur une IA qui fera de plus en plus de travail</h2>
+    <h2 class="title" id="t8">La conformité continue&nbsp;: nos applications sont contrôlées jour après jour</h2>
   </div>
   <div class="s-body">
     <div class="case">
       <div class="step step--now">
-        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-alert"/></svg></span><span><small>Aujourd’hui</small><b>Le besoin</b></span></h3>
-        <div><p class="step__t">Plus nous confions de travail à l’IA, plus nos données et notre activité dépendent de ses fournisseurs.</p></div>
+        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-scales"/></svg></span><span><small>Aujourd’hui</small><b>Le besoin</b></span></h3>
+        <div><p class="step__t">Quatre référentiels de l’État encadrent nos applications, en permanence.</p>
+          <ul class="chips"><li><b>RGAA</b>Accessibilité</li><li><b>RGS</b>Sécurité</li><li><b>DSFR</b>Design de l’État</li><li><b>RGESN</b>Écoconception</li></ul>
+        </div>
       </div>
       <div class="step step--next">
-        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-shield"/></svg></span><span><small>En 2027</small><b>Notre proposition</b></span></h3>
-        <div><p class="step__t">Tenir notre travail hors du champ d’action des puissances étrangères, à chaque nouvel usage de l’IA.</p></div>
-      </div>
-      <div class="won">
-        <h3 class="tag"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg>Ce que nous y gagnons</h3>
-        <ul>
-          <li><strong>Usages dans le cadre</strong><span>Des outils officiels performants, pour éviter le shadow IA</span></li>
-          <li><strong>Données protégées</strong><span>Hors de portée d’une loi étrangère</span></li>
-          <li><strong>Travail sans coupure</strong><span>Changer de modèle ou d’outil, sans repartir de zéro</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Bilan 2026, ambition 2027</span><span class="s-foot__page" data-page></span></footer>
-  <aside class="notes">
-    <ul>
-      <li>Durée&nbsp;: 1 minute.</li>
-      <li>Le besoin&nbsp;: les trois premiers chantiers confient davantage de travail à l’IA. Plus notre travail en dépend, plus deux des risques de départ comptent&nbsp;: le shadow IA (et avec lui le Cloud Act) et la dépendance (et avec elle le retrait d’un modèle ou d’un outil).</li>
-      <li>La proposition&nbsp;: séparer nos organisations de travail du champ d’action des puissances étrangères, pour chaque nouvel usage de l’IA.</li>
-      <li>C’est déjà le cas pour nos outils actuels (slide 4, volet Outiller)&nbsp;: une IA performante, sans passer par les États-Unis. Le chantier 2027 consiste à tenir cette ligne à mesure que les usages grandissent.</li>
-      <li>Ce que nous y gagnons répond aux deux risques. Face au shadow IA&nbsp;: des agents qui restent dans le cadre et des données protégées. Face à la dépendance&nbsp;: si un modèle ou un outil nous est retiré, nous en changeons sans repartir de zéro.</li>
-    </ul>
-  </aside>
-</section>
-
-<!-- ======================= 11 · 05 MESURE ======================= -->
-<section class="slide" data-title="05 Mesure" aria-labelledby="t11">
-  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">En 2027</p>
-    <ol class="rail" aria-label="Les cinq chantiers"><li><b>01</b>Usine logicielle</li><li><b>02</b>Conformité</li><li><b>03</b>Agent augmenté</li><li><b>04</b>Souveraineté</li><li class="is-on" aria-current="true"><b>05</b>Mesure</li></ol></header>
-  <div class="s-head">
-    <h2 class="title" id="t11">La mesure&nbsp;: aller plus vite, sans se désorganiser</h2>
-  </div>
-  <div class="s-body">
-    <div class="case">
-      <div class="step step--now">
-        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-go-back"/></svg></span><span><small>Aujourd’hui</small><b>Le besoin</b></span></h3>
-        <div><p class="step__t">Nous voyons les gains, mais pas encore si des écarts se creusent entre fonctions et entre équipes.</p></div>
-      </div>
-      <div class="step step--next">
-        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-line-chart"/></svg></span><span><small>En 2027</small><b>Notre proposition</b></span></h3>
-        <div><p class="step__t">Mesurer l’effet de l’IA dans chaque équipe, sur quatre axes suivis ensemble.</p>
-          <ul class="chips chips--axes"><li>Impact</li><li>Qualité</li><li>Vitesse</li><li>Efficience</li></ul>
+        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-refresh"/></svg></span><span><small>En 2027</small><b>Notre proposition</b></span></h3>
+        <div><p class="step__t">Un robot par référentiel teste le code régulièrement et propose les corrections aux développeurs.</p>
+          <p class="proof"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><b>Déjà en 2026</b> · l’accessibilité, contrôlée par l’IA</span></p>
         </div>
       </div>
       <div class="won">
         <h3 class="tag"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg>Ce que nous y gagnons</h3>
         <ul>
-          <li><strong>Vue d’ensemble</strong><span>Les quatre axes, équipe par équipe</span></li>
-          <li><strong>Écarts repérés tôt</strong><span>Entre fonctions et entre équipes</span></li>
-          <li><strong>Effort ciblé</strong><span>L’accompagnement va là où un écart apparaît</span></li>
+          <li><strong>Quatre référentiels</strong><span>contrôlés par l’IA, contre un seul en partie aujourd’hui</span></li>
+          <li><strong>Défauts corrigés tôt</strong><span>Au fil des développements, sans attendre l’audit</span></li>
+          <li><strong>Équipes soulagées</strong><span>Le robot prépare la correction, le développeur relit et valide</span></li>
         </ul>
       </div>
     </div>
@@ -821,31 +728,123 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
   <aside class="notes">
     <ul>
       <li>Durée&nbsp;: 1 minute.</li>
-      <li>Le besoin&nbsp;: les gains de 2026 sont connus, tâche par tâche, par ceux qui les ont réalisés (slide 3). Ce qui manque, c’est une vue d’ensemble qui montre si un écart se creuse. Or la désorganisation est un risque d’écarts&nbsp;: entre fonctions (les développeurs vont plus vite que le métier et le design) et entre équipes (les pratiques divergent).</li>
-      <li>Où en sont les trois risques&nbsp;: le shadow IA et la dépendance sont pris en charge par les outils en place. La désorganisation est prise en charge par l’accompagnement (volets «&nbsp;étendre à toutes les fonctions&nbsp;» et «&nbsp;harmoniser&nbsp;», slide 4), mais aucun indicateur ne dit encore si un écart se creuse. C’est l’objet de ce chantier.</li>
-      <li>La proposition&nbsp;: mesurer l’effet de l’IA, équipe par équipe, sur quatre axes&nbsp;: impact, qualité, vitesse, efficience. La vitesse seule tromperait&nbsp;: une équipe peut livrer plus vite et moins bien. Lus ensemble, les quatre axes disent si la vitesse gagnée devient de la valeur livrée.</li>
-      <li>Le référentiel reste à choisir parmi ceux du secteur&nbsp;: DORA, SPACE, DevEx, Core 4. Les quatre axes sont proches de ceux de Core 4 (vitesse, efficacité, qualité, impact), qui se présente comme la synthèse des trois autres.</li>
-      <li>Ces référentiels mesurent surtout le développement. Le risque se joue entre fonctions&nbsp;: prévoir au moins un indicateur côté métier et design.</li>
-      <li>Ce n’est pas une note des équipes ni des personnes&nbsp;: la mesure sert à cibler l’accompagnement.</li>
-      <li>Ce que ça coûte, en nature&nbsp;: le choix du référentiel et la collecte des indicateurs. À préciser&nbsp;: le chiffrage vient ensuite.</li>
+      <li>Le besoin&nbsp;: quatre référentiels encadrent nos applications. RGAA&nbsp;: Référentiel général d’amélioration de l’accessibilité. RGS&nbsp;: Référentiel général de sécurité. DSFR&nbsp;: Système de design de l’État. RGESN&nbsp;: Référentiel général d’écoconception de services numériques.</li>
+      <li>[À vérifier&nbsp;: «&nbsp;encadrent&nbsp;» remplace «&nbsp;doit respecter&nbsp;». Le RGAA et le RGS sont des obligations. Le DSFR est obligatoire pour les sites publics de l’État, facultatif pour les sites métiers et les intranets. Le caractère obligatoire du RGESN n’a pas pu être confirmé&nbsp;: l’Arcep le dit «&nbsp;destiné aux experts et métiers du numérique souhaitant mettre en œuvre une démarche d’écoconception&nbsp;».]</li>
+      <li>L’enjeu pour la direction, si la question vient&nbsp;: l’accessibilité est contrôlée par l’Arcom. Le 6 juillet 2026, elle a mis en demeure un ministère pour le site impots.gouv.fr, une première selon Acteurs publics (article du 7 juillet 2026), avec une amende possible jusqu’à 50&nbsp;000&nbsp;€ si la non-conformité persiste. [À vérifier avant de le dire&nbsp;: le montant vient de l’article, pas du texte de loi.]</li>
+      <li>La proposition&nbsp;: l’IA vérifie le code et le met en conformité. Un robot pour chaque sujet de conformité&nbsp;; il teste le code régulièrement et propose aux développeurs les changements à faire.</li>
+      <li>La pastille verte&nbsp;: c’est la suite de l’accessibilité semi-automatique de 2026 (RGAA), étendue à trois autres référentiels. [À compléter&nbsp;: un résultat de 2026, par exemple le nombre d’applications couvertes ou de défauts corrigés.]</li>
+      <li>À dire si la question vient&nbsp;: les robots repèrent les défauts et proposent les corrections. Ils ne remplacent ni l’audit de conformité RGAA, dont la plupart des tests demandent une vérification humaine, ni l’homologation de sécurité prévue par le RGS.</li>
+      <li>Ce que ça coûte, en nature&nbsp;: l’usage de l’IA (les tokens consommés par les robots), le développement des robots, et leur mise en place sur les dépôts de code (là où le code de chaque application est conservé). Le chiffrage vient ensuite.</li>
     </ul>
   </aside>
 </section>
 
-<!-- ======================= 12 · CONCLUSION : CE QUE NOUS Y GAGNONS, NOTRE DEMANDE ======================= -->
-<section class="slide split end" data-title="Ce que nous y gagnons, notre demande" aria-labelledby="t12">
+<!-- ======================= 9 · 03 USINE LOGICIELLE ======================= -->
+<section class="slide" data-title="03 Usine logicielle" aria-labelledby="t9">
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">En 2027</p>
+    <ol class="rail" aria-label="Les cinq chantiers"><li><b>01</b>Agent augmenté</li><li><b>02</b>Conformité</li><li class="is-on" aria-current="true"><b>03</b>Usine logicielle</li><li><b>04</b>Souveraineté</li><li><b>05</b>Mesure</li></ol></header>
+  <div class="s-head">
+    <h2 class="title" id="t9">L’usine logicielle&nbsp;: de l’idée au prototype, sans mobiliser une équipe technique</h2>
+  </div>
+  <div class="s-body">
+    <div class="case">
+      <div class="step step--now">
+        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-team"/></svg></span><span><small>Aujourd’hui</small><b>Le besoin</b></span></h3>
+        <div><p class="step__t">Pour tester une idée, il faut d’abord mobiliser une équipe technique.</p></div>
+      </div>
+      <div class="step step--next">
+        <h3 class="step__h"><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-settings"/></svg></span><span><small>En 2027</small><b>Notre proposition</b></span></h3>
+        <div><p class="step__t">Vous décrivez le besoin. L’usine développe l’application, la teste et la met en ligne.</p>
+          <p class="proof"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><b>Déjà en 2026</b> · dans trois équipes, l’IA enchaîne seule les étapes</span></p>
+        </div>
+      </div>
+      <div class="won">
+        <h3 class="tag"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg>Ce que nous y gagnons</h3>
+        <ul>
+          <li><strong>Décider plus tôt</strong><span>Une idée se juge sur un prototype, avant d’engager une équipe</span></li>
+          <li><strong>Essayer coûte peu</strong><span>Un prototype se paie à l’usage de l’IA, sans immobiliser une équipe</span></li>
+          <li><strong>Rester dans le cadre</strong><span>Les règles techniques du ministère s’appliquent d’office</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Bilan 2026, ambition 2027</span><span class="s-foot__page" data-page></span></footer>
+  <aside class="notes">
+    <ul>
+      <li>Durée&nbsp;: 1 minute 30. C’est le chantier nouveau, et le plus ambitieux. Il arrive en troisième&nbsp;: les deux premiers ont montré que nous prolongeons ce qui marche.</li>
+      <li>Le besoin&nbsp;: aujourd’hui, dès les premières phases d’un projet, il faut un dispositif technique pour voir fonctionner une idée. [À compléter&nbsp;: une idée récente du ministère restée en attente d’une équipe, pour rendre le besoin concret.]</li>
+      <li>La proposition&nbsp;: une spécification en entrée (le besoin, décrit par écrit), une application en sortie. L’application est un prototype qui fonctionne, accessible à une adresse web. L’image à retenir&nbsp;: vous sortez de réunion, et vous avez l’adresse de votre prototype.</li>
+      <li>La pastille verte&nbsp;: dans trois équipes, l’IA enchaîne déjà seule les étapes du développement (slide 5). L’usine met ces enchaînements à la disposition de tous. [À valider&nbsp;: ce lien entre les équipes avancées et l’usine est une déduction.]</li>
+      <li>Comment, si la question vient&nbsp;: des enchaînements automatisés d’étapes de développement (des workflows), créés et lancés à la demande. Un outil les contient et s’appuie sur nos outils de test et de mise en ligne (la CI/CD). Il est accessible à tous, depuis les assistants IA des agents (OpenCode, Claude Code, Codex…) ou depuis un site web hébergé sur notre cloud, Atlas.</li>
+      <li>Décider plus tôt&nbsp;: une idée se juge sur un prototype qui fonctionne, avant d’engager un dispositif technique. Essayer coûte peu&nbsp;: une partie du temps de développement devient de l’usage d’IA, payé à la consommation (les tokens). [À compléter&nbsp;: le coût en usage d’IA d’un prototype, le chiffre le plus parlant de ce chantier.] Rester dans le cadre&nbsp;: les phases de développement étant automatisées, le cadre de cohérence technique s’applique d’office.</li>
+      <li>[À valider, argument déduit&nbsp;: sans canal officiel, des prototypes se feront quand même, avec des IA grand public et hors du cadre. L’usine est aussi une réponse au shadow IA.]</li>
+      <li>Ce que ça coûte, en nature&nbsp;: la R&amp;D, l’hébergement sur Atlas, la formation des utilisateurs. Le chiffrage vient ensuite.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ======================= 10 · 04 SOUVERAINETÉ ET 05 MESURE : DEUX GARANTIES ======================= -->
+<section class="slide" data-title="04 Souveraineté et 05 Mesure : deux garanties" aria-labelledby="t10">
+  <header class="s-top"><p class="bm">République<br>Française</p><span class="s-top__sep" aria-hidden="true"></span><p class="kicker">En 2027</p>
+    <ol class="rail" aria-label="Les cinq chantiers"><li><b>01</b>Agent augmenté</li><li><b>02</b>Conformité</li><li><b>03</b>Usine logicielle</li><li class="is-on" aria-current="true"><b>04</b>Souveraineté</li><li class="is-on" aria-current="true"><b>05</b>Mesure</li></ol></header>
+  <div class="s-head">
+    <h2 class="title" id="t10">Deux garanties&nbsp;: garder la main sur l’IA, et prouver ce qu’elle rapporte</h2>
+  </div>
+  <div class="s-body">
+    <div class="guards">
+      <div class="guard">
+        <div class="guard__risk"><p class="tag tag--warn">Face aux risques</p><p class="guard__chips"><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-eye-off"/></svg>Shadow IA</span><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-links"/></svg>Dépendance</span></p></div>
+        <div class="guard__do">
+          <h3 class="guard__name"><small>04 · Suite de 2026</small>Souveraineté</h3>
+          <p class="guard__t">Chaque nouvel usage de l’IA reste hors du champ d’action des puissances étrangères.</p>
+          <p class="proof"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span><b>Déjà en 2026</b> · une IA performante sans les États-Unis</span></p>
+        </div>
+        <div class="guard__won"><p class="tag"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg>Ce que nous y gagnons</p>
+          <p><strong>Données protégées</strong><span>Et un travail qui continue si un modèle ou un outil nous est retiré</span></p></div>
+      </div>
+      <div class="guard">
+        <div class="guard__risk"><p class="tag tag--warn">Face au risque</p><p class="guard__chips"><span class="rchip"><svg class="ico" aria-hidden="true"><use href="#i-go-back"/></svg>Désorganisation</span></p></div>
+        <div class="guard__do">
+          <h3 class="guard__name"><small>05 · Nouveau</small>Mesure</h3>
+          <p class="guard__t">L’effet de l’IA est mesuré dans chaque équipe, sur quatre axes suivis ensemble.</p>
+          <ul class="chips chips--axes"><li>Impact</li><li>Qualité</li><li>Vitesse</li><li>Efficience</li></ul>
+        </div>
+        <div class="guard__won"><p class="tag"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg>Ce que nous y gagnons</p>
+          <p><strong>Gains prouvés</strong><span>Des écarts repérés tôt, et un accompagnement qui va là où il faut</span></p></div>
+      </div>
+    </div>
+  </div>
+  <footer class="s-foot"><span><strong>Stratégie IA</strong> · Bilan 2026, ambition 2027</span><span class="s-foot__page" data-page></span></footer>
+  <aside class="notes">
+    <ul>
+      <li>Durée&nbsp;: 1 minute 15. Les deux derniers chantiers ne promettent pas un gain de plus&nbsp;: ils rendent les trois premiers sûrs.</li>
+      <li>Souveraineté, le besoin&nbsp;: les trois premiers chantiers confient davantage de travail à l’IA. Plus notre travail en dépend, plus deux des risques de départ comptent&nbsp;: le shadow IA (et avec lui le Cloud Act) et la dépendance (et avec elle le retrait d’un modèle ou d’un outil).</li>
+      <li>La proposition&nbsp;: séparer nos organisations de travail du champ d’action des puissances étrangères, pour chaque nouvel usage de l’IA. C’est déjà le cas pour nos outils actuels (slide 4, volet Outiller)&nbsp;: une IA performante, sans passer par les États-Unis. Le chantier 2027 consiste à tenir cette ligne à mesure que les usages grandissent.</li>
+      <li>[À compléter&nbsp;: ce que ce chantier finance concrètement en 2027. Sans cela, la question «&nbsp;c’est déjà fait en 2026, pourquoi y revenir&nbsp;?&nbsp;» reste sans réponse.]</li>
+      <li>Mesure, le besoin&nbsp;: les gains de 2026 sont connus, tâche par tâche, par ceux qui les ont réalisés (slide 3). Ce qui manque, c’est une vue d’ensemble qui montre si un écart se creuse, entre fonctions (les développeurs vont plus vite que le métier et le design) ou entre équipes (les pratiques divergent).</li>
+      <li>La proposition&nbsp;: mesurer l’effet de l’IA, équipe par équipe, sur quatre axes&nbsp;: impact, qualité, vitesse, efficience. La vitesse seule tromperait&nbsp;: une équipe peut livrer plus vite et moins bien. Lus ensemble, les quatre axes disent si la vitesse gagnée devient de la valeur livrée.</li>
+      <li>[Proposition à valider] La mesure sert aussi la direction&nbsp;: elle transforme des gains décrits par les agents en gains prouvés, et permet de décider de la suite de chaque chantier sur des résultats.</li>
+      <li>Le référentiel reste à choisir parmi ceux du secteur&nbsp;: DORA, SPACE, DevEx, Core 4. Ces référentiels mesurent surtout le développement&nbsp;: prévoir au moins un indicateur côté métier et design.</li>
+      <li>Ce n’est pas une note des équipes ni des personnes&nbsp;: la mesure sert à cibler l’accompagnement.</li>
+      <li>Ce que ça coûte, en nature&nbsp;: pour la mesure, le choix du référentiel et la collecte des indicateurs. Le chiffrage vient ensuite.</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ======================= 11 · CONCLUSION : CE QUE NOUS Y GAGNONS, NOTRE DEMANDE ======================= -->
+<section class="slide split end" data-title="Ce que nous y gagnons, notre demande" aria-labelledby="t11">
   <div class="split__main">
     <p class="bm">République<br>Française</p>
     <div class="split__heading">
       <p class="kicker">En résumé</p>
-      <h2 class="split__title" id="t12">Aller plus loin en 2027&nbsp;: <span>ce que nous y gagnons</span></h2>
+      <h2 class="split__title" id="t11">Aller plus loin en 2027&nbsp;: <span>ce que nous y gagnons</span></h2>
     </div>
     <ul class="beats">
-      <li><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-settings"/></svg></span><span><strong>Un prototype dès la sortie de réunion</strong><span>01 · Usine logicielle</span></span></li>
+      <li><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-compasses"/></svg></span><span><strong>Du temps gagné dans toutes les fonctions</strong><span>01 · Agent augmenté</span></span></li>
       <li><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-refresh"/></svg></span><span><strong>Des applications contrôlées jour après jour</strong><span>02 · Conformité continue</span></span></li>
-      <li><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-compasses"/></svg></span><span><strong>Du temps gagné dans toutes les fonctions</strong><span>03 · Agent augmenté</span></span></li>
+      <li><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-settings"/></svg></span><span><strong>Un prototype dès la sortie de réunion</strong><span>03 · Usine logicielle</span></span></li>
       <li><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-shield"/></svg></span><span><strong>Une IA dont nous gardons la maîtrise</strong><span>04 · Souveraineté</span></span></li>
-      <li><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-line-chart"/></svg></span><span><strong>Plus vite, sans se désorganiser</strong><span>05 · Mesure</span></span></li>
+      <li><span class="sq" aria-hidden="true"><svg class="ico"><use href="#i-line-chart"/></svg></span><span><strong>Des gains prouvés, sans se désorganiser</strong><span>05 · Mesure</span></span></li>
     </ul>
     <p class="split__foot"><span><strong>Stratégie IA</strong> · Bilan 2026, ambition 2027</span><span class="s-foot__page" data-page></span></p>
   </div>
@@ -853,15 +852,17 @@ body.with-notes .deck-hint{bottom:calc(30vh + 16px)}
     <p class="label">Ce que nous vous demandons</p>
     <ol class="ask">
       <li class="ask__now"><span class="ask__when">Aujourd’hui</span><strong>Votre accord de principe sur ces cinq chantiers</strong></li>
-      <li class="ask__then"><span class="ask__when">Ensuite</span><strong>Nous revenons vers vous avec le budget détaillé, chantier par chantier</strong></li>
+      <li class="ask__then"><span class="ask__when">Ensuite</span><strong>Nous revenons avec le budget détaillé, chantier par chantier</strong></li>
+      <li class="ask__then"><span class="ask__when">En 2027</span><strong>Chaque chantier avance par étapes&nbsp;: vous décidez de la suite sur des résultats mesurés</strong></li>
     </ol>
   </div>
   <aside class="notes">
     <ul>
       <li>Durée&nbsp;: 1 minute, puis les questions.</li>
-      <li>En résumé&nbsp;: l’IA était une opportunité assortie de trois risques. En 2026, nous avons saisi l’opportunité et pris en charge les risques. En 2027, nous pouvons aller plus loin, et voici ce que nous y gagnons, chantier par chantier.</li>
+      <li>En résumé&nbsp;: l’IA était une opportunité assortie de trois risques. En 2026, nous avons saisi l’opportunité et pris en charge les risques. En 2027, nous pouvons étendre ces gains et aller plus loin, et voici ce que nous y gagnons, chantier par chantier.</li>
       <li>La demande d’aujourd’hui&nbsp;: un accord de principe sur ces cinq chantiers. Aucun montant n’est demandé à ce stade.</li>
-      <li>La suite&nbsp;: nous revenons avec le budget détaillé, chantier par chantier.</li>
+      <li>La suite&nbsp;: nous revenons avec le budget détaillé, chantier par chantier. [À compléter&nbsp;: la date de ce retour.]</li>
+      <li>[Proposition à valider] La troisième ligne&nbsp;: chaque chantier avance par étapes, et la direction décide de la suite sur des résultats mesurés (chantier 05). C’est ce qui rend l’accord de principe peu risqué. [À compléter&nbsp;: le premier résultat visible en 2027.]</li>
       <li>Question à préparer, «&nbsp;combien, et par quoi commencer&nbsp;?&nbsp;»&nbsp;: [à compléter&nbsp;: un ordre de grandeur, et le chantier prioritaire].</li>
       <li>Question à préparer, «&nbsp;cinq fois plus vite, donc moins de développeurs ou de prestataires&nbsp;?&nbsp;»&nbsp;: [à compléter&nbsp;: ce que devient le temps gagné].</li>
       <li>Question à préparer, «&nbsp;combien d’agents utilisent les outils officiels&nbsp;?&nbsp;»&nbsp;: [à compléter&nbsp;: un chiffre d’usage, la meilleure preuve face au shadow IA].</li>
