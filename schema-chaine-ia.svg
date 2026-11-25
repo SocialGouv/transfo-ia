@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 790" width="1120" height="790" font-family="Marianne, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#3a3a3a"/>
+    </marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#000091"/>
+    </marker>
+  </defs>
+
+  <rect width="1120" height="790" fill="#ffffff"/>
+
+  <text x="210" y="46" font-size="27" font-weight="700" fill="#161616">Comment circule une requête IA</text>
+  <text x="210" y="72" font-size="15" fill="#666666">Quatre briques : l’outil, l’intermédiaire, l’hébergeur, le modèle.</text>
+
+  <!-- gouttière : noms des briques -->
+  <line x1="196" y1="96" x2="196" y2="700" stroke="#e5e5e5" stroke-width="1"/>
+
+  <text x="180" y="124" font-size="13" font-weight="700" fill="#929292" text-anchor="end">POINT DE DÉPART</text>
+  <text x="180" y="242" font-size="13" font-weight="700" fill="#000091" text-anchor="end">LES OUTILS</text>
+  <text x="180" y="262" font-size="12" fill="#929292" text-anchor="end">ce qu’on utilise</text>
+  <text x="180" y="376" font-size="13" font-weight="700" fill="#000091" text-anchor="end">L’INTERMÉDIAIRE</text>
+  <text x="180" y="396" font-size="12" fill="#929292" text-anchor="end">entre outil et hébergeur</text>
+  <text x="180" y="518" font-size="13" font-weight="700" fill="#000091" text-anchor="end">LES HÉBERGEURS</text>
+  <text x="180" y="538" font-size="12" fill="#929292" text-anchor="end">qui fait tourner le modèle</text>
+  <text x="180" y="652" font-size="13" font-weight="700" fill="#000091" text-anchor="end">LES MODÈLES</text>
+  <text x="180" y="672" font-size="12" fill="#929292" text-anchor="end">hébergés quelque part</text>
+
+  <!-- 1. utilisateur -->
+  <rect x="520" y="96" width="260" height="54" fill="#f6f6f6" stroke="#cecece"/>
+  <text x="650" y="129" font-size="17" font-weight="700" fill="#161616" text-anchor="middle">Un utilisateur, une requête</text>
+
+  <path d="M650 150 V178 H440 V206" fill="none" stroke="#3a3a3a" stroke-width="1.6" marker-end="url(#a)"/>
+  <path d="M650 150 V178 H860 V206" fill="none" stroke="#3a3a3a" stroke-width="1.6" marker-end="url(#a)"/>
+
+  <!-- 2. outils -->
+  <rect x="270" y="206" width="340" height="70" fill="#e3e3fd" stroke="#000091"/>
+  <text x="440" y="240" font-size="19" font-weight="700" fill="#000091" text-anchor="middle">OpenCode</text>
+  <text x="440" y="262" font-size="13" fill="#3a3a3a" text-anchor="middle">assistant de code</text>
+
+  <rect x="690" y="206" width="340" height="70" fill="#e3e3fd" stroke="#000091"/>
+  <text x="860" y="240" font-size="19" font-weight="700" fill="#000091" text-anchor="middle">PLIAGE</text>
+  <text x="860" y="262" font-size="13" fill="#3a3a3a" text-anchor="middle">assistant conversationnel</text>
+
+  <path d="M440 276 V310 H650 V342" fill="none" stroke="#3a3a3a" stroke-width="1.6" marker-end="url(#a)"/>
+  <path d="M860 276 V310 H650 V342" fill="none" stroke="#3a3a3a" stroke-width="1.6" marker-end="url(#a)"/>
+
+  <!-- 3. intermédiaire -->
+  <rect x="270" y="342" width="760" height="78" fill="#000091"/>
+  <text x="650" y="376" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">LiteLLM</text>
+  <text x="650" y="400" font-size="14" fill="#dcdcfc" text-anchor="middle">capte la requête, l’aiguille vers le bon hébergeur, compte et plafonne l’usage</text>
+
+  <path d="M650 420 V452 H440 V486" fill="none" stroke="#000091" stroke-width="1.6" marker-end="url(#ab)"/>
+  <path d="M650 420 V452 H860 V486" fill="none" stroke="#000091" stroke-width="1.6" marker-end="url(#ab)"/>
+  <text x="430" y="474" font-size="13" fill="#000091" text-anchor="end">OpenCode + PLIAGE</text>
+  <text x="870" y="474" font-size="13" fill="#000091" text-anchor="start">OpenCode uniquement</text>
+
+  <!-- 4. hébergeurs -->
+  <rect x="270" y="486" width="340" height="72" fill="#f6f6f6" stroke="#cecece"/>
+  <text x="440" y="520" font-size="19" font-weight="700" fill="#161616" text-anchor="middle">Albert</text>
+  <text x="440" y="542" font-size="13" fill="#666666" text-anchor="middle">plateforme de l’État (DINUM)</text>
+
+  <rect x="690" y="486" width="340" height="72" fill="#f6f6f6" stroke="#cecece"/>
+  <text x="860" y="520" font-size="19" font-weight="700" fill="#161616" text-anchor="middle">Scaleway</text>
+  <text x="860" y="542" font-size="13" fill="#666666" text-anchor="middle">hébergeur français</text>
+
+  <path d="M440 558 V620" fill="none" stroke="#3a3a3a" stroke-width="1.6" marker-end="url(#a)"/>
+  <path d="M860 558 V620" fill="none" stroke="#3a3a3a" stroke-width="1.6" marker-end="url(#a)"/>
+
+  <!-- 5. modèles -->
+  <rect x="270" y="620" width="340" height="78" fill="#ffffff" stroke="#cecece" stroke-dasharray="4 3"/>
+  <text x="440" y="652" font-size="16" font-weight="700" fill="#161616" text-anchor="middle">Modèles servis par Albert</text>
+  <text x="440" y="676" font-size="13" fill="#666666" text-anchor="middle">modèles ouverts, catalogue de la plateforme</text>
+
+  <rect x="690" y="620" width="340" height="78" fill="#ffffff" stroke="#cecece" stroke-dasharray="4 3"/>
+  <text x="860" y="652" font-size="16" font-weight="700" fill="#161616" text-anchor="middle">Modèles servis par Scaleway</text>
+  <text x="860" y="676" font-size="13" fill="#666666" text-anchor="middle">modèles ouverts, catalogue de l’hébergeur</text>
+
+  <text x="210" y="744" font-size="13" fill="#666666">Le modèle n’est pas l’outil : le même modèle peut être servi par plusieurs hébergeurs, et un outil peut en appeler plusieurs.</text>
+  <text x="210" y="766" font-size="13" fill="#666666">LiteLLM est le seul point de passage : c’est là que se décident les droits, les quotas et le choix du modèle.</text>
+</svg>
