@@ -4,7 +4,7 @@ Pages HTML du dépôt, servies par GitHub Pages depuis la branche `main` : <http
 
 | Page | Contenu | Mise à jour |
 |---|---|---|
-| [Max output des LLM : de 32K à 128K](https://socialgouv.github.io/transfo-ia/Max_Output.html) | Note de veille : le max output que publient Anthropic, OpenAI, Mistral et Outscale, ce que change un plafond à 128K, et les cas d'usage qu'il débloque. | 25/11/2026 |
+| [Max output des LLM : de 32K à 128K](https://socialgouv.github.io/transfo-ia/Max_Output.html) | Note de veille : le max output que publient Anthropic, OpenAI, Mistral et Outscale, ce que change un plafond à 128K, et les cas d'usage qu'il débloque. | 27/11/2026 |
 | [Orchestrateur de slides : la chaîne retenue](https://socialgouv.github.io/transfo-ia/Livrables/Orchestrateur-Slides/schema.html) | Schéma d'une chaîne d'agents qui fabrique un deck : qui fait quoi à chaque étape, les skills que chaque agent lit (350 lignes au plus), et le gabarit qui décide de la mise en page. Les skills et un zip par outil sont dans `Livrables/Orchestrateur-Slides/`. | 25/11/2026 |
 | [Orchestrateur de slides : catalogue des compositions](https://socialgouv.github.io/transfo-ia/Livrables/Orchestrateur-Slides/exemple/catalogue/deck.html) | Un deck de 16 slides, une par composition du gabarit à la charte de l'État, dont frise, graphiques et schémas. Flèches pour avancer ; `?planche` à la fin de l'adresse montre toutes les slides. | 25/11/2026 |
 | [Orchestrateur de slides : exemple produit par un petit modèle](https://socialgouv.github.io/transfo-ia/Livrables/Orchestrateur-Slides/exemple/essai-petit-modele/deck/deck.html) | Exemple fictif : le deck de 9 slides qu'un petit modèle a produit avec la chaîne, sur un sujet et des chiffres inventés. | 25/11/2026 |

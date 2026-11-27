@@ -123,7 +123,7 @@ td.valeur { font-weight: 700; }
         <div class="fr-header__brand">
           <div class="fr-header__service">
             <p class="fr-header__service-title">Note de veille IA générative</p>
-            <p class="fr-header__service-tagline">Max output des LLM, 25 novembre 2026</p>
+            <p class="fr-header__service-tagline">Max output des LLM, mise à jour du 27 novembre 2026</p>
           </div>
         </div>
       </div>
@@ -182,48 +182,53 @@ td.valeur { font-weight: 700; }
     <p>Le plafond couvre, par requête, la réflexion, la réponse et les arguments des appels d'outils, par exemple le contenu d'un fichier écrit par un agent.</p>
     <ul class="fr-grid-row fr-grid-row--gutters fr-mb-4w" style="list-style:none;padding:0">
       <li class="fr-col-12 fr-col-sm-6 fr-col-lg-3"><div class="chiffre-bloc"><span class="chiffre">×4</span><p>de place pour réfléchir et répondre dans une même requête.</p></div></li>
-      <li class="fr-col-12 fr-col-sm-6 fr-col-lg-3"><div class="chiffre-bloc"><span class="chiffre">7K</span><p>restent pour la réponse à 32K, avec la réserve de 25K pour le raisonnement que recommande OpenAI.</p></div></li>
-      <li class="fr-col-12 fr-col-sm-6 fr-col-lg-3"><div class="chiffre-bloc"><span class="chiffre">36 min</span><p>pour générer 128K tokens à 59 tokens/s (débit mesuré par Vercel sur GPT-5.5), contre 9 min pour 32K.</p></div></li>
-      <li class="fr-col-12 fr-col-sm-6 fr-col-lg-3"><div class="chiffre-bloc"><span class="chiffre">5,12 $</span><p>pour un appel plein sur GPT-6.2 Astra (40 $ le million de tokens de sortie), contre 1,28 $ à 32K. Seuls les tokens générés sont facturés.</p></div></li>
+      <li class="fr-col-12 fr-col-sm-6 fr-col-lg-3"><div class="chiffre-bloc"><span class="chiffre">64K</span><p>de plafond&nbsp;: point de départ qu'Anthropic conseille en effort xhigh ou max, à ajuster ensuite.</p></div></li>
+      <li class="fr-col-12 fr-col-sm-6 fr-col-lg-3"><div class="chiffre-bloc"><span class="chiffre">36 min</span><p>au plus pour générer 128K tokens (19 min au mieux), contre 5 à 9 min pour 32K. Débit médian relevé par Vercel sur GPT-5.5 et GPT-6.2 Astra&nbsp;: 60 à 115 tokens/s selon le jour.</p></div></li>
+      <li class="fr-col-12 fr-col-sm-6 fr-col-lg-3"><div class="chiffre-bloc"><span class="chiffre">5,12 $</span><p>pour un appel plein sur GPT-6.2 Astra (40 $ le million de tokens de sortie), contre 1,28 $ à 32K, et 7,68 $ au-delà de 272K tokens d'entrée. Le plafond n'est pas facturé&nbsp;: on paie les tokens générés, réflexion comprise, même quand la réponse est coupée.</p></div></li>
     </ul>
     <div class="fr-grid-row fr-grid-row--gutters">
       <div class="fr-col-12 fr-col-md-6 colonne">
         <h3>Ce qu'on gagne</h3>
         <ul>
-          <li><strong>Une réflexion longue qui n'est plus coupée</strong> aux efforts élevés (high, xhigh, max). Face à une réponse tronquée, Anthropic conseille d'augmenter le plafond ou de baisser l'effort.</li>
-          <li><strong>Un gros livrable en un seul appel</strong>&nbsp;: fichier complet, document, prototype. Dans Claude Code à 32K, l'écriture d'une page refondue échoue sur la limite.</li>
-          <li><strong>Moins de découpage</strong>&nbsp;: moins d'appels de continuation et moins de ruptures de cohérence entre les lots.</li>
+          <li><strong>Une réflexion longue moins souvent coupée</strong> aux efforts élevés (high, xhigh, max selon les modèles). Face à une réponse tronquée, Anthropic conseille d'augmenter le plafond ou de baisser l'effort.</li>
+          <li><strong>Un gros livrable en un seul appel</strong>&nbsp;: fichier complet, document, prototype. Dans Claude Code, des utilisateurs signalent des pages et des fichiers dont l'écriture échoue sur la limite de 32K (issue 24055, février 2026).</li>
+          <li><strong>Moins de découpage</strong>&nbsp;: moins d'appels de continuation et pas de raccords entre lots. Le gain de cohérence n'est pas mesuré.</li>
         </ul>
       </div>
       <div class="fr-col-12 fr-col-md-6 colonne">
         <h3>Ce qui ne change pas</h3>
         <ul>
           <li><strong>Le modèle ne réfléchit pas plus pour autant</strong>&nbsp;: l'effort décide, et le modèle s'arrête souvent avant le plafond. Si aucune requête n'atteint 32K aujourd'hui, le gain est nul.</li>
-          <li><strong>Réfléchir plus n'aide pas toujours</strong>&nbsp;: sur certaines tâches, un raisonnement plus long dégrade la précision (Inverse Scaling, TMLR 2025).</li>
-          <li><strong>Les sorties très longues perdent en qualité</strong>&nbsp;: tous les modèles testés baissent avec la longueur entre 16K et 32K (LongGenBench, ICLR 2025). Rien de mesuré au-delà.</li>
-          <li><strong>L'exploration en mode agent dépend surtout du contexte</strong>&nbsp;: le plafond vaut par requête. 128K aide quand une étape doit raisonner longtemps ou produire un gros livrable. Dans Claude Code, monter le plafond réduit le contexte disponible avant compaction.</li>
+          <li><strong>Réfléchir plus n'aide pas toujours</strong>&nbsp;: sur des tâches conçues pour ce test, un raisonnement plus long dégrade la précision (Inverse Scaling, TMLR 2025, budgets jusqu'à 16K).</li>
+          <li><strong>Les sorties très longues respectent moins bien les consignes</strong>&nbsp;: 10 des 11 modèles testés à 16K et à 32K reculent à 32K (LongGenBench, ICLR 2025, modèles de 2024). Aucune mesure publiée trouvée au-delà.</li>
+          <li><strong>L'exploration en mode agent dépend surtout du contexte</strong>&nbsp;: le plafond vaut par requête. 128K aide quand une étape doit raisonner longtemps ou produire un gros livrable.</li>
         </ul>
       </div>
     </div>
     <div class="fr-callout fr-mt-4w">
       <h3 class="fr-callout__title">Avant de passer à 128K</h3>
-      <p class="fr-callout__text">Mesurer la part de réponses coupées à 32K (stop_reason «&nbsp;max_tokens&nbsp;» chez Anthropic, status «&nbsp;incomplete&nbsp;» chez OpenAI). 64K peut servir de palier.</p>
+      <ul class="fr-callout__text">
+        <li><strong>Mesurer</strong> la part de réponses coupées à 32K&nbsp;: finish_reason «&nbsp;length&nbsp;» en Chat Completions (format exposé par LiteLLM), stop_reason «&nbsp;max_tokens&nbsp;» chez Anthropic, status «&nbsp;incomplete&nbsp;» avec la raison «&nbsp;max_output_tokens&nbsp;» dans l'API Responses d'OpenAI.</li>
+        <li><strong>Streamer de bout en bout</strong>&nbsp;: Anthropic déconseille un grand max_tokens sans streaming, et son SDK l'exige. Vérifier aussi les délais d'expiration de la passerelle et de l'ingress.</li>
+        <li><strong>Vérifier les quotas</strong>&nbsp;: OpenAI compte le plafond demandé dans ses limites de débit, Anthropic seulement les tokens générés.</li>
+        <li><strong>Claude Code</strong>&nbsp;: derrière une passerelle, un modèle qu'il ne reconnaît pas reçoit 32&nbsp;000 tokens de sortie par défaut, jusqu'à 128&nbsp;000 via CLAUDE_CODE_MAX_OUTPUT_TOKENS.</li>
+        <li><strong>64K</strong> peut servir de palier.</li>
+      </ul>
     </div>
   </section>
 
   <section id="use-cases" class="fr-mb-8w">
     <h2>Use cases débloqués</h2>
-    <p>Ces tâches passent à 32K en enchaînant plusieurs appels. À 128K, elles se font en une passe, plus cohérente. Ce sont des hypothèses à tester&nbsp;: aucune étude ne mesure ce gain par métier.</p>
+    <p>Ces tâches demandent plus de 32K de sortie dans une seule requête&nbsp;: aujourd'hui, elles passent en enchaînant plusieurs appels. À 128K, elles peuvent se faire en une passe, sans raccords entre lots. Le gain de qualité reste à prouver&nbsp;: un découpage qui reprend le texte déjà écrit perd peu de cohérence (LongWriter, ICLR 2025), et les très longues sorties perdent aussi en qualité. Ce sont des hypothèses à tester&nbsp;: aucune étude ne mesure ce gain par métier.</p>
     <div class="fr-grid-row fr-grid-row--gutters">
       <div class="fr-col-12 fr-col-md-4">
         <div class="metier">
           <svg aria-hidden="true" focusable="false" class="fr-artwork" viewBox="0 0 80 80" width="80" height="80"><g class="fr-artwork-decorative"><path d="M5.1 46.7c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1ZM41.1 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1ZM70.9 28c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1ZM29.7 73.5c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1c0 .5-.4 1-1 1Z"/></g><g class="fr-artwork-minor"><path d="M61.794 30.544a1 1 0 0 1 .662 1.25L61.5 31.5l.956.295-.001.002-.002.005-.005.018-.02.062a22.74 22.74 0 0 1-.37 1.032c-.26.674-.649 1.599-1.17 2.607-1.022 1.982-2.624 4.43-4.858 5.827-1.162.726-2.771 1.031-4.552 1.144-1.81.115-3.947.037-6.266-.11a309.92 309.92 0 0 1-4.073-.297c-3.647-.281-7.587-.585-11.539-.585-4.735 0-6.927 1.847-7.992 3.534a7.434 7.434 0 0 0-1.092 3.212 4.225 4.225 0 0 0-.016.251v.007a1 1 0 0 1-2-.004v-17a1 1 0 1 1 2 0v11.65c1.593-1.98 4.374-3.65 9.1-3.65 4.035 0 8.098.313 11.768.596 1.387.107 2.718.21 3.97.29 2.305.146 4.338.216 6.014.11 1.704-.108 2.895-.392 3.618-.844 1.766-1.104 3.164-3.155 4.141-5.048a24.664 24.664 0 0 0 1.35-3.144c.029-.085.05-.151.064-.195l.016-.047.003-.01v-.002m1.25-.662a1 1 0 0 0-1.25.662l1.25-.662Z"/></g><g class="fr-artwork-major"><path d="M19.5 53.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM12 59a7.5 7.5 0 1 1 15 0 7.5 7.5 0 0 1-15 0ZM19.5 15.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM12 21a7.5 7.5 0 1 1 15 0 7.5 7.5 0 0 1-15 0ZM61.5 15.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM54 21a7.5 7.5 0 1 1 15 0 7.5 7.5 0 0 1-15 0Z"/></g></svg>
           <h3 class="fr-h4">PM et PO</h3>
           <ul>
-            <li>Découper une epic en user stories avec critères d'acceptation Gherkin, cas limites et dépendances, sans doublons entre lots.</li>
-            <li>Comparer 3 à 5 options produit en effort élevé, puis rédiger la note de décision.</li>
-            <li>Synthétiser un gros corpus (tickets, verbatims, NPS) en rapport sourcé.</li>
-            <li>Rédiger un mémoire technique d'appel d'offres avec sa matrice de conformité.</li>
+            <li>Découper une grosse epic (25 stories ou plus) en une seule réponse, avec critères d'acceptation au format Gherkin, dépendances et numérotation.</li>
+            <li>Comparer 3 à 5 options produit en effort xhigh ou max, puis rédiger la note de décision&nbsp;: la réflexion et la note partagent le même plafond.</li>
+            <li>Rédiger un CCTP complet, avec ses exigences numérotées et la matrice de conformité à remplir par les candidats.</li>
           </ul>
         </div>
       </div>
@@ -287,10 +292,8 @@ td.valeur { font-weight: 700; }
 	C39.93549,56.38599,39.51282,56,39,56z"/></g></svg>
           <h3 class="fr-h4">Designers</h3>
           <ul>
-            <li>Produire un prototype HTML/CSS multi-écrans dans un seul fichier.</li>
-            <li>Explorer 3 à 5 directions de maquette complètes en une passe pour les comparer.</li>
-            <li>Documenter un design system&nbsp;: tokens, composants, états, règles RGAA.</li>
-            <li>Synthétiser une vingtaine d'entretiens utilisateur&nbsp;: personas, parcours, irritants.</li>
+            <li>Produire un prototype HTML/CSS de 6 écrans ou plus dans un seul fichier.</li>
+            <li>Réunir 3 à 5 variantes complètes d'un même écran dans un seul fichier, pour les comparer côte à côte.</li>
           </ul>
         </div>
       </div>
@@ -328,14 +331,14 @@ td.valeur { font-weight: 700; }
 	c0-0.51282,0.38599-0.93549,0.88342-0.99329L57,24h9V18z M38,58V26H22v32H38z"/></g></svg>
           <h3 class="fr-h4">Développeurs</h3>
           <ul>
-            <li>Écrire ou réécrire un gros fichier en un appel d'outil&nbsp;: son contenu compte comme sortie.</li>
-            <li>Mener une migration ou un refactor multi-fichiers dont le patch dépasse 32K.</li>
-            <li>Déboguer un problème difficile en effort xhigh, quand la réflexion prend l'essentiel du budget.</li>
-            <li>Générer une suite de tests, une spec OpenAPI ou une doc d'API complète.</li>
+            <li>Réécrire en entier un fichier de plusieurs milliers de lignes en un appel d'outil&nbsp;: son contenu compte comme sortie. Une modification ciblée n'envoie que le passage changé.</li>
+            <li>Déboguer un problème difficile en effort xhigh (Anthropic, OpenAI), quand la réflexion prend l'essentiel du budget.</li>
+            <li>Générer d'un bloc la spec OpenAPI d'une API de plus de 60 opérations documentées.</li>
           </ul>
         </div>
       </div>
     </div>
+    <p class="fr-mt-4w">Trois tâches souvent citées n'y gagnent presque rien&nbsp;: synthétiser un gros corpus ou une série d'entretiens, car la limite est le contexte d'entrée, et mener un refactor multi-fichiers, qu'un agent répartit sur plusieurs requêtes ayant chacune son plafond.</p>
   </section>
 
   <section id="sources">
@@ -343,28 +346,33 @@ td.valeur { font-weight: 700; }
     <ul class="fr-text--sm">
       <li><a href="https://platform.claude.com/docs/en/models/overview">Anthropic, Models overview</a></li>
       <li><a href="https://platform.claude.com/docs/en/build-with-claude/extended-thinking">Anthropic, Extended thinking (300K en batch)</a></li>
-      <li><a href="https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking">Anthropic, Adaptive thinking (effort et max_tokens)</a></li>
+      <li><a href="https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost">Anthropic, Thinking steering and cost (effort et max_tokens)</a></li>
+      <li><a href="https://platform.claude.com/docs/en/build-with-claude/effort">Anthropic, Effort (64K en xhigh ou max)</a></li>
+      <li><a href="https://platform.claude.com/docs/en/api/errors">Anthropic, erreurs de l'API (grand max_tokens et streaming)</a></li>
+      <li><a href="https://platform.claude.com/docs/en/api/rate-limits">Anthropic, Rate limits</a></li>
       <li><a href="https://code.claude.com/docs/en/env-vars">Claude Code, variables d'environnement</a></li>
-      <li><a href="https://claudeissues.com/issue/24055-bug-api-error-claudes-response-exceeded-the-32000-output-token-maximum">Claude Code, erreur à 32K (issue 24055)</a></li>
+      <li><a href="https://github.com/anthropics/claude-code/issues/24055">Claude Code, erreur à 32K (issue 24055)</a></li>
       <li><a href="https://developers.openai.com/api/docs/models">OpenAI, Models</a></li>
       <li><a href="https://developers.openai.com/api/docs/models/gpt-6.2-astra">OpenAI, GPT-6.2 Astra</a></li>
       <li><a href="https://developers.openai.com/api/docs/models/gpt-5.5">OpenAI, GPT-5.5</a></li>
-      <li><a href="https://developers.openai.com/api/docs/guides/reasoning">OpenAI, Reasoning models (réserve de 25K)</a></li>
+      <li><a href="https://developers.openai.com/api/docs/guides/reasoning">OpenAI, Reasoning models (effort, statut incomplete)</a></li>
+      <li><a href="https://developers.openai.com/api/docs/guides/rate-limits">OpenAI, Rate limits</a></li>
       <li><a href="https://docs.mistral.ai/api/endpoint/chat">Mistral, API chat (max_tokens)</a></li>
       <li><a href="https://docs.mistral.ai/models/mistral-large-4">Mistral Large 4</a>, <a href="https://docs.mistral.ai/models/mistral-small-4">Mistral Small 4</a></li>
       <li><a href="https://docs.mistral.ai/models/deepseek-v4-flash-1017">DeepSeek V4.1 Flash</a>, <a href="https://docs.mistral.ai/models/zai-glm-5-2">GLM 5.2</a>, <a href="https://docs.mistral.ai/models/zai-glm-5-3">GLM 5.3</a> (Mistral)</li>
       <li><a href="https://en.outscale.com/cloud-experience/mistral-small-3-1/">Outscale, Mistral Small 3.1</a></li>
       <li><a href="https://blog.outscale.com/extension-de-loffre-outscale-x-mistral-ai/">Outscale, extension de l'offre Mistral (mars 2026)</a></li>
-      <li><a href="https://vercel.com/ai-gateway/models/gpt-5.5">Vercel AI Gateway, débit de GPT-5.5</a></li>
+      <li>Vercel AI Gateway, débit de <a href="https://vercel.com/ai-gateway/models/openai/gpt-5.5">GPT-5.5</a> et de <a href="https://vercel.com/ai-gateway/models/openai/gpt-6.2-astra">GPT-6.2 Astra</a></li>
       <li><a href="https://arxiv.org/abs/2507.14417">Inverse Scaling in Test-Time Compute (TMLR 2025)</a></li>
       <li><a href="https://arxiv.org/abs/2409.02076">LongGenBench (ICLR 2025)</a></li>
+      <li><a href="https://arxiv.org/abs/2408.07055">LongWriter (ICLR 2025)</a></li>
     </ul>
   </section>
 </main>
 
 <footer role="contentinfo" id="pied" class="pied">
   <div class="fr-container fr-py-3w">
-    <p class="fr-text--sm fr-mb-0">Note de veille. Chiffres valides au 25 novembre 2026.</p>
+    <p class="fr-text--sm fr-mb-0">Note de veille du 25 novembre 2026, mise à jour le 27 novembre 2026.</p>
   </div>
 </footer>
 </body>
